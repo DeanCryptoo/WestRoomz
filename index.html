@@ -9,15 +9,15 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
         :root {
-            --primary: #990000;
-            --accent: #ff0000;
+            --primary: #990000; /* Darker Red */
+            --accent: #ff0000; /* Bright Red */
             --bg: #050505;
             --surface: #121212;
             --text: #ffffff;
@@ -40,7 +40,134 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Custom Cursor (Hidden on Mobile) */
+        /* --- IGLOO-STYLE NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            /* This makes the nav text react to the video behind it (Black on White, White on Black) */
+            mix-blend-mode: exclusion; 
+        }
+
+        .nav-logo img {
+            height: 35px;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-family: var(--font-head);
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        /* Sharp Underline Hover Effect */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .bar { width: 30px; height: 2px; background-color: white; transition: 0.3s; }
+
+        /* Mobile Overlay */
+        .mobile-nav-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: #000; z-index: 99;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center; gap: 40px;
+            transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+        }
+        .mobile-nav-overlay.active { transform: translateY(0); }
+        .mobile-nav-overlay a { font-family: var(--font-head); font-size: 2rem; color: white; text-decoration: none; }
+
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Removed opacity/overlay for a clearer "Igloo" look */
+            opacity: 0.8; 
+            z-index: -1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Subtle gradient at bottom only to make slogan pop */
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(5,5,5,1));
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Removed H1 "WESTROOMZ" as requested */
+
+        .hero-sub {
+            font-size: 1.2rem;
+            letter-spacing: 8px;
+            font-family: var(--font-head);
+            font-weight: 300;
+            color: white;
+            text-transform: uppercase;
+            opacity: 0; /* Animated via GSAP */
+        }
+
+
+        /* --- CONTENT STYLES (Your preferred "Clean" look) --- */
+        
+        /* Custom Cursor */
         .cursor {
             width: 20px;
             height: 20px;
@@ -51,13 +178,6 @@
             z-index: 9999;
             transition: transform 0.1s ease;
             mix-blend-mode: difference;
-        }
-
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-family: var(--font-head);
-            text-transform: uppercase;
-            line-height: 1.1;
         }
 
         .section-title {
@@ -77,151 +197,6 @@
             background: var(--accent);
         }
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: rgba(5,5,5,0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .nav-logo img {
-            height: 40px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-family: var(--font-head);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            position: relative;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 102;
-        }
-
-        .bar {
-            width: 30px;
-            height: 2px;
-            background-color: white;
-            transition: 0.3s;
-        }
-
-        /* Mobile Menu Overlay */
-        .mobile-nav-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: #000;
-            z-index: 101;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            transform: translateY(-100%);
-            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-
-        .mobile-nav-overlay.active {
-            transform: translateY(0);
-        }
-
-        .mobile-nav-overlay a {
-            font-family: var(--font-head);
-            font-size: 2.5rem;
-            color: white;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            width: 100%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .video-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.6;
-            z-index: -1;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.2), var(--bg));
-            z-index: 0;
-        }
-
-        .hero-content {
-            z-index: 1;
-            text-align: center;
-            mix-blend-mode: overlay;
-            padding: 0 20px;
-        }
-
-        .hero-content h1 {
-            font-size: 12vw;
-            letter-spacing: -5px;
-            color: transparent;
-            -webkit-text-stroke: 2px #fff;
-            opacity: 0; 
-        }
-        
-        .hero-content h1 span {
-            color: #fff;
-            -webkit-text-stroke: 0px;
-        }
-
-        .hero-sub {
-            font-size: 1.5rem;
-            letter-spacing: 5px;
-            margin-top: -20px;
-            opacity: 0;
-            color: var(--accent);
-        }
-
-        /* Sidefacts / Intro */
         .sidefacts {
             padding: 100px 10%;
             display: grid;
@@ -241,7 +216,7 @@
             color: white;
         }
 
-        /* Services System */
+        /* Services */
         .services-section {
             padding: 50px 5%;
             min-height: 100vh;
@@ -252,7 +227,7 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 60px;
-            flex-wrap: wrap; /* Wraps on mobile */
+            flex-wrap: wrap;
         }
 
         .tab-btn {
@@ -447,48 +422,21 @@
 
         /* --- RESPONSIVE STYLES --- */
         @media (max-width: 768px) {
-            /* General Layout */
             .sidefacts, .contact-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
                 padding: 60px 5%;
             }
-            
-            .services-section, .contact-section {
-                padding: 60px 5%;
-            }
-
-            /* Nav & Menu */
+            .services-section, .contact-section { padding: 60px 5%; }
             .nav-links { display: none; }
             .mobile-menu-btn { display: flex; }
             nav { padding: 20px; }
-
-            /* Typography */
             .section-title { font-size: 3rem; }
-            .hero-content h1 { 
-                font-size: 16vw; 
-                -webkit-text-stroke: 1px #fff;
-            }
             .hero-sub { font-size: 1rem; letter-spacing: 3px; }
-            
-            /* Hide Cursor on Touch */
             .cursor { display: none; }
-
-            /* Tabs */
-            .tab-btn {
-                padding: 10px 20px;
-                font-size: 1.1rem;
-                flex: 1 1 auto; /* Make buttons grow to fill width */
-                text-align: center;
-            }
-            
-            /* Service Cards */
-            .service-grid {
-                grid-template-columns: 1fr; /* Force single column */
-            }
-            .service-card {
-                padding: 30px;
-            }
+            .tab-btn { padding: 10px 20px; font-size: 1.1rem; flex: 1 1 auto; text-align: center; }
+            .service-grid { grid-template-columns: 1fr; }
+            .service-card { padding: 30px; }
         }
     </style>
 </head>
@@ -527,7 +475,6 @@
         <div class="hero-overlay"></div>
         
         <div class="hero-content">
-            <h1>WEST<span>ROOMZ</span></h1>
             <p class="hero-sub">UNERREICHTE QUALITÄT</p>
         </div>
     </header>
@@ -709,7 +656,6 @@
             const overlay = document.querySelector('.mobile-nav-overlay');
             overlay.classList.toggle('active');
             
-            // Animate bars to X (Optional simple toggle)
             const bars = document.querySelectorAll('.bar');
             if(overlay.classList.contains('active')) {
                 bars[0].style.transform = "rotate(45deg) translate(5px, 6px)";
@@ -751,13 +697,11 @@
             ScrollTrigger.refresh();
         }
 
-        // Prefill Form from Buttons
+        // Prefill Form
         function prefill(service) {
             const subjectInput = document.getElementById('subject');
             const deptSelect = document.getElementById('department');
-            
             subjectInput.value = service;
-            
             if(service.includes("Audio")) deptSelect.value = "Audio";
             if(service.includes("Video")) deptSelect.value = "Video";
             if(service.includes("Event")) deptSelect.value = "Event";
@@ -770,8 +714,8 @@
         // GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.to(".hero-content h1", { opacity: 1, duration: 2, y: 0, ease: "power4.out", delay: 0.5 });
-        gsap.to(".hero-sub", { opacity: 1, duration: 2, y: 0, ease: "power4.out", delay: 1 });
+        // Simple Hero Reveal (Slogan Only)
+        gsap.to(".hero-sub", { opacity: 1, duration: 2, y: 0, ease: "power4.out", delay: 0.5 });
 
         gsap.utils.toArray('.section-title').forEach(title => {
             gsap.from(title, {
