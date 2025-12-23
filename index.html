@@ -90,6 +90,7 @@
             transform: translate(-50%, -50%);
             box-shadow: 0 0 10px var(--accent); /* Constant Glow */
             transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
+            will-change: transform; /* Performance Boost */
         }
         .cursor-ring {
             width: 40px; height: 40px;
@@ -98,6 +99,7 @@
             position: fixed; pointer-events: none; z-index: 9998;
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s, border-color 0.3s;
+            will-change: transform; /* Performance Boost */
         }
         body.hovering .cursor { width: 4px; height: 4px; background: white; }
         body.hovering .cursor-ring { 
@@ -154,6 +156,7 @@
         }
         .hero-video {
             width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
+            will-change: transform; /* Hint for smoother playback */
         }
         .video-mobile { display: none; }
         .hero-overlay {
@@ -186,8 +189,8 @@
         /* --- ABOUT --- */
         .sidefacts {
             display: grid; grid-template-columns: 1fr 1fr;
-            /* Increased gap for desktop spacing */
-            gap: 80px; 
+            /* Balanced gap */
+            gap: 60px; 
             align-items: center;
         }
         
@@ -217,6 +220,8 @@
             border: 1px solid var(--border);
             padding: 40px 20px; text-align: center;
             transition: 0.3s; position: relative; overflow: hidden;
+            /* Optimize Animations */
+            will-change: transform, opacity;
         }
 
         .team-card:hover {
@@ -251,6 +256,7 @@
             color: var(--text-muted); padding: 15px 40px; font-family: var(--font-head);
             font-size: 1.5rem; transition: 0.3s; text-transform: uppercase;
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
         .tab-btn.active {
             background: var(--primary); color: white; border-color: var(--primary); 
@@ -270,6 +276,12 @@
             border: 1px solid var(--border); border-left: 3px solid transparent;
             position: relative; overflow: hidden;
             transition: transform 0.3s, border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+            /* Optimize Animations */
+            will-change: transform, opacity;
+            
+            /* Enable blur on desktop */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         .service-card:hover {
             border-color: rgba(255, 0, 0, 0.3); border-left-color: var(--accent);
@@ -330,10 +342,19 @@
 
         /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 768px) {
+            /* PERFORMANCE: DISABLE HEAVY EFFECTS ON MOBILE */
+            body { background-attachment: scroll; }
+            .service-card, .tab-btn { 
+                backdrop-filter: none; 
+                -webkit-backdrop-filter: none; 
+                background: rgba(20, 20, 20, 0.95); /* Fallback solid color */
+            }
+
+            /* Restore System Cursor on Mobile */
             html, body, a, button, input, select, textarea { cursor: auto !important; }
             .cursor, .cursor-ring { display: none !important; }
 
-            .hero { height: 65vh; min-height: 400px; }
+            .hero { height: 85vh; min-height: 400px; }
             .hero-content { bottom: 30px; }
 
             .video-desktop { display: none; }
@@ -405,7 +426,7 @@
                     <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
                 </video>
                 <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto">
-                    <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
+                    <source src="WEST_ROOMZ_INTRO-PHONE.mp4" type="video/mp4">
                 </video>
             </div>
 
@@ -625,23 +646,34 @@
             }
         }
 
-        // CUSTOM CURSOR & HOVER EFFECTS
+        // --- OPTIMIZED CURSOR LOGIC ---
+        // Debounced with requestAnimationFrame for performance
         if (window.matchMedia("(min-width: 769px)").matches) {
             const cursor = document.querySelector('.cursor');
             const ring = document.querySelector('.cursor-ring');
             const body = document.body;
+            let mouseX = 0;
+            let mouseY = 0;
+            let isMoving = false;
 
-            // Move cursor
             document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                ring.style.left = e.clientX + 'px';
-                ring.style.top = e.clientY + 'px';
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (!isMoving) {
+                    isMoving = true;
+                    requestAnimationFrame(updateCursor);
+                }
             });
 
-            // Add 'hovering' class to body when hovering interactive elements
+            function updateCursor() {
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
+                ring.style.left = mouseX + 'px';
+                ring.style.top = mouseY + 'px';
+                isMoving = false;
+            }
+
             const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, .interactive, .tab-btn, .service-card, .team-card');
-            
             interactiveElements.forEach(el => {
                 el.addEventListener('mouseenter', () => body.classList.add('hovering'));
                 el.addEventListener('mouseleave', () => body.classList.remove('hovering'));
