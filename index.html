@@ -43,23 +43,22 @@
             overflow-x: hidden;
             width: 100%;
             -webkit-font-smoothing: antialiased;
-            /* BACKGROUND GRID PATTERN */
+            /* BACKGROUND GRID PATTERN (ANIMATED) */
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             background-position: center top;
             background-attachment: fixed; 
-        }
-        
-        /* PAGE WRAPPER: PREVENTS HORIZONTAL SCROLL FROM ANIMATIONS */
-        .page-wrapper {
-            width: 100%;
-            overflow-x: hidden;
-            position: relative;
+            animation: gridScroll 20s linear infinite;
         }
 
-        /* --- 1. ANIMATED FILM GRAIN --- */
+        @keyframes gridScroll {
+            0% { background-position: center 0px; }
+            100% { background-position: center 50px; }
+        }
+
+        /* --- 1. CINEMATIC VIGNETTE --- */
         .cinematic-vignette {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -71,28 +70,6 @@
                 rgba(5,5,5,0) 85%, 
                 rgba(5,5,5,1) 100%
             );
-        }
-        
-        .noise-overlay {
-            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
-            pointer-events: none;
-            z-index: 89;
-            animation: noise-animation 0.2s infinite;
-        }
-        
-        @keyframes noise-animation {
-            0% { transform: translate(0, 0); }
-            10% { transform: translate(-5%, -5%); }
-            20% { transform: translate(-10%, 5%); }
-            30% { transform: translate(5%, -10%); }
-            40% { transform: translate(-5%, 15%); }
-            50% { transform: translate(-10%, 5%); }
-            60% { transform: translate(15%, 0); }
-            70% { transform: translate(0, 10%); }
-            80% { transform: translate(-15%, 0); }
-            90% { transform: translate(10%, 5%); }
-            100% { transform: translate(5%, 0); }
         }
 
         /* --- THE RED THREAD --- */
@@ -129,16 +106,6 @@
             border-color: var(--accent);
             background: rgba(255, 0, 0, 0.05);
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
-        }
-
-        /* CLICK SPARK PARTICLES */
-        .spark {
-            position: absolute;
-            width: 4px; height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
         }
 
         /* --- NAV --- */
@@ -197,9 +164,22 @@
             z-index: 1; 
         }
         .hero-content { z-index: 2; text-align: center; padding: 0 20px; }
+        
+        /* SHIMMER TEXT EFFECT (LIQUID CHROME) */
         .hero-sub {
             font-size: 1.2rem; letter-spacing: 8px; font-family: var(--font-head);
-            font-weight: 300; color: white; text-transform: uppercase; opacity: 0;
+            font-weight: 400; text-transform: uppercase; opacity: 0;
+            background: linear-gradient(to right, #fff 0%, #fff 40%, #ff0000 50%, #fff 60%, #fff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
         }
 
         /* --- GLOBAL CONTENT --- */
@@ -211,18 +191,11 @@
 
         .section-title {
             font-size: 4rem; margin-bottom: 2rem; position: relative; display: inline-block;
-            transition: 0.3s;
         }
         .section-title::after {
             content: ''; position: absolute; bottom: 10px; right: -20px;
             width: 10px; height: 10px; background: var(--accent);
             box-shadow: 0 0 10px var(--accent);
-        }
-        
-        /* GLITCH HOVER EFFECT (React Bits Style) */
-        .section-title:hover {
-            text-shadow: 2px 0 var(--primary), -2px 0 blue;
-            transform: skewX(-5deg);
         }
 
         /* --- ABOUT --- */
@@ -243,9 +216,8 @@
         }
         .intro-text strong { color: white; border-bottom: 1px solid var(--primary); padding-bottom: 2px; }
 
-        /* --- TEAM SECTION (3D TILT CARDS) --- */
+        /* --- TEAM SECTION --- */
         .team-section { background: transparent; }
-        
         .team-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
             gap: 40px; margin-top: 50px;
@@ -255,13 +227,11 @@
             background: var(--surface);
             border: 1px solid var(--border);
             padding: 40px 20px; text-align: center;
-            position: relative; overflow: hidden;
-            transform-style: preserve-3d; /* Key for 3D Tilt */
-            will-change: transform;
+            transition: 0.3s; position: relative; overflow: hidden;
+            will-change: transform, opacity;
+            /* TRUE FOCUS TRANSITION */
+            transition: transform 0.3s, opacity 0.3s, filter 0.3s;
         }
-
-        /* Remove default hover transform, handled by JS tilt */
-        /* .team-card:hover { transform: translateY(-5px); } */
 
         .team-avatar {
             width: 100px; height: 100px; margin: 0 auto 20px;
@@ -270,7 +240,20 @@
             display: flex; align-items: center; justify-content: center;
             font-family: var(--font-head); font-size: 2.5rem; color: #333;
             transition: 0.3s;
-            transform: translateZ(20px); /* Pops out in 3D */
+        }
+
+        /* TRUE FOCUS LOGIC (GRID) */
+        .team-grid:hover .team-card:not(:hover),
+        .service-grid:hover .service-card:not(:hover) {
+            opacity: 0.4;
+            filter: blur(2px) grayscale(0.8);
+            transform: scale(0.98);
+        }
+
+        .team-card:hover {
+            border-color: var(--accent); transform: translateY(-5px);
+            background: rgba(40,40,40,0.8);
+            opacity: 1; filter: none; z-index: 10;
         }
 
         .team-card:hover .team-avatar {
@@ -279,10 +262,10 @@
             box-shadow: 0 0 20px rgba(255,0,0,0.4);
         }
 
-        .team-name { font-family: var(--font-head); font-size: 1.5rem; color: white; margin-bottom: 5px; text-transform: uppercase; transform: translateZ(10px); }
-        .team-role { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; transform: translateZ(10px); }
+        .team-name { font-family: var(--font-head); font-size: 1.5rem; color: white; margin-bottom: 5px; text-transform: uppercase; }
+        .team-role { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- SERVICES (3D TILT CARDS) --- */
+        /* --- SERVICES --- */
         .tabs-nav {
             display: flex; justify-content: center; gap: 20px; margin-bottom: 60px; flex-wrap: wrap;
         }
@@ -310,41 +293,62 @@
             background: var(--surface); padding: 40px; 
             border: 1px solid var(--border); border-left: 3px solid transparent;
             position: relative; overflow: hidden;
-            transform-style: preserve-3d; /* Key for 3D Tilt */
-            will-change: transform;
-            
-            /* Enable blur on desktop */
+            will-change: transform, opacity;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s, background-color 0.3s, box-shadow 0.3s, opacity 0.3s, filter 0.3s;
         }
-        
-        /* Spotlight Glow Effect overlay */
-        .service-card::before {
-            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.05) 0%, transparent 50%);
-            opacity: 0; transition: opacity 0.5s; pointer-events: none; z-index: 1;
-        }
-        .service-card:hover::before { opacity: 1; }
-
         .service-card:hover {
             border-color: rgba(255, 0, 0, 0.3); border-left-color: var(--accent);
-            background: rgba(40, 40, 40, 0.8);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px); background: rgba(40, 40, 40, 0.8);
+            box-shadow: 0 10px 40px rgba(150, 0, 0, 0.1);
         }
+        .service-card h3 { font-size: 2rem; margin-bottom: 30px; color: #fff; }
+        .service-list { list-style: none; }
         
-        .service-card h3 { font-size: 2rem; margin-bottom: 30px; color: #fff; transform: translateZ(20px); }
-        .service-list { list-style: none; transform: translateZ(10px); }
+        /* ROLLING NUMBERS EFFECT */
         .service-list li {
             padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted); font-size: 1.1rem; display: flex; align-items: center;
+            color: var(--text-muted); font-size: 1.1rem; display: flex; align-items: center; justify-content: space-between;
+            overflow: hidden; /* Hide roll overflow */
         }
-        .service-list li::before { content: '+'; margin-right: 10px; color: var(--primary); }
+        
+        .rolling-number {
+            display: inline-block;
+            position: relative;
+            height: 1.2em;
+            width: 1.5em;
+            overflow: hidden;
+            color: var(--primary);
+            font-weight: bold;
+            font-family: var(--font-head);
+            text-align: right;
+        }
+        
+        .rolling-number span {
+            display: block;
+            transition: transform 0.4s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        /* When hovering row, slide numbers up */
+        .service-list li:hover .rolling-number span {
+            transform: translateY(-100%);
+            color: white;
+        }
+        
+        .rolling-number span:nth-child(2) {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            color: var(--accent); /* New number color on hover */
+        }
 
         .book-btn {
             margin-top: 30px; display: inline-block; padding: 12px 30px;
             background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white;
             text-decoration: none; font-family: var(--font-head); letter-spacing: 1px;
-            transition: 0.3s; transform: translateZ(30px);
+            transition: 0.3s;
         }
         .book-btn:hover { 
             background: var(--accent); color: white; border-color: var(--accent); 
@@ -386,14 +390,21 @@
 
         /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 768px) {
-            body { background-attachment: scroll; }
-            .service-card, .tab-btn, .team-card { backdrop-filter: none; background: rgba(20, 20, 20, 0.95); transform: none !important; }
-            /* Disable tilt on mobile */
-            
+            body { background-attachment: scroll; animation: none; /* Disable heavy grid anim */ }
+            .service-card, .tab-btn, .team-card { 
+                backdrop-filter: none; 
+                -webkit-backdrop-filter: none; 
+                background: rgba(20, 20, 20, 0.95); /* Fallback solid color */
+            }
+
+            /* Disable True Focus on Mobile */
+            .service-grid:hover .service-card:not(:hover), 
+            .team-grid:hover .team-card:not(:hover) { opacity: 1; filter: none; transform: none; }
+
             html, body, a, button, input, select, textarea { cursor: auto !important; }
             .cursor, .cursor-ring { display: none !important; }
 
-            .hero { height: 85vh; min-height: 400px; }
+            .hero { height: 65vh; min-height: 400px; }
             .hero-content { bottom: 30px; }
 
             .video-desktop { display: none; }
@@ -424,8 +435,6 @@
             .service-grid { grid-template-columns: 1fr; }
             .service-card { padding: 30px; }
             .red-thread { display: none; }
-            
-            .noise-overlay { display: none; } /* Performance on mobile */
         }
     </style>
 </head>
@@ -435,7 +444,7 @@
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
     <div class="red-thread"></div>
-    <div class="noise-overlay"></div>
+    <!-- THE FADE OVERLAY -->
     <div class="cinematic-vignette"></div>
 
     <nav>
@@ -540,25 +549,33 @@
                     <div class="service-card interactive">
                         <h3>MUSIK</h3>
                         <ul class="service-list">
-                            <li>Recording</li><li>Mixing</li><li>Mastering</li>
-                            <li>Beatproduction</li><li>Vocal Production</li><li>Writing</li>
+                            <li>Recording <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Mixing <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Mastering <span class="rolling-number"><span>03</span><span>03</span></span></li>
+                            <li>Beatproduction <span class="rolling-number"><span>04</span><span>04</span></span></li>
+                            <li>Vocal Production <span class="rolling-number"><span>05</span><span>05</span></span></li>
+                            <li>Writing <span class="rolling-number"><span>06</span><span>06</span></span></li>
                         </ul>
                         <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Musik')">PROJEKTANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>FILM & WERBUNG</h3>
                         <ul class="service-list">
-                            <li>Head of Audio (Projektleitung)</li><li>Sounddesign</li>
-                            <li>Voice Recording (Synchron)</li><li>Mixing & Mastering</li>
-                            <li>Setaufnahmen</li>
+                            <li>Head of Audio (Projektleitung) <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Sounddesign <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Voice Recording (Synchron) <span class="rolling-number"><span>03</span><span>03</span></span></li>
+                            <li>Mixing & Mastering <span class="rolling-number"><span>04</span><span>04</span></span></li>
+                            <li>Setaufnahmen <span class="rolling-number"><span>05</span><span>05</span></span></li>
                         </ul>
                         <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Film & Werbung')">PROJEKTANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>PODCAST</h3>
                         <ul class="service-list">
-                            <li>Podcast Recording</li><li>Schnitt (Postproduktion)</li>
-                            <li>Setups</li><li>Audio + Video Integration</li>
+                            <li>Podcast Recording <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Schnitt (Postproduktion) <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Setups <span class="rolling-number"><span>03</span><span>03</span></span></li>
+                            <li>Audio + Video Integration <span class="rolling-number"><span>04</span><span>04</span></span></li>
                         </ul>
                         <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Podcast')">PROJEKTANFRAGE</a>
                     </div>
@@ -570,22 +587,29 @@
                     <div class="service-card interactive">
                         <h3>MUSIKVIDEOS</h3>
                         <ul class="service-list">
-                            <li>Musikvideos</li><li>Artist Visuals</li><li>Performance Videos</li>
+                            <li>Musikvideos <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Artist Visuals <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Performance Videos <span class="rolling-number"><span>03</span><span>03</span></span></li>
                         </ul>
                         <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Musik')">PROJEKTANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>WERBUNG</h3>
                         <ul class="service-list">
-                            <li>Werbedrehs</li><li>Imagefilm</li><li>Produktvideos</li>
-                            <li>Produktfotos</li><li>Fotografie</li>
+                            <li>Werbedrehs <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Imagefilm <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Produktvideos <span class="rolling-number"><span>03</span><span>03</span></span></li>
+                            <li>Produktfotos <span class="rolling-number"><span>04</span><span>04</span></span></li>
+                            <li>Fotografie <span class="rolling-number"><span>05</span><span>05</span></span></li>
                         </ul>
                         <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Werbung')">PROJEKTANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>CONTENT & STUDIO</h3>
                         <ul class="service-list">
-                            <li>Social Media Content</li><li>Studio-Location Shootings</li><li>Video Podcast</li>
+                            <li>Social Media Content <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Studio-Location Shootings <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Video Podcast <span class="rolling-number"><span>03</span><span>03</span></span></li>
                         </ul>
                         <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Content')">PROJEKTANFRAGE</a>
                     </div>
@@ -597,21 +621,28 @@
                     <div class="service-card interactive">
                         <h3>PLANUNG</h3>
                         <ul class="service-list">
-                            <li>Eventplanung</li><li>Ablauf u. Koordination</li><li>Konzepte</li>
+                            <li>Eventplanung <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Ablauf u. Koordination <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Konzepte <span class="rolling-number"><span>03</span><span>03</span></span></li>
                         </ul>
                         <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Planung')">PROJEKTANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>PRODUKTION</h3>
                         <ul class="service-list">
-                            <li>Event-Audio</li><li>Event-Video</li><li>Event-Fotografie</li><li>DJ Services</li>
+                            <li>Event-Audio <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Event-Video <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Event-Fotografie <span class="rolling-number"><span>03</span><span>03</span></span></li>
+                            <li>DJ Services <span class="rolling-number"><span>04</span><span>04</span></span></li>
                         </ul>
                         <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Produktion')">PROJEKTANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>BRANDS & CONTENT</h3>
                         <ul class="service-list">
-                            <li>Eventcontent</li><li>Aftermovies</li><li>Social Clips</li>
+                            <li>Eventcontent <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Aftermovies <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Social Clips <span class="rolling-number"><span>03</span><span>03</span></span></li>
                         </ul>
                         <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Content')">PROJEKTANFRAGE</a>
                     </div>
@@ -655,73 +686,46 @@
     </main>
 
     <script>
-        // VIDEO FORCE PLAY
+        // HERO TEXT SYNC
+        const heroText = document.querySelector(".hero-sub");
+        const videos = document.querySelectorAll('video');
+
+        function syncTextWithVideo() {
+            videos.forEach(video => {
+                if (video.offsetParent !== null) {
+                    video.addEventListener('timeupdate', () => {
+                        if (video.currentTime >= 4.5) {
+                            if (gsap.getProperty(heroText, "opacity") === 0) {
+                                gsap.to(heroText, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
+                            }
+                        } 
+                        else if (video.currentTime < 0.5) {
+                            if (gsap.getProperty(heroText, "opacity") > 0) {
+                                gsap.set(heroText, { opacity: 0, y: 20 });
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // VIDEO PLAY
         document.addEventListener('DOMContentLoaded', () => {
-            const videos = document.querySelectorAll('video');
+            gsap.set(heroText, { opacity: 0, y: 20 });
+            
             const attemptPlay = (video) => {
                 video.muted = true; 
-                video.play().catch(e => {
-                    document.addEventListener('touchstart', () => video.play(), { once: true });
-                    document.addEventListener('click', () => video.play(), { once: true });
+                video.play().then(() => {
+                    syncTextWithVideo();
+                }).catch(e => {
+                    document.addEventListener('touchstart', () => { video.play(); syncTextWithVideo(); }, { once: true });
+                    document.addEventListener('click', () => { video.play(); syncTextWithVideo(); }, { once: true });
                 });
             };
             videos.forEach(video => {
                 attemptPlay(video);
                 video.addEventListener('pause', () => { if(!video.seeking) attemptPlay(video); });
             });
-        });
-        
-        // 3D TILT EFFECT & SPOTLIGHT
-        if (window.matchMedia("(min-width: 769px)").matches) {
-            const tiltCards = document.querySelectorAll('.team-card, .service-card');
-            tiltCards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    // Spotlight
-                    card.style.setProperty('--mouse-x', `${x}px`);
-                    card.style.setProperty('--mouse-y', `${y}px`);
-
-                    // 3D Tilt
-                    const rotateX = ((y - centerY) / centerY) * -5; // Subtle tilt
-                    const rotateY = ((x - centerX) / centerX) * 5;
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-                });
-            });
-        }
-
-        // CLICK SPARK EFFECT
-        document.addEventListener('click', (e) => {
-            const sparkCount = 8;
-            for(let i = 0; i < sparkCount; i++) {
-                const spark = document.createElement('div');
-                spark.classList.add('spark');
-                document.body.appendChild(spark);
-                
-                // Position
-                spark.style.left = `${e.clientX}px`;
-                spark.style.top = `${e.clientY}px`;
-                
-                // Random Direction
-                const angle = Math.random() * Math.PI * 2;
-                const velocity = Math.random() * 50 + 20;
-                const tx = Math.cos(angle) * velocity;
-                const ty = Math.sin(angle) * velocity;
-                
-                gsap.to(spark, {
-                    x: tx, y: ty, opacity: 0, duration: 0.6,
-                    ease: "power2.out",
-                    onComplete: () => spark.remove()
-                });
-            }
         });
 
         // MENU TOGGLE
@@ -740,7 +744,7 @@
             }
         }
 
-        // CUSTOM CURSOR & HOVER EFFECTS
+        // CURSOR
         if (window.matchMedia("(min-width: 769px)").matches) {
             const cursor = document.querySelector('.cursor');
             const ring = document.querySelector('.cursor-ring');
@@ -773,7 +777,7 @@
             });
         }
 
-        // --- FIXED TABS & ANIMATIONS ---
+        // TABS & ANIMATIONS
         function animateTabCards(containerId) {
             const cards = document.querySelectorAll(`#${containerId} .service-card`);
             gsap.fromTo(cards, 
@@ -794,13 +798,10 @@
                     b.classList.add('active');
                 }
             });
-            
-            // Trigger Animation for new tab
             animateTabCards(tabName);
             ScrollTrigger.refresh();
         }
 
-        // PREFILL
         function prefill(service) {
             document.getElementById('subject').value = service;
             const dept = document.getElementById('department');
@@ -811,13 +812,9 @@
 
         function updateMailto() { console.log("Routing email..."); }
 
-        // ANIMATIONS WITH GSAP SCROLLTRIGGER (Enhanced with Blur)
+        // SCROLL ANIMATIONS
         gsap.registerPlugin(ScrollTrigger);
-        
-        // Hero Text - DELAYED TO SYNC WITH LOGO
-        gsap.to(".hero-sub", { opacity: 1, duration: 2, y: 0, ease: "power4.out", delay: 4.5 });
 
-        // Section Titles - Added toggleActions for replay + Blur Reveal
         gsap.utils.toArray('.section-title').forEach(title => {
             gsap.fromTo(title, 
                 { y: 50, opacity: 0, filter: "blur(10px)" },
@@ -832,64 +829,38 @@
             );
         });
 
-        // About Content
         gsap.from(".intro-text", {
-            scrollTrigger: { 
-                trigger: ".intro-text", 
-                start: "top 90%",
-                toggleActions: "play reverse play reverse"
-            },
+            scrollTrigger: { trigger: ".intro-text", start: "top 90%", toggleActions: "play reverse play reverse" },
             x: 50, opacity: 0, filter: "blur(5px)", duration: 1, ease: "power3.out"
         });
         gsap.from(".intro-img", {
-            scrollTrigger: { 
-                trigger: ".intro-img", 
-                start: "top 90%",
-                toggleActions: "play reverse play reverse"
-            },
+            scrollTrigger: { trigger: ".intro-img", start: "top 90%", toggleActions: "play reverse play reverse" },
             x: -50, opacity: 0, filter: "blur(5px)", duration: 1, ease: "power3.out"
         });
 
-        // Team Cards (Staggered) - USING AUTOALPHA & BLUR
         gsap.fromTo(".team-card", 
             { y: 50, autoAlpha: 0, filter: "blur(10px)" },
             {
                 y: 0, autoAlpha: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.1, ease: "power3.out",
-                scrollTrigger: { 
-                    trigger: ".team-grid", 
-                    start: "top 90%",
-                    toggleActions: "play reverse play reverse"
-                }
+                scrollTrigger: { trigger: ".team-grid", start: "top 90%", toggleActions: "play reverse play reverse" }
             }
         );
 
-        // Initial Service Cards (Audio Tab) - Trigger on scroll
         ScrollTrigger.create({
-            trigger: "#services",
-            start: "top 75%",
+            trigger: "#services", start: "top 75%",
             onEnter: () => animateTabCards('audio'),
-            onEnterBack: () => animateTabCards('audio'), // Re-play on scroll up
-            once: false // Allow repeat
+            onEnterBack: () => animateTabCards('audio'),
+            once: false 
         });
 
-        // Contact Section
         gsap.from(".contact-info", {
-            scrollTrigger: { 
-                trigger: ".contact-grid", 
-                start: "top 90%",
-                toggleActions: "play reverse play reverse"
-            },
+            scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" },
             x: -30, opacity: 0, filter: "blur(5px)", duration: 1, ease: "power3.out"
         });
         gsap.from(".contact-form", {
-            scrollTrigger: { 
-                trigger: ".contact-grid", 
-                start: "top 90%",
-                toggleActions: "play reverse play reverse"
-            },
+            scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" },
             x: 30, opacity: 0, filter: "blur(5px)", duration: 1, delay: 0.2, ease: "power3.out"
         });
-
     </script>
 </body>
 </html>
