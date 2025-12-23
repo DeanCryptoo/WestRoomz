@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -345,13 +345,13 @@
             margin-bottom: 30px;
             font-family: var(--font-body);
             transition: 0.3s;
-            border-radius: 0; /* Flat edge to match design */
+            border-radius: 0;
         }
 
         /* DROPDOWN STYLING UPDATE */
         .contact-form select {
             cursor: pointer;
-            appearance: none; /* Removes default system styling */
+            appearance: none; 
             -webkit-appearance: none; 
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
@@ -406,7 +406,7 @@
                 grid-template-columns: 1fr;
             }
             .nav-links {
-                display: none; /* Add hamburger later */
+                display: none;
             }
             .section-title {
                 font-size: 3rem;
@@ -428,7 +428,7 @@
         <div class="nav-links">
             <a href="#about">STUDIO</a>
             <a href="#services">SERVICES</a>
-            <a href="#contact">CONTACT</a>
+            <a href="#contact">KONTAKT</a>
         </div>
     </nav>
 
@@ -440,7 +440,7 @@
         
         <div class="hero-content">
             <h1>WEST<span>ROOMZ</span></h1>
-            <p class="hero-sub">QUALITY IS UNMATCHED</p>
+            <p class="hero-sub">UNERREICHTE QUALITÄT</p>
         </div>
     </header>
 
@@ -449,15 +449,15 @@
             <img src="logo.jpg" alt="Westroomz Badge" style="width: 100%; max-width: 400px; border-radius: 5px;">
         </div>
         <div class="intro-text">
-            <h2 class="section-title">THE STUDIO</h2>
-            <p>We are a high-end production house. We make music, record others for cash, and have been pushing culture for 6 years.</p> 
-            <p>Our quality is <strong>UNMATCHED</strong>. Our gear is top tier. Sound engineering, visuals, and event production. We handle it all.</p>
-            <p>From passion project to professional powerhouse. Whether it's mixing/mastering or full-scale video production, we bring the vision to life.</p>
+            <h2 class="section-title">DAS STUDIO</h2>
+            <p>Wir sind eine High-End-Produktionsfirma. Wir machen Musik, nehmen Künstler auf und prägen die Kultur seit 6 Jahren.</p> 
+            <p>Unsere Qualität ist <strong>UNERREICHT</strong>. Unser Equipment ist Top-Tier. Sound Engineering, Visuals und Eventproduktion – wir machen alles.</p>
+            <p>Vom Leidenschaftsprojekt zum professionellen Powerhouse. Ob Mixing/Mastering oder komplette Videoproduktion, wir erwecken die Vision zum Leben.</p>
         </div>
     </section>
 
     <section id="services" class="services-section">
-        <h2 class="section-title" style="margin-bottom: 50px; text-align: center; width: 100%;">WHAT WE DO</h2>
+        <h2 class="section-title" style="margin-bottom: 50px; text-align: center; width: 100%;">WAS WIR TUN</h2>
         
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="openTab('audio')">AUDIO</button>
@@ -468,39 +468,39 @@
         <div id="audio" class="service-container active">
             <div class="service-grid">
                 <div class="service-card">
-                    <h3>MUSIC</h3>
+                    <h3>MUSIK</h3>
                     <ul class="service-list">
                         <li>Recording</li>
                         <li>Mixing</li>
                         <li>Mastering</li>
-                        <li>Beat Production</li>
+                        <li>Beatproduction</li>
                         <li>Vocal Production</li>
                         <li>Writing</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Audio - Music')">PROJECT REQUEST</a>
+                    <a href="#contact" class="book-btn" onclick="prefill('Audio - Musik')">PROJEKTANFRAGE</a>
                 </div>
 
                 <div class="service-card">
-                    <h3>FILM & COMMERCIAL</h3>
+                    <h3>FILM & WERBUNG</h3>
                     <ul class="service-list">
-                        <li>Head of Audio (Project Lead)</li>
+                        <li>Head of Audio (Projektleitung)</li>
                         <li>Sounddesign</li>
                         <li>Voice Recording (Synchron)</li>
                         <li>Mixing & Mastering</li>
-                        <li>Set Recordings</li>
+                        <li>Setaufnahmen</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Audio - Film & Commercial')">PROJECT REQUEST</a>
+                    <a href="#contact" class="book-btn" onclick="prefill('Audio - Film & Werbung')">PROJEKTANFRAGE</a>
                 </div>
 
                 <div class="service-card">
                     <h3>PODCAST</h3>
                     <ul class="service-list">
                         <li>Podcast Recording</li>
-                        <li>Editing (Post-production)</li>
+                        <li>Schnitt (Postproduktion)</li>
                         <li>Setups</li>
                         <li>Audio + Video Integration</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Audio - Podcast')">PROJECT REQUEST</a>
+                    <a href="#contact" class="book-btn" onclick="prefill('Audio - Podcast')">PROJEKTANFRAGE</a>
                 </div>
             </div>
         </div>
@@ -508,24 +508,25 @@
         <div id="video" class="service-container">
             <div class="service-grid">
                 <div class="service-card">
-                    <h3>MUSIC VISUALS</h3>
+                    <h3>MUSIKVIDEOS</h3>
                     <ul class="service-list">
-                        <li>Music Videos</li>
+                        <li>Musikvideos</li>
                         <li>Artist Visuals</li>
                         <li>Performance Videos</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Video - Music')">PROJECT REQUEST</a>
+                    <a href="#contact" class="book-btn" onclick="prefill('Video - Musik')">PROJEKTANFRAGE</a>
                 </div>
 
                 <div class="service-card">
-                    <h3>COMMERCIAL</h3>
+                    <h3>WERBUNG</h3>
                     <ul class="service-list">
-                        <li>Commercial Shoots (Werbedrehs)</li>
-                        <li>Image Films</li>
-                        <li>Product Videos</li>
-                        <li>Product Photography</li>
+                        <li>Werbedrehs</li>
+                        <li>Imagefilm</li>
+                        <li>Produktvideos</li>
+                        <li>Produktfotos</li>
+                        <li>Fotografie</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Video - Commercial')">PROJECT REQUEST</a>
+                    <a href="#contact" class="book-btn" onclick="prefill('Video - Werbung')">PROJEKTANFRAGE</a>
                 </div>
 
                 <div class="service-card">
@@ -535,7 +536,7 @@
                         <li>Studio-Location Shootings</li>
                         <li>Video Podcast</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Video - Content')">PROJECT REQUEST</a>
+                    <a href="#contact" class="book-btn" onclick="prefill('Video - Content')">PROJEKTANFRAGE</a>
                 </div>
             </div>
         </div>
@@ -543,34 +544,34 @@
         <div id="event" class="service-container">
             <div class="service-grid">
                 <div class="service-card">
-                    <h3>PLANNING</h3>
+                    <h3>PLANUNG</h3>
                     <ul class="service-list">
-                        <li>Event Planning</li>
-                        <li>Workflow & Coordination</li>
-                        <li>Concepts</li>
+                        <li>Eventplanung</li>
+                        <li>Ablauf u. Koordination</li>
+                        <li>Konzepte</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Event - Planning')">PROJECT REQUEST</a>
+                    <a href="#contact" class="book-btn" onclick="prefill('Event - Planung')">PROJEKTANFRAGE</a>
                 </div>
 
                 <div class="service-card">
-                    <h3>PRODUCTION</h3>
+                    <h3>PRODUKTION</h3>
                     <ul class="service-list">
-                        <li>Event Audio</li>
-                        <li>Event Video</li>
-                        <li>Event Photography</li>
+                        <li>Event-Audio</li>
+                        <li>Event-Video</li>
+                        <li>Event-Fotografie</li>
                         <li>DJ Services</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Event - Production')">PROJECT REQUEST</a>
+                    <a href="#contact" class="book-btn" onclick="prefill('Event - Produktion')">PROJEKTANFRAGE</a>
                 </div>
 
                 <div class="service-card">
                     <h3>BRANDS & CONTENT</h3>
                     <ul class="service-list">
-                        <li>Event Content Creation</li>
+                        <li>Eventcontent</li>
                         <li>Aftermovies</li>
                         <li>Social Clips</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Event - Content')">PROJECT REQUEST</a>
+                    <a href="#contact" class="book-btn" onclick="prefill('Event - Content')">PROJEKTANFRAGE</a>
                 </div>
             </div>
         </div>
@@ -579,8 +580,8 @@
     <section id="contact" class="contact-section">
         <div class="contact-grid">
             <div class="contact-info">
-                <h2 class="section-title">LET'S WORK</h2>
-                <p style="color: #888; margin-bottom: 20px;">Ready to elevate your sound or visual? Fill out the form. We are reactive.</p>
+                <h2 class="section-title">KONTAKT</h2>
+                <p style="color: #888; margin-bottom: 20px;">Bereit für den nächsten Schritt? Fülle das Formular aus. Wir sind reaktiv.</p>
                 <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
                     <p>STRAUSS.DE | INFO@STRAUSS.DE</p>
                     <p>TEL. 06050 97 10 12</p>
@@ -588,30 +589,30 @@
             </div>
 
             <form class="contact-form" action="#" method="POST">
-                <label for="department">DEPARTMENT</label>
+                <label for="department">ABTEILUNG</label>
                 <select id="department" onchange="updateMailto()">
-                    <option value="General">General Inquiry</option>
+                    <option value="General">Allgemeine Anfrage</option>
                     <option value="Audio">Audio (Noah)</option>
                     <option value="Video">Video (Frenci)</option>
-                    <option value="Event">Event Planning</option>
+                    <option value="Event">Eventplanung</option>
                 </select>
 
-                <label for="name">NAME / ARTIST NAME</label>
+                <label for="name">NAME / KÜNSTLERNAME</label>
                 <input type="text" id="name" required>
 
-                <label for="subject">PROJECT DETAILS</label>
-                <input type="text" id="subject" placeholder="Select a service above...">
+                <label for="subject">PROJEKTDETAILS</label>
+                <input type="text" id="subject" placeholder="Wähle oben einen Service...">
 
-                <label for="message">TELL US MORE</label>
+                <label for="message">ERZÄHL UNS MEHR</label>
                 <textarea id="message" rows="5"></textarea>
 
-                <button type="submit" class="submit-btn">SEND REQUEST</button>
+                <button type="submit" class="submit-btn">ANFRAGE SENDEN</button>
             </form>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 WESTROOMZ. ALL RIGHTS RESERVED.</p>
+        <p>&copy; 2025 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
     </footer>
 
     <script>
