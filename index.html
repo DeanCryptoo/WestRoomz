@@ -40,7 +40,7 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: var(--font-body);
-            overflow-x: hidden; /* Fallback */
+            overflow-x: hidden;
             width: 100%;
             -webkit-font-smoothing: antialiased;
             /* BACKGROUND GRID PATTERN */
@@ -426,7 +426,7 @@
                     <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
                 </video>
                 <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto">
-                    <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
+                    <source src="WEST_ROOMZ_INTRO-PHONE.mp4" type="video/mp4">
                 </video>
             </div>
 
@@ -476,7 +476,7 @@
                 <!-- Events Placeholder -->
                 <div class="team-card interactive">
                     <div class="team-avatar">T</div>
-                    <h3 class="team-name">TOMKE</h3>
+                    <h3 class="team-name">Tomke</h3>
                     <p class="team-role">Event Planning</p>
                 </div>
             </div>
@@ -614,14 +614,45 @@
     </main>
 
     <script>
-        // VIDEO FORCE PLAY
+        // HERO TEXT SYNC
+        const heroText = document.querySelector(".hero-sub");
+        const videos = document.querySelectorAll('video');
+
+        // Sync with Video Time
+        function syncTextWithVideo() {
+            videos.forEach(video => {
+                // If this is the currently visible video
+                if (video.offsetParent !== null) {
+                    video.addEventListener('timeupdate', () => {
+                        // Delay: 4.5s
+                        if (video.currentTime >= 4.5) {
+                            if (gsap.getProperty(heroText, "opacity") === 0) {
+                                gsap.to(heroText, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
+                            }
+                        } 
+                        // Reset: < 0.5s (Loop restart)
+                        else if (video.currentTime < 0.5) {
+                            if (gsap.getProperty(heroText, "opacity") > 0) {
+                                gsap.set(heroText, { opacity: 0, y: 20 });
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // AGGRESSIVE VIDEO AUTOPLAY
         document.addEventListener('DOMContentLoaded', () => {
-            const videos = document.querySelectorAll('video');
+            // Set initial state
+            gsap.set(heroText, { opacity: 0, y: 20 });
+            
             const attemptPlay = (video) => {
                 video.muted = true; 
-                video.play().catch(e => {
-                    document.addEventListener('touchstart', () => video.play(), { once: true });
-                    document.addEventListener('click', () => video.play(), { once: true });
+                video.play().then(() => {
+                    syncTextWithVideo();
+                }).catch(e => {
+                    document.addEventListener('touchstart', () => { video.play(); syncTextWithVideo(); }, { once: true });
+                    document.addEventListener('click', () => { video.play(); syncTextWithVideo(); }, { once: true });
                 });
             };
             videos.forEach(video => {
@@ -721,8 +752,7 @@
         // ANIMATIONS WITH GSAP SCROLLTRIGGER
         gsap.registerPlugin(ScrollTrigger);
         
-        // Hero Text
-        gsap.to(".hero-sub", { opacity: 1, duration: 2, y: 0, ease: "power4.out", delay: 0.5 });
+        // Removed original hero gsap.to() as it's now handled by syncTextWithVideo()
 
         // Section Titles - Added toggleActions for replay
         gsap.utils.toArray('.section-title').forEach(title => {
