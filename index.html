@@ -7,10 +7,12 @@
     
     <link rel="icon" type="image/jpeg" href="logo.jpg">
 
+    <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
     
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
@@ -19,8 +21,8 @@
             --primary: #990000; /* Deep Red */
             --accent: #ff0000; /* Bright Neon Red */
             --bg: #050505;
-            --surface: rgba(30, 30, 30, 0.6); /* Glassy Surface */
-            --border: rgba(255, 255, 255, 0.12); /* Visible Technical Border */
+            --surface: #121212;
+            --border: rgba(255, 255, 255, 0.12);
             --text: #ffffff;
             --text-muted: #aaaaaa;
             --font-head: 'Oswald', sans-serif;
@@ -60,14 +62,13 @@
         /* --- UPGRADED CURSOR --- */
         .cursor {
             width: 12px; height: 12px;
-            background: var(--accent); /* Solid Red Dot */
+            background: var(--accent);
             border-radius: 50%;
             position: fixed; pointer-events: none; z-index: 9999;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px var(--accent); /* Constant Glow */
+            box-shadow: 0 0 10px var(--accent);
             transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
         }
-        /* Ring around cursor */
         .cursor-ring {
             width: 40px; height: 40px;
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -76,8 +77,6 @@
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s, border-color 0.3s;
         }
-
-        /* Hover State */
         body.hovering .cursor { width: 4px; height: 4px; background: white; }
         body.hovering .cursor-ring { 
             width: 60px; height: 60px; 
@@ -131,28 +130,38 @@
             width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
         }
         .video-mobile { display: none; }
+        
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(5,5,5,1));
             z-index: 1; 
         }
-        .hero-content { z-index: 2; text-align: center; padding: 0 20px; }
+        
+        /* Positioned at bottom to not block video center */
+        .hero-content { 
+            z-index: 2; 
+            text-align: center; 
+            position: absolute;
+            bottom: 50px;
+            width: 100%;
+            padding: 0 20px; 
+        }
         .hero-sub {
             font-size: 1.2rem; letter-spacing: 8px; font-family: var(--font-head);
             font-weight: 300; color: white; text-transform: uppercase; opacity: 0;
         }
 
-        /* --- GLOBAL STYLES --- */
+        /* --- GLOBAL CONTENT --- */
         .section-title {
             font-size: 4rem; margin-bottom: 2rem; position: relative; display: inline-block;
         }
         .section-title::after {
             content: ''; position: absolute; bottom: 10px; right: -20px;
             width: 10px; height: 10px; background: var(--accent);
-            box-shadow: 0 0 10px var(--accent); /* Glow on dot */
+            box-shadow: 0 0 10px var(--accent);
         }
 
-        /* --- SIDEFACTS --- */
+        /* --- ABOUT --- */
         .sidefacts {
             padding: 100px 10%; display: grid; grid-template-columns: 1fr 1fr;
             gap: 80px; align-items: center; position: relative; z-index: 2;
@@ -163,23 +172,60 @@
         }
         .intro-text strong { color: white; border-bottom: 1px solid var(--primary); padding-bottom: 2px; }
 
-        /* --- SERVICES (VISUAL UPGRADE) --- */
+        /* --- TEAM SECTION --- */
+        .team-section { padding: 50px 10%; position: relative; z-index: 2; }
+        
+        .team-grid {
+            /* Responsive grid: fits 4 items neatly */
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 30px; margin-top: 50px;
+        }
+
+        .team-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 40px 20px; text-align: center;
+            transition: 0.3s; position: relative; overflow: hidden;
+        }
+
+        .team-card:hover {
+            border-color: var(--accent); transform: translateY(-5px);
+            background: rgba(40,40,40,0.8);
+        }
+
+        .team-avatar {
+            width: 100px; height: 100px; margin: 0 auto 20px;
+            border-radius: 50%; background: #1a1a1a;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-head); font-size: 2.5rem; color: #333;
+            transition: 0.3s;
+        }
+
+        .team-card:hover .team-avatar {
+            border-color: var(--accent); color: white;
+            background: var(--primary);
+            box-shadow: 0 0 20px rgba(255,0,0,0.4);
+        }
+
+        .team-name { font-family: var(--font-head); font-size: 1.5rem; color: white; margin-bottom: 5px; text-transform: uppercase; }
+        .team-role { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- SERVICES --- */
         .services-section { padding: 50px 5%; min-height: 100vh; position: relative; z-index: 2; }
         
         .tabs-nav {
             display: flex; justify-content: center; gap: 20px; margin-bottom: 60px; flex-wrap: wrap;
         }
         .tab-btn {
-            background: rgba(20, 20, 20, 0.5); /* Semi-transparent */
-            border: 1px solid var(--border);
+            background: rgba(20, 20, 20, 0.5); border: 1px solid var(--border);
             color: var(--text-muted); padding: 15px 40px; font-family: var(--font-head);
             font-size: 1.5rem; transition: 0.3s; text-transform: uppercase;
             backdrop-filter: blur(5px);
         }
         .tab-btn.active {
             background: var(--primary); color: white; border-color: var(--primary); 
-            transform: skew(-10deg);
-            box-shadow: 0 0 20px rgba(153, 0, 0, 0.4);
+            transform: skew(-10deg); box-shadow: 0 0 20px rgba(153, 0, 0, 0.4);
         }
         .tab-btn:hover { border-color: var(--accent); color: white; }
 
@@ -191,25 +237,16 @@
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
         }
 
-        /* --- HIGH END GLASS CARDS --- */
         .service-card {
-            background: var(--surface); /* Dark Glass */
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            padding: 40px; 
-            border: 1px solid var(--border); 
-            border-left: 3px solid transparent;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            position: relative; overflow: hidden;
+            background: var(--surface); padding: 40px; 
+            border: 1px solid var(--border); border-left: 3px solid transparent;
+            transition: 0.3s; position: relative; overflow: hidden;
         }
-        
         .service-card:hover {
-            border-color: rgba(255, 0, 0, 0.5); /* Red tint border */
-            border-left-color: var(--accent);
-            transform: translateY(-10px);
-            background: rgba(40, 40, 40, 0.8); /* Lighter on hover */
-            box-shadow: 0 10px 40px rgba(150, 0, 0, 0.15); /* Red ambient glow */
+            border-color: rgba(255, 0, 0, 0.3); border-left-color: var(--accent);
+            transform: translateY(-5px); background: rgba(40, 40, 40, 0.8);
+            box-shadow: 0 10px 40px rgba(150, 0, 0, 0.1);
         }
-
         .service-card h3 { font-size: 2rem; margin-bottom: 30px; color: #fff; }
         .service-list { list-style: none; }
         .service-list li {
@@ -229,7 +266,7 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
         }
 
-        /* --- CONTACT (VISUAL UPGRADE) --- */
+        /* --- CONTACT --- */
         .contact-section { 
             background: #000; padding: 100px 10%; margin-top: 100px; 
             border-top: 1px solid var(--border); position: relative; z-index: 2; 
@@ -237,11 +274,8 @@
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
         .contact-form label { display: block; margin-bottom: 10px; font-family: var(--font-head); color: var(--text-muted); letter-spacing: 1px; }
         
-        /* High-End Inputs */
         .contact-form input, .contact-form select, .contact-form textarea {
-            width: 100%; 
-            background: rgba(255,255,255,0.03); /* Subtle fill */
-            border: 1px solid var(--border);
+            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
             padding: 15px; color: white; margin-bottom: 30px; font-family: var(--font-body);
             transition: 0.3s; border-radius: 0;
         }
@@ -251,12 +285,9 @@
             background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em;
         }
         .contact-form select option { background-color: #121212; color: white; padding: 10px; }
-        
         .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
-            outline: none; 
-            border-color: var(--accent); /* Red Border */
-            background: rgba(255,255,255,0.07);
-            box-shadow: 0 0 15px rgba(255,0,0,0.1); /* Subtle glow */
+            outline: none; border-color: var(--accent); background: rgba(255,255,255,0.07);
+            box-shadow: 0 0 15px rgba(255,0,0,0.1);
         }
         
         .submit-btn {
@@ -264,38 +295,31 @@
             font-family: var(--font-head); font-size: 1.5rem;
             text-transform: uppercase; width: 100%; transition: 0.3s;
         }
-        .submit-btn:hover { 
-            background: white; color: var(--accent); 
-            box-shadow: 0 0 20px rgba(255,255,255,0.3);
-        }
+        .submit-btn:hover { background: white; color: var(--accent); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
         
         footer { padding: 50px; text-align: center; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--text-muted); position: relative; z-index: 2; background: var(--bg); }
 
         /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 768px) {
-            
-            /* RESET CURSOR FOR TOUCH DEVICES (Restore system touch) */
             html, body, a, button, input, select, textarea { cursor: auto !important; }
             .cursor, .cursor-ring { display: none !important; }
 
-            .hero {
-                height: 85vh; /* Reduced height */
-                min-height: 500px;
-            }
+            /* VIDEO FIX: 65vh Height allows centering without excessive zoom */
+            .hero { height: 65vh; min-height: 400px; }
+            .hero-content { bottom: 30px; } /* Ensure text is low */
 
             .video-desktop { display: none; }
             .video-mobile { display: block; }
 
-            /* PUSH TEXT DOWN ON MOBILE */
             .sidefacts { 
                 display: flex; flex-direction: column-reverse;
                 gap: 40px; padding: 120px 5% 60px 5%;
             }
-
             .intro-img img { max-width: 150px; margin: 0 auto; margin-top: 30px; }
 
-            .services-section, .contact-section { padding: 60px 5%; }
+            .services-section, .contact-section, .team-section { padding: 60px 5%; }
             .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+            .team-grid { grid-template-columns: 1fr; gap: 30px; }
 
             .nav-links { display: none; }
             .mobile-menu-btn { display: flex; }
@@ -307,21 +331,24 @@
             .tab-btn { padding: 10px 20px; font-size: 1.1rem; flex: 1 1 auto; text-align: center; }
             .service-grid { grid-template-columns: 1fr; }
             .service-card { padding: 30px; }
-            .red-thread { display: none; } /* Hide line on mobile */
+            .red-thread { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- CUSTOM CURSOR -->
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
     
+    <!-- BACKGROUND LINE -->
     <div class="red-thread"></div>
 
     <nav>
         <div class="nav-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
         <div class="nav-links">
             <a href="#about" class="interactive">STUDIO</a>
+            <a href="#team" class="interactive">TEAM</a>
             <a href="#services" class="interactive">SERVICES</a>
             <a href="#contact" class="interactive">KONTAKT</a>
         </div>
@@ -332,10 +359,12 @@
 
     <div class="mobile-nav-overlay">
         <a href="#about" onclick="toggleMenu()">STUDIO</a>
+        <a href="#team" onclick="toggleMenu()">TEAM</a>
         <a href="#services" onclick="toggleMenu()">SERVICES</a>
         <a href="#contact" onclick="toggleMenu()">KONTAKT</a>
     </div>
 
+    <!-- HERO -->
     <header class="hero">
         <div class="video-container">
             <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto">
@@ -352,6 +381,7 @@
         </div>
     </header>
 
+    <!-- ABOUT -->
     <section id="about" class="sidefacts">
         <div class="intro-img">
             <img src="logo.jpg" alt="Westroomz Badge">
@@ -364,6 +394,38 @@
         </div>
     </section>
 
+    <!-- TEAM SECTION -->
+    <section id="team" class="team-section">
+        <h2 class="section-title">DAS TEAM</h2>
+        <div class="team-grid">
+            <!-- Adnan -->
+            <div class="team-card interactive">
+                <div class="team-avatar">A</div>
+                <h3 class="team-name">ADNAN</h3>
+                <p class="team-role">Management</p>
+            </div>
+            <!-- Noah -->
+            <div class="team-card interactive">
+                <div class="team-avatar">N</div>
+                <h3 class="team-name">NOAH</h3>
+                <p class="team-role">Head of Audio</p>
+            </div>
+            <!-- Frenci -->
+            <div class="team-card interactive">
+                <div class="team-avatar">F</div>
+                <h3 class="team-name">FRENCI</h3>
+                <p class="team-role">Head of Video</p>
+            </div>
+            <!-- Events Placeholder -->
+            <div class="team-card interactive">
+                <div class="team-avatar">E</div>
+                <h3 class="team-name">EVENTS</h3>
+                <p class="team-role">Event Planning</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
     <section id="services" class="services-section">
         <h2 class="section-title" style="margin-bottom: 50px; text-align: center; width: 100%;">WAS WIR TUN</h2>
         
@@ -457,6 +519,7 @@
         </div>
     </section>
 
+    <!-- CONTACT -->
     <section id="contact" class="contact-section">
         <div class="contact-grid">
             <div class="contact-info">
@@ -538,7 +601,7 @@
             });
 
             // Add 'hovering' class to body when hovering interactive elements
-            const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, .interactive, .tab-btn');
+            const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, .interactive, .tab-btn, .service-card, .team-card');
             
             interactiveElements.forEach(el => {
                 el.addEventListener('mouseenter', () => body.classList.add('hovering'));
@@ -588,6 +651,13 @@
             gsap.from(card, {
                 scrollTrigger: { trigger: card, start: "top 85%" },
                 y: 50, opacity: 0, duration: 0.8, delay: i * 0.1, ease: "power3.out"
+            });
+        });
+        
+        gsap.utils.toArray('.team-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: { trigger: card, start: "top 85%" },
+                y: 30, opacity: 0, duration: 0.6, delay: i * 0.1, ease: "power3.out"
             });
         });
     </script>
