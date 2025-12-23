@@ -28,13 +28,41 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html, body {
+        /* HIDE SYSTEM CURSOR */
+        html, body, a, button, input, select, textarea {
+            cursor: none !important; 
+        }
+
+        body {
             background-color: var(--bg);
             color: var(--text);
             font-family: var(--font-body);
             overflow-x: hidden;
             width: 100%;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- UPGRADED CURSOR --- */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent); /* Thicker border */
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, background-color 0.15s ease, width 0.15s ease, height 0.15s ease;
+            mix-blend-mode: difference; /* Inverts color for visibility */
+            transform: translate(-50%, -50%);
+        }
+
+        /* Hover State for Cursor */
+        .cursor.active {
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent); /* Fills solid red (or cyan on white) */
+            border-color: transparent;
+            opacity: 0.8;
         }
 
         /* --- NAV --- */
@@ -56,7 +84,7 @@
         }
         .nav-links a:hover::after { width: 100%; }
 
-        .mobile-menu-btn { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 6px; pointer-events: auto; }
         .bar { width: 30px; height: 2px; background-color: white; transition: 0.3s; }
 
         .mobile-nav-overlay {
@@ -74,35 +102,26 @@
             height: 100vh; width: 100%; position: relative;
             display: flex; align-items: center; justify-content: center;
             overflow: hidden;
-            background: #000; /* Ensures black background while loading */
+            background: #000;
         }
 
-        /* Video Container Layering */
         .video-container {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; 
         }
 
         .hero-video {
-            width: 100%; height: 100%; object-fit: cover;
-            opacity: 0.8;
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
         }
 
-        /* Hide Mobile Video on Desktop */
         .video-mobile { display: none; }
-        /* Hide Desktop Video on Mobile handled in Media Query */
 
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(5,5,5,1));
-            z-index: 1; /* Above video */
+            z-index: 1; 
         }
 
-        .hero-content {
-            z-index: 2; /* Above overlay */
-            text-align: center; padding: 0 20px;
-        }
+        .hero-content { z-index: 2; text-align: center; padding: 0 20px; }
 
         .hero-sub {
             font-size: 1.2rem; letter-spacing: 8px; font-family: var(--font-head);
@@ -110,12 +129,6 @@
         }
 
         /* --- CONTENT --- */
-        .cursor {
-            width: 20px; height: 20px; border: 1px solid var(--accent); border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 9999;
-            transition: transform 0.1s ease; mix-blend-mode: difference;
-        }
-
         .section-title {
             font-size: 4rem; margin-bottom: 2rem; position: relative; display: inline-block;
         }
@@ -143,7 +156,7 @@
         .tab-btn {
             background: transparent; border: 1px solid rgba(255,255,255,0.2);
             color: var(--text-muted); padding: 15px 40px; font-family: var(--font-head);
-            font-size: 1.5rem; cursor: pointer; transition: 0.3s; text-transform: uppercase;
+            font-size: 1.5rem; transition: 0.3s; text-transform: uppercase;
         }
         .tab-btn.active {
             background: var(--primary); color: white; border-color: var(--primary); transform: skew(-10deg);
@@ -177,7 +190,7 @@
             margin-top: 30px; display: inline-block; padding: 12px 30px;
             background: transparent; border: 1px solid white; color: white;
             text-decoration: none; font-family: var(--font-head); letter-spacing: 1px;
-            transition: 0.3s; cursor: pointer;
+            transition: 0.3s;
         }
         .book-btn:hover { background: white; color: black; }
 
@@ -192,7 +205,7 @@
             transition: 0.3s; border-radius: 0;
         }
         .contact-form select {
-            cursor: pointer; appearance: none; -webkit-appearance: none;
+            appearance: none; -webkit-appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em;
         }
@@ -202,23 +215,39 @@
         }
         .submit-btn {
             background: var(--accent); color: white; border: none; padding: 20px 50px;
-            font-family: var(--font-head); font-size: 1.5rem; cursor: pointer;
+            font-family: var(--font-head); font-size: 1.5rem;
             text-transform: uppercase; width: 100%; transition: 0.3s;
         }
         .submit-btn:hover { background: white; color: var(--accent); }
         footer { padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; color: var(--text-muted); position: relative; z-index: 2; background: var(--bg); }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 768px) {
-            /* Toggle Video Display */
+            
+            /* RESET CURSOR FOR TOUCH DEVICES (Restore system touch) */
+            html, body, a, button, input, select, textarea { cursor: auto !important; }
+            .cursor { display: none !important; }
+
+            .hero {
+                height: 85vh; /* Reduced height */
+                min-height: 500px;
+            }
+
             .video-desktop { display: none; }
             .video-mobile { display: block; }
 
-            .sidefacts, .contact-grid { grid-template-columns: 1fr; gap: 40px; padding: 60px 5%; }
-            .services-section, .contact-section { padding: 60px 5%; }
-            
-            .sidefacts { display: flex; flex-direction: column-reverse; }
+            /* PUSH TEXT DOWN ON MOBILE */
+            .sidefacts { 
+                display: flex; 
+                flex-direction: column-reverse;
+                gap: 40px; 
+                padding: 120px 5% 60px 5%; /* 120px Top Padding */
+            }
+
             .intro-img img { max-width: 150px; margin: 0 auto; margin-top: 30px; }
+
+            .services-section, .contact-section { padding: 60px 5%; }
+            .contact-grid { grid-template-columns: 1fr; gap: 40px; }
 
             .nav-links { display: none; }
             .mobile-menu-btn { display: flex; }
@@ -227,7 +256,6 @@
             .section-title::after { right: -10px; }
             
             .hero-sub { font-size: 1rem; letter-spacing: 3px; }
-            .cursor { display: none; }
             .tab-btn { padding: 10px 20px; font-size: 1.1rem; flex: 1 1 auto; text-align: center; }
             .service-grid { grid-template-columns: 1fr; }
             .service-card { padding: 30px; }
@@ -241,9 +269,9 @@
     <nav>
         <div class="nav-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
         <div class="nav-links">
-            <a href="#about">STUDIO</a>
-            <a href="#services">SERVICES</a>
-            <a href="#contact">KONTAKT</a>
+            <a href="#about" class="interactive">STUDIO</a>
+            <a href="#services" class="interactive">SERVICES</a>
+            <a href="#contact" class="interactive">KONTAKT</a>
         </div>
         <div class="mobile-menu-btn" onclick="toggleMenu()">
             <div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -261,7 +289,6 @@
             <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto">
                 <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
             </video>
-            
             <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto">
                 <source src="WEST_ROOMZ_INTRO-PHONE.mp4" type="video/mp4">
             </video>
@@ -289,9 +316,9 @@
         <h2 class="section-title" style="margin-bottom: 50px; text-align: center; width: 100%;">WAS WIR TUN</h2>
         
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="openTab('audio')">AUDIO</button>
-            <button class="tab-btn" onclick="openTab('video')">VIDEO</button>
-            <button class="tab-btn" onclick="openTab('event')">EVENTS</button>
+            <button class="tab-btn active interactive" onclick="openTab('audio')">AUDIO</button>
+            <button class="tab-btn interactive" onclick="openTab('video')">VIDEO</button>
+            <button class="tab-btn interactive" onclick="openTab('event')">EVENTS</button>
         </div>
 
         <div id="audio" class="service-container active">
@@ -302,7 +329,7 @@
                         <li>Recording</li><li>Mixing</li><li>Mastering</li>
                         <li>Beatproduction</li><li>Vocal Production</li><li>Writing</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Audio - Musik')">PROJEKTANFRAGE</a>
+                    <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Musik')">PROJEKTANFRAGE</a>
                 </div>
                 <div class="service-card">
                     <h3>FILM & WERBUNG</h3>
@@ -311,7 +338,7 @@
                         <li>Voice Recording (Synchron)</li><li>Mixing & Mastering</li>
                         <li>Setaufnahmen</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Audio - Film & Werbung')">PROJEKTANFRAGE</a>
+                    <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Film & Werbung')">PROJEKTANFRAGE</a>
                 </div>
                 <div class="service-card">
                     <h3>PODCAST</h3>
@@ -319,7 +346,7 @@
                         <li>Podcast Recording</li><li>Schnitt (Postproduktion)</li>
                         <li>Setups</li><li>Audio + Video Integration</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Audio - Podcast')">PROJEKTANFRAGE</a>
+                    <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Podcast')">PROJEKTANFRAGE</a>
                 </div>
             </div>
         </div>
@@ -331,7 +358,7 @@
                     <ul class="service-list">
                         <li>Musikvideos</li><li>Artist Visuals</li><li>Performance Videos</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Video - Musik')">PROJEKTANFRAGE</a>
+                    <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Musik')">PROJEKTANFRAGE</a>
                 </div>
                 <div class="service-card">
                     <h3>WERBUNG</h3>
@@ -339,14 +366,14 @@
                         <li>Werbedrehs</li><li>Imagefilm</li><li>Produktvideos</li>
                         <li>Produktfotos</li><li>Fotografie</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Video - Werbung')">PROJEKTANFRAGE</a>
+                    <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Werbung')">PROJEKTANFRAGE</a>
                 </div>
                 <div class="service-card">
                     <h3>CONTENT & STUDIO</h3>
                     <ul class="service-list">
                         <li>Social Media Content</li><li>Studio-Location Shootings</li><li>Video Podcast</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Video - Content')">PROJEKTANFRAGE</a>
+                    <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Content')">PROJEKTANFRAGE</a>
                 </div>
             </div>
         </div>
@@ -358,21 +385,21 @@
                     <ul class="service-list">
                         <li>Eventplanung</li><li>Ablauf u. Koordination</li><li>Konzepte</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Event - Planung')">PROJEKTANFRAGE</a>
+                    <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Planung')">PROJEKTANFRAGE</a>
                 </div>
                 <div class="service-card">
                     <h3>PRODUKTION</h3>
                     <ul class="service-list">
                         <li>Event-Audio</li><li>Event-Video</li><li>Event-Fotografie</li><li>DJ Services</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Event - Produktion')">PROJEKTANFRAGE</a>
+                    <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Produktion')">PROJEKTANFRAGE</a>
                 </div>
                 <div class="service-card">
                     <h3>BRANDS & CONTENT</h3>
                     <ul class="service-list">
                         <li>Eventcontent</li><li>Aftermovies</li><li>Social Clips</li>
                     </ul>
-                    <a href="#contact" class="book-btn" onclick="prefill('Event - Content')">PROJEKTANFRAGE</a>
+                    <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Content')">PROJEKTANFRAGE</a>
                 </div>
             </div>
         </div>
@@ -390,19 +417,19 @@
             </div>
             <form class="contact-form" action="#" method="POST">
                 <label>ABTEILUNG</label>
-                <select id="department" onchange="updateMailto()">
+                <select id="department" class="interactive" onchange="updateMailto()">
                     <option value="General">Allgemeine Anfrage</option>
-                    <option value="Audio">Audio (Noah)</option>
-                    <option value="Video">Video (Frenci)</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Video">Video</option>
                     <option value="Event">Eventplanung</option>
                 </select>
                 <label>NAME</label>
-                <input type="text" id="name" required>
+                <input type="text" id="name" class="interactive" required>
                 <label>PROJEKT</label>
-                <input type="text" id="subject" placeholder="Wähle oben einen Service...">
+                <input type="text" id="subject" class="interactive" placeholder="Wähle oben einen Service...">
                 <label>NACHRICHT</label>
-                <textarea id="message" rows="5"></textarea>
-                <button type="submit" class="submit-btn">ANFRAGE SENDEN</button>
+                <textarea id="message" class="interactive" rows="5"></textarea>
+                <button type="submit" class="submit-btn interactive">ANFRAGE SENDEN</button>
             </form>
         </div>
     </section>
@@ -413,15 +440,13 @@
 
     <script>
         // AGGRESSIVE VIDEO AUTOPLAY
-        // Checks every 500ms if video is paused and forces play
         document.addEventListener('DOMContentLoaded', () => {
             const videos = document.querySelectorAll('video');
             
             const attemptPlay = (video) => {
-                video.muted = true; // Required for autoplay
+                video.muted = true; 
                 video.play().catch(e => {
                     console.log("Autoplay prevented:", e);
-                    // Add touch listener as fallback for mobile
                     document.addEventListener('touchstart', () => video.play(), { once: true });
                     document.addEventListener('click', () => video.play(), { once: true });
                 });
@@ -429,8 +454,6 @@
 
             videos.forEach(video => {
                 attemptPlay(video);
-                
-                // Retry if paused unexpectedly
                 video.addEventListener('pause', () => {
                     if(!video.seeking) attemptPlay(video);
                 });
@@ -454,22 +477,30 @@
             }
         }
 
-        // Desktop Cursor
+        // --- ENHANCED CURSOR LOGIC ---
         if (window.matchMedia("(min-width: 769px)").matches) {
             const cursor = document.querySelector('.cursor');
+            
+            // 1. Follow Mouse
             document.addEventListener('mousemove', (e) => {
                 cursor.style.left = e.clientX + 'px';
                 cursor.style.top = e.clientY + 'px';
             });
+
+            // 2. React to Interactive Elements
+            const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, .interactive');
+            
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+            });
         }
 
-        // Tab System
         function openTab(tabName) {
             document.querySelectorAll('.service-container').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             
-            // Highlight button
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(b => {
                 if(b.textContent.toLowerCase().includes(tabName.toLowerCase()) || 
@@ -480,7 +511,6 @@
             ScrollTrigger.refresh();
         }
 
-        // Form Logic
         function prefill(service) {
             document.getElementById('subject').value = service;
             const dept = document.getElementById('department');
@@ -491,7 +521,6 @@
 
         function updateMailto() { console.log("Routing email..."); }
 
-        // Animations
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(".hero-sub", { opacity: 1, duration: 2, y: 0, ease: "power4.out", delay: 0.5 });
 
