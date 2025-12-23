@@ -165,7 +165,14 @@
             background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(5,5,5,1));
             z-index: 1; 
         }
-        .hero-content { z-index: 2; text-align: center; padding: 0 20px; }
+        .hero-content { 
+            z-index: 2; 
+            text-align: center; 
+            padding: 0 20px;
+            position: absolute;
+            bottom: 50px;
+            width: 100%;
+        }
         
         /* SHIMMER TEXT EFFECT (LIQUID CHROME) */
         .hero-sub {
@@ -404,8 +411,8 @@
             .cursor, .cursor-ring { display: none !important; }
 
             /* MOBILE VIDEO FIX: Contain to show full width */
-            .hero { height: 45vh; min-height: 250px; }
-            .hero-video { object-fit: contain; object-position: center; }
+            .hero { height: 65vh; min-height: 400px; }
+            .hero-video { object-fit: cover; object-position: center; }
             .hero-content { bottom: 10px; }
 
             .video-desktop { display: none; }
@@ -475,7 +482,10 @@
         <header class="hero">
             <div class="video-container">
                 <!-- Using Desktop Video for BOTH now as requested -->
-                <video class="hero-video" autoplay muted loop playsinline preload="auto">
+                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto">
+                    <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
+                </video>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto">
                     <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
                 </video>
             </div>
