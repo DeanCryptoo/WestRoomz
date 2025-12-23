@@ -40,7 +40,7 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: var(--font-body);
-            overflow-x: hidden;
+            overflow-x: hidden; /* Fallback */
             width: 100%;
             -webkit-font-smoothing: antialiased;
             /* BACKGROUND GRID PATTERN */
@@ -49,10 +49,17 @@
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             background-position: center top;
-            background-attachment: fixed; /* Parallax feel for grid */
+            background-attachment: fixed; 
+        }
+        
+        /* PAGE WRAPPER: PREVENTS HORIZONTAL SCROLL FROM ANIMATIONS */
+        .page-wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* --- 1. CINEMATIC VIGNETTE (THE FADE EFFECT) --- */
+        /* --- 1. CINEMATIC VIGNETTE --- */
         .cinematic-vignette {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -66,7 +73,7 @@
             );
         }
 
-        /* --- THE RED THREAD (Timeline) --- */
+        /* --- THE RED THREAD --- */
         .red-thread {
             position: fixed;
             top: 0; left: 50%; width: 1px; height: 100vh;
@@ -105,13 +112,10 @@
             position: fixed; 
             top: 0; 
             left: 0; 
-            right: 0; 
-            width: 100%; /* Ensure full width */
-            max-width: 100vw; /* Prevent overflow */
+            width: 100%;
             padding: 30px 50px;
             display: flex; justify-content: space-between; align-items: center;
             z-index: 100; mix-blend-mode: exclusion; 
-            box-sizing: border-box; /* Include padding in width */
         }
         .nav-logo img { height: 35px; display: block; }
         .nav-links { display: flex; gap: 50px; }
@@ -164,7 +168,6 @@
         }
 
         /* --- GLOBAL CONTENT --- */
-        /* Increased Padding for "Less Busy" feel */
         section {
             padding: 150px 5%; 
             position: relative; 
@@ -183,12 +186,11 @@
         /* --- ABOUT --- */
         .sidefacts {
             display: grid; grid-template-columns: 1fr 1fr;
-            /* Balanced gap - increased slightly */
-            gap: 60px; 
+            /* Increased gap for desktop spacing */
+            gap: 80px; 
             align-items: center;
         }
         
-        /* ALIGN IMAGE RIGHT to close gap with text */
         .intro-img {
             display: flex;
             justify-content: flex-end; 
@@ -200,9 +202,8 @@
         }
         .intro-text strong { color: white; border-bottom: 1px solid var(--primary); padding-bottom: 2px; }
 
-        /* --- TEAM SECTION (REMOVED GRADIENT) --- */
+        /* --- TEAM SECTION --- */
         .team-section { 
-            /* Gradient removed for clean look */
             background: transparent;
         }
         
@@ -216,7 +217,6 @@
             border: 1px solid var(--border);
             padding: 40px 20px; text-align: center;
             transition: 0.3s; position: relative; overflow: hidden;
-            /* Ensure opacity starts at 1 so if JS fails content is visible, GSAP handles hide */
         }
 
         .team-card:hover {
@@ -269,7 +269,6 @@
             background: var(--surface); padding: 40px; 
             border: 1px solid var(--border); border-left: 3px solid transparent;
             position: relative; overflow: hidden;
-            /* Transition handled by GSAP, hover by CSS */
             transition: transform 0.3s, border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
         }
         .service-card:hover {
@@ -334,22 +333,19 @@
             html, body, a, button, input, select, textarea { cursor: auto !important; }
             .cursor, .cursor-ring { display: none !important; }
 
-            .hero { height: 85vh; min-height: 500px; }
+            .hero { height: 65vh; min-height: 400px; }
             .hero-content { bottom: 30px; }
 
             .video-desktop { display: none; }
             .video-mobile { display: block; }
 
-            /* Massive padding for mobile too to maintain the "Vibe" and push text down */
             .sidefacts { 
                 display: flex; flex-direction: column-reverse;
-                /* Increased gap to create more separation */
-                gap: 60px; 
+                gap: 20px; 
                 padding: 150px 5% 100px 5%;
             }
-            .intro-text p { margin-bottom: 10px; } /* Tighter paragraph spacing */
+            .intro-text p { margin-bottom: 10px; }
             
-            /* Center image on mobile */
             .intro-img { justify-content: center; }
             .intro-img img { max-width: 150px; margin: 0 auto; margin-top: 10px; }
 
@@ -400,198 +396,201 @@
         <a href="#contact" onclick="toggleMenu()">KONTAKT</a>
     </div>
 
-    <!-- HERO -->
-    <header class="hero">
-        <div class="video-container">
-            <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto">
-                <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
-            </video>
-            <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto">
-                <source src="WEST_ROOMZ_INTRO-PHONE.mp4" type="video/mp4">
-            </video>
-        </div>
-
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <p class="hero-sub">UNERREICHTE QUALITÄT</p>
-        </div>
-    </header>
-
-    <!-- ABOUT -->
-    <section id="about" class="sidefacts">
-        <div class="intro-img">
-            <img src="logo.jpg" alt="Westroomz Badge">
-        </div>
-        <div class="intro-text">
-            <h2 class="section-title">DAS STUDIO</h2>
-            <p>Wir sind eine High-End-Produktionsfirma. Wir machen Musik, nehmen Künstler auf und prägen die Kultur seit 6 Jahren.</p> 
-            <p>Unsere Qualität ist <strong>UNERREICHT</strong>. Unser Equipment ist Top-Tier. Sound Engineering, Visuals und Eventproduktion – wir machen alles.</p>
-            <p>Vom Leidenschaftsprojekt zum professionellen Powerhouse. Ob Mixing/Mastering oder komplette Videoproduktion, wir erwecken die Vision zum Leben.</p>
-        </div>
-    </section>
-
-    <!-- TEAM SECTION -->
-    <section id="team" class="team-section">
-        <div style="text-align: center; margin-bottom: 50px;">
-            <h2 class="section-title">DAS TEAM</h2>
-        </div>
-        <div class="team-grid">
-            <!-- Adnan -->
-            <div class="team-card interactive">
-                <div class="team-avatar">A</div>
-                <h3 class="team-name">ADNAN</h3>
-                <p class="team-role">Management</p>
+    <!-- WRAPPER TO PREVENT HORIZONTAL SCROLL -->
+    <main class="page-wrapper">
+        <!-- HERO -->
+        <header class="hero">
+            <div class="video-container">
+                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto">
+                    <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
+                </video>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto">
+                    <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
+                </video>
             </div>
-            <!-- Noah -->
-            <div class="team-card interactive">
-                <div class="team-avatar">N</div>
-                <h3 class="team-name">NOAH</h3>
-                <p class="team-role">Head of Audio</p>
-            </div>
-            <!-- Frenci -->
-            <div class="team-card interactive">
-                <div class="team-avatar">F</div>
-                <h3 class="team-name">FRENCI</h3>
-                <p class="team-role">Head of Video</p>
-            </div>
-            <!-- Events Placeholder -->
-            <div class="team-card interactive">
-                <div class="team-avatar">E</div>
-                <h3 class="team-name">EVENTS</h3>
-                <p class="team-role">Event Planning</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- SERVICES -->
-    <section id="services" class="services-section">
-        <div style="text-align: center; margin-bottom: 50px;">
-            <h2 class="section-title">WAS WIR TUN</h2>
-        </div>
-        
-        <div class="tabs-nav">
-            <button class="tab-btn active interactive" onclick="openTab('audio')">AUDIO</button>
-            <button class="tab-btn interactive" onclick="openTab('video')">VIDEO</button>
-            <button class="tab-btn interactive" onclick="openTab('event')">EVENTS</button>
-        </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <p class="hero-sub">UNERREICHTE QUALITÄT</p>
+            </div>
+        </header>
 
-        <div id="audio" class="service-container active">
-            <div class="service-grid">
-                <div class="service-card interactive">
-                    <h3>MUSIK</h3>
-                    <ul class="service-list">
-                        <li>Recording</li><li>Mixing</li><li>Mastering</li>
-                        <li>Beatproduction</li><li>Vocal Production</li><li>Writing</li>
-                    </ul>
-                    <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Musik')">PROJEKTANFRAGE</a>
+        <!-- ABOUT -->
+        <section id="about" class="sidefacts">
+            <div class="intro-img">
+                <img src="logo.jpg" alt="Westroomz Badge">
+            </div>
+            <div class="intro-text">
+                <h2 class="section-title">DAS STUDIO</h2>
+                <p>Wir sind eine High-End-Produktionsfirma. Wir machen Musik, nehmen Künstler auf und prägen die Kultur seit 6 Jahren.</p> 
+                <p>Unsere Qualität ist <strong>UNERREICHT</strong>. Unser Equipment ist Top-Tier. Sound Engineering, Visuals und Eventproduktion – wir machen alles.</p>
+                <p>Vom Leidenschaftsprojekt zum professionellen Powerhouse. Ob Mixing/Mastering oder komplette Videoproduktion, wir erwecken die Vision zum Leben.</p>
+            </div>
+        </section>
+
+        <!-- TEAM SECTION -->
+        <section id="team" class="team-section">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 class="section-title">DAS TEAM</h2>
+            </div>
+            <div class="team-grid">
+                <!-- Adnan -->
+                <div class="team-card interactive">
+                    <div class="team-avatar">A</div>
+                    <h3 class="team-name">ADNAN</h3>
+                    <p class="team-role">Management</p>
                 </div>
-                <div class="service-card interactive">
-                    <h3>FILM & WERBUNG</h3>
-                    <ul class="service-list">
-                        <li>Head of Audio (Projektleitung)</li><li>Sounddesign</li>
-                        <li>Voice Recording (Synchron)</li><li>Mixing & Mastering</li>
-                        <li>Setaufnahmen</li>
-                    </ul>
-                    <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Film & Werbung')">PROJEKTANFRAGE</a>
+                <!-- Noah -->
+                <div class="team-card interactive">
+                    <div class="team-avatar">N</div>
+                    <h3 class="team-name">NOAH</h3>
+                    <p class="team-role">Head of Audio</p>
                 </div>
-                <div class="service-card interactive">
-                    <h3>PODCAST</h3>
-                    <ul class="service-list">
-                        <li>Podcast Recording</li><li>Schnitt (Postproduktion)</li>
-                        <li>Setups</li><li>Audio + Video Integration</li>
-                    </ul>
-                    <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Podcast')">PROJEKTANFRAGE</a>
+                <!-- Frenci -->
+                <div class="team-card interactive">
+                    <div class="team-avatar">F</div>
+                    <h3 class="team-name">FRENCI</h3>
+                    <p class="team-role">Head of Video</p>
+                </div>
+                <!-- Events Placeholder -->
+                <div class="team-card interactive">
+                    <div class="team-avatar">E</div>
+                    <h3 class="team-name">EVENTS</h3>
+                    <p class="team-role">Event Planning</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="video" class="service-container">
-            <div class="service-grid">
-                <div class="service-card interactive">
-                    <h3>MUSIKVIDEOS</h3>
-                    <ul class="service-list">
-                        <li>Musikvideos</li><li>Artist Visuals</li><li>Performance Videos</li>
-                    </ul>
-                    <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Musik')">PROJEKTANFRAGE</a>
-                </div>
-                <div class="service-card interactive">
-                    <h3>WERBUNG</h3>
-                    <ul class="service-list">
-                        <li>Werbedrehs</li><li>Imagefilm</li><li>Produktvideos</li>
-                        <li>Produktfotos</li><li>Fotografie</li>
-                    </ul>
-                    <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Werbung')">PROJEKTANFRAGE</a>
-                </div>
-                <div class="service-card interactive">
-                    <h3>CONTENT & STUDIO</h3>
-                    <ul class="service-list">
-                        <li>Social Media Content</li><li>Studio-Location Shootings</li><li>Video Podcast</li>
-                    </ul>
-                    <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Content')">PROJEKTANFRAGE</a>
+        <!-- SERVICES -->
+        <section id="services" class="services-section">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 class="section-title">WAS WIR TUN</h2>
+            </div>
+            
+            <div class="tabs-nav">
+                <button class="tab-btn active interactive" onclick="openTab('audio')">AUDIO</button>
+                <button class="tab-btn interactive" onclick="openTab('video')">VIDEO</button>
+                <button class="tab-btn interactive" onclick="openTab('event')">EVENTS</button>
+            </div>
+
+            <div id="audio" class="service-container active">
+                <div class="service-grid">
+                    <div class="service-card interactive">
+                        <h3>MUSIK</h3>
+                        <ul class="service-list">
+                            <li>Recording</li><li>Mixing</li><li>Mastering</li>
+                            <li>Beatproduction</li><li>Vocal Production</li><li>Writing</li>
+                        </ul>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Musik')">PROJEKTANFRAGE</a>
+                    </div>
+                    <div class="service-card interactive">
+                        <h3>FILM & WERBUNG</h3>
+                        <ul class="service-list">
+                            <li>Head of Audio (Projektleitung)</li><li>Sounddesign</li>
+                            <li>Voice Recording (Synchron)</li><li>Mixing & Mastering</li>
+                            <li>Setaufnahmen</li>
+                        </ul>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Film & Werbung')">PROJEKTANFRAGE</a>
+                    </div>
+                    <div class="service-card interactive">
+                        <h3>PODCAST</h3>
+                        <ul class="service-list">
+                            <li>Podcast Recording</li><li>Schnitt (Postproduktion)</li>
+                            <li>Setups</li><li>Audio + Video Integration</li>
+                        </ul>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Podcast')">PROJEKTANFRAGE</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="event" class="service-container">
-            <div class="service-grid">
-                <div class="service-card interactive">
-                    <h3>PLANUNG</h3>
-                    <ul class="service-list">
-                        <li>Eventplanung</li><li>Ablauf u. Koordination</li><li>Konzepte</li>
-                    </ul>
-                    <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Planung')">PROJEKTANFRAGE</a>
-                </div>
-                <div class="service-card interactive">
-                    <h3>PRODUKTION</h3>
-                    <ul class="service-list">
-                        <li>Event-Audio</li><li>Event-Video</li><li>Event-Fotografie</li><li>DJ Services</li>
-                    </ul>
-                    <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Produktion')">PROJEKTANFRAGE</a>
-                </div>
-                <div class="service-card interactive">
-                    <h3>BRANDS & CONTENT</h3>
-                    <ul class="service-list">
-                        <li>Eventcontent</li><li>Aftermovies</li><li>Social Clips</li>
-                    </ul>
-                    <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Content')">PROJEKTANFRAGE</a>
+            <div id="video" class="service-container">
+                <div class="service-grid">
+                    <div class="service-card interactive">
+                        <h3>MUSIKVIDEOS</h3>
+                        <ul class="service-list">
+                            <li>Musikvideos</li><li>Artist Visuals</li><li>Performance Videos</li>
+                        </ul>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Musik')">PROJEKTANFRAGE</a>
+                    </div>
+                    <div class="service-card interactive">
+                        <h3>WERBUNG</h3>
+                        <ul class="service-list">
+                            <li>Werbedrehs</li><li>Imagefilm</li><li>Produktvideos</li>
+                            <li>Produktfotos</li><li>Fotografie</li>
+                        </ul>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Werbung')">PROJEKTANFRAGE</a>
+                    </div>
+                    <div class="service-card interactive">
+                        <h3>CONTENT & STUDIO</h3>
+                        <ul class="service-list">
+                            <li>Social Media Content</li><li>Studio-Location Shootings</li><li>Video Podcast</li>
+                        </ul>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Content')">PROJEKTANFRAGE</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact-section">
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h2 class="section-title">KONTAKT</h2>
-                <p style="color: #888; margin-bottom: 20px;">Bereit für den nächsten Schritt? Fülle das Formular aus. Wir sind reaktiv.</p>
-                <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
-                    <p>STRAUSS.DE | INFO@STRAUSS.DE</p>
-                    <p>TEL. 06050 97 10 12</p>
+            <div id="event" class="service-container">
+                <div class="service-grid">
+                    <div class="service-card interactive">
+                        <h3>PLANUNG</h3>
+                        <ul class="service-list">
+                            <li>Eventplanung</li><li>Ablauf u. Koordination</li><li>Konzepte</li>
+                        </ul>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Planung')">PROJEKTANFRAGE</a>
+                    </div>
+                    <div class="service-card interactive">
+                        <h3>PRODUKTION</h3>
+                        <ul class="service-list">
+                            <li>Event-Audio</li><li>Event-Video</li><li>Event-Fotografie</li><li>DJ Services</li>
+                        </ul>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Produktion')">PROJEKTANFRAGE</a>
+                    </div>
+                    <div class="service-card interactive">
+                        <h3>BRANDS & CONTENT</h3>
+                        <ul class="service-list">
+                            <li>Eventcontent</li><li>Aftermovies</li><li>Social Clips</li>
+                        </ul>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Content')">PROJEKTANFRAGE</a>
+                    </div>
                 </div>
             </div>
-            <form class="contact-form" action="#" method="POST">
-                <label>ABTEILUNG</label>
-                <select id="department" class="interactive" onchange="updateMailto()">
-                    <option value="General">Allgemeine Anfrage</option>
-                    <option value="Audio">Audio</option>
-                    <option value="Video">Video</option>
-                    <option value="Event">Eventplanung</option>
-                </select>
-                <label>NAME</label>
-                <input type="text" id="name" class="interactive" required>
-                <label>PROJEKT</label>
-                <input type="text" id="subject" class="interactive" placeholder="Wähle oben einen Service...">
-                <label>NACHRICHT</label>
-                <textarea id="message" class="interactive" rows="5"></textarea>
-                <button type="submit" class="submit-btn interactive">ANFRAGE SENDEN</button>
-            </form>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        <p>&copy; 2025 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
-    </footer>
+        <!-- CONTACT -->
+        <section id="contact" class="contact-section">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2 class="section-title">KONTAKT</h2>
+                    <p style="color: #888; margin-bottom: 20px;">Bereit für den nächsten Schritt? Fülle das Formular aus. Wir sind reaktiv.</p>
+                    <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
+                        <p>STRAUSS.DE | INFO@STRAUSS.DE</p>
+                        <p>TEL. 06050 97 10 12</p>
+                    </div>
+                </div>
+                <form class="contact-form" action="#" method="POST">
+                    <label>ABTEILUNG</label>
+                    <select id="department" class="interactive" onchange="updateMailto()">
+                        <option value="General">Allgemeine Anfrage</option>
+                        <option value="Audio">Audio</option>
+                        <option value="Video">Video</option>
+                        <option value="Event">Eventplanung</option>
+                    </select>
+                    <label>NAME</label>
+                    <input type="text" id="name" class="interactive" required>
+                    <label>PROJEKT</label>
+                    <input type="text" id="subject" class="interactive" placeholder="Wähle oben einen Service...">
+                    <label>NACHRICHT</label>
+                    <textarea id="message" class="interactive" rows="5"></textarea>
+                    <button type="submit" class="submit-btn interactive">ANFRAGE SENDEN</button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
+        </footer>
+    </main>
 
     <script>
         // VIDEO FORCE PLAY
