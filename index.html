@@ -10,7 +10,7 @@
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -21,8 +21,8 @@
             --primary: #990000; /* Deep Red */
             --accent: #ff0000; /* Bright Neon Red */
             --bg: #050505;
-            --surface: #121212;
-            --border: rgba(255, 255, 255, 0.12);
+            --surface: rgba(30, 30, 30, 0.6); /* Glassy Surface */
+            --border: rgba(255, 255, 255, 0.12); /* Visible Technical Border */
             --text: #ffffff;
             --text-muted: #aaaaaa;
             --font-head: 'Oswald', sans-serif;
@@ -49,6 +49,21 @@
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             background-position: center top;
+            background-attachment: fixed; /* Parallax feel for grid */
+        }
+
+        /* --- 1. CINEMATIC VIGNETTE (THE FADE EFFECT) --- */
+        .cinematic-vignette {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; 
+            z-index: 90; 
+            background: linear-gradient(to bottom, 
+                rgba(5,5,5,1) 0%, 
+                rgba(5,5,5,0) 15%, 
+                rgba(5,5,5,0) 85%, 
+                rgba(5,5,5,1) 100%
+            );
         }
 
         /* --- THE RED THREAD (Timeline) --- */
@@ -62,11 +77,11 @@
         /* --- UPGRADED CURSOR --- */
         .cursor {
             width: 12px; height: 12px;
-            background: var(--accent);
+            background: var(--accent); /* Solid Red Dot */
             border-radius: 50%;
             position: fixed; pointer-events: none; z-index: 9999;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px var(--accent);
+            box-shadow: 0 0 10px var(--accent); /* Constant Glow */
             transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
         }
         .cursor-ring {
@@ -130,28 +145,25 @@
             width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
         }
         .video-mobile { display: none; }
-        
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(5,5,5,1));
             z-index: 1; 
         }
-        
-        /* Positioned at bottom to not block video center */
-        .hero-content { 
-            z-index: 2; 
-            text-align: center; 
-            position: absolute;
-            bottom: 50px;
-            width: 100%;
-            padding: 0 20px; 
-        }
+        .hero-content { z-index: 2; text-align: center; padding: 0 20px; }
         .hero-sub {
             font-size: 1.2rem; letter-spacing: 8px; font-family: var(--font-head);
             font-weight: 300; color: white; text-transform: uppercase; opacity: 0;
         }
 
         /* --- GLOBAL CONTENT --- */
+        /* Increased Padding for "Less Busy" feel */
+        section {
+            padding: 150px 5%; 
+            position: relative; 
+            z-index: 2; 
+        }
+
         .section-title {
             font-size: 4rem; margin-bottom: 2rem; position: relative; display: inline-block;
         }
@@ -163,8 +175,10 @@
 
         /* --- ABOUT --- */
         .sidefacts {
-            padding: 100px 10%; display: grid; grid-template-columns: 1fr 1fr;
-            gap: 80px; align-items: center; position: relative; z-index: 2;
+            display: grid; grid-template-columns: 1fr 1fr;
+            /* Reduced gap to bring image and text closer */
+            gap: 40px; 
+            align-items: center;
         }
         .intro-img img { width: 100%; max-width: 400px; border-radius: 2px; display: block; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .intro-text p {
@@ -172,13 +186,15 @@
         }
         .intro-text strong { color: white; border-bottom: 1px solid var(--primary); padding-bottom: 2px; }
 
-        /* --- TEAM SECTION --- */
-        .team-section { padding: 50px 10%; position: relative; z-index: 2; }
+        /* --- TEAM SECTION (REMOVED GRADIENT) --- */
+        .team-section { 
+            /* Gradient removed for clean look */
+            background: transparent;
+        }
         
         .team-grid {
-            /* Responsive grid: fits 4 items neatly */
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
-            gap: 30px; margin-top: 50px;
+            gap: 40px; margin-top: 50px;
         }
 
         .team-card {
@@ -186,6 +202,7 @@
             border: 1px solid var(--border);
             padding: 40px 20px; text-align: center;
             transition: 0.3s; position: relative; overflow: hidden;
+            /* Ensure opacity starts at 1 so if JS fails content is visible, GSAP handles hide */
         }
 
         .team-card:hover {
@@ -212,8 +229,6 @@
         .team-role { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- SERVICES --- */
-        .services-section { padding: 50px 5%; min-height: 100vh; position: relative; z-index: 2; }
-        
         .tabs-nav {
             display: flex; justify-content: center; gap: 20px; margin-bottom: 60px; flex-wrap: wrap;
         }
@@ -229,9 +244,8 @@
         }
         .tab-btn:hover { border-color: var(--accent); color: white; }
 
-        .service-container { display: none; animation: fadeIn 0.5s ease; }
+        .service-container { display: none; }
         .service-container.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .service-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
@@ -240,7 +254,9 @@
         .service-card {
             background: var(--surface); padding: 40px; 
             border: 1px solid var(--border); border-left: 3px solid transparent;
-            transition: 0.3s; position: relative; overflow: hidden;
+            position: relative; overflow: hidden;
+            /* Transition handled by GSAP, hover by CSS */
+            transition: transform 0.3s, border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
         }
         .service-card:hover {
             border-color: rgba(255, 0, 0, 0.3); border-left-color: var(--accent);
@@ -268,10 +284,10 @@
 
         /* --- CONTACT --- */
         .contact-section { 
-            background: #000; padding: 100px 10%; margin-top: 100px; 
+            background: #000; padding: 150px 10%; 
             border-top: 1px solid var(--border); position: relative; z-index: 2; 
         }
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; }
         .contact-form label { display: block; margin-bottom: 10px; font-family: var(--font-head); color: var(--text-muted); letter-spacing: 1px; }
         
         .contact-form input, .contact-form select, .contact-form textarea {
@@ -304,20 +320,24 @@
             html, body, a, button, input, select, textarea { cursor: auto !important; }
             .cursor, .cursor-ring { display: none !important; }
 
-            /* VIDEO FIX: 65vh Height allows centering without excessive zoom */
-            .hero { height: 65vh; min-height: 400px; }
-            .hero-content { bottom: 30px; } /* Ensure text is low */
+            .hero { height: 85vh; min-height: 500px; }
+            .hero-content { bottom: 30px; }
 
             .video-desktop { display: none; }
             .video-mobile { display: block; }
 
+            /* Massive padding for mobile too to maintain the "Vibe" and push text down */
             .sidefacts { 
                 display: flex; flex-direction: column-reverse;
-                gap: 40px; padding: 120px 5% 60px 5%;
+                /* Reduced gap closer on mobile too */
+                gap: 20px; 
+                padding: 150px 5% 100px 5%;
             }
-            .intro-img img { max-width: 150px; margin: 0 auto; margin-top: 30px; }
+            .intro-text p { margin-bottom: 10px; } /* Tighter paragraph spacing */
+            
+            .intro-img img { max-width: 150px; margin: 0 auto; margin-top: 10px; }
 
-            .services-section, .contact-section, .team-section { padding: 60px 5%; }
+            .services-section, .contact-section, .team-section { padding: 100px 5%; }
             .contact-grid { grid-template-columns: 1fr; gap: 40px; }
             .team-grid { grid-template-columns: 1fr; gap: 30px; }
 
@@ -337,12 +357,12 @@
 </head>
 <body>
 
-    <!-- CUSTOM CURSOR -->
+    <!-- VISUAL EFFECTS -->
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
-    
-    <!-- BACKGROUND LINE -->
     <div class="red-thread"></div>
+    <!-- THE FADE OVERLAY -->
+    <div class="cinematic-vignette"></div>
 
     <nav>
         <div class="nav-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
@@ -396,7 +416,9 @@
 
     <!-- TEAM SECTION -->
     <section id="team" class="team-section">
-        <h2 class="section-title">DAS TEAM</h2>
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h2 class="section-title">DAS TEAM</h2>
+        </div>
         <div class="team-grid">
             <!-- Adnan -->
             <div class="team-card interactive">
@@ -427,7 +449,9 @@
 
     <!-- SERVICES -->
     <section id="services" class="services-section">
-        <h2 class="section-title" style="margin-bottom: 50px; text-align: center; width: 100%;">WAS WIR TUN</h2>
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h2 class="section-title">WAS WIR TUN</h2>
+        </div>
         
         <div class="tabs-nav">
             <button class="tab-btn active interactive" onclick="openTab('audio')">AUDIO</button>
@@ -609,7 +633,15 @@
             });
         }
 
-        // TABS
+        // --- FIXED TABS & ANIMATIONS ---
+        function animateTabCards(containerId) {
+            const cards = document.querySelectorAll(`#${containerId} .service-card`);
+            gsap.fromTo(cards, 
+                { y: 30, opacity: 0, autoAlpha: 0 },
+                { y: 0, opacity: 1, autoAlpha: 1, duration: 0.5, stagger: 0.1, ease: "power3.out", overwrite: true }
+            );
+        }
+
         function openTab(tabName) {
             document.querySelectorAll('.service-container').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -622,6 +654,9 @@
                     b.classList.add('active');
                 }
             });
+            
+            // Trigger Animation for new tab
+            animateTabCards(tabName);
             ScrollTrigger.refresh();
         }
 
@@ -636,30 +671,82 @@
 
         function updateMailto() { console.log("Routing email..."); }
 
-        // ANIMATIONS
+        // ANIMATIONS WITH GSAP SCROLLTRIGGER
         gsap.registerPlugin(ScrollTrigger);
+        
+        // Hero Text
         gsap.to(".hero-sub", { opacity: 1, duration: 2, y: 0, ease: "power4.out", delay: 0.5 });
 
+        // Section Titles - Added toggleActions for replay
         gsap.utils.toArray('.section-title').forEach(title => {
             gsap.from(title, {
-                scrollTrigger: { trigger: title, start: "top 80%" },
+                scrollTrigger: { 
+                    trigger: title, 
+                    start: "top 90%",
+                    toggleActions: "play reverse play reverse" // Re-plays on enter
+                },
                 y: 50, opacity: 0, duration: 1, ease: "power3.out"
             });
         });
 
-        gsap.utils.toArray('.service-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: { trigger: card, start: "top 85%" },
-                y: 50, opacity: 0, duration: 0.8, delay: i * 0.1, ease: "power3.out"
-            });
+        // About Content
+        gsap.from(".intro-text", {
+            scrollTrigger: { 
+                trigger: ".intro-text", 
+                start: "top 90%",
+                toggleActions: "play reverse play reverse"
+            },
+            x: 50, opacity: 0, duration: 1, ease: "power3.out"
         });
-        
-        gsap.utils.toArray('.team-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: { trigger: card, start: "top 85%" },
-                y: 30, opacity: 0, duration: 0.6, delay: i * 0.1, ease: "power3.out"
-            });
+        gsap.from(".intro-img", {
+            scrollTrigger: { 
+                trigger: ".intro-img", 
+                start: "top 90%",
+                toggleActions: "play reverse play reverse"
+            },
+            x: -50, opacity: 0, duration: 1, ease: "power3.out"
         });
+
+        // Team Cards (Staggered) - USING AUTOALPHA
+        gsap.fromTo(".team-card", 
+            { y: 50, autoAlpha: 0 },
+            {
+                y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.1, ease: "power3.out",
+                scrollTrigger: { 
+                    trigger: ".team-grid", 
+                    start: "top 90%",
+                    toggleActions: "play reverse play reverse"
+                }
+            }
+        );
+
+        // Initial Service Cards (Audio Tab) - Trigger on scroll
+        ScrollTrigger.create({
+            trigger: "#services",
+            start: "top 75%",
+            onEnter: () => animateTabCards('audio'),
+            onEnterBack: () => animateTabCards('audio'), // Re-play on scroll up
+            once: false // Allow repeat
+        });
+
+        // Contact Section
+        gsap.from(".contact-info", {
+            scrollTrigger: { 
+                trigger: ".contact-grid", 
+                start: "top 90%",
+                toggleActions: "play reverse play reverse"
+            },
+            x: -30, opacity: 0, duration: 1, ease: "power3.out"
+        });
+        gsap.from(".contact-form", {
+            scrollTrigger: { 
+                trigger: ".contact-grid", 
+                start: "top 90%",
+                toggleActions: "play reverse play reverse"
+            },
+            x: 30, opacity: 0, duration: 1, delay: 0.2, ease: "power3.out"
+        });
+
     </script>
 </body>
 </html>
