@@ -27,6 +27,7 @@
             --text-muted: #aaaaaa;
             --font-head: 'Oswald', sans-serif;
             --font-body: 'Inter', sans-serif;
+            --sidebar-width: 300px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -43,19 +44,19 @@
             overflow-x: hidden;
             width: 100%;
             -webkit-font-smoothing: antialiased;
-            /* BACKGROUND GRID PATTERN (ANIMATED) */
+            /* BACKGROUND GRID PATTERN */
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             background-position: center top;
             background-attachment: fixed; 
-            animation: gridScroll 20s linear infinite;
         }
-
-        @keyframes gridScroll {
-            0% { background-position: center 0px; }
-            100% { background-position: center 50px; }
+        
+        .page-wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
         }
 
         /* --- 1. CINEMATIC VIGNETTE --- */
@@ -63,7 +64,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; 
-            z-index: 90; 
+            z-index: 80; 
             background: linear-gradient(to bottom, 
                 rgba(5,5,5,1) 0%, 
                 rgba(5,5,5,0) 15%, 
@@ -108,43 +109,72 @@
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
         }
 
-        /* --- NAV --- */
-        nav {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            width: auto; 
-            padding: 30px 50px;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 100; mix-blend-mode: exclusion; 
-            box-sizing: border-box; 
+        /* --- SIDE NAVIGATION --- */
+        .menu-toggle-btn {
+            position: fixed;
+            top: 30px; left: 30px;
+            z-index: 200;
+            display: flex; flex-direction: column; gap: 6px;
+            cursor: pointer;
+            mix-blend-mode: exclusion;
         }
-        .nav-logo img { height: 35px; display: block; }
-        .nav-links { display: flex; gap: 50px; }
-        .nav-links a {
-            color: white; text-decoration: none; font-family: var(--font-head);
-            font-weight: 400; text-transform: uppercase; font-size: 1rem;
-            letter-spacing: 1px; position: relative;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 0%;
-            height: 1px; background: white; transition: 0.3s ease;
-        }
-        .nav-links a:hover::after { width: 100%; }
+        .bar { width: 35px; height: 3px; background-color: white; transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
 
-        .mobile-menu-btn { display: none; flex-direction: column; gap: 6px; pointer-events: auto; }
-        .bar { width: 30px; height: 2px; background-color: white; transition: 0.3s; }
+        /* Rotate bars on open */
+        .menu-toggle-btn.open .bar:nth-child(1) { transform: rotate(45deg) translate(8px, 6px); }
+        .menu-toggle-btn.open .bar:nth-child(2) { opacity: 0; }
+        .menu-toggle-btn.open .bar:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
 
-        .mobile-nav-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: #000; z-index: 99;
+        /* Side Menu Container */
+        .side-menu {
+            position: fixed;
+            top: 0; left: 0;
+            width: var(--sidebar-width); height: 100vh;
+            background: #080808;
+            border-right: 1px solid var(--border);
+            z-index: 150;
+            transform: translateX(-100%);
+            transition: transform 0.5s cubic-bezier(0.7,0,0.3,1);
             display: flex; flex-direction: column;
-            justify-content: center; align-items: center; gap: 40px;
-            transform: translateY(-100%); transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+            padding: 100px 40px 40px 40px;
+            overflow-y: auto; /* Fix for overflow content */
         }
-        .mobile-nav-overlay.active { transform: translateY(0); }
-        .mobile-nav-overlay a { font-family: var(--font-head); font-size: 2rem; color: white; text-decoration: none; }
+        .side-menu.active { transform: translateX(0); }
+
+        .side-logo { margin-bottom: 50px; width: 100%; max-width: 150px; }
+        .side-logo img { width: 100%; display: block; }
+
+        .menu-links {
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .menu-link {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            position: relative;
+            padding-left: 0;
+            display: block;
+        }
+        .menu-link:hover { color: white; padding-left: 15px; }
+        .menu-link::before {
+            content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+            width: 0; height: 2px; background: var(--accent); transition: 0.3s;
+        }
+        .menu-link:hover::before { width: 10px; }
+
+        /* Overlay to close menu when clicking outside */
+        .menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 140;
+            opacity: 0; pointer-events: none; transition: 0.5s;
+            backdrop-filter: blur(5px);
+        }
+        .menu-overlay.active { opacity: 1; pointer-events: auto; }
+
 
         /* --- HERO --- */
         .hero {
@@ -186,9 +216,7 @@
         }
 
         @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
+            to { background-position: 200% center; }
         }
 
         /* --- GLOBAL CONTENT --- */
@@ -225,6 +253,39 @@
         }
         .intro-text strong { color: white; border-bottom: 1px solid var(--primary); padding-bottom: 2px; }
 
+        /* --- PHOTO MARQUEE (UPDATED) --- */
+        .photo-marquee {
+            width: 100%; overflow: hidden; 
+            /* Moved further down */
+            margin-top: 50px; margin-bottom: 100px;
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            padding: 40px 0; /* Larger padding for nicer frame */
+            background: #080808;
+        }
+        .photo-track {
+            display: flex; gap: 40px; /* Increased gap */
+            animation: scrollPhotos 20s linear infinite; /* FASTER ANIMATION */
+        }
+        .photo-item {
+            flex-shrink: 0; 
+            /* Bigger Dimensions */
+            width: 500px; height: 350px;
+            background-color: #1a1a1a;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+        }
+        .photo-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: grayscale(100%);
+        }
+        .photo-item:hover img { transform: scale(1.1); filter: grayscale(0%); }
+
+        @keyframes scrollPhotos {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Scoll half because of duplicate set */
+        }
+
+
         /* --- TEAM SECTION --- */
         .team-section { background: transparent; }
         .team-grid {
@@ -248,6 +309,8 @@
             display: flex; align-items: center; justify-content: center;
             font-family: var(--font-head); font-size: 2.5rem; color: #333;
             transition: 0.3s;
+            /* Placeholder Background Image Prop */
+            background-size: cover; background-position: center;
         }
 
         /* TRUE FOCUS LOGIC */
@@ -361,6 +424,43 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
         }
 
+        /* --- REFERENCES (NEW SECTION) --- */
+        .marquee-wrapper {
+            width: 100%; overflow: hidden; white-space: nowrap; position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            padding: 20px 0;
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+        }
+        .marquee-content {
+            display: inline-flex; gap: 80px; animation: marquee 30s linear infinite;
+        }
+        .ref-logo {
+            font-family: var(--font-head); font-size: 3rem; color: rgba(255,255,255,0.2);
+            text-transform: uppercase;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- VISUAL BREAK SLIDE --- */
+        .visual-break {
+            height: 400px; width: 100%;
+            background-image: url('8.jpeg'); /* Placeholder */
+            background-size: cover; background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .visual-break::after {
+            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.5);
+        }
+        .visual-break h2 { 
+            position: relative; z-index: 2; font-size: 5rem; 
+            -webkit-text-stroke: 1px white; color: transparent; 
+        }
+
         /* --- CONTACT --- */
         .contact-section { 
             background: #000; padding: 150px 10%; 
@@ -410,9 +510,9 @@
             html, body, a, button, input, select, textarea { cursor: auto !important; }
             .cursor, .cursor-ring { display: none !important; }
 
-            /* MOBILE VIDEO FIX: Contain to show full width */
-            .hero { height: 65vh; min-height: 400px; }
-            .hero-video { object-fit: cover; object-position: center; }
+            /* MOBILE VIDEO FIX: 75% height + COVER for immersive view */
+            .hero { height: 75vh; min-height: 500px; }
+            .hero-video { object-fit: cover; object-position: center; } 
             .hero-content { bottom: 10px; }
 
             .video-desktop { display: none; }
@@ -427,8 +527,11 @@
             
             .intro-img { justify-content: center; }
             .intro-img img { max-width: 150px; margin: 0 auto; margin-top: 10px; }
+            
+            /* Photo slide items smaller on mobile */
+            .photo-item { width: 300px; height: 200px; }
 
-            .services-section, .contact-section, .team-section { padding: 100px 5%; }
+            .services-section, .contact-section, .team-section { padding: 50px 5%; }
             .contact-grid { grid-template-columns: 1fr; gap: 40px; }
             .team-grid { grid-template-columns: 1fr; gap: 30px; }
 
@@ -439,11 +542,16 @@
             .section-title { font-size: 3rem; }
             .section-title::after { right: -10px; }
             
+            /* Visual Break Title on Mobile */
+            .visual-break h2 { font-size: 12vw; }
+
             .hero-sub { font-size: 1rem; letter-spacing: 3px; }
             .tab-btn { padding: 10px 20px; font-size: 1.1rem; flex: 1 1 auto; text-align: center; }
             .service-grid { grid-template-columns: 1fr; }
             .service-card { padding: 30px; }
             .red-thread { display: none; }
+            
+            .side-menu { width: 100%; } /* Full width menu on mobile */
         }
     </style>
 </head>
@@ -456,35 +564,45 @@
     <!-- THE FADE OVERLAY -->
     <div class="cinematic-vignette"></div>
 
-    <nav>
-        <div class="nav-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
-        <div class="nav-links">
-            <a href="#about" class="interactive">STUDIO</a>
-            <a href="#team" class="interactive">TEAM</a>
-            <a href="#services" class="interactive">SERVICES</a>
-            <a href="#contact" class="interactive">KONTAKT</a>
-        </div>
-        <div class="mobile-menu-btn interactive" onclick="toggleMenu()">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-        </div>
-    </nav>
-
-    <div class="mobile-nav-overlay">
-        <a href="#about" onclick="toggleMenu()">STUDIO</a>
-        <a href="#team" onclick="toggleMenu()">TEAM</a>
-        <a href="#services" onclick="toggleMenu()">SERVICES</a>
-        <a href="#contact" onclick="toggleMenu()">KONTAKT</a>
+    <!-- MAIN MENU TOGGLE (FIXED) -->
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
     </div>
+
+    <!-- SIDE MENU DRAWER -->
+    <div class="side-menu">
+        <div class="side-logo">
+             <img src="IMG_4834.png" alt="WESTROOMZ">
+        </div>
+        <div class="menu-links">
+            <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
+            <a href="#photo-slide" class="menu-link interactive" onclick="toggleMenu()">GALLERY</a>
+            <a href="#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+            <a href="#about" class="menu-link interactive" onclick="toggleMenu()">STUDIO</a>
+            <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+            <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
+            <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
+        </div>
+        <div class="sidebar-footer">
+             © 2026 WESTROOMZ
+        </div>
+    </div>
+    
+    <!-- MENU OVERLAY (Click to close) -->
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
 
     <!-- WRAPPER TO PREVENT HORIZONTAL SCROLL -->
     <main class="page-wrapper">
-        <!-- HERO -->
-        <header class="hero">
+        <!-- 1. HERO -->
+        <header id="hero" class="hero">
             <div class="video-container">
-                <!-- Using Desktop Video for BOTH now as requested -->
+                <!-- Desktop Video -->
                 <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto">
                     <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
                 </video>
+                <!-- Mobile Video (Using desktop source as requested but handled via CSS) -->
                 <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto">
                     <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
                 </video>
@@ -496,20 +614,33 @@
             </div>
         </header>
 
-        <!-- ABOUT -->
-        <section id="about" class="sidefacts">
-            <div class="intro-img">
-                <img src="logo.jpg" alt="Westroomz Badge">
-            </div>
-            <div class="intro-text">
-                <h2 class="section-title">DAS STUDIO</h2>
-                <p>Wir sind eine High-End-Produktionsfirma. Wir machen Musik, nehmen Künstler auf und prägen die Kultur seit 6 Jahren.</p> 
-                <p>Unsere Qualität ist <strong>UNERREICHT</strong>. Unser Equipment ist Top-Tier. Sound Engineering, Visuals und Eventproduktion – wir machen alles.</p>
-                <p>Vom Leidenschaftsprojekt zum professionellen Powerhouse. Ob Mixing/Mastering oder komplette Videoproduktion, wir erwecken die Vision zum Leben.</p>
+        <!-- 2. PHOTO SLIDE (NEW) -->
+        <section id="photo-slide" style="padding: 0;">
+            <div class="photo-marquee">
+                <div class="photo-track">
+                    <!-- Studio Set Photos - Duplicated for infinite scroll -->
+                    <div class="photo-item"><img src="1.jpeg" alt="Studio 1"></div>
+                    <div class="photo-item"><img src="2.jpeg" alt="Studio 2"></div>
+                    <div class="photo-item"><img src="3.jpeg" alt="Studio 3"></div>
+                    <div class="photo-item"><img src="4.jpeg" alt="Studio 4"></div>
+                    <div class="photo-item"><img src="5.jpeg" alt="Studio 5"></div>
+                    <div class="photo-item"><img src="6.jpeg" alt="Studio 6"></div>
+                    <div class="photo-item"><img src="7.jpeg" alt="Studio 7"></div>
+                    <div class="photo-item"><img src="8.jpeg" alt="Studio 8"></div>
+                    <!-- Duplicate for infinite loop -->
+                    <div class="photo-item"><img src="1.jpeg" alt="Studio 1"></div>
+                    <div class="photo-item"><img src="2.jpeg" alt="Studio 2"></div>
+                    <div class="photo-item"><img src="3.jpeg" alt="Studio 3"></div>
+                    <div class="photo-item"><img src="4.jpeg" alt="Studio 4"></div>
+                    <div class="photo-item"><img src="5.jpeg" alt="Studio 5"></div>
+                    <div class="photo-item"><img src="6.jpeg" alt="Studio 6"></div>
+                    <div class="photo-item"><img src="7.jpeg" alt="Studio 7"></div>
+                    <div class="photo-item"><img src="8.jpeg" alt="Studio 8"></div>
+                </div>
             </div>
         </section>
 
-        <!-- TEAM SECTION -->
+        <!-- 3. TEAM SECTION (4 MEMBERS) -->
         <section id="team" class="team-section">
             <div style="text-align: center; margin-bottom: 50px;">
                 <h2 class="section-title">DAS TEAM</h2>
@@ -517,6 +648,7 @@
             <div class="team-grid">
                 <!-- Adnan -->
                 <div class="team-card interactive">
+                    <!-- Placeholder initials if no photo, or user can swap bg image -->
                     <div class="team-avatar">A</div>
                     <h3 class="team-name">ADNAN</h3>
                     <p class="team-role">Management</p>
@@ -533,16 +665,29 @@
                     <h3 class="team-name">FRENCI</h3>
                     <p class="team-role">Head of Video</p>
                 </div>
-                <!-- Events Placeholder -->
+                <!-- Events -->
                 <div class="team-card interactive">
                     <div class="team-avatar">E</div>
                     <h3 class="team-name">EVENTS</h3>
-                    <p class="team-role">Event Planning</p>
+                    <p class="team-role">Event Lead</p>
                 </div>
             </div>
         </section>
 
-        <!-- SERVICES -->
+        <!-- 4. ABOUT / STUDIO TEXT -->
+        <section id="about" class="sidefacts">
+            <div class="intro-img">
+                <img src="logo.jpg" alt="Westroomz Badge">
+            </div>
+            <div class="intro-text">
+                <h2 class="section-title">DAS STUDIO</h2>
+                <p>Wir sind eine High-End-Produktionsfirma. Wir machen Musik, nehmen Künstler auf und prägen die Kultur seit 6 Jahren.</p> 
+                <p>Unsere Qualität ist <strong>UNERREICHT</strong>. Unser Equipment ist Top-Tier. Sound Engineering, Visuals und Eventproduktion – wir machen alles.</p>
+                <p>Vom Leidenschaftsprojekt zum professionellen Powerhouse. Ob Mixing/Mastering oder komplette Videoproduktion, wir erwecken die Vision zum Leben.</p>
+            </div>
+        </section>
+
+        <!-- 5. SERVICES (ANGEBOTSLISTUNG) -->
         <section id="services" class="services-section">
             <div style="text-align: center; margin-bottom: 50px;">
                 <h2 class="section-title">WAS WIR TUN</h2>
@@ -566,28 +711,28 @@
                             <li>Vocal Production <span class="rolling-number"><span>05</span><span>05</span></span></li>
                             <li>Writing <span class="rolling-number"><span>06</span><span>06</span></span></li>
                         </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Musik')">PROJEKTANFRAGE</a>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Musik')">ANFRAGE</a>
                     </div>
-                    <div class="service-card interactive">
+                     <div class="service-card interactive">
                         <h3>FILM & WERBUNG</h3>
                         <ul class="service-list">
-                            <li>Head of Audio (Projektleitung) <span class="rolling-number"><span>01</span><span>01</span></span></li>
+                            <li>Head of Audio <span class="rolling-number"><span>01</span><span>01</span></span></li>
                             <li>Sounddesign <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Voice Recording (Synchron) <span class="rolling-number"><span>03</span><span>03</span></span></li>
+                            <li>Voice Recording <span class="rolling-number"><span>03</span><span>03</span></span></li>
                             <li>Mixing & Mastering <span class="rolling-number"><span>04</span><span>04</span></span></li>
                             <li>Setaufnahmen <span class="rolling-number"><span>05</span><span>05</span></span></li>
                         </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Film & Werbung')">PROJEKTANFRAGE</a>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Commercial')">ANFRAGE</a>
                     </div>
-                    <div class="service-card interactive">
+                     <div class="service-card interactive">
                         <h3>PODCAST</h3>
                         <ul class="service-list">
                             <li>Podcast Recording <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Schnitt (Postproduktion) <span class="rolling-number"><span>02</span><span>02</span></span></li>
+                            <li>Schnitt <span class="rolling-number"><span>02</span><span>02</span></span></li>
                             <li>Setups <span class="rolling-number"><span>03</span><span>03</span></span></li>
                             <li>Audio + Video Integration <span class="rolling-number"><span>04</span><span>04</span></span></li>
                         </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Podcast')">PROJEKTANFRAGE</a>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Podcast')">ANFRAGE</a>
                     </div>
                 </div>
             </div>
@@ -601,7 +746,7 @@
                             <li>Artist Visuals <span class="rolling-number"><span>02</span><span>02</span></span></li>
                             <li>Performance Videos <span class="rolling-number"><span>03</span><span>03</span></span></li>
                         </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Musik')">PROJEKTANFRAGE</a>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Musik')">ANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>WERBUNG</h3>
@@ -612,7 +757,7 @@
                             <li>Produktfotos <span class="rolling-number"><span>04</span><span>04</span></span></li>
                             <li>Fotografie <span class="rolling-number"><span>05</span><span>05</span></span></li>
                         </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Werbung')">PROJEKTANFRAGE</a>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Werbung')">ANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>CONTENT & STUDIO</h3>
@@ -621,7 +766,7 @@
                             <li>Studio-Location Shootings <span class="rolling-number"><span>02</span><span>02</span></span></li>
                             <li>Video Podcast <span class="rolling-number"><span>03</span><span>03</span></span></li>
                         </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Content')">PROJEKTANFRAGE</a>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Content')">ANFRAGE</a>
                     </div>
                 </div>
             </div>
@@ -635,7 +780,7 @@
                             <li>Ablauf u. Koordination <span class="rolling-number"><span>02</span><span>02</span></span></li>
                             <li>Konzepte <span class="rolling-number"><span>03</span><span>03</span></span></li>
                         </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Planung')">PROJEKTANFRAGE</a>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Planung')">ANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>PRODUKTION</h3>
@@ -645,7 +790,7 @@
                             <li>Event-Fotografie <span class="rolling-number"><span>03</span><span>03</span></span></li>
                             <li>DJ Services <span class="rolling-number"><span>04</span><span>04</span></span></li>
                         </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Produktion')">PROJEKTANFRAGE</a>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Produktion')">ANFRAGE</a>
                     </div>
                     <div class="service-card interactive">
                         <h3>BRANDS & CONTENT</h3>
@@ -654,18 +799,42 @@
                             <li>Aftermovies <span class="rolling-number"><span>02</span><span>02</span></span></li>
                             <li>Social Clips <span class="rolling-number"><span>03</span><span>03</span></span></li>
                         </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Content')">PROJEKTANFRAGE</a>
+                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Content')">ANFRAGE</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CONTACT -->
+        <!-- 6. VISUAL BREAK (ANGEBOTS BILDER SLIDE) -->
+        <section class="visual-break">
+            <h2>WESTROOMZ</h2>
+        </section>
+
+        <!-- 7. REFERENZEN -->
+        <section id="references" style="padding: 100px 0; overflow: hidden; background: #080808;">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 class="section-title">REFERENZEN</h2>
+            </div>
+            <div class="marquee-wrapper">
+                <div class="marquee-content">
+                    <span class="ref-logo">STRAUSS</span>
+                    <span class="ref-logo">SONY MUSIC</span>
+                    <span class="ref-logo">UNIVERSAL</span>
+                    <span class="ref-logo">RED BULL</span>
+                    <span class="ref-logo">NIKE</span>
+                    <span class="ref-logo">ADIDAS</span>
+                    <span class="ref-logo">STRAUSS</span>
+                    <span class="ref-logo">SONY MUSIC</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. CONTACT -->
         <section id="contact" class="contact-section">
             <div class="contact-grid">
                 <div class="contact-info">
                     <h2 class="section-title">KONTAKT</h2>
-                    <p style="color: #888; margin-bottom: 20px;">Bereit für den nächsten Schritt? Fülle das Formular aus. Wir sind reaktiv.</p>
+                    <p style="color: #888; margin-bottom: 20px;">Bereit für den nächsten Schritt? Fülle das Formular aus.</p>
                     <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
                         <p>STRAUSS.DE | INFO@STRAUSS.DE</p>
                         <p>TEL. 06050 97 10 12</p>
@@ -682,53 +851,42 @@
                     <label>NAME</label>
                     <input type="text" id="name" class="interactive" required>
                     <label>PROJEKT</label>
-                    <input type="text" id="subject" class="interactive" placeholder="Wähle oben einen Service...">
+                    <input type="text" id="subject" class="interactive" placeholder="Projekt...">
                     <label>NACHRICHT</label>
                     <textarea id="message" class="interactive" rows="5"></textarea>
-                    <button type="submit" class="submit-btn interactive">ANFRAGE SENDEN</button>
+                    <button type="submit" class="submit-btn interactive">ABSENDEN</button>
                 </form>
             </div>
         </section>
 
+        <!-- 9. FOOTER -->
         <footer>
-            <p>&copy; 2025 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
+            <p>&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
 
     <script>
-        // HERO TEXT SYNC
+        // VIDEO SYNC
         const heroText = document.querySelector(".hero-sub");
         const videos = document.querySelectorAll('video');
-
         function syncTextWithVideo() {
             videos.forEach(video => {
                 if (video.offsetParent !== null) {
                     video.addEventListener('timeupdate', () => {
                         if (video.currentTime >= 4.5) {
-                            if (gsap.getProperty(heroText, "opacity") === 0) {
-                                gsap.to(heroText, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
-                            }
-                        } 
-                        else if (video.currentTime < 0.5) {
-                            if (gsap.getProperty(heroText, "opacity") > 0) {
-                                gsap.set(heroText, { opacity: 0, y: 20 });
-                            }
+                            if (gsap.getProperty(heroText, "opacity") === 0) gsap.to(heroText, { opacity: 1, y: 0, duration: 0.5 });
+                        } else if (video.currentTime < 0.5) {
+                            if (gsap.getProperty(heroText, "opacity") > 0) gsap.set(heroText, { opacity: 0, y: 20 });
                         }
                     });
                 }
             });
         }
-
-        // VIDEO PLAY
         document.addEventListener('DOMContentLoaded', () => {
             gsap.set(heroText, { opacity: 0, y: 20 });
-            
             const attemptPlay = (video) => {
                 video.muted = true; 
-                video.play().then(() => {
-                    syncTextWithVideo();
-                }).catch(e => {
-                    document.addEventListener('touchstart', () => { video.play(); syncTextWithVideo(); }, { once: true });
+                video.play().then(() => syncTextWithVideo()).catch(e => {
                     document.addEventListener('click', () => { video.play(); syncTextWithVideo(); }, { once: true });
                 });
             };
@@ -738,20 +896,15 @@
             });
         });
 
-        // MENU TOGGLE
+        // MENU LOGIC (SIDEBAR TOGGLE)
         function toggleMenu() {
-            const overlay = document.querySelector('.mobile-nav-overlay');
-            const bars = document.querySelectorAll('.bar');
+            const menu = document.querySelector('.side-menu');
+            const overlay = document.querySelector('.menu-overlay');
+            const btn = document.querySelector('.menu-toggle-btn');
+            
+            menu.classList.toggle('active');
             overlay.classList.toggle('active');
-            if(overlay.classList.contains('active')) {
-                bars[0].style.transform = "rotate(45deg) translate(5px, 6px)";
-                bars[1].style.opacity = "0";
-                bars[2].style.transform = "rotate(-45deg) translate(5px, -6px)";
-            } else {
-                bars[0].style.transform = "none";
-                bars[1].style.opacity = "1";
-                bars[2].style.transform = "none";
-            }
+            btn.classList.toggle('open');
         }
 
         // CURSOR
@@ -759,60 +912,36 @@
             const cursor = document.querySelector('.cursor');
             const ring = document.querySelector('.cursor-ring');
             const body = document.body;
-            let mouseX = 0;
-            let mouseY = 0;
-            let isMoving = false;
-
+            let mouseX = 0, mouseY = 0, isMoving = false;
             document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                if (!isMoving) {
-                    isMoving = true;
-                    requestAnimationFrame(updateCursor);
-                }
+                mouseX = e.clientX; mouseY = e.clientY;
+                if (!isMoving) { isMoving = true; requestAnimationFrame(updateCursor); }
             });
-
             function updateCursor() {
-                cursor.style.left = mouseX + 'px';
-                cursor.style.top = mouseY + 'px';
-                ring.style.left = mouseX + 'px';
-                ring.style.top = mouseY + 'px';
+                cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px';
+                ring.style.left = mouseX + 'px'; ring.style.top = mouseY + 'px';
                 isMoving = false;
             }
-
-            const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, .interactive, .tab-btn, .service-card, .team-card');
-            interactiveElements.forEach(el => {
+            document.querySelectorAll('.interactive').forEach(el => {
                 el.addEventListener('mouseenter', () => body.classList.add('hovering'));
                 el.addEventListener('mouseleave', () => body.classList.remove('hovering'));
             });
         }
 
-        // TABS & ANIMATIONS
+        // TABS
         function animateTabCards(containerId) {
             const cards = document.querySelectorAll(`#${containerId} .service-card`);
-            gsap.fromTo(cards, 
-                { y: 30, opacity: 0, autoAlpha: 0, filter: "blur(10px)" },
-                { y: 0, opacity: 1, autoAlpha: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.1, ease: "power3.out", overwrite: true }
-            );
+            gsap.fromTo(cards, { y: 30, opacity: 0, autoAlpha: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, autoAlpha: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.1, ease: "power3.out", overwrite: true });
         }
-
         function openTab(tabName) {
             document.querySelectorAll('.service-container').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
-            
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(b => {
-                if(b.textContent.toLowerCase().includes(tabName.toLowerCase()) || 
-                  (tabName === 'event' && b.textContent.includes('EVENT'))) {
-                    b.classList.add('active');
-                }
-            });
+            const btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(b => { if(b.textContent.toLowerCase().includes(tabName)) b.classList.add('active'); });
             animateTabCards(tabName);
             ScrollTrigger.refresh();
         }
-
-        // PREFILL
         function prefill(service) {
             document.getElementById('subject').value = service;
             const dept = document.getElementById('department');
@@ -821,57 +950,17 @@
             if(service.includes("Event")) dept.value = "Event";
         }
 
-        function updateMailto() { console.log("Routing email..."); }
-
-        // SCROLL ANIMATIONS
+        // ANIMATIONS
         gsap.registerPlugin(ScrollTrigger);
-
         gsap.utils.toArray('.section-title').forEach(title => {
-            gsap.fromTo(title, 
-                { y: 50, opacity: 0, filter: "blur(10px)" },
-                {
-                    y: 0, opacity: 1, filter: "blur(0px)", duration: 1.2, ease: "power3.out",
-                    scrollTrigger: { 
-                        trigger: title, 
-                        start: "top 90%",
-                        toggleActions: "play reverse play reverse"
-                    }
-                }
-            );
+            gsap.from(title, { scrollTrigger: { trigger: title, start: "top 90%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, duration: 1 });
         });
-
-        gsap.from(".intro-text", {
-            scrollTrigger: { trigger: ".intro-text", start: "top 90%", toggleActions: "play reverse play reverse" },
-            x: 50, opacity: 0, filter: "blur(5px)", duration: 1, ease: "power3.out"
-        });
-        gsap.from(".intro-img", {
-            scrollTrigger: { trigger: ".intro-img", start: "top 90%", toggleActions: "play reverse play reverse" },
-            x: -50, opacity: 0, filter: "blur(5px)", duration: 1, ease: "power3.out"
-        });
-
-        gsap.fromTo(".team-card", 
-            { y: 50, autoAlpha: 0, filter: "blur(10px)" },
-            {
-                y: 0, autoAlpha: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.1, ease: "power3.out",
-                scrollTrigger: { trigger: ".team-grid", start: "top 90%", toggleActions: "play reverse play reverse" }
-            }
-        );
-
-        ScrollTrigger.create({
-            trigger: "#services", start: "top 75%",
-            onEnter: () => animateTabCards('audio'),
-            onEnterBack: () => animateTabCards('audio'),
-            once: false 
-        });
-
-        gsap.from(".contact-info", {
-            scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" },
-            x: -30, opacity: 0, filter: "blur(5px)", duration: 1, ease: "power3.out"
-        });
-        gsap.from(".contact-form", {
-            scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" },
-            x: 30, opacity: 0, filter: "blur(5px)", duration: 1, delay: 0.2, ease: "power3.out"
-        });
+        gsap.from(".intro-text", { scrollTrigger: { trigger: ".intro-text", start: "top 90%", toggleActions: "play reverse play reverse" }, x: 50, opacity: 0, duration: 1 });
+        gsap.from(".intro-img", { scrollTrigger: { trigger: ".intro-img", start: "top 90%", toggleActions: "play reverse play reverse" }, x: -50, opacity: 0, duration: 1 });
+        gsap.fromTo(".team-card", { y: 50, autoAlpha: 0, filter: "blur(10px)" }, { y: 0, autoAlpha: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.1, scrollTrigger: { trigger: ".team-grid", start: "top 90%", toggleActions: "play reverse play reverse" } });
+        ScrollTrigger.create({ trigger: "#services", start: "top 75%", onEnter: () => animateTabCards('audio'), onEnterBack: () => animateTabCards('audio') });
+        gsap.from(".contact-info", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: -30, opacity: 0, duration: 1 });
+        gsap.from(".contact-form", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: 30, opacity: 0, duration: 1, delay: 0.2 });
     </script>
 </body>
 </html>
