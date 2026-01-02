@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 2. SMOOTH SCROLL (Robust check)
+    // 2. SMOOTH SCROLL
     if(typeof Lenis !== 'undefined') {
         const lenis = new Lenis({
             duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
@@ -45,12 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.ticker.add((time) => { lenis.raf(time * 1000); });
             gsap.ticker.lagSmoothing(0);
         }
-        
-        // Expose lenis globally for modal
         window.lenis = lenis;
     }
 
-    // 3. MENU LOGIC (Global Function)
+    // 3. MENU LOGIC
     window.toggleMenu = function() {
         const menu = document.querySelector('.side-menu');
         const overlay = document.querySelector('.menu-overlay');
@@ -60,15 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
             menu.classList.toggle('active');
             overlay.classList.toggle('active');
             btn.classList.toggle('open');
-            
-            // Stagger animation only if opening
             if(menu.classList.contains('active')){
                 gsap.fromTo('.menu-link', {x: -30, opacity: 0}, {x: 0, opacity: 1, stagger: 0.1, delay: 0.2});
             }
         }
     }
 
-    // 4. VIDEO SYNC (Only runs if video exists)
+    // 4. VIDEO SYNC (Home only)
     const videos = document.querySelectorAll('video');
     const heroText = document.querySelector(".hero-sub");
     
@@ -87,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. AUTO-SCROLL GALLERY (Only runs if gallery exists)
+    // 5. AUTO-SCROLL GALLERY
     const slider = document.querySelector('.gallery-container');
     if(slider) {
         let isDown = false, startX, scrollLeft;
@@ -105,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
     }
 
-    // 6. MODAL LOGIC (Only runs if modal exists)
+    // 6. MODAL LOGIC
     const modal = document.getElementById('galleryModal');
     if(modal) {
         const modalTitle = document.getElementById('modalTitle');
@@ -134,51 +130,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 7. TABS (Only runs if tabs exist)
+    // 7. TABS
     if(document.querySelector('.tabs-nav')) {
         window.openTab = function(tabName) {
             document.querySelectorAll('.service-container').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
-            
-            // Highlight active button
             const btns = document.querySelectorAll('.tab-btn');
             btns.forEach(b => { if(b.textContent.toLowerCase().includes(tabName)) b.classList.add('active'); });
-            
-            // Animate cards
             const cards = document.querySelectorAll(`#${tabName} .service-card`);
             gsap.fromTo(cards, { y: 30, opacity: 0, autoAlpha: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, autoAlpha: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.1, ease: "power3.out", overwrite: true });
-            
             ScrollTrigger.refresh();
         }
-        
         window.prefill = function(service) { 
             const input = document.getElementById('subject');
             if(input) input.value = service; 
         }
-        
-        // Init first tab animation on scroll
-        ScrollTrigger.create({ 
-            trigger: "#services", 
-            start: "top 75%", 
-            onEnter: () => window.openTab('audio') 
-        });
+        ScrollTrigger.create({ trigger: "#services", start: "top 75%", onEnter: () => window.openTab('audio') });
     }
 
-    // 8. SCROLL ANIMATIONS (Generic)
+    // 8. SCROLL ANIMATIONS (RICH)
     gsap.utils.toArray('.section-title').forEach(title => {
         gsap.from(title, { scrollTrigger: { trigger: title, start: "top 90%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, duration: 1 });
     });
-    
-    // Intro Animations (Only if they exist)
-    if(document.querySelector(".intro-text")) {
-        gsap.from(".intro-text", { scrollTrigger: { trigger: ".intro-text", start: "top 90%", toggleActions: "play reverse play reverse" }, x: 50, opacity: 0, duration: 1 });
+
+    // FIX: Vision Text Animations
+    if(document.querySelector(".big-lead")) {
+        gsap.from(".big-lead", { 
+            scrollTrigger: { trigger: ".big-lead", start: "top 80%" }, 
+            y: 50, opacity: 0, scale: 0.9, duration: 1.2, ease: "power3.out" 
+        });
+        // Animate paragraphs
+        gsap.to(".vision-text p", {
+            scrollTrigger: { trigger: ".vision-text", start: "top 80%" },
+            y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.out"
+        });
     }
-    if(document.querySelector(".intro-img")) {
-        gsap.from(".intro-img", { scrollTrigger: { trigger: ".intro-img", start: "top 90%", toggleActions: "play reverse play reverse" }, x: -50, opacity: 0, duration: 1 });
+
+    // FIX: Network Animations (Centered Layout)
+    if(document.querySelector(".network-text")) {
+        gsap.to(".network-text > *", {
+            scrollTrigger: { trigger: ".network-section", start: "top 70%" },
+            y: 0, opacity: 1, stagger: 0.15, duration: 1, ease: "power2.out"
+        });
+        gsap.to(".network-logo-container", {
+            scrollTrigger: { trigger: ".network-logo-container", start: "top 85%" },
+            y: 0, opacity: 1, duration: 1.2, delay: 0.3, ease: "power3.out"
+        });
     }
-    
-    // Contact Animations
+
+    // Contact
     if(document.querySelector(".contact-info")) {
         gsap.from(".contact-info", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: -30, opacity: 0, duration: 1 });
         gsap.from(".contact-form", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: 30, opacity: 0, duration: 1, delay: 0.2 });
