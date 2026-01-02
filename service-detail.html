@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WESTROOMZ | Impressum</title>
+    <title>WESTROOMZ | Service Detail</title>
     <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -19,7 +19,9 @@
     <div class="cursor-ring"></div>
     <div class="menu-toggle-btn interactive" onclick="toggleMenu()"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
     
-    <div class="back-home-wrapper"><a href="index.html" class="back-btn interactive">CLOSE [X]</a></div>
+    <div class="back-home-wrapper">
+        <a href="index.html#services" class="back-btn interactive">ZURÜCK</a>
+    </div>
 
     <div class="side-menu">
         <div><div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div><div class="menu-links"><a href="index.html" class="menu-link interactive">START</a><a href="index.html#vision" class="menu-link interactive">VISION</a><a href="index.html#contact" class="menu-link interactive">KONTAKT</a></div></div>
@@ -28,21 +30,21 @@
     <div class="menu-overlay" onclick="toggleMenu()"></div>
 
     <main class="page-wrapper">
-        <div class="legal-container">
-            <h1>IMPRESSUM</h1>
-            <h2>Angaben gemäß § 5 TMG</h2>
-            <p>Westroomz GmbH<br>Am alten Sportplatz 37<br>48477 Hörstel</p>
-            <h2>Vertreten durch</h2><p>Noah Winnemöller, Domke Petersen, Fabian Ebong, Adnan Krasniqi</p>
-            <h2>Kontakt</h2><p>Telefon: 01577 877 8502<br>E-Mail: info@westroomz.de</p>
-        </div>
+        <header class="detail-hero">
+            <img id="detailBg" src="" alt="Service Background" class="detail-hero-bg">
+            <div class="hero-overlay"></div>
+            <h1 id="detailTitle">LOADING...</h1>
+        </header>
 
-        <section id="team" style="padding: 100px 5%; border-top: 1px solid var(--border);">
-            <div style="text-align: center; margin-bottom: 60px;"><h2 class="section-title">DAS TEAM</h2></div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
-                <div class="service-card interactive" style="text-align: left;"><h3>NOAH</h3><p style="color: var(--accent); font-size: 0.9rem;">FOUNDER & AUDIO</p><p style="color:#888;">Studierter Audio Engineer. Fokus auf sauberem Sound und technischer Umsetzung.</p></div>
-                <div class="service-card interactive" style="text-align: left;"><h3>ADNAN</h3><p style="color: var(--accent); font-size: 0.9rem;">MANAGEMENT</p><p style="color:#888;">Strategie und Netzwerk. Die Schnittstelle zwischen Vision und Realität.</p></div>
-                <div class="service-card interactive" style="text-align: left;"><h3>DOMKE</h3><p style="color: var(--accent); font-size: 0.9rem;">CREATIVE LEAD</p><p style="color:#888;">Kreative Konzepte und visuelle Umsetzung. Bringt Ideen in Form.</p></div>
-                <div class="service-card interactive" style="text-align: left;"><h3>FABIAN</h3><p style="color: var(--accent); font-size: 0.9rem;">PRODUCTION</p><p style="color:#888;">Operative Umsetzung und Ablaufplanung. Sorgt für reibungslose Produktionen.</p></div>
+        <section class="detail-content">
+            <div class="detail-desc">
+                <h2 id="detailIntro"></h2>
+                <p id="detailDesc"></p>
+                <button id="detailContactBtn" class="book-btn interactive">JETZT ANFRAGEN</button>
+            </div>
+            <div class="detail-list-wrapper">
+                <h3>LEISTUNGEN</h3>
+                <ul id="detailList" class="detail-list"></ul>
             </div>
         </section>
 

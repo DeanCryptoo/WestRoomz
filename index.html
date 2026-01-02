@@ -3,14 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="WESTROOMZ - Audio, Video & Event Production Agency.">
     <title>WESTROOMZ | Audio. Video. Events.</title>
-    
     <link rel="icon" type="image/jpeg" href="logo.jpg">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -18,51 +14,32 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 </head>
 <body>
-<div class="page-transition-curtain"></div>
+
+    <div class="page-transition-curtain"></div>
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
-    <div class="red-thread"></div>
-    <div class="cinematic-vignette"></div>
-
-    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-    </div>
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
 
     <div class="side-menu">
         <div>
-            <div class="side-logo">
-                 <img src="IMG_4834.png" alt="WESTROOMZ">
-            </div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
             <div class="menu-links">
                 <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
                 <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
-                <a href="#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="impressum.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
                 <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
                 <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
                 <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
             </div>
         </div>
         <div class="sidebar-footer">
-             <a href="impressum.html">Impressum</a>
-             <a href="datenschutz.html">Datenschutz</a>
-             <a href="agb.html">AGB</a>
+             <a href="impressum.html" class="interactive">IMPRESSUM</a>
+             <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+             <a href="agb.html" class="interactive">AGB</a>
              <span>© 2026 WESTROOMZ</span>
         </div>
     </div>
-    
     <div class="menu-overlay" onclick="toggleMenu()"></div>
-
-    <div class="modal-overlay" id="galleryModal">
-        <div class="modal-header">
-            <h2 class="modal-title" id="modalTitle">GALLERY</h2>
-            <div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div>
-        </div>
-        <div class="modal-content-wrapper">
-            <div class="modal-grid" id="modalGrid"></div>
-        </div>
-    </div>
 
     <main class="page-wrapper">
         <header id="hero" class="hero">
@@ -71,26 +48,8 @@
                 <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
             </div>
             <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <p class="hero-sub">UNERREICHTE QUALITÄT</p>
-            </div>
+            <div class="hero-content"><p class="hero-sub">UNERREICHTE QUALITÄT</p></div>
         </header>
-
-        <section id="gallery" class="gallery-section">
-            <div style="text-align: center; margin: 40px 0 20px;">
-                <h2 class="section-title" style="font-size: 2.5rem;">FOTO SLIDE</h2>
-            </div>
-            <div class="gallery-container interactive">
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="4.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-            </div>
-        </section>
 
         <section id="vision" class="vision-section">
             <div>
@@ -103,54 +62,30 @@
             </div>
         </section>
 
-<section class="network-section">
+        <section id="gallery" class="gallery-section">
+            <div class="gallery-container interactive">
+                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="4.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
+            </div>
+        </section>
+
+        <section class="network-section">
             <div class="network-text">
                 <h3>WER WIR SIND</h3>
                 <p>Wir kommen aus der Praxis. Aus Studios, Sets, Backstages und realen Produktionen. Seit mehreren Jahren arbeiten wir an unterschiedlichsten Projekten mit Artists, Brands, Creatorn und Veranstaltern.</p>
-                
                 <div class="mini-divider"></div>
-                
                 <h3>NETZWERK</h3>
                 <p>WESTROOMZ fungiert als Schnittstelle zwischen Projekten und Kreativen. Wir bündeln Projekte, strukturieren Abläufe und vermitteln passende Jobs innerhalb unseres Netzwerks.</p>
             </div>
-            
-            <div class="network-logo-container">
-                <img src="IMG_4834.png" alt="Westroomz Network" loading="lazy">
-            </div>
-        </section>
-
-        <section id="team" style="padding: 100px 5%;">
-            <div style="text-align: center; margin-bottom: 60px;">
-                <h2 class="section-title">DAS TEAM</h2>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
-                <div class="service-card interactive" style="text-align: left;">
-                    <h3 style="margin-bottom: 5px;">NOAH</h3>
-                    <p style="color: var(--accent); font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase;">Founder & Audio Engineer</p>
-                    <p style="font-size: 0.95rem; color: #888; line-height: 1.5;">Gründer von WESTROOMZ. Fokus auf sauberem Sound, klarer Kommunikation und technisch verlässlicher Umsetzung.</p>
-                </div>
-                <div class="service-card interactive" style="text-align: left;">
-                    <h3 style="margin-bottom: 5px;">ADNAN</h3>
-                    <p style="color: var(--accent); font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase;">Management</p>
-                    <p style="font-size: 0.95rem; color: #888; line-height: 1.5;">Verantwortlich für Strategie und Netzwerk. Die Schnittstelle zwischen Vision und Realität.</p>
-                </div>
-                <div class="service-card interactive" style="text-align: left;">
-                    <h3 style="margin-bottom: 5px;">DOMKE</h3>
-                    <p style="color: var(--accent); font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase;">Creative Lead</p>
-                    <p style="font-size: 0.95rem; color: #888; line-height: 1.5;">Kreative Konzepte und visuelle Umsetzung. Bringt Ideen in Form.</p>
-                </div>
-                <div class="service-card interactive" style="text-align: left;">
-                    <h3 style="margin-bottom: 5px;">FABIAN</h3>
-                    <p style="color: var(--accent); font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase;">Production</p>
-                    <p style="font-size: 0.95rem; color: #888; line-height: 1.5;">Operative Umsetzung und Ablaufplanung. Sorgt dafür, dass Produktionen reibungslos laufen.</p>
-                </div>
-            </div>
+            <div class="network-logo-container"><img src="IMG_4834.png" alt="Westroomz Network" loading="lazy"></div>
         </section>
 
         <section id="services" class="services-section">
-            <div style="text-align: center; margin-bottom: 50px;">
-                <h2 class="section-title">WAS WIR TUN</h2>
-            </div>
+            <div style="text-align: center; margin-bottom: 50px;"><h2 class="section-title">WAS WIR TUN</h2></div>
             <div class="tabs-nav">
                 <button class="tab-btn active interactive" onclick="openTab('audio')">AUDIO</button>
                 <button class="tab-btn interactive" onclick="openTab('video')">VIDEO</button>
@@ -159,198 +94,101 @@
             
             <div id="audio" class="service-container active">
                 <div class="service-grid">
-                    <div class="service-card interactive">
-                        <h3>MUSIK</h3>
-                        <ul class="service-list">
-                            <li>Recording <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Mixing <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Mastering <span class="rolling-number"><span>03</span><span>03</span></span></li>
-                            <li>Beatproduction <span class="rolling-number"><span>04</span><span>04</span></span></li>
-                            <li>Vocal Production <span class="rolling-number"><span>05</span><span>05</span></span></li>
-                        </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Musik')">ANFRAGE</a>
+                    <div class="service-card interactive" onclick="window.location.href='service-detail.html?id=audio_music'">
+                        <h3>MUSIK / PODCAST</h3>
+                        <ul class="service-list"><li>Recording <span>01</span></li><li>Mixing <span>02</span></li><li>Mastering <span>03</span></li></ul>
+                        <span class="book-btn">DETAILS</span>
                     </div>
-                     <div class="service-card interactive">
+                     <div class="service-card interactive" onclick="window.location.href='service-detail.html?id=audio_commercial'">
                         <h3>COMMERCIAL</h3>
-                        <ul class="service-list">
-                            <li>Sounddesign <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Voice Recording <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Mixing & Mastering <span class="rolling-number"><span>03</span><span>03</span></span></li>
-                            <li>Setaufnahmen <span class="rolling-number"><span>04</span><span>04</span></span></li>
-                        </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Commercial')">ANFRAGE</a>
+                        <ul class="service-list"><li>Sounddesign <span>01</span></li><li>Voice Recording <span>02</span></li></ul>
+                        <span class="book-btn">DETAILS</span>
                     </div>
-                     <div class="service-card interactive">
+                     <div class="service-card interactive" onclick="window.location.href='service-detail.html?id=audio_podcast'">
                         <h3>PODCAST</h3>
-                        <ul class="service-list">
-                            <li>Recording <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Schnitt & Edit <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Setups <span class="rolling-number"><span>03</span><span>03</span></span></li>
-                        </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Audio - Podcast')">ANFRAGE</a>
+                        <ul class="service-list"><li>Recording <span>01</span></li><li>Schnitt & Edit <span>02</span></li></ul>
+                        <span class="book-btn">DETAILS</span>
                     </div>
                 </div>
             </div>
-
-             <div id="video" class="service-container">
+            <div id="video" class="service-container">
                 <div class="service-grid">
-                    <div class="service-card interactive">
+                    <div class="service-card interactive" onclick="window.location.href='service-detail.html?id=video_music'">
                         <h3>MUSIKVIDEOS</h3>
-                        <ul class="service-list">
-                            <li>Musikvideos <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Artist Visuals <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Performance <span class="rolling-number"><span>03</span><span>03</span></span></li>
-                        </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Musik')">ANFRAGE</a>
+                        <ul class="service-list"><li>Musikvideos <span>01</span></li><li>Artist Visuals <span>02</span></li></ul>
+                        <span class="book-btn">DETAILS</span>
                     </div>
-                    <div class="service-card interactive">
+                    <div class="service-card interactive" onclick="window.location.href='service-detail.html?id=video_ads'">
                         <h3>WERBUNG</h3>
-                        <ul class="service-list">
-                            <li>Werbedrehs <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Imagefilm <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Produktvideos <span class="rolling-number"><span>03</span><span>03</span></span></li>
-                            <li>Fotografie <span class="rolling-number"><span>04</span><span>04</span></span></li>
-                        </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Werbung')">ANFRAGE</a>
+                        <ul class="service-list"><li>Imagefilm <span>01</span></li><li>Produktvideos <span>02</span></li></ul>
+                        <span class="book-btn">DETAILS</span>
                     </div>
-                    <div class="service-card interactive">
+                    <div class="service-card interactive" onclick="window.location.href='service-detail.html?id=video_content'">
                         <h3>CONTENT</h3>
-                        <ul class="service-list">
-                            <li>Social Media <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Studio Shootings <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Video Podcast <span class="rolling-number"><span>03</span><span>03</span></span></li>
-                        </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Video - Content')">ANFRAGE</a>
+                        <ul class="service-list"><li>Social Media <span>01</span></li><li>Studio Shootings <span>02</span></li></ul>
+                        <span class="book-btn">DETAILS</span>
                     </div>
                 </div>
              </div>
 
              <div id="event" class="service-container">
                 <div class="service-grid">
-                    <div class="service-card interactive">
+                    <div class="service-card interactive" onclick="window.location.href='service-detail.html?id=event_planning'">
                         <h3>PLANUNG</h3>
-                        <ul class="service-list">
-                            <li>Eventplanung <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Koordination <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Konzepte <span class="rolling-number"><span>03</span><span>03</span></span></li>
-                        </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Planung')">ANFRAGE</a>
+                        <ul class="service-list"><li>Konzeption <span>01</span></li><li>Koordination <span>02</span></li></ul>
+                        <span class="book-btn">DETAILS</span>
                     </div>
-                    <div class="service-card interactive">
+                    <div class="service-card interactive" onclick="window.location.href='service-detail.html?id=event_production'">
                         <h3>PRODUKTION</h3>
-                        <ul class="service-list">
-                            <li>Event-Audio <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Event-Video <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Fotografie <span class="rolling-number"><span>03</span><span>03</span></span></li>
-                            <li>DJ Services <span class="rolling-number"><span>04</span><span>04</span></span></li>
-                        </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Produktion')">ANFRAGE</a>
+                        <ul class="service-list"><li>Licht & Ton <span>01</span></li><li>Videotechnik <span>02</span></li></ul>
+                        <span class="book-btn">DETAILS</span>
                     </div>
-                    <div class="service-card interactive">
+                    <div class="service-card interactive" onclick="window.location.href='service-detail.html?id=event_content'">
                         <h3>CONTENT</h3>
-                        <ul class="service-list">
-                            <li>Eventcontent <span class="rolling-number"><span>01</span><span>01</span></span></li>
-                            <li>Aftermovies <span class="rolling-number"><span>02</span><span>02</span></span></li>
-                            <li>Social Clips <span class="rolling-number"><span>03</span><span>03</span></span></li>
-                        </ul>
-                        <a href="#contact" class="book-btn interactive" onclick="prefill('Event - Content')">ANFRAGE</a>
+                        <ul class="service-list"><li>Aftermovies <span>01</span></li><li>Live Socials <span>02</span></li></ul>
+                        <span class="book-btn">DETAILS</span>
                     </div>
                 </div>
              </div>
         </section>
 
         <section class="expand-gallery interactive">
-            <div class="expand-item" onclick="openModal('AUDIO')">
-                <img src="7.jpeg" alt="Service" loading="lazy">
-                <h3>AUDIO</h3>
-            </div>
-            <div class="expand-item" onclick="openModal('VIDEO')">
-                <img src="8.jpeg" alt="Service" loading="lazy">
-                <h3>VIDEO</h3>
-            </div>
-            <div class="expand-item" onclick="openModal('EVENTS')">
-                <img src="5.jpeg" alt="Service" loading="lazy">
-                <h3>EVENTS</h3>
-            </div>
-            <div class="expand-item" onclick="openModal('CONTENT')">
-                <img src="6.jpeg" alt="Service" loading="lazy">
-                <h3>CONTENT</h3>
-            </div>
+            <div class="expand-item" onclick="openModal('AUDIO')"><img src="7.jpeg" alt="Service" loading="lazy"><h3>AUDIO</h3></div>
+            <div class="expand-item" onclick="openModal('VIDEO')"><img src="8.jpeg" alt="Service" loading="lazy"><h3>VIDEO</h3></div>
+            <div class="expand-item" onclick="openModal('EVENTS')"><img src="5.jpeg" alt="Service" loading="lazy"><h3>EVENTS</h3></div>
+            <div class="expand-item" onclick="openModal('CONTENT')"><img src="6.jpeg" alt="Service" loading="lazy"><h3>CONTENT</h3></div>
         </section>
 
         <section id="references" class="ref-section">
-            <div style="text-align: center; margin-bottom: 50px;">
-                <h2 class="section-title">REFERENZEN</h2>
-            </div>
-            <div class="marquee-wrapper">
-                <div class="marquee-track">
-                    <span class="ref-logo">STRAUSS</span>
-                    <span class="ref-logo">SONY MUSIC</span>
-                    <span class="ref-logo">UNIVERSAL</span>
-                    <span class="ref-logo">RED BULL</span>
-                    <span class="ref-logo">NIKE</span>
-                    <span class="ref-logo">STRAUSS</span>
-                    <span class="ref-logo">SONY MUSIC</span>
-                    <span class="ref-logo">UNIVERSAL</span>
-                    <span class="ref-logo">RED BULL</span>
-                    <span class="ref-logo">NIKE</span>
-                </div>
-            </div>
-            <div class="marquee-wrapper">
-                <div class="marquee-track reverse">
-                    <span class="ref-logo">ADIDAS</span>
-                    <span class="ref-logo">WARNER</span>
-                    <span class="ref-logo">PORSCHE</span>
-                    <span class="ref-logo">MERCEDES</span>
-                    <span class="ref-logo">VOGUE</span>
-                    <span class="ref-logo">ADIDAS</span>
-                    <span class="ref-logo">WARNER</span>
-                    <span class="ref-logo">PORSCHE</span>
-                    <span class="ref-logo">MERCEDES</span>
-                    <span class="ref-logo">VOGUE</span>
-                </div>
-            </div>
+            <div style="text-align: center; margin-bottom: 50px;"><h2 class="section-title">REFERENZEN</h2></div>
+            <div class="marquee-wrapper"><div class="marquee-track"><span class="ref-logo">STRAUSS</span><span class="ref-logo">SONY MUSIC</span><span class="ref-logo">UNIVERSAL</span><span class="ref-logo">RED BULL</span><span class="ref-logo">NIKE</span></div></div>
         </section>
 
         <section id="contact" class="contact-section">
             <div class="contact-grid">
-                <div class="contact-info">
-                    <h2 class="section-title">KONTAKT</h2>
-                    <p style="color: #888; margin-bottom: 20px;">Du planst eine Produktion oder suchst einen technischen Partner?</p>
-                    <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
-                        <p>INFO@WESTROOMZ.DE</p>
-                        <p>TEL. 01577 877 8502</p>
-                        <p>AM ALTEN SPORTPLATZ 37, 48477 HÖRSTEL</p>
-                    </div>
-                </div>
+                <div class="contact-info"><h2 class="section-title">KONTAKT</h2><p style="color: #888;">Du planst eine Produktion oder suchst einen technischen Partner?</p><div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;"><p>INFO@WESTROOMZ.DE</p><p>TEL. 01577 877 8502</p></div></div>
                 <form class="contact-form">
-                    <label>ABTEILUNG</label>
-                    <select id="department" class="interactive">
-                        <option value="General">Allgemeine Anfrage</option>
-                        <option value="Audio">Audio</option>
-                        <option value="Video">Video</option>
-                        <option value="Event">Eventplanung</option>
-                    </select>
-                    <label>NAME</label>
-                    <input type="text" id="name" class="interactive" required>
-                    <label>PROJEKT</label>
-                    <input type="text" id="subject" class="interactive" placeholder="Projekt...">
-                    <label>NACHRICHT</label>
-                    <textarea id="message" class="interactive" rows="5"></textarea>
+                    <label>ABTEILUNG</label><select id="department" class="interactive"><option value="General">Allgemeine Anfrage</option><option value="Audio">Audio</option><option value="Video">Video</option><option value="Event">Eventplanung</option></select>
+                    <label>NAME</label><input type="text" id="name" class="interactive" required>
+                    <label>PROJEKT</label><input type="text" id="subject" class="interactive" placeholder="Projekt...">
+                    <label>NACHRICHT</label><textarea id="message" class="interactive" rows="5"></textarea>
                     <button type="submit" class="submit-btn interactive">ABSENDEN</button>
                 </form>
             </div>
         </section>
 
         <footer>
-            <div class="footer-nav">
-                <a href="impressum.html" class="interactive">IMPRESSUM</a>
-                <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
-                <a href="agb.html" class="interactive">AGB</a>
-            </div>
+            <div class="footer-socials"><a href="#" class="social-icon interactive">INSTAGRAM</a><a href="#" class="social-icon interactive">LINKEDIN</a></div>
+            <div class="footer-nav"><a href="impressum.html" class="interactive">IMPRESSUM</a><a href="datenschutz.html" class="interactive">DATENSCHUTZ</a><a href="agb.html" class="interactive">AGB</a></div>
             <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
+    
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal-header"><h2 class="modal-title" id="modalTitle">GALLERY</h2><div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div></div>
+        <div class="modal-content-wrapper"><div class="modal-grid" id="modalGrid"></div></div>
+    </div>
+
     <script src="js/main.js"></script>
 </body>
 </html>
