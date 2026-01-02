@@ -149,32 +149,55 @@ document.addEventListener('DOMContentLoaded', () => {
         ScrollTrigger.create({ trigger: "#services", start: "top 75%", onEnter: () => window.openTab('audio') });
     }
 
-    // 8. SCROLL ANIMATIONS (RICH)
+    // 8. SCROLL ANIMATIONS (Updated with Play/Reverse)
     gsap.utils.toArray('.section-title').forEach(title => {
-        gsap.from(title, { scrollTrigger: { trigger: title, start: "top 90%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, duration: 1 });
+        gsap.from(title, { 
+            scrollTrigger: { 
+                trigger: title, 
+                start: "top 90%", 
+                toggleActions: "play reverse play reverse" 
+            }, 
+            y: 50, opacity: 0, duration: 1 
+        });
     });
 
-    // FIX: Vision Text Animations
+    // Vision Text Animations
     if(document.querySelector(".big-lead")) {
         gsap.from(".big-lead", { 
-            scrollTrigger: { trigger: ".big-lead", start: "top 80%" }, 
+            scrollTrigger: { 
+                trigger: ".big-lead", 
+                start: "top 80%",
+                toggleActions: "play reverse play reverse"
+            }, 
             y: 50, opacity: 0, scale: 0.9, duration: 1.2, ease: "power3.out" 
         });
         // Animate paragraphs
         gsap.to(".vision-text p", {
-            scrollTrigger: { trigger: ".vision-text", start: "top 80%" },
+            scrollTrigger: { 
+                trigger: ".vision-text", 
+                start: "top 80%",
+                toggleActions: "play reverse play reverse"
+            },
             y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.out"
         });
     }
 
-    // FIX: Network Animations (Centered Layout)
+    // Network Animations
     if(document.querySelector(".network-text")) {
         gsap.to(".network-text > *", {
-            scrollTrigger: { trigger: ".network-section", start: "top 70%" },
+            scrollTrigger: { 
+                trigger: ".network-section", 
+                start: "top 70%",
+                toggleActions: "play reverse play reverse"
+            },
             y: 0, opacity: 1, stagger: 0.15, duration: 1, ease: "power2.out"
         });
         gsap.to(".network-logo-container", {
-            scrollTrigger: { trigger: ".network-logo-container", start: "top 85%" },
+            scrollTrigger: { 
+                trigger: ".network-logo-container", 
+                start: "top 85%",
+                toggleActions: "play reverse play reverse"
+            },
             y: 0, opacity: 1, duration: 1.2, delay: 0.3, ease: "power3.out"
         });
     }
@@ -183,5 +206,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if(document.querySelector(".contact-info")) {
         gsap.from(".contact-info", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: -30, opacity: 0, duration: 1 });
         gsap.from(".contact-form", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: 30, opacity: 0, duration: 1, delay: 0.2 });
+        
+        // Form Submit
+        const form = document.querySelector('.contact-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); 
+            const dept = document.getElementById('department').value;
+            const name = document.getElementById('name').value;
+            const project = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            const subjectLine = `WESTROOMZ ANFRAGE: ${dept} - ${project}`;
+            const body = `Name: ${name}%0D%0AAbteilung: ${dept}%0D%0AProjekt: ${project}%0D%0A%0D%0ANachricht:%0D%0A${message}`;
+            
+            window.location.href = `mailto:INFO@WESTROOMZ.DE?subject=${subjectLine}&body=${body}`;
+        });
     }
 });
