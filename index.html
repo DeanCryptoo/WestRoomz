@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="WESTROOMZ - Audio, Video & Event Production Agency.">
     <title>WESTROOMZ | Audio. Video. Events.</title>
-    <link rel="icon" type="image/jpg" href="logo.jpg">
+    
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     
@@ -17,13 +18,14 @@
 
     <div class="global-bg"></div>
     <div class="page-transition-curtain"></div>
-    
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
     <div class="red-thread"></div>
     <div class="cinematic-vignette"></div>
 
-    <div class="menu-toggle-btn interactive" onclick="toggleMenu()"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
 
     <div class="side-menu">
         <div>
@@ -47,8 +49,13 @@
     <div class="menu-overlay" onclick="toggleMenu()"></div>
 
     <div class="modal-overlay" id="galleryModal">
-        <div class="modal-header"><h2 class="modal-title" id="modalTitle">GALLERY</h2><div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div></div>
-        <div class="modal-content-wrapper"><div class="modal-grid" id="modalGrid"></div></div>
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">GALLERY</h2>
+            <div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div>
+        </div>
+        <div class="modal-content-wrapper">
+            <div class="modal-grid" id="modalGrid"></div>
+        </div>
     </div>
 
     <main class="page-wrapper">
@@ -93,7 +100,9 @@
                 <h3>NETZWERK</h3>
                 <p>WESTROOMZ fungiert als Schnittstelle zwischen Projekten und Kreativen. Wir bündeln Projekte, strukturieren Abläufe und vermitteln passende Jobs innerhalb unseres Netzwerks.</p>
             </div>
-            <div class="network-logo-container"><img src="IMG_4834.png" alt="Westroomz Network" loading="lazy"></div>
+            <div class="network-logo-container">
+                <img src="IMG_4834.png" alt="Westroomz Network" loading="lazy">
+            </div>
         </section>
 
         <section id="services" class="services-section">
@@ -166,34 +175,86 @@
         </section>
 
         <section class="expand-gallery interactive">
-            <div class="expand-item" onclick="openModal('AUDIO')"><img src="7.jpeg" alt="Service" loading="lazy"><h3>AUDIO</h3></div>
-            <div class="expand-item" onclick="openModal('VIDEO')"><img src="8.jpeg" alt="Service" loading="lazy"><h3>VIDEO</h3></div>
-            <div class="expand-item" onclick="openModal('EVENTS')"><img src="5.jpeg" alt="Service" loading="lazy"><h3>EVENTS</h3></div>
-            <div class="expand-item" onclick="openModal('CONTENT')"><img src="6.jpeg" alt="Service" loading="lazy"><h3>CONTENT</h3></div>
+            <div class="expand-item" onclick="openModal('AUDIO')">
+                <img src="7.jpeg" alt="Audio" loading="lazy">
+                <h3>AUDIO</h3>
+            </div>
+            <div class="expand-item" onclick="openModal('VIDEO')">
+                <img src="8.jpeg" alt="Video" loading="lazy">
+                <h3>VIDEO</h3>
+            </div>
+            <div class="expand-item" onclick="openModal('EVENTS')">
+                <img src="5.jpeg" alt="Events" loading="lazy">
+                <h3>EVENTS</h3>
+            </div>
+            <div class="expand-item" onclick="openModal('CONTENT')">
+                <img src="6.jpeg" alt="Content" loading="lazy">
+                <h3>CONTENT</h3>
+            </div>
         </section>
 
         <section id="references" class="ref-section">
-            <div style="text-align: center; margin-bottom: 50px;"><h2 class="section-title">REFERENZEN</h2></div>
-            <div class="marquee-wrapper"><div class="marquee-track"><span class="ref-logo">STRAUSS</span><span class="ref-logo">SONY MUSIC</span><span class="ref-logo">UNIVERSAL</span><span class="ref-logo">RED BULL</span><span class="ref-logo">NIKE</span><span class="ref-logo">STRAUSS</span><span class="ref-logo">SONY MUSIC</span><span class="ref-logo">UNIVERSAL</span><span class="ref-logo">RED BULL</span><span class="ref-logo">NIKE</span></div></div>
-            <div class="marquee-wrapper"><div class="marquee-track reverse"><span class="ref-logo">ADIDAS</span><span class="ref-logo">WARNER</span><span class="ref-logo">PORSCHE</span><span class="ref-logo">MERCEDES</span><span class="ref-logo">VOGUE</span><span class="ref-logo">ADIDAS</span><span class="ref-logo">WARNER</span><span class="ref-logo">PORSCHE</span><span class="ref-logo">MERCEDES</span><span class="ref-logo">VOGUE</span></div></div>
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 class="section-title">REFERENZEN</h2>
+            </div>
+            <div class="marquee-wrapper">
+                <div class="marquee-track">
+                    <span class="ref-logo">STRAUSS</span><span class="ref-logo">SONY MUSIC</span><span class="ref-logo">UNIVERSAL</span>
+                    <span class="ref-logo">RED BULL</span><span class="ref-logo">NIKE</span>
+                    <span class="ref-logo">STRAUSS</span><span class="ref-logo">SONY MUSIC</span><span class="ref-logo">UNIVERSAL</span>
+                    <span class="ref-logo">RED BULL</span><span class="ref-logo">NIKE</span>
+                </div>
+            </div>
+            <div class="marquee-wrapper">
+                <div class="marquee-track reverse">
+                    <span class="ref-logo">ADIDAS</span><span class="ref-logo">WARNER</span><span class="ref-logo">PORSCHE</span>
+                    <span class="ref-logo">MERCEDES</span><span class="ref-logo">VOGUE</span>
+                    <span class="ref-logo">ADIDAS</span><span class="ref-logo">WARNER</span><span class="ref-logo">PORSCHE</span>
+                    <span class="ref-logo">MERCEDES</span><span class="ref-logo">VOGUE</span>
+                </div>
+            </div>
         </section>
 
         <section id="contact" class="contact-section">
             <div class="contact-grid">
-                <div class="contact-info"><h2 class="section-title">KONTAKT</h2><p style="color: #888;">Du planst eine Produktion oder suchst einen technischen Partner?</p><div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;"><p>INFO@WESTROOMZ.DE</p><p>TEL. 01577 877 8502</p></div></div>
+                <div class="contact-info">
+                    <h2 class="section-title">KONTAKT</h2>
+                    <p style="color: #888;">Du planst eine Produktion oder suchst einen technischen Partner?</p>
+                    <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
+                        <p>INFO@WESTROOMZ.DE</p>
+                        <p>TEL. 01577 877 8502</p>
+                        <p>AM ALTEN SPORTPLATZ 37, 48477 HÖRSTEL</p>
+                    </div>
+                </div>
                 <form class="contact-form">
-                    <label>ABTEILUNG</label><select id="department" class="interactive"><option value="General">Allgemeine Anfrage</option><option value="Audio">Audio</option><option value="Video">Video</option><option value="Event">Eventplanung</option></select>
-                    <label>NAME</label><input type="text" id="name" class="interactive" required>
-                    <label>PROJEKT</label><input type="text" id="subject" class="interactive" placeholder="Projekt...">
-                    <label>NACHRICHT</label><textarea id="message" class="interactive" rows="5"></textarea>
+                    <label>ABTEILUNG</label>
+                    <select id="department" class="interactive">
+                        <option value="General">Allgemeine Anfrage</option>
+                        <option value="Audio">Audio</option>
+                        <option value="Video">Video</option>
+                        <option value="Event">Eventplanung</option>
+                    </select>
+                    <label>NAME</label>
+                    <input type="text" id="name" class="interactive" required>
+                    <label>PROJEKT</label>
+                    <input type="text" id="subject" class="interactive" placeholder="Projekt...">
+                    <label>NACHRICHT</label>
+                    <textarea id="message" class="interactive" rows="5"></textarea>
                     <button type="submit" class="submit-btn interactive">ABSENDEN</button>
                 </form>
             </div>
         </section>
 
         <footer>
-            <div class="footer-socials"><a href="#" class="social-icon interactive">INSTAGRAM</a><a href="#" class="social-icon interactive">LINKEDIN</a></div>
-            <div class="footer-nav"><a href="impressum.html" class="interactive">IMPRESSUM</a><a href="datenschutz.html" class="interactive">DATENSCHUTZ</a><a href="agb.html" class="interactive">AGB</a></div>
+            <div class="footer-socials">
+                <a href="#" class="social-icon interactive">INSTAGRAM</a>
+                <a href="#" class="social-icon interactive">LINKEDIN</a>
+            </div>
+            <div class="footer-nav">
+                <a href="impressum.html" class="interactive">IMPRESSUM</a>
+                <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+                <a href="agb.html" class="interactive">AGB</a>
+            </div>
             <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
