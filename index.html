@@ -80,7 +80,7 @@
         </section>
 
         <section id="gallery" class="gallery-section">
-            <div class="gallery-container interactive" id="slider">
+            <div class="gallery-container interactive">
                 <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
                 <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
                 <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
@@ -89,7 +89,7 @@
                 <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
                 <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
                 <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-                
+
                 <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
                 <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
                 <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
@@ -222,66 +222,6 @@ WESTROOMZ begleitet Veranstaltungen modular oder ganzheitlich und übernimmt Ver
             <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const slider = document.getElementById('slider');
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            let autoScrollSpeed = 1; // Geschwindigkeit anpassen (1 = normal)
-            let autoScrollActive = true;
-
-            // Endlos-Scroll Logik
-            function autoScroll() {
-                if (autoScrollActive && !isDown) {
-                    // Wenn wir bei der Hälfte sind (Set 1 vorbei), springe unbemerkt zum Anfang
-                    if (slider.scrollLeft >= (slider.scrollWidth / 2)) {
-                        slider.scrollLeft = 0;
-                    } else {
-                        slider.scrollLeft += autoScrollSpeed;
-                    }
-                }
-                requestAnimationFrame(autoScroll);
-            }
-
-            // Desktop Drag Events
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                autoScrollActive = false; // Stoppt Auto-Scroll beim Anfassen
-                slider.classList.add('active'); // Ändert Cursor
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-            });
-
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                autoScrollActive = true; // Startet Auto-Scroll wieder
-                slider.classList.remove('active');
-            });
-
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                autoScrollActive = true; // Startet Auto-Scroll wieder
-                slider.classList.remove('active');
-            });
-
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2; // *2 macht das Ziehen schneller/angenehmer
-                slider.scrollLeft = scrollLeft - walk;
-            });
-
-            // Mobile Touch Events (damit Auto-Scroll pausiert beim Tippen)
-            slider.addEventListener('touchstart', () => { autoScrollActive = false; });
-            slider.addEventListener('touchend', () => { autoScrollActive = true; });
-
-            // Start Animation
-            requestAnimationFrame(autoScroll);
-        });
-    </script>
     <script src="js/main.js"></script>
 </body>
 </html>
