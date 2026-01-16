@@ -158,7 +158,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 10px var(--accent);
 }
 
-/* --- GALLERY SLIDER (AUTO + DRAG) --- */
+/* --- GALLERY SLIDER AUTOMATIK & FORMAT --- */
 .gallery-section { padding: 0; background: #080808; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
 
 .gallery-container {
@@ -166,28 +166,29 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     gap: 20px;          
     padding: 50px 0; 
     
-    /* Scroll-Verhalten */
-    overflow-x: auto;
-    -ms-overflow-style: none; /* IE/Edge */
-    scrollbar-width: none;    /* Firefox */
+    /* AUTOMATISCHE BEWEGUNG */
+    width: max-content;   
+    animation: sliderMove 60s linear infinite; /* Geschwindigkeit hier anpassen (60s = langsam) */
     
-    /* Interaktion */
+    will-change: transform;
     cursor: grab;
-    user-select: none;
 }
-/* Scrollbar verstecken Chrome/Safari */
-.gallery-container::-webkit-scrollbar { display: none; }
 
-/* Wenn wir ziehen (via JS) */
-.gallery-container.active {
-    cursor: grabbing;
-    cursor: -webkit-grabbing;
+/* Animation Loop */
+@keyframes sliderMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 10px)); } /* Verschiebt um die Hälfte (Satz 1) */
+}
+
+/* Stoppt beim Drüberfahren (optional) */
+.gallery-container:hover {
+    animation-play-state: paused;
 }
 
 .gallery-item {
     flex: 0 0 auto; 
-    width: 480px;        /* Desktop: 480px */
-    height: 350px;       /* Desktop: 350px */
+    width: 480px;        /* Desktop: 480px (breit, aber nicht zu breit) */
+    height: 350px;       /* Desktop: 350px (gute Höhe) */
     
     background: #1a1a1a; 
     border: 1px solid var(--border); 
