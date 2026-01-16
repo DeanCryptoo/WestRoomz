@@ -158,35 +158,53 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 10px var(--accent);
 }
 
-/* GALLERY 1 */
+/* --- GALLERY SLIDER AUTOMATIK & FORMAT --- */
 .gallery-section { padding: 0; background: #080808; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
-.gallery-container {
-    display: flex; gap: 0; padding: 50px 0; overflow-x: auto; cursor: grab; white-space: nowrap;
-    -ms-overflow-style: none; scrollbar-width: none; user-select: none; -webkit-user-select: none; will-change: transform;
-}
-.gallery-container::-webkit-scrollbar { display: none; }
-.gallery-container.active { cursor: grabbing; cursor: -webkit-grabbing; }
 
-/* --- SLIDER ANPASSUNG DESKTOP --- */
+.gallery-container {
+    display: flex; 
+    gap: 20px;          
+    padding: 50px 0; 
+    
+    /* AUTOMATISCHE BEWEGUNG */
+    width: max-content;   
+    animation: sliderMove 60s linear infinite; /* Geschwindigkeit hier anpassen (60s = langsam) */
+    
+    will-change: transform;
+    cursor: grab;
+}
+
+/* Animation Loop */
+@keyframes sliderMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 10px)); } /* Verschiebt um die Hälfte (Satz 1) */
+}
+
+/* Stoppt beim Drüberfahren (optional) */
+.gallery-container:hover {
+    animation-play-state: paused;
+}
+
 .gallery-item {
     flex: 0 0 auto; 
-    width: 480px;        /* Desktop: Etwas schmaler als 600px */
-    height: 350px;       /* Desktop: Etwas höher als vorher */
-    margin-right: 20px;
+    width: 480px;        /* Desktop: 480px (breit, aber nicht zu breit) */
+    height: 350px;       /* Desktop: 350px (gute Höhe) */
+    
     background: #1a1a1a; 
     border: 1px solid var(--border); 
     position: relative; 
     overflow: hidden; 
     pointer-events: auto;
-    border-radius: 30px; /* Schön runde Ecken */
+    border-radius: 30px; /* Runde Ecken */
 }
-/* -------------------------------- */
 
 .gallery-item img {
     width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; 
     -webkit-user-drag: none; user-drag: none; pointer-events: none; will-change: transform;
 }
 .gallery-item:hover img { transform: scale(1.05); }
+/* ------------------------------------------ */
+
 
 /* VISION */
 .vision-section { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; padding: 150px 10%; }
@@ -382,10 +400,10 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .mini-divider { margin: 30px auto; } 
     .network-logo-container { justify-content: center; }
 
-    /* HIER DIE ANPASSUNG FÜR HANDY: INSTAGRAM STYLE (1080x1080) */
+    /* HIER DIE HANDY-ANPASSUNG: INSTAGRAM STYLE (1080x1080) */
     .gallery-item { 
-        width: 85vw;          /* Breite fast so wie das Handy */
-        height: auto;         /* Höhe passt sich automatisch an */
+        width: 85vw;          
+        height: auto;         
         aspect-ratio: 1 / 1;  /* ZWINGT ES ZU EINEM QUADRAT */
         border-radius: 30px;  /* Runde Ecken */
     }
@@ -413,6 +431,6 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .detail-hero h1 { font-size: 2.5rem; }
     .detail-content { grid-template-columns: 1fr; gap: 50px; padding: 60px 5%; }
 
-    /* HIDE VISUAL BREAK ON MOBILE (CLEANEST SOLUTION) */
+    /* HIDE VISUAL BREAK ON MOBILE */
     .expand-gallery { display: none !important; }
 }
