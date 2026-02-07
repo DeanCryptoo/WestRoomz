@@ -163,7 +163,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 
 .gallery-container {
     display: flex; 
-    gap: 20px;          
+    gap: 20px;           
     padding: 50px 0; 
     
     /* AUTOMATISCHE BEWEGUNG */
@@ -320,12 +320,31 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .marquee-wrapper:hover .marquee-track { animation-play-state: paused; }
 .marquee-track { display: flex; gap: 60px; animation: marquee 25s linear infinite; will-change: transform; transform: translate3d(0,0,0); }
 .marquee-track.reverse { animation-direction: reverse; }
+
+/* Styles für die alten Text-Logos (optional) */
 .ref-logo {
     font-family: var(--font-head); font-size: 5rem; text-transform: uppercase;
     color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.3); transition: 0.15s ease-out; cursor: default;
     display: inline-block; padding: 0 10px; position: relative;
 }
 .ref-logo:hover { color: white; -webkit-text-stroke: 1px white; text-shadow: 0 0 20px rgba(255,255,255,0.5); transform: scale(1.02); }
+
+/* --- NEU: LOGO STYLING FÜR REFERENZEN (BILDER) --- */
+.ref-logo-img {
+    height: 60px;          /* Einheitliche Höhe */
+    width: auto;           /* Breite passt sich an */
+    margin: 0 40px;        /* Abstand zwischen Logos */
+    opacity: 0.6;          /* Etwas dezenter */
+    filter: grayscale(100%); /* Schwarz-Weiß-Look */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.ref-logo-img:hover {
+    opacity: 1;            /* Volle Sichtbarkeit bei Mauszeiger */
+    filter: grayscale(0%); /* Farbe kommt zurück */
+    transform: scale(1.1); /* Kleiner Zoom-Effekt */
+}
+
 @keyframes marquee { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
 
 /* CONTACT */
@@ -402,11 +421,14 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 
     /* HIER DIE HANDY-ANPASSUNG: INSTAGRAM STYLE (1080x1080) */
     .gallery-item { 
-        width: 85vw;          
+        width: 85vw;           
         height: auto;         
         aspect-ratio: 1 / 1;  /* ZWINGT ES ZU EINEM QUADRAT */
         border-radius: 30px;  /* Runde Ecken */
     }
+
+    /* NEU: LOGO ANPASSUNG FÜR HANDY */
+    .ref-logo-img { height: 40px; margin: 0 20px; }
 
     .modal-overlay { padding: 0; }
     .modal-header { padding: 20px; }
