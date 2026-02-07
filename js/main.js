@@ -31,6 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
             list: ["Eventplanung & Konzepte", "Live Mixing", "Audio- & Videoproduktion", "Event-Fotografie", "DJ-Services", "Ablauf & Koordination"]
         },
 
+        // --- MARKETING PAGE (NEU HINZUGEFÜGT) ---
+        "marketing_general": {
+            title: "MARKETING & STRATEGIE",
+            image: "5.jpeg", // Ich habe Bild 5.jpeg gewählt, das existiert in deinem Ordner
+            intro: "Sichtbarkeit ist kein Zufall, sondern das Ergebnis präziser Planung.",
+            desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien, die deine Brand, deinen Sound oder dein Event nachhaltig positionieren. Wir nutzen datengetriebene Ansätze auf Social Media und verbinden diese mit hochwertigem Content, um echte Fans und Kunden zu erreichen. Von der CI-Entwicklung bis zur Kampagnen-Ausspielung.",
+            list: ["Social Media Strategy", "Performance Marketing", "Branding & CI", "Kampagnen-Management", "Content Distribution", "Zielgruppen-Analyse"]
+        },
+
         // --- LEGACY/UNUSED KEYS (Kept just in case you link them later) ---
         "audio_commercial": { title: "COMMERCIAL", image: "2.jpeg", intro: "...", desc: "...", list: [] },
         "audio_podcast": { title: "PODCASTS", image: "3.jpeg", intro: "...", desc: "...", list: [] }
