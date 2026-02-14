@@ -1,53 +1,42 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- DATABASE: SERVICE CONTENT ---
-    // This data populates the service-detail.html page based on the ID in the URL.
     const serviceData = {
         
-        // --- AUDIO PAGE (Linked from "Details" on Index) ---
         "audio_music": {
             title: "AUDIO PRODUKTION",
-            image: "1.jpeg", // Ensure this image exists
+            image: "1.jpeg",
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
             desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen: im Studio, auf Sets, bei Live-Events und in komplexen Kampagnen. Diese Erfahrung prägt unsere Arbeitsweise. Wir hören genau hin, treffen bewusste Entscheidungen und setzen Technik gezielt ein – nicht, um sie zu zeigen, sondern um Ergebnisse zu liefern, die funktionieren. Ob Recording, Mixing, Mastering, Sounddesign oder Live-Audio: Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
             list: ["Recording", "Mixing", "Mastering", "Sounddesign", "Live-Audio", "Set-Ton"]
         },
 
-        // --- VIDEO PAGE (Linked from "Details" on Index) ---
         "video_music": {
             title: "VIDEO & CONTENT",
-            image: "4.jpeg", // Ensure this image exists
+            image: "4.jpeg",
             intro: "Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.",
             desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt. WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung – für einzelne Produktionen oder zusammenhängende Kampagnen. Von Musikvideos über Social Media Content bis hin zu hochwertigen Imagefilmen.",
-            list: ["Musikvideos & Performance", "Artist Visuals", "Werbe- & Imagefilme", "Social-Media-Content", "Video Podcasts", "Produktbilder", "Cover Art", "Kampagnen-Content"]
+            list: ["Musikvideos", "Visuals", "Imagefilme", "Social Media", "Podcasts", "Fotos", "Cover Art", "Kampagnen"]
         },
 
-        // --- EVENTS PAGE (Linked from "Details" on Index) ---
         "event_planning": {
             title: "EVENTS & LIVE",
-            image: "7.jpeg", // Ensure this image exists
+            image: "7.jpeg",
             intro: "Events erfordern mehr als Technik. Wir liefern Struktur.",
             desc: "WESTROOMZ ist an Veranstaltungen in unterschiedlichen Rollen beteiligt – von technischer Umsetzung bis zur vollständigen Produktionsbegleitung. Wir liefern Struktur, Know-how und eine saubere Umsetzung - von der Planung bis zum laufenden Betrieb vor Ort. Wir begleiten Veranstaltungen modular oder ganzheitlich und übernehmen Verantwortung dort, wo sie gebraucht wird.",
-            list: ["Eventplanung & Konzepte", "Live Mixing", "Audio- & Videoproduktion", "Event-Fotografie", "DJ-Services", "Ablauf & Koordination"]
+            list: ["Planung", "Live Mixing", "Produktion", "Fotografie", "DJ-Service", "Koordination"]
         },
 
-        // --- MARKETING PAGE (NEU HINZUGEFÜGT) ---
         "marketing_general": {
             title: "MARKETING & STRATEGIE",
-            image: "5.jpeg", // Ich habe Bild 5.jpeg gewählt, das existiert in deinem Ordner
+            image: "5.jpeg",
             intro: "Sichtbarkeit ist kein Zufall, sondern das Ergebnis präziser Planung.",
             desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien, die deine Brand, deinen Sound oder dein Event nachhaltig positionieren. Wir nutzen datengetriebene Ansätze auf Social Media und verbinden diese mit hochwertigem Content, um echte Fans und Kunden zu erreichen. Von der CI-Entwicklung bis zur Kampagnen-Ausspielung.",
-            list: ["Social Media Strategy", "Performance Marketing", "Branding & CI", "Kampagnen-Management", "Content Distribution", "Zielgruppen-Analyse"]
-        },
-
-        // --- LEGACY/UNUSED KEYS (Kept just in case you link them later) ---
-        "audio_commercial": { title: "COMMERCIAL", image: "2.jpeg", intro: "...", desc: "...", list: [] },
-        "audio_podcast": { title: "PODCASTS", image: "3.jpeg", intro: "...", desc: "...", list: [] }
+            list: ["Strategy", "Ads", "Branding", "Management", "Content", "Analyse"]
+        }
     };
 
-    // --- DYNAMIC PAGE LOADER ---
-    // Checks if we are on service-detail.html and loads the correct text
+    // --- DYNAMIC PAGE LOADER & KNOB LOGIC ---
     if(window.location.pathname.includes('service-detail.html')) {
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
@@ -55,41 +44,170 @@ document.addEventListener('DOMContentLoaded', () => {
         if(id && serviceData[id]) {
             const data = serviceData[id];
             
-            // Set Title
+            // Basic Texts
             const titleEl = document.getElementById('detailTitle');
             if(titleEl) titleEl.innerText = data.title;
             
-            // Set Background Image
             const bgEl = document.getElementById('detailBg');
             if(bgEl) bgEl.src = data.image; 
             
-            // Set Red Intro Text
             const introEl = document.getElementById('detailIntro');
             if(introEl) introEl.innerText = data.intro;
             
-            // Set Description Paragraph
             const descEl = document.getElementById('detailDesc');
             if(descEl) descEl.innerText = data.desc;
             
-            // Build the List
-            const listContainer = document.getElementById('detailList');
-            if(listContainer) {
-                listContainer.innerHTML = ''; 
-                data.list.forEach((item, index) => {
-                    const li = document.createElement('li');
-                    // Formats number as 01, 02, etc.
-                    li.innerHTML = `${item} <span>0${index + 1}</span>`;
-                    listContainer.appendChild(li);
-                });
-            }
-            
-            // Wire up the Contact Button
             const contactBtn = document.getElementById('detailContactBtn');
             if(contactBtn) {
-                contactBtn.onclick = () => {
-                    window.location.href = `index.html#contact`; 
-                };
+                contactBtn.onclick = () => window.location.href = `index.html#contact`; 
             }
+
+            // --- KNOB BUILDER LOGIC ---
+            const listContainer = document.getElementById('detailList');
+            if(listContainer && data.list.length > 0) {
+                listContainer.innerHTML = ''; // Liste leeren
+                
+                // 1. Aufbau des HTMLs
+                const interfaceDiv = document.createElement('div');
+                interfaceDiv.className = 'knob-interface';
+                
+                const knob = document.createElement('div');
+                knob.className = 'knob-control';
+                // Hier wird dein Bild geladen
+                knob.innerHTML = '<img src="knob.png" class="knob-img" alt="Control Knob" draggable="false">';
+                interfaceDiv.appendChild(knob);
+
+                // Display Area
+                const displayDiv = document.createElement('div');
+                displayDiv.className = 'knob-display-area';
+                const displayTitle = document.createElement('div');
+                displayTitle.className = 'knob-display-title';
+                displayTitle.innerText = data.list[0];
+                const displayDesc = document.createElement('div');
+                displayDesc.className = 'knob-display-desc';
+                displayDesc.innerText = "Ausgewählt"; 
+                
+                displayDiv.appendChild(displayTitle);
+                displayDiv.appendChild(displayDesc);
+
+                listContainer.appendChild(interfaceDiv);
+                listContainer.appendChild(displayDiv);
+
+                // 2. Positionierung der Labels im Kreis
+                const items = data.list;
+                // Einstellungen für den Halbkreis
+                const radius = 135; // Radius in % (relativ zur Mitte, etwas tricky mit CSS, hier lieber Pixel Logik)
+                // Wir nutzen hier JS für Inline Styles, um flexibel zu sein
+                const totalAngle = 260; // Grad Umfang (nicht ganz 360)
+                const startAngle = -130; // Start links unten
+                const step = totalAngle / (items.length - 1);
+                
+                const labelElements = [];
+
+                items.forEach((itemText, index) => {
+                    const label = document.createElement('div');
+                    label.className = 'knob-label';
+                    if(index === 0) label.classList.add('active');
+                    label.innerText = itemText;
+                    
+                    // Berechne Position
+                    const degree = startAngle + (index * step);
+                    const rad = (degree - 90) * (Math.PI / 180); // -90 offset weil 0 rechts ist
+                    
+                    // Positionierung relativ zur Mitte (50% 50%)
+                    // Wir schieben es 55% raus
+                    const x = 50 + (Math.cos(rad) * 65); 
+                    const y = 50 + (Math.sin(rad) * 65);
+                    
+                    label.style.left = `${x}%`;
+                    label.style.top = `${y}%`;
+                    
+                    // Klickbarkeit
+                    label.onclick = () => {
+                        rotateKnobTo(index);
+                    };
+
+                    interfaceDiv.appendChild(label);
+                    labelElements.push({ el: label, angle: degree });
+                });
+
+                // 3. Interaktion
+                let currentAngle = startAngle;
+                let isDragging = false;
+                
+                function rotateKnobTo(index) {
+                    labelElements.forEach(l => l.el.classList.remove('active'));
+                    labelElements[index].el.classList.add('active');
+                    
+                    const targetAngle = labelElements[index].angle;
+                    gsap.to(knob, { rotation: targetAngle, duration: 0.6, ease: "back.out(1.5)" });
+                    currentAngle = targetAngle;
+
+                    // Text Animation
+                    gsap.to(displayTitle, { opacity: 0, duration: 0.1, onComplete: () => {
+                        displayTitle.innerText = items[index];
+                        gsap.to(displayTitle, { opacity: 1, duration: 0.2 });
+                    }});
+                }
+
+                // Initial Position
+                gsap.set(knob, { rotation: startAngle });
+
+                // --- DRAG FUNKTIONALITÄT ---
+                function getAngle(e) {
+                    const rect = interfaceDiv.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    
+                    const rad = Math.atan2(clientY - centerY, clientX - centerX);
+                    let deg = rad * (180 / Math.PI);
+                    return deg + 90; // Korrektur
+                }
+
+                function onMove(e) {
+                    if(!isDragging) return;
+                    e.preventDefault();
+                    let deg = getAngle(e);
+                    gsap.set(knob, { rotation: deg });
+                }
+
+                function onEnd(e) {
+                    if(!isDragging) return;
+                    isDragging = false;
+                    
+                    // SNAP: Finde den nächsten Punkt
+                    let currentRotRaw = gsap.getProperty(knob, "rotation");
+                    // Normalisieren auf -180 bis 180
+                    let currentRot = currentRotRaw % 360;
+                    if (currentRot > 180) currentRot -= 360;
+                    if (currentRot < -180) currentRot += 360;
+
+                    let closestIndex = 0;
+                    let minDiff = 1000;
+
+                    labelElements.forEach((item, index) => {
+                        let diff = Math.abs(item.angle - currentRot);
+                        if(diff < minDiff) {
+                            minDiff = diff;
+                            closestIndex = index;
+                        }
+                    });
+
+                    rotateKnobTo(closestIndex);
+                }
+
+                // Event Listeners
+                knob.addEventListener('mousedown', () => isDragging = true);
+                window.addEventListener('mousemove', onMove);
+                window.addEventListener('mouseup', onEnd);
+
+                knob.addEventListener('touchstart', (e) => isDragging = true, {passive: false});
+                window.addEventListener('touchmove', onMove, {passive: false});
+                window.addEventListener('touchend', onEnd);
+            }
+            
         } else {
             console.log("Service ID not found or missing");
         }
@@ -255,7 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
-            // Allow JS calls, anchors, mailto to work normally
             if (href && !href.startsWith('#') && !href.startsWith('mailto') && !href.includes('javascript')) {
                 e.preventDefault();
                 if(curtain) {
