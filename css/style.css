@@ -354,59 +354,68 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 .detail-desc p { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 20px; }
 
 /* ----------------------------------------------------- */
-/* --- NEW KNOB UI (Service Detail) --- */
+/* --- NEW KNOB UI (V3 - Flexbox Layout & No Overlap) --- */
 /* ----------------------------------------------------- */
 
 .detail-list-wrapper {
     position: relative;
     background: var(--surface);
-    padding: 80px 40px 40px 40px; /* Mehr Padding oben für den Titel */
     border: 1px solid var(--border);
-    min-height: 600px; 
+    /* WICHTIG: Feste Höhe für Desktop */
+    height: 700px; 
+    width: 100%;
+    
+    /* FLEXBOX SETUP - Damit nichts überlappt */
     display: flex;
     flex-direction: column;
+    justify-content: space-between; /* Verteilt Oben/Mitte/Unten */
     align-items: center;
-    justify-content: space-between; 
+    
+    padding: 30px;
     overflow: hidden;
 }
 
-/* Der Titel "LEISTUNGEN" - Fixiert oben */
+/* 1. OBEN: Der Titel */
 .detail-list-wrapper h3 {
     font-family: var(--font-head);
-    font-size: 1.5rem;
-    letter-spacing: 2px;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
     color: white;
     border-bottom: 1px solid var(--border);
     padding-bottom: 15px;
     width: 100%;
     text-align: center;
-    position: absolute;
-    top: 30px;
-    left: 0;
     margin: 0;
+    flex: 0 0 auto; /* Darf nicht schrumpfen */
     z-index: 20;
-    background: transparent;
 }
 
-/* Container für Regler und Labels */
+/* 2. MITTE: Der Regler-Bereich */
 .knob-interface {
     position: relative;
-    width: 380px;
-    height: 380px;
-    margin-top: 20px;
+    width: 400px;
+    height: 400px;
+    /* Flexibel in der Mitte platzieren */
+    flex: 1 1 auto; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
     user-select: none;
     -webkit-user-select: none;
-    flex-shrink: 0;
 }
 
 /* Der drehbare Regler */
 .knob-control {
-    width: 160px;
-    height: 160px;
+    width: 180px; /* Größe etwas erhöht */
+    height: 180px;
     position: absolute;
+    /* Zentrierung ist jetzt relativ zum .knob-interface container */
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(0deg); 
+    margin-left: -90px; /* Hälfte der Breite */
+    margin-top: -90px;  /* Hälfte der Höhe */
+    
     z-index: 10;
     cursor: grab;
     will-change: transform;
@@ -422,54 +431,57 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     height: 100%;
     object-fit: contain;
     pointer-events: none;
-    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8));
+    filter: drop-shadow(0 20px 50px rgba(0,0,0,0.9)); /* Starker Schatten für 3D Effekt */
 }
 
 /* Die Labels drumherum */
 .knob-label {
     position: absolute;
+    /* WICHTIG: Transform Logik im JS beachten, hier nur Basis */
     transform: translate(-50%, -50%);
+    
     font-family: var(--font-head);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: 0.2s ease-out;
+    transition: all 0.2s ease-out;
     text-align: center;
-    width: 120px;
+    width: 140px; /* Breiter, damit Text nicht umbricht */
     pointer-events: auto;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 .knob-label:hover {
     color: white;
     opacity: 0.8;
-    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .knob-label.active {
     color: var(--accent);
-    font-size: 1rem;
-    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    font-size: 1.2rem; /* Deutlich größer wenn aktiv */
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
     opacity: 1;
     z-index: 5;
     font-weight: 600;
 }
 
-/* Das digitale Display unten */
+/* 3. UNTEN: Text und Beschreibung */
 .knob-display-area {
     width: 100%;
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.1);
     padding-top: 25px;
-    margin-top: 10px;
-    min-height: 120px;
+    flex: 0 0 auto; /* Darf nicht schrumpfen */
+    min-height: 150px;
+    
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     z-index: 20;
+    background: linear-gradient(to bottom, rgba(30,30,30,0), rgba(0,0,0,0.5));
 }
 
 .knob-display-title {
@@ -483,63 +495,20 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 
 .knob-display-desc {
     font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--text-muted);
+    font-size: 1.1rem;
+    color: #ccc;
     line-height: 1.5;
-    max-width: 80%;
+    max-width: 90%;
     margin: 0 auto;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE - HANDY */
 @media (max-width: 768px) {
-    body { background-attachment: scroll; }
-    .service-card, .tab-btn { backdrop-filter: none; background: rgba(20, 20, 20, 0.95); }
-    .service-grid:hover .service-card:not(:hover) { opacity: 1; filter: none; transform: none; }
-    html, body, a, button, input, select, textarea { cursor: auto !important; }
-    .cursor, .cursor-ring { display: none !important; }
-    .hero { height: 75vh; min-height: 500px; }
-    .hero-video { object-fit: cover; } 
-    .hero-content { bottom: 10px; }
-    .video-desktop { display: none; }
-    .video-mobile { display: block; }
-    .vision-section { padding: 80px 5%; }
-    .big-lead { font-size: 2rem; }
-    .network-section { grid-template-columns: 1fr; gap: 60px; padding: 80px 5%; text-align: center; }
-    .network-text { text-align: center; }
-    .mini-divider { margin: 30px auto; } 
-    .network-logo-container { justify-content: center; }
-    .gallery-item { width: 85vw; height: auto; aspect-ratio: 1 / 1; border-radius: 30px; }
-    .ref-logo-img { height: 40px; margin: 0 20px; }
-    .modal-overlay { padding: 0; }
-    .modal-header { padding: 20px; }
-    .modal-content-wrapper { padding: 20px; }
-    .modal-grid { grid-template-columns: 1fr; gap: 30px; }
-    .modal-img { width: 100%; height: auto; min-height: 250px; aspect-ratio: 3/2; }
-    .modal-title { font-size: 1.5rem; }
-    .ref-logo { font-size: 3rem; }
-    .services-section, .contact-section { padding: 50px 5%; }
-    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-    .section-title { font-size: 3rem; }
-    .section-title::after { right: -10px; }
-    .hero-sub { font-size: 1rem; letter-spacing: 3px; }
-    .tab-btn { padding: 10px 20px; font-size: 1.1rem; flex: 1 1 auto; text-align: center; }
-    .service-grid { grid-template-columns: 1fr; }
-    .service-card { padding: 30px; }
-    .red-thread { display: none; }
-    .side-menu { width: 100%; padding: 100px 20px 40px; }
-    .back-home-wrapper { top: 20px; right: 20px; }
-    .back-btn { font-size: 1rem; padding: 8px 15px; }
-    .detail-hero { height: 40vh; }
-    .detail-hero h1 { font-size: 2.5rem; }
-    .detail-content { grid-template-columns: 1fr; gap: 50px; padding: 60px 5%; }
-    .expand-gallery { display: none !important; }
-
-    /* Knob Responsive */
-    .detail-list-wrapper { padding: 70px 20px 30px 20px; min-height: 550px; }
-    .knob-interface { width: 300px; height: 300px; margin-top: 10px; }
-    .knob-control { width: 130px; height: 130px; }
-    .knob-label { font-size: 0.7rem; width: 90px; }
-    .knob-label.active { font-size: 0.85rem; }
-    .knob-display-title { font-size: 1.8rem; }
-    .knob-display-desc { font-size: 0.9rem; max-width: 100%; }
+    .detail-list-wrapper { height: auto; min-height: 600px; padding: 20px; }
+    .knob-interface { width: 300px; height: 300px; margin: 20px 0; }
+    .knob-control { width: 130px; height: 130px; margin-left: -65px; margin-top: -65px; }
+    .knob-label { font-size: 0.75rem; width: 100px; }
+    .knob-label.active { font-size: 0.9rem; }
+    .knob-display-title { font-size: 2rem; }
+    .knob-display-desc { font-size: 1rem; }
 }
