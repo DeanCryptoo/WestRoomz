@@ -158,53 +158,26 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 10px var(--accent);
 }
 
-/* --- GALLERY SLIDER AUTOMATIK & FORMAT --- */
+/* GALLERY SLIDER */
 .gallery-section { padding: 0; background: #080808; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
-
 .gallery-container {
-    display: flex; 
-    gap: 20px;            
-    padding: 50px 0; 
-    
-    /* AUTOMATISCHE BEWEGUNG */
-    width: max-content;   
-    animation: sliderMove 60s linear infinite; /* Geschwindigkeit hier anpassen (60s = langsam) */
-    
-    will-change: transform;
-    cursor: grab;
+    display: flex; gap: 20px; padding: 50px 0; width: max-content;   
+    animation: sliderMove 60s linear infinite; will-change: transform; cursor: grab;
 }
-
-/* Animation Loop */
 @keyframes sliderMove {
     0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-50% - 10px)); } /* Verschiebt um die Hälfte (Satz 1) */
+    100% { transform: translateX(calc(-50% - 10px)); } 
 }
-
-/* Stoppt beim Drüberfahren (optional) */
-.gallery-container:hover {
-    animation-play-state: paused;
-}
-
+.gallery-container:hover { animation-play-state: paused; }
 .gallery-item {
-    flex: 0 0 auto; 
-    width: 480px;        /* Desktop: 480px (breit, aber nicht zu breit) */
-    height: 350px;       /* Desktop: 350px (gute Höhe) */
-    
-    background: #1a1a1a; 
-    border: 1px solid var(--border); 
-    position: relative; 
-    overflow: hidden; 
-    pointer-events: auto;
-    border-radius: 30px; /* Runde Ecken */
+    flex: 0 0 auto; width: 480px; height: 350px; background: #1a1a1a; 
+    border: 1px solid var(--border); position: relative; overflow: hidden; pointer-events: auto; border-radius: 30px; 
 }
-
 .gallery-item img {
     width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; 
     -webkit-user-drag: none; user-drag: none; pointer-events: none; will-change: transform;
 }
 .gallery-item:hover img { transform: scale(1.05); }
-/* ------------------------------------------ */
-
 
 /* VISION */
 .vision-section { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; padding: 150px 10%; }
@@ -224,7 +197,6 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .mini-divider { width: 40px; height: 2px; background: var(--primary); margin: 30px 0; }
 .network-text p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; }
 .network-text > * { opacity: 0; transform: translateY(30px); }
-
 .network-logo-container {
     display: flex; justify-content: center; align-items: center;
     opacity: 0; transform: translateY(30px); background: transparent; padding: 0;
@@ -271,7 +243,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 }
 .book-btn:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); }
 
-/* VISUAL BREAK (ACCORDION - DESKTOP ONLY) */
+/* VISUAL BREAK */
 .expand-gallery {
     height: 80vh; width: 100%; display: flex; overflow: hidden;
     border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #000;
@@ -492,16 +464,16 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     color: white;
 }
 
-/* Knob Center Container */
+/* Knob Center Container (ZENTRIERT & AUTOSCALE) */
 .knob-interface {
     position: relative;
     width: 350px;
     height: 350px;
-    flex: 1 1 auto; 
+    flex: 1 1 auto; /* Nimmt den Platz */
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
+    margin: 0 auto; /* Horizontale Zentrierung */
     user-select: none;
     -webkit-user-select: none;
 }
@@ -596,7 +568,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .knob-interface { 
         width: 280px; 
         height: 280px; 
-        margin: 10px 0;
+        margin: 10px auto; /* Zentriert auf Mobile */
     }
     .knob-control { width: 120px; height: 120px; }
     .knob-label { font-size: 0.7rem; width: 90px; }
