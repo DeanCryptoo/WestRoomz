@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
             image: "1.jpeg",
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
             desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik.",
-            // HIER SIND DIE NEUEN TEXTE FÜR DEN REGLER:
             list: [
                 { name: "Recording", text: "High-End Aufnahmen in akustisch optimierten Räumen für Vocals und Instrumente." },
                 { name: "Mixing", text: "Wir bringen Balance, Tiefe und den nötigen Druck in deine Spuren." },
@@ -69,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- DYNAMIC PAGE LOADER & KNOB LOGIC ---
     if(window.location.pathname.includes('service-detail.html')) {
+        console.log("KNOB SCRIPT V3 LOADED"); 
+        
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
         
@@ -78,80 +79,77 @@ document.addEventListener('DOMContentLoaded', () => {
             // Basic Texts
             const titleEl = document.getElementById('detailTitle');
             if(titleEl) titleEl.innerText = data.title;
-            
             const bgEl = document.getElementById('detailBg');
             if(bgEl) bgEl.src = data.image; 
-            
             const introEl = document.getElementById('detailIntro');
             if(introEl) introEl.innerText = data.intro;
-            
             const descEl = document.getElementById('detailDesc');
             if(descEl) descEl.innerText = data.desc;
-            
             const contactBtn = document.getElementById('detailContactBtn');
-            if(contactBtn) {
-                contactBtn.onclick = () => window.location.href = `index.html#contact`; 
-            }
+            if(contactBtn) contactBtn.onclick = () => window.location.href = `index.html#contact`; 
 
-            // --- KNOB BUILDER LOGIC ---
+            // --- KNOB BUILDER ---
             const listContainer = document.getElementById('detailList');
             if(listContainer && data.list.length > 0) {
                 listContainer.innerHTML = ''; 
                 
-                // 1. Aufbau
+                // 1. Interface Container
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
                 
+                // Knob Image
                 const knob = document.createElement('div');
                 knob.className = 'knob-control';
-                // WICHTIG: Stelle sicher, dass knob.png existiert
-                knob.innerHTML = '<img src="knob.png" class="knob-img" alt="Control Knob" draggable="false">';
+                knob.innerHTML = '<img src="knob.png" class="knob-img" alt="Control Knob" draggable="false" ondragstart="return false;">';
                 interfaceDiv.appendChild(knob);
 
                 // Display Area
                 const displayDiv = document.createElement('div');
                 displayDiv.className = 'knob-display-area';
-                
                 const displayTitle = document.createElement('div');
                 displayTitle.className = 'knob-display-title';
                 displayTitle.innerText = data.list[0].name;
-                
                 const displayDesc = document.createElement('div');
                 displayDesc.className = 'knob-display-desc';
                 displayDesc.innerText = data.list[0].text; 
-                
                 displayDiv.appendChild(displayTitle);
                 displayDiv.appendChild(displayDesc);
 
                 listContainer.appendChild(interfaceDiv);
                 listContainer.appendChild(displayDiv);
 
-                // 2. Positionierung Labels
+                // 2. Calculation & Positioning
                 const items = data.list;
-                const radius = 135; 
-                const totalAngle = 260; // Grad Umfang
-                const startAngle = -130; // Start links unten
-                const step = totalAngle / (items.length - 1);
+                // Radius in Pixel (nicht %)
+                const radiusPx = 145; 
                 
+                // Winkel-Einstellungen
+                const totalArc = 260; // 260 Grad Bogen
+                const startAngle = -130; // Startpunkt
+                
+                const step = totalArc / (items.length - 1);
                 const labelElements = [];
 
                 items.forEach((item, index) => {
                     const label = document.createElement('div');
                     label.className = 'knob-label';
                     if(index === 0) label.classList.add('active');
-                    label.innerText = item.name; 
+                    label.innerText = item.name;
                     
                     const degree = startAngle + (index * step);
+                    // Umrechnung
                     const rad = (degree - 90) * (Math.PI / 180);
                     
-                    // Radius für Labels
-                    const x = 50 + (Math.cos(rad) * 65); 
-                    const y = 50 + (Math.sin(rad) * 65);
+                    // Mitte des Containers ist 50%
+                    const x = 50 + (Math.cos(rad) * 40); // 40% Radius
+                    const y = 50 + (Math.sin(rad) * 40);
                     
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
                     
-                    label.onclick = () => {
+                    // Klickbarkeit
+                    label.onclick = (e) => {
+                        e.stopPropagation(); 
                         rotateKnobTo(index);
                     };
 
@@ -159,30 +157,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     labelElements.push({ el: label, angle: degree });
                 });
 
-                // 3. Interaktion
-                let currentAngle = startAngle;
+                // 3. Logic
                 let isDragging = false;
                 
+                // INITIAL SET
+                gsap.set(knob, { rotation: startAngle });
+
                 function rotateKnobTo(index) {
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
                     
                     const targetAngle = labelElements[index].angle;
                     
-                    // --- MECHANISCHES EINRASTEN (Kein Wobble) ---
+                    // SNAP ANIMATION
                     gsap.to(knob, { 
                         rotation: targetAngle, 
-                        duration: 0.5, 
-                        ease: "power4.out" 
+                        duration: 0.4, 
+                        ease: "power4.out",
+                        overwrite: true
                     });
-                    
-                    currentAngle = targetAngle;
 
-                    // Text Animation
+                    // Text Refresh
                     gsap.to([displayTitle, displayDesc], { 
-                        opacity: 0, 
-                        y: 5,
-                        duration: 0.1, 
+                        opacity: 0, y: 5, duration: 0.1, 
                         onComplete: () => {
                             displayTitle.innerText = items[index].name;
                             displayDesc.innerText = items[index].text; 
@@ -191,25 +188,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
-                gsap.set(knob, { rotation: startAngle });
-
-                // --- DRAG ---
+                // DRAG CALCULATION
                 function getAngle(e) {
                     const rect = interfaceDiv.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
+                    
                     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
                     
                     const rad = Math.atan2(clientY - centerY, clientX - centerX);
                     let deg = rad * (180 / Math.PI);
-                    return deg + 90; 
+                    return deg + 90;
                 }
 
                 function onMove(e) {
                     if(!isDragging) return;
-                    e.preventDefault();
+                    e.preventDefault(); 
                     let deg = getAngle(e);
+                    // Direktes Feedback
                     gsap.set(knob, { rotation: deg });
                 }
 
@@ -217,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if(!isDragging) return;
                     isDragging = false;
                     
+                    // Berechne Snap
                     let currentRotRaw = gsap.getProperty(knob, "rotation");
                     let currentRot = currentRotRaw % 360;
                     if (currentRot > 180) currentRot -= 360;
@@ -236,26 +234,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     rotateKnobTo(closestIndex);
                 }
 
+                // EVENTS
                 knob.addEventListener('mousedown', () => isDragging = true);
                 window.addEventListener('mousemove', onMove);
                 window.addEventListener('mouseup', onEnd);
-
+                
                 knob.addEventListener('touchstart', (e) => isDragging = true, {passive: false});
                 window.addEventListener('touchmove', onMove, {passive: false});
                 window.addEventListener('touchend', onEnd);
             }
-        } else {
-            console.log("Service ID not found or missing");
         }
     }
 
-    // --- REST OF JS (PAGE TRANSITION, ETC.) ---
+    // --- REST OF JS ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
     }
 
-    // --- 1. CUSTOM CURSOR ---
     if (window.matchMedia("(min-width: 769px)").matches) {
         const cursor = document.querySelector('.cursor');
         const ring = document.querySelector('.cursor-ring');
@@ -280,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 2. SMOOTH SCROLL (LENIS) ---
     if(typeof Lenis !== 'undefined') {
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: false });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
@@ -293,7 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.lenis = lenis;
     }
 
-    // --- 3. MENU TOGGLE ---
     window.toggleMenu = function() {
         const menu = document.querySelector('.side-menu');
         const overlay = document.querySelector('.menu-overlay');
@@ -306,7 +300,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 4. VIDEO HANDLING (For Index) ---
     const videos = document.querySelectorAll('video');
     const heroText = document.querySelector(".hero-sub");
     if(videos.length > 0 && heroText) {
@@ -323,7 +316,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 5. GALLERY SLIDER (For Index) ---
     const slider = document.querySelector('.gallery-container');
     if(slider) {
         let isDown = false, startX, scrollLeft;
@@ -341,7 +333,6 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
     }
 
-    // --- 6. MODAL (For Gallery) ---
     const modal = document.getElementById('galleryModal');
     if(modal) {
         const modalTitle = document.getElementById('modalTitle');
@@ -360,7 +351,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.closeModal = function() { modal.classList.remove('active'); if(window.lenis) window.lenis.start(); }
     }
 
-    // --- 7. TABS (For Services Section on Index) ---
     if(document.querySelector('.tabs-nav')) {
         window.openTab = function(tabName) {
             document.querySelectorAll('.service-container').forEach(c => c.classList.remove('active'));
@@ -369,7 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const btns = document.querySelectorAll('.tab-btn');
             btns.forEach(b => { if(b.textContent.toLowerCase().includes(tabName)) b.classList.add('active'); });
             
-            // Animation for tab content
             const content = document.querySelector(`#${tabName} .vision-text`);
             if(content) {
                 gsap.fromTo(content, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" });
@@ -379,7 +368,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ScrollTrigger.create({ trigger: "#services", start: "top 75%", onEnter: () => window.openTab('audio') });
     }
 
-    // --- 8. SCROLL ANIMATIONS ---
     gsap.utils.toArray('.section-title').forEach(title => {
         gsap.from(title, { scrollTrigger: { trigger: title, start: "top 90%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, duration: 1 });
     });
@@ -388,7 +376,6 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.to(".vision-text p", { scrollTrigger: { trigger: ".vision-text", start: "top 80%", toggleActions: "play reverse play reverse" }, y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.out" });
     }
     
-    // --- 9. CONTACT FORM ---
     const form = document.querySelector('.contact-form');
     if(form) {
         gsap.from(".contact-info", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: -30, opacity: 0, duration: 1 });
@@ -405,7 +392,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 10. TRANSITION EXIT (Link Clicking) ---
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
