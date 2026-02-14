@@ -70,14 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const listContainer = document.getElementById('detailList');
             const wrapper = document.querySelector('.detail-list-wrapper');
 
-            // --- ENTSCHEIDUNG: NUR AUDIO KRIEGT DEN KNOB ---
+            // --- KNOB LOGIC (STUFEN-SCHALTER MODUS) ---
             if(id === 'audio_music' && listContainer) {
                 
-                // Class Setup
                 wrapper.classList.add('knob-active');
                 listContainer.innerHTML = '';
                 
-                // Build Interface
+                // Build UI
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
                 const knob = document.createElement('div');
@@ -85,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 knob.innerHTML = '<img src="knob.png" class="knob-img" alt="Control Knob" draggable="false" ondragstart="return false;">';
                 interfaceDiv.appendChild(knob);
 
-                // Build Display
                 const displayDiv = document.createElement('div');
                 displayDiv.className = 'knob-display-area';
                 const displayTitle = document.createElement('div');
@@ -100,14 +98,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 listContainer.appendChild(interfaceDiv);
                 listContainer.appendChild(displayDiv);
 
-                // Logic Variables
+                // --- LOGIC SETUP ---
                 const items = data.list;
-                const startAngle = -130; 
-                const totalArc = 260; 
-                const step = totalArc / (items.length - 1);
+                const totalArc = 260; // Total range in degrees
+                const startAngle = -130; // Start at ~8 o'clock
+                const step = totalArc / (items.length - 1); // Angle per item
                 const labelElements = [];
+                
+                let currentIndex = 0; // Wir tracken strikt den Index (0, 1, 2...)
+                let isDragging = false;
+                let lastMouseAngle = 0;
+                let dragAccumulator = 0; // Der "Tank" für die Bewegung
 
-                // Labels Creation
+                // Labels Positioning
                 items.forEach((item, index) => {
                     const label = document.createElement('div');
                     label.className = 'knob-label';
@@ -121,34 +124,41 @@ document.addEventListener('DOMContentLoaded', () => {
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
                     
-                    label.onclick = (e) => { e.stopPropagation(); rotateKnobTo(index); };
+                    // Klick funktioniert weiterhin direkt
+                    label.onclick = (e) => { 
+                        e.stopPropagation(); 
+                        snapKnobTo(index); 
+                    };
                     interfaceDiv.appendChild(label);
                     labelElements.push({ el: label, angle: degree });
                 });
 
-                let isDragging = false;
-                // Initiale Position setzen
+                // Set Initial Position
                 gsap.set(knob, { rotation: startAngle });
 
-                // --- CORE MECHANIC ---
+                // --- STUFEN-SCHALTER LOGIK ---
                 
-                function rotateKnobTo(index) {
-                    // 1. Update Labels
+                function snapKnobTo(index) {
+                    if (index < 0) index = 0;
+                    if (index >= items.length) index = items.length - 1;
+                    
+                    // Update State
+                    currentIndex = index;
+                    
+                    // Visuals: Active Class
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
                     
-                    const targetAngle = labelElements[index].angle;
-                    
-                    // 2. MECHANISCHER SNAP (Das "Klack" Gefühl)
-                    // elastic.out(1, 0.6) macht einen harten Bounce am Ende
+                    // Visuals: Rotate Knob (Hartes, mechanisches Einrasten)
+                    // back.out(4) sorgt für extremen "Wackler" am Ende (wie eine Feder)
                     gsap.to(knob, { 
-                        rotation: targetAngle, 
-                        duration: 0.8, // Etwas länger für den Bounce Effekt
-                        ease: "elastic.out(1, 0.6)", 
+                        rotation: labelElements[index].angle, 
+                        duration: 0.4, 
+                        ease: "back.out(2)", // Das "Klack" Gefühl
                         overwrite: true 
                     });
 
-                    // 3. Text Update
+                    // Text Update
                     gsap.to([displayTitle, displayDesc], { 
                         opacity: 0, y: 5, duration: 0.1, 
                         onComplete: () => {
@@ -159,7 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
-                function getAngle(e) {
+                // Helper: Get Angle from Mouse relative to Center
+                function getMouseAngle(e) {
                     const rect = interfaceDiv.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
@@ -169,50 +180,86 @@ document.addEventListener('DOMContentLoaded', () => {
                     return (rad * (180 / Math.PI)) + 90;
                 }
 
-                function onMove(e) {
-                    if(!isDragging) return;
-                    e.preventDefault(); 
-                    let deg = getAngle(e);
+                // DRAG START
+                function onDown(e) {
+                    isDragging = true;
+                    lastMouseAngle = getMouseAngle(e);
+                    dragAccumulator = 0; // Reset "Tank"
                     
-                    // --- DIRECT CONTROL (Kein Wackeln mehr) ---
-                    // Wir nutzen gsap.set statt gsap.to. 
-                    // Das bedeutet: Der Regler folgt SOFORT, ohne Verzögerung.
-                    gsap.set(knob, { rotation: deg });
+                    // Kleines visuelles Feedback, dass man ihn hat (Skalierung)
+                    gsap.to(knob, { scale: 0.95, duration: 0.1 });
                 }
 
+                // DRAG MOVE (Der "Widerstand")
+                function onMove(e) {
+                    if(!isDragging) return;
+                    e.preventDefault();
+                    
+                    const currentMouseAngle = getMouseAngle(e);
+                    
+                    // Berechne Delta (Wie viel wurde gedreht?)
+                    // Wir müssen den Sprung von 180 zu -180 abfangen
+                    let delta = currentMouseAngle - lastMouseAngle;
+                    if (delta > 180) delta -= 360;
+                    if (delta < -180) delta += 360;
+                    
+                    // Addiere zum Accumulator
+                    dragAccumulator += delta;
+                    lastMouseAngle = currentMouseAngle;
+
+                    // --- SCHWELLE FÜR DEN SCHRITT ---
+                    // 30 Grad Mausbewegung = 1 Schritt des Knobs
+                    // Das verhindert, dass er bei jedem Pixel zuckt.
+                    const stepThreshold = 30; 
+
+                    if (dragAccumulator > stepThreshold) {
+                        // Nach RECHTS gedreht -> Nächster Schritt
+                        if (currentIndex < items.length - 1) {
+                            snapKnobTo(currentIndex + 1);
+                            // Kleines haptisches Feedback (Vibration) falls Handy unterstützt
+                            if (navigator.vibrate) navigator.vibrate(10); 
+                        }
+                        dragAccumulator = 0; // Tank leeren
+                    } 
+                    else if (dragAccumulator < -stepThreshold) {
+                        // Nach LINKS gedreht -> Vorheriger Schritt
+                        if (currentIndex > 0) {
+                            snapKnobTo(currentIndex - 1);
+                            if (navigator.vibrate) navigator.vibrate(10);
+                        }
+                        dragAccumulator = 0; // Tank leeren
+                    }
+                    
+                    // Optional: Visuelle "Spannung" zeigen (Knob dreht sich minimal mit, ohne zu springen)
+                    // Das macht es realistischer, ist aber optional.
+                    // Wir nehmen die aktuelle Snap-Position + ein bisschen vom Accumulator
+                    const baseAngle = labelElements[currentIndex].angle;
+                    const tension = dragAccumulator * 0.3; // Nur 30% der Mausbewegung zeigen
+                    gsap.set(knob, { rotation: baseAngle + tension });
+                }
+
+                // DRAG END
                 function onEnd(e) {
                     if(!isDragging) return;
                     isDragging = false;
                     
-                    // Wo sind wir gerade?
-                    let currentRotRaw = gsap.getProperty(knob, "rotation");
-                    // Mathe-Cleanup für 360 Grad Kreis
-                    let currentRot = currentRotRaw % 360;
-                    if (currentRot > 180) currentRot -= 360;
-                    if (currentRot < -180) currentRot += 360;
-
-                    // Welcher Punkt ist am nächsten?
-                    let closestIndex = 0;
-                    let minDiff = 1000;
-                    labelElements.forEach((item, index) => {
-                        let diff = Math.abs(item.angle - currentRot);
-                        if(diff < minDiff) { minDiff = diff; closestIndex = index; }
-                    });
-                    
-                    // SNAP!
-                    rotateKnobTo(closestIndex);
+                    // Zurücksetzen der Skalierung & Zurück-Snappen in perfekte Position
+                    // Falls man den Accumulator nicht "voll" gemacht hat, springt er zurück.
+                    gsap.to(knob, { scale: 1, duration: 0.2 });
+                    snapKnobTo(currentIndex); // Safety Snap
                 }
 
-                // Event Listeners
-                knob.addEventListener('mousedown', () => isDragging = true);
+                // Events Binding
+                knob.addEventListener('mousedown', onDown);
                 window.addEventListener('mousemove', onMove);
                 window.addEventListener('mouseup', onEnd);
-                knob.addEventListener('touchstart', (e) => isDragging = true, {passive: false});
+                
+                knob.addEventListener('touchstart', onDown, {passive: false});
                 window.addEventListener('touchmove', onMove, {passive: false});
                 window.addEventListener('touchend', onEnd);
 
             } else if (listContainer) {
-                // >>>>> STANDARD LISTE <<<<<
+                // >>>>> STANDARD LISTE (Fallback) <<<<<
                 wrapper.classList.remove('knob-active');
                 listContainer.innerHTML = ''; 
                 listContainer.className = 'detail-list';
@@ -226,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- STANDARD FUNKTIONEN (UNVERÄNDERT) ---
+    // --- STANDARD FUNKTIONEN (Unverändert) ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
