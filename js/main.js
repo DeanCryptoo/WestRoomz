@@ -1,12 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- SOUND SETUP (High End Feeling) ---
+    // Stelle sicher, dass du eine Datei namens 'click.mp3' in deinem Ordner hast!
+    const knobSound = new Audio('click.mp3'); 
+    knobSound.volume = 0.4; // Lautstärke anpassen (0.0 bis 1.0)
+
+    // Funktion für Feedback (Vibration + Sound)
+    function triggerFeedback() {
+        // 1. SOUND (Für iPhone & alle anderen)
+        // Wir setzen die Zeit auf 0, damit man schnell hintereinander klicken kann
+        knobSound.currentTime = 0; 
+        // play() muss durch User-Interaktion ausgelöst werden (was hier der Fall ist durch Drag/Click)
+        knobSound.play().catch(e => {
+            // Falls der Browser Autoplay blockiert (passiert selten bei Interaktion)
+            // console.log("Audio konnte nicht abgespielt werden", e);
+        });
+
+        // 2. VIBRATION (Nur Android / unterstützte Geräte)
+        if (navigator.vibrate) {
+            navigator.vibrate(15); // Kurzer 15ms Impuls
+        }
+    }
+
     // --- DATABASE: SERVICE CONTENT ---
     const serviceData = {
         
         "audio_music": {
             title: "AUDIO PRODUKTION",
             image: "1.jpeg",
-            // HIER IST DEIN ORIGINAL TEXT WIEDER DRIN:
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
             desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen: im Studio, auf Sets, bei Live-Events und in komplexen Kampagnen. Diese Erfahrung prägt unsere Arbeitsweise. Wir hören genau hin, treffen bewusste Entscheidungen und setzen Technik gezielt ein – nicht, um sie zu zeigen, sondern um Ergebnisse zu liefern, die funktionieren. Ob Recording, Mixing, Mastering, Sounddesign oder Live-Audio: Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
             list: [
@@ -71,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const listContainer = document.getElementById('detailList');
             const wrapper = document.querySelector('.detail-list-wrapper');
 
-            // --- KNOB LOGIC (STUFEN-SCHALTER MIT HAPTIC) ---
+            // --- KNOB LOGIC (STUFEN-SCHALTER + SOUND + HAPTIC) ---
             if(id === 'audio_music' && listContainer) {
                 
                 wrapper.classList.add('knob-active');
@@ -135,28 +156,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 gsap.set(knob, { rotation: startAngle });
 
-                // --- FUNKTION: HAPTIC FEEDBACK ---
-                function triggerHaptic() {
-                    // Prüfen ob der Browser vibrieren kann (Android ja, iPhone leider nein)
-                    if (navigator.vibrate) {
-                        navigator.vibrate(15); // 15ms Vibration
-                    }
-                }
-
                 // --- FUNKTION: SNAP ---
                 function snapKnobTo(index) {
                     if (index < 0) index = 0;
                     if (index >= items.length) index = items.length - 1;
                     
+                    // Nur Sound/Vibration wenn sich der Index wirklich ändert
+                    if(currentIndex !== index || !isDragging) { 
+                       triggerFeedback(); 
+                    }
+
                     currentIndex = index;
                     
                     // Visuals
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
                     
-                    // Vibration auslösen!
-                    triggerHaptic();
-
                     // Knob Animation (Mechanisch)
                     gsap.to(knob, { 
                         rotation: labelElements[index].angle, 
