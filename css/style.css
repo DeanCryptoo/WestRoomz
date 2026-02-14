@@ -160,44 +160,24 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 
 /* GALLERY SLIDER */
 .gallery-section { padding: 0; background: #080808; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
-
 .gallery-container {
-    display: flex; 
-    gap: 20px;           
-    padding: 50px 0; 
-    width: max-content;   
-    animation: sliderMove 60s linear infinite;
-    will-change: transform;
-    cursor: grab;
+    display: flex; gap: 20px; padding: 50px 0; width: max-content;   
+    animation: sliderMove 60s linear infinite; will-change: transform; cursor: grab;
 }
-
 @keyframes sliderMove {
     0% { transform: translateX(0); }
     100% { transform: translateX(calc(-50% - 10px)); } 
 }
-
-.gallery-container:hover {
-    animation-play-state: paused;
-}
-
+.gallery-container:hover { animation-play-state: paused; }
 .gallery-item {
-    flex: 0 0 auto; 
-    width: 480px;        
-    height: 350px;       
-    background: #1a1a1a; 
-    border: 1px solid var(--border); 
-    position: relative; 
-    overflow: hidden; 
-    pointer-events: auto;
-    border-radius: 30px; 
+    flex: 0 0 auto; width: 480px; height: 350px; background: #1a1a1a; 
+    border: 1px solid var(--border); position: relative; overflow: hidden; pointer-events: auto; border-radius: 30px; 
 }
-
 .gallery-item img {
     width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; 
     -webkit-user-drag: none; user-drag: none; pointer-events: none; will-change: transform;
 }
 .gallery-item:hover img { transform: scale(1.05); }
-
 
 /* VISION */
 .vision-section { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; padding: 150px 10%; }
@@ -217,7 +197,6 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .mini-divider { width: 40px; height: 2px; background: var(--primary); margin: 30px 0; }
 .network-text p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; }
 .network-text > * { opacity: 0; transform: translateY(30px); }
-
 .network-logo-container {
     display: flex; justify-content: center; align-items: center;
     opacity: 0; transform: translateY(30px); background: transparent; padding: 0;
@@ -322,20 +301,10 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .ref-logo:hover { color: white; -webkit-text-stroke: 1px white; text-shadow: 0 0 20px rgba(255,255,255,0.5); transform: scale(1.02); }
 
 .ref-logo-img {
-    height: 60px;           
-    width: auto;           
-    margin: 0 40px;        
-    opacity: 0.6;          
-    filter: grayscale(100%); 
-    transition: all 0.3s ease;
-    cursor: pointer;
+    height: 60px; width: auto; margin: 0 40px; opacity: 0.6;          
+    filter: grayscale(100%); transition: all 0.3s ease; cursor: pointer;
 }
-.ref-logo-img:hover {
-    opacity: 1;            
-    filter: grayscale(0%); 
-    transform: scale(1.1); 
-}
-
+.ref-logo-img:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
 @keyframes marquee { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
 
 /* CONTACT */
@@ -385,51 +354,55 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 .detail-desc p { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 20px; }
 
 /* ----------------------------------------------------- */
-/* --- NEW KNOB UI (Replaces the old list styling) --- */
+/* --- NEW KNOB UI (Service Detail) --- */
 /* ----------------------------------------------------- */
 
 .detail-list-wrapper {
     position: relative;
     background: var(--surface);
-    padding: 40px;
+    padding: 80px 40px 40px 40px; /* Mehr Padding oben für den Titel */
     border: 1px solid var(--border);
-    min-height: 500px; /* Platz für den Kreis */
+    min-height: 600px; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Damit nichts rausragt */
+    justify-content: space-between; 
+    overflow: hidden;
 }
 
-/* Der alte h3 Header */
+/* Der Titel "LEISTUNGEN" - Fixiert oben */
 .detail-list-wrapper h3 {
     font-family: var(--font-head);
-    margin-bottom: 20px;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: white;
     border-bottom: 1px solid var(--border);
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     width: 100%;
     text-align: center;
     position: absolute;
-    top: 20px;
+    top: 30px;
     left: 0;
-    background: transparent;
+    margin: 0;
     z-index: 20;
+    background: transparent;
 }
 
 /* Container für Regler und Labels */
 .knob-interface {
     position: relative;
-    width: 350px;
-    height: 350px;
-    margin: 40px auto 0 auto;
+    width: 380px;
+    height: 380px;
+    margin-top: 20px;
     user-select: none;
     -webkit-user-select: none;
+    flex-shrink: 0;
 }
 
 /* Der drehbare Regler */
 .knob-control {
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -438,7 +411,6 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     cursor: grab;
     will-change: transform;
     touch-action: none; 
-    border-radius: 50%;
 }
 
 .knob-control:active {
@@ -450,9 +422,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     height: 100%;
     object-fit: contain;
     pointer-events: none;
-    /* Schatten für Tiefe */
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
-    transform: rotate(0deg); /* Korrektur falls Bild gedreht ist */
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8));
 }
 
 /* Die Labels drumherum */
@@ -460,58 +430,64 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     position: absolute;
     transform: translate(-50%, -50%);
     font-family: var(--font-head);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s ease-out;
     text-align: center;
     width: 120px;
     pointer-events: auto;
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 .knob-label:hover {
     color: white;
-    opacity: 1;
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .knob-label.active {
     color: var(--accent);
-    font-size: 1.1rem;
-    text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    font-size: 1rem;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
     opacity: 1;
     z-index: 5;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 /* Das digitale Display unten */
 .knob-display-area {
-    margin-top: 20px;
-    text-align: center;
-    min-height: 80px;
     width: 100%;
+    text-align: center;
     border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 20px;
+    padding-top: 25px;
+    margin-top: 10px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     z-index: 20;
 }
 
 .knob-display-title {
     font-family: var(--font-head);
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     color: white;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     text-transform: uppercase;
+    line-height: 1;
 }
 
 .knob-display-desc {
     font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: var(--accent);
-    opacity: 0.8;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    max-width: 80%;
+    margin: 0 auto;
 }
 
 /* RESPONSIVE */
@@ -559,9 +535,11 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .expand-gallery { display: none !important; }
 
     /* Knob Responsive */
-    .knob-interface { width: 280px; height: 280px; margin-top: 60px; }
+    .detail-list-wrapper { padding: 70px 20px 30px 20px; min-height: 550px; }
+    .knob-interface { width: 300px; height: 300px; margin-top: 10px; }
     .knob-control { width: 130px; height: 130px; }
     .knob-label { font-size: 0.7rem; width: 90px; }
-    .knob-label.active { font-size: 0.9rem; }
-    .knob-display-title { font-size: 1.6rem; }
+    .knob-label.active { font-size: 0.85rem; }
+    .knob-display-title { font-size: 1.8rem; }
+    .knob-display-desc { font-size: 0.9rem; max-width: 100%; }
 }
