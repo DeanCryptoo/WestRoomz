@@ -10,22 +10,39 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 </head>
 <body>
    <div class="global-bg"></div>
     <div class="page-transition-curtain"></div>
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
-    <div class="menu-toggle-btn interactive" onclick="toggleMenu()"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+    
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
     
     <div class="back-home-wrapper">
         <a href="index.html#services" class="back-btn interactive">ZURÜCK</a>
     </div>
 
     <div class="side-menu">
-        <div><div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div><div class="menu-links"><a href="index.html" class="menu-link interactive">START</a><a href="index.html#vision" class="menu-link interactive">VISION</a><a href="index.html#contact" class="menu-link interactive">KONTAKT</a></div></div>
-        <div class="sidebar-footer"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div>
+        <div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="menu-links">
+                <a href="index.html" class="menu-link interactive">START</a>
+                <a href="index.html#vision" class="menu-link interactive">VISION</a>
+                <a href="index.html#contact" class="menu-link interactive">KONTAKT</a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
+            <a href="agb.html">AGB</a>
+        </div>
     </div>
     <div class="menu-overlay" onclick="toggleMenu()"></div>
 
@@ -42,15 +59,23 @@
                 <p id="detailDesc"></p>
                 <button id="detailContactBtn" class="book-btn interactive">JETZT ANFRAGEN</button>
             </div>
-            <div class="detail-list-wrapper" id="knobContainerWrapper">
+            
+            <div class="detail-list-wrapper">
                 <h3>LEISTUNGEN</h3>
-                <div id="detailList" class="detail-list"></div>
+                <div id="detailList" class="detail-list-container"></div>
             </div>
         </section>
 
         <footer>
-            <div class="footer-socials"><a href="#" class="social-icon interactive">INSTAGRAM</a><a href="#" class="social-icon interactive">LINKEDIN</a></div>
-            <div class="footer-nav"><a href="impressum.html" class="interactive">IMPRESSUM</a><a href="datenschutz.html" class="interactive">DATENSCHUTZ</a><a href="agb.html" class="interactive">AGB</a></div>
+            <div class="footer-socials">
+                <a href="#" class="social-icon interactive">INSTAGRAM</a>
+                <a href="#" class="social-icon interactive">LINKEDIN</a>
+            </div>
+            <div class="footer-nav">
+                <a href="impressum.html" class="interactive">IMPRESSUM</a>
+                <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+                <a href="agb.html" class="interactive">AGB</a>
+            </div>
             <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
