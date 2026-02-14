@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "AUDIO PRODUKTION",
             image: "1.jpeg",
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
-            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik.",
+            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen: im Studio, auf Sets, bei Live-Events und in komplexen Kampagnen. Diese Erfahrung prägt unsere Arbeitsweise. Wir hören genau hin, treffen bewusste Entscheidungen und setzen Technik gezielt ein – nicht, um sie zu zeigen, sondern um Ergebnisse zu liefern, die funktionieren. Ob Recording, Mixing, Mastering, Sounddesign oder Live-Audio: Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
+            // Erweitert für Knob Texte:
             list: [
                 { name: "Recording", text: "High-End Aufnahmen in akustisch optimierten Räumen für Vocals und Instrumente." },
                 { name: "Mixing", text: "Wir bringen Balance, Tiefe und den nötigen Druck in deine Spuren." },
@@ -22,82 +23,70 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "VIDEO & CONTENT",
             image: "4.jpeg",
             intro: "Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.",
-            desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke passt.",
-            list: [
-                { name: "Musikvideos", text: "Cinematische Umsetzung deiner Songs – von der Idee bis zum Color Grading." },
-                { name: "Visuals", text: "Looping Visuals und ästhetische Clips für Spotify Canvas oder Bühnen-LEDs." },
-                { name: "Imagefilme", text: "Starke Bilder, die deine Marke oder dein Unternehmen authentisch präsentieren." },
-                { name: "Social Media", text: "Snackable Content im 9:16 Format, optimiert für TikTok, Reels und Shorts." },
-                { name: "Podcasts", text: "Video-Podcasts mit Multi-Cam Setup und professionellem Licht." },
-                { name: "Fotos", text: "Hochauflösende Pressefotos, Editorials und Behind-the-Scenes Aufnahmen." },
-                { name: "Cover Art", text: "Grafikdesign und Artwork für Singles, EPs und Album-Cover." },
-                { name: "Kampagnen", text: "Ganzheitliche Content-Pakete für Produktlaunches oder Releases." }
-            ]
+            desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt. WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung – für einzelne Produktionen oder zusammenhängende Kampagnen. Von Musikvideos über Social Media Content bis hin zu hochwertigen Imagefilmen.",
+            list: ["Musikvideos & Performance", "Artist Visuals", "Werbe- & Imagefilme", "Social-Media-Content", "Video Podcasts", "Produktbilder", "Cover Art", "Kampagnen-Content"]
         },
 
         "event_planning": {
             title: "EVENTS & LIVE",
             image: "7.jpeg",
             intro: "Events erfordern mehr als Technik. Wir liefern Struktur.",
-            desc: "WESTROOMZ ist an Veranstaltungen in unterschiedlichen Rollen beteiligt – von technischer Umsetzung bis zur vollständigen Produktionsbegleitung.",
-            list: [
-                { name: "Planung", text: "Strukturierte Konzepte und Ablaufpläne für reibungslose Events." },
-                { name: "Live Mixing", text: "FOH und Monitor-Mixing für Bands und Sprachbeschallung." },
-                { name: "Produktion", text: "Technische Leitung und Koordination aller Gewerke vor Ort." },
-                { name: "Fotografie", text: "Event-Dokumentation, die die Atmosphäre perfekt einfängt." },
-                { name: "DJ-Service", text: "Professionelle DJs für Aftershows, Corporate Events und Partys." },
-                { name: "Koordination", text: "Schnittstelle zwischen Veranstalter, Technik und Künstlern." }
-            ]
+            desc: "WESTROOMZ ist an Veranstaltungen in unterschiedlichen Rollen beteiligt – von technischer Umsetzung bis zur vollständigen Produktionsbegleitung. Wir liefern Struktur, Know-how und eine saubere Umsetzung - von der Planung bis zum laufenden Betrieb vor Ort. Wir begleiten Veranstaltungen modular oder ganzheitlich und übernehmen Verantwortung dort, wo sie gebraucht wird.",
+            list: ["Eventplanung & Konzepte", "Live Mixing", "Audio- & Videoproduktion", "Event-Fotografie", "DJ-Services", "Ablauf & Koordination"]
         },
 
         "marketing_general": {
             title: "MARKETING & STRATEGIE",
             image: "5.jpeg",
             intro: "Sichtbarkeit ist kein Zufall, sondern das Ergebnis präziser Planung.",
-            desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien.",
-            list: [
-                { name: "Strategy", text: "Langfristige Pläne für Artist-Development und Markenaufbau." },
-                { name: "Ads", text: "Zielgerichtete Werbeanzeigen auf Meta, Google und TikTok." },
-                { name: "Branding", text: "Entwicklung einer visuellen Identität (CI/CD) und Logo-Design." },
-                { name: "Management", text: "Beratung und Begleitung bei Releases und Karriereentscheidungen." },
-                { name: "Content", text: "Strategische Planung von Content-Pieces für maximale Reichweite." },
-                { name: "Analyse", text: "Auswertung von Daten und KPIs zur Optimierung der Performance." }
-            ]
-        }
+            desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien, die deine Brand, deinen Sound oder dein Event nachhaltig positionieren. Wir nutzen datengetriebene Ansätze auf Social Media und verbinden diese mit hochwertigem Content, um echte Fans und Kunden zu erreichen. Von der CI-Entwicklung bis zur Kampagnen-Ausspielung.",
+            list: ["Social Media Strategy", "Performance Marketing", "Branding & CI", "Kampagnen-Management", "Content Distribution", "Zielgruppen-Analyse"]
+        },
+
+        "audio_commercial": { title: "COMMERCIAL", image: "2.jpeg", intro: "...", desc: "...", list: [] },
+        "audio_podcast": { title: "PODCASTS", image: "3.jpeg", intro: "...", desc: "...", list: [] }
     };
 
-    // --- DYNAMIC PAGE LOADER & KNOB LOGIC ---
+    // --- DYNAMIC PAGE LOADER ---
+    // Checks if we are on service-detail.html and loads the correct text
     if(window.location.pathname.includes('service-detail.html')) {
-        console.log("KNOB SCRIPT V3 LOADED"); 
-        
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
         
         if(id && serviceData[id]) {
             const data = serviceData[id];
             
-            // Basic Texts
+            // Set Title
             const titleEl = document.getElementById('detailTitle');
             if(titleEl) titleEl.innerText = data.title;
+            
+            // Set Background Image
             const bgEl = document.getElementById('detailBg');
             if(bgEl) bgEl.src = data.image; 
+            
+            // Set Red Intro Text
             const introEl = document.getElementById('detailIntro');
             if(introEl) introEl.innerText = data.intro;
+            
+            // Set Description Paragraph
             const descEl = document.getElementById('detailDesc');
             if(descEl) descEl.innerText = data.desc;
-            const contactBtn = document.getElementById('detailContactBtn');
-            if(contactBtn) contactBtn.onclick = () => window.location.href = `index.html#contact`; 
-
-            // --- KNOB BUILDER ---
+            
+            // Container
             const listContainer = document.getElementById('detailList');
-            if(listContainer && data.list.length > 0) {
-                listContainer.innerHTML = ''; 
+            const wrapper = document.querySelector('.detail-list-wrapper');
+
+            // --- ENTSCHEIDUNG: NUR AUDIO KRIEGT DEN KNOB ---
+            if(id === 'audio_music' && listContainer) {
+                // >>>>> KNOB MODUS (NUR AUDIO) <<<<<
+                
+                // CSS Klasse für Knob aktivieren (fixiert Höhe und Flexbox)
+                wrapper.classList.add('knob-active');
+                listContainer.innerHTML = '';
                 
                 // 1. Interface Container
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
-                
-                // Knob Image
                 const knob = document.createElement('div');
                 knob.className = 'knob-control';
                 knob.innerHTML = '<img src="knob.png" class="knob-img" alt="Control Knob" draggable="false" ondragstart="return false;">';
@@ -118,15 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 listContainer.appendChild(interfaceDiv);
                 listContainer.appendChild(displayDiv);
 
-                // 2. Calculation & Positioning
+                // Knob Logik
                 const items = data.list;
-                // Radius in Pixel (nicht %)
-                const radiusPx = 145; 
-                
-                // Winkel-Einstellungen
-                const totalArc = 260; // 260 Grad Bogen
-                const startAngle = -130; // Startpunkt
-                
+                const startAngle = -130; 
+                const totalArc = 260; 
                 const step = totalArc / (items.length - 1);
                 const labelElements = [];
 
@@ -137,47 +121,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     label.innerText = item.name;
                     
                     const degree = startAngle + (index * step);
-                    // Umrechnung
                     const rad = (degree - 90) * (Math.PI / 180);
-                    
-                    // Mitte des Containers ist 50%
-                    const x = 50 + (Math.cos(rad) * 40); // 40% Radius
-                    const y = 50 + (Math.sin(rad) * 40);
-                    
+                    const x = 50 + (Math.cos(rad) * 42); 
+                    const y = 50 + (Math.sin(rad) * 42);
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
-                    
-                    // Klickbarkeit
-                    label.onclick = (e) => {
-                        e.stopPropagation(); 
-                        rotateKnobTo(index);
-                    };
-
+                    label.onclick = (e) => { e.stopPropagation(); rotateKnobTo(index); };
                     interfaceDiv.appendChild(label);
                     labelElements.push({ el: label, angle: degree });
                 });
 
-                // 3. Logic
                 let isDragging = false;
-                
-                // INITIAL SET
                 gsap.set(knob, { rotation: startAngle });
 
                 function rotateKnobTo(index) {
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
-                    
                     const targetAngle = labelElements[index].angle;
-                    
-                    // SNAP ANIMATION
-                    gsap.to(knob, { 
-                        rotation: targetAngle, 
-                        duration: 0.4, 
-                        ease: "power4.out",
-                        overwrite: true
-                    });
-
-                    // Text Refresh
+                    gsap.to(knob, { rotation: targetAngle, duration: 0.4, ease: "power4.out", overwrite: true });
                     gsap.to([displayTitle, displayDesc], { 
                         opacity: 0, y: 5, duration: 0.1, 
                         onComplete: () => {
@@ -188,70 +149,84 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
-                // DRAG CALCULATION
                 function getAngle(e) {
                     const rect = interfaceDiv.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
-                    
                     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                    
                     const rad = Math.atan2(clientY - centerY, clientX - centerX);
-                    let deg = rad * (180 / Math.PI);
-                    return deg + 90;
+                    return (rad * (180 / Math.PI)) + 90;
                 }
 
                 function onMove(e) {
                     if(!isDragging) return;
                     e.preventDefault(); 
                     let deg = getAngle(e);
-                    // Direktes Feedback
                     gsap.set(knob, { rotation: deg });
                 }
 
                 function onEnd(e) {
                     if(!isDragging) return;
                     isDragging = false;
-                    
-                    // Berechne Snap
                     let currentRotRaw = gsap.getProperty(knob, "rotation");
                     let currentRot = currentRotRaw % 360;
                     if (currentRot > 180) currentRot -= 360;
                     if (currentRot < -180) currentRot += 360;
-
                     let closestIndex = 0;
                     let minDiff = 1000;
-
                     labelElements.forEach((item, index) => {
                         let diff = Math.abs(item.angle - currentRot);
-                        if(diff < minDiff) {
-                            minDiff = diff;
-                            closestIndex = index;
-                        }
+                        if(diff < minDiff) { minDiff = diff; closestIndex = index; }
                     });
-
                     rotateKnobTo(closestIndex);
                 }
 
-                // EVENTS
                 knob.addEventListener('mousedown', () => isDragging = true);
                 window.addEventListener('mousemove', onMove);
                 window.addEventListener('mouseup', onEnd);
-                
                 knob.addEventListener('touchstart', (e) => isDragging = true, {passive: false});
                 window.addEventListener('touchmove', onMove, {passive: false});
                 window.addEventListener('touchend', onEnd);
+
+            } else if (listContainer) {
+                // >>>>> STANDARD LISTE (VIDEO, EVENTS, ETC.) <<<<<
+                
+                // Stelle sicher, dass Knob-Styles inaktiv sind
+                wrapper.classList.remove('knob-active');
+                
+                listContainer.innerHTML = ''; 
+                // Original Klasse setzen
+                listContainer.className = 'detail-list';
+                
+                data.list.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    // Check ob item ein Objekt (Audio) oder String (Rest) ist
+                    const text = typeof item === 'string' ? item : item.name;
+                    li.innerHTML = `${text} <span>0${index + 1}</span>`;
+                    listContainer.appendChild(li);
+                });
             }
+            
+            // Wire up the Contact Button
+            const contactBtn = document.getElementById('detailContactBtn');
+            if(contactBtn) {
+                contactBtn.onclick = () => {
+                    window.location.href = `index.html#contact`; 
+                };
+            }
+        } else {
+            console.log("Service ID not found or missing");
         }
     }
 
-    // --- REST OF JS ---
+    // --- 0. PAGE TRANSITION ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
     }
 
+    // --- 1. CUSTOM CURSOR ---
     if (window.matchMedia("(min-width: 769px)").matches) {
         const cursor = document.querySelector('.cursor');
         const ring = document.querySelector('.cursor-ring');
@@ -276,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- 2. SMOOTH SCROLL (LENIS) ---
     if(typeof Lenis !== 'undefined') {
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: false });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
@@ -288,6 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.lenis = lenis;
     }
 
+    // --- 3. MENU TOGGLE ---
     window.toggleMenu = function() {
         const menu = document.querySelector('.side-menu');
         const overlay = document.querySelector('.menu-overlay');
@@ -300,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- 4. VIDEO HANDLING (For Index) ---
     const videos = document.querySelectorAll('video');
     const heroText = document.querySelector(".hero-sub");
     if(videos.length > 0 && heroText) {
@@ -316,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- 5. GALLERY SLIDER (For Index) ---
     const slider = document.querySelector('.gallery-container');
     if(slider) {
         let isDown = false, startX, scrollLeft;
@@ -333,6 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
     }
 
+    // --- 6. MODAL (For Gallery) ---
     const modal = document.getElementById('galleryModal');
     if(modal) {
         const modalTitle = document.getElementById('modalTitle');
@@ -351,6 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.closeModal = function() { modal.classList.remove('active'); if(window.lenis) window.lenis.start(); }
     }
 
+    // --- 7. TABS (For Services Section on Index) ---
     if(document.querySelector('.tabs-nav')) {
         window.openTab = function(tabName) {
             document.querySelectorAll('.service-container').forEach(c => c.classList.remove('active'));
@@ -359,6 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const btns = document.querySelectorAll('.tab-btn');
             btns.forEach(b => { if(b.textContent.toLowerCase().includes(tabName)) b.classList.add('active'); });
             
+            // Animation for tab content
             const content = document.querySelector(`#${tabName} .vision-text`);
             if(content) {
                 gsap.fromTo(content, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" });
@@ -368,6 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ScrollTrigger.create({ trigger: "#services", start: "top 75%", onEnter: () => window.openTab('audio') });
     }
 
+    // --- 8. SCROLL ANIMATIONS ---
     gsap.utils.toArray('.section-title').forEach(title => {
         gsap.from(title, { scrollTrigger: { trigger: title, start: "top 90%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, duration: 1 });
     });
@@ -376,6 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.to(".vision-text p", { scrollTrigger: { trigger: ".vision-text", start: "top 80%", toggleActions: "play reverse play reverse" }, y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.out" });
     }
     
+    // --- 9. CONTACT FORM ---
     const form = document.querySelector('.contact-form');
     if(form) {
         gsap.from(".contact-info", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: -30, opacity: 0, duration: 1 });
@@ -392,9 +376,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- 10. TRANSITION EXIT (Link Clicking) ---
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
+            // Allow JS calls, anchors, mailto to work normally
             if (href && !href.startsWith('#') && !href.startsWith('mailto') && !href.includes('javascript')) {
                 e.preventDefault();
                 if(curtain) {
