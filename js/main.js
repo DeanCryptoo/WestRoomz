@@ -138,7 +138,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
                     const targetAngle = labelElements[index].angle;
-                    gsap.to(knob, { rotation: targetAngle, duration: 0.4, ease: "power4.out", overwrite: true });
+                    
+                    // --- MECHANISCHES SNAP FEELING (Endgültige Position) ---
+                    gsap.to(knob, { 
+                        rotation: targetAngle, 
+                        duration: 0.5, 
+                        ease: "back.out(2.5)", // Stärkeres Nachfedern (Klack-Geräusch Effekt)
+                        overwrite: true 
+                    });
+
                     gsap.to([displayTitle, displayDesc], { 
                         opacity: 0, y: 5, duration: 0.1, 
                         onComplete: () => {
@@ -163,7 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if(!isDragging) return;
                     e.preventDefault(); 
                     let deg = getAngle(e);
-                    gsap.set(knob, { rotation: deg });
+                    
+                    // --- HEAVY WEIGHT FEELING (Während Drag) ---
+                    // Anstatt set (sofort) nutzen wir 'to' mit kleiner Dauer.
+                    // Das simuliert Masse/Trägheit beim Ziehen.
+                    gsap.to(knob, { rotation: deg, duration: 0.3, ease: "power2.out" });
                 }
 
                 function onEnd(e) {
@@ -340,7 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const btns = document.querySelectorAll('.tab-btn');
             btns.forEach(b => { if(b.textContent.toLowerCase().includes(tabName)) b.classList.add('active'); });
             
-            // Animation for tab content
             const content = document.querySelector(`#${tabName} .vision-text`);
             if(content) {
                 gsap.fromTo(content, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" });
