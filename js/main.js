@@ -7,32 +7,63 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "AUDIO PRODUKTION",
             image: "1.jpeg",
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
-            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen: im Studio, auf Sets, bei Live-Events und in komplexen Kampagnen. Diese Erfahrung prägt unsere Arbeitsweise. Wir hören genau hin, treffen bewusste Entscheidungen und setzen Technik gezielt ein – nicht, um sie zu zeigen, sondern um Ergebnisse zu liefern, die funktionieren. Ob Recording, Mixing, Mastering, Sounddesign oder Live-Audio: Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
-            list: ["Recording", "Mixing", "Mastering", "Sounddesign", "Live-Audio", "Set-Ton"]
+            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik.",
+            // HIER SIND DIE NEUEN TEXTE FÜR DEN REGLER:
+            list: [
+                { name: "Recording", text: "High-End Aufnahmen in akustisch optimierten Räumen für Vocals und Instrumente." },
+                { name: "Mixing", text: "Wir bringen Balance, Tiefe und den nötigen Druck in deine Spuren." },
+                { name: "Mastering", text: "Der letzte Schliff für Lautheit und Konsistenz auf allen Streaming-Plattformen." },
+                { name: "Sounddesign", text: "Kreative Klanggestaltung für Filme, Games und Markenidentitäten." },
+                { name: "Live-Audio", text: "Kristallklarer Sound für Events, Konzerte und Live-Übertragungen." },
+                { name: "Set-Ton", text: "Professionelle Tonangel und Aufzeichnung direkt am Filmset." }
+            ]
         },
 
         "video_music": {
             title: "VIDEO & CONTENT",
             image: "4.jpeg",
             intro: "Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.",
-            desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt. WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung – für einzelne Produktionen oder zusammenhängende Kampagnen. Von Musikvideos über Social Media Content bis hin zu hochwertigen Imagefilmen.",
-            list: ["Musikvideos", "Visuals", "Imagefilme", "Social Media", "Podcasts", "Fotos", "Cover Art", "Kampagnen"]
+            desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke passt.",
+            list: [
+                { name: "Musikvideos", text: "Cinematische Umsetzung deiner Songs – von der Idee bis zum Color Grading." },
+                { name: "Visuals", text: "Looping Visuals und ästhetische Clips für Spotify Canvas oder Bühnen-LEDs." },
+                { name: "Imagefilme", text: "Starke Bilder, die deine Marke oder dein Unternehmen authentisch präsentieren." },
+                { name: "Social Media", text: "Snackable Content im 9:16 Format, optimiert für TikTok, Reels und Shorts." },
+                { name: "Podcasts", text: "Video-Podcasts mit Multi-Cam Setup und professionellem Licht." },
+                { name: "Fotos", text: "Hochauflösende Pressefotos, Editorials und Behind-the-Scenes Aufnahmen." },
+                { name: "Cover Art", text: "Grafikdesign und Artwork für Singles, EPs und Album-Cover." },
+                { name: "Kampagnen", text: "Ganzheitliche Content-Pakete für Produktlaunches oder Releases." }
+            ]
         },
 
         "event_planning": {
             title: "EVENTS & LIVE",
             image: "7.jpeg",
             intro: "Events erfordern mehr als Technik. Wir liefern Struktur.",
-            desc: "WESTROOMZ ist an Veranstaltungen in unterschiedlichen Rollen beteiligt – von technischer Umsetzung bis zur vollständigen Produktionsbegleitung. Wir liefern Struktur, Know-how und eine saubere Umsetzung - von der Planung bis zum laufenden Betrieb vor Ort. Wir begleiten Veranstaltungen modular oder ganzheitlich und übernehmen Verantwortung dort, wo sie gebraucht wird.",
-            list: ["Planung", "Live Mixing", "Produktion", "Fotografie", "DJ-Service", "Koordination"]
+            desc: "WESTROOMZ ist an Veranstaltungen in unterschiedlichen Rollen beteiligt – von technischer Umsetzung bis zur vollständigen Produktionsbegleitung.",
+            list: [
+                { name: "Planung", text: "Strukturierte Konzepte und Ablaufpläne für reibungslose Events." },
+                { name: "Live Mixing", text: "FOH und Monitor-Mixing für Bands und Sprachbeschallung." },
+                { name: "Produktion", text: "Technische Leitung und Koordination aller Gewerke vor Ort." },
+                { name: "Fotografie", text: "Event-Dokumentation, die die Atmosphäre perfekt einfängt." },
+                { name: "DJ-Service", text: "Professionelle DJs für Aftershows, Corporate Events und Partys." },
+                { name: "Koordination", text: "Schnittstelle zwischen Veranstalter, Technik und Künstlern." }
+            ]
         },
 
         "marketing_general": {
             title: "MARKETING & STRATEGIE",
             image: "5.jpeg",
             intro: "Sichtbarkeit ist kein Zufall, sondern das Ergebnis präziser Planung.",
-            desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien, die deine Brand, deinen Sound oder dein Event nachhaltig positionieren. Wir nutzen datengetriebene Ansätze auf Social Media und verbinden diese mit hochwertigem Content, um echte Fans und Kunden zu erreichen. Von der CI-Entwicklung bis zur Kampagnen-Ausspielung.",
-            list: ["Strategy", "Ads", "Branding", "Management", "Content", "Analyse"]
+            desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien.",
+            list: [
+                { name: "Strategy", text: "Langfristige Pläne für Artist-Development und Markenaufbau." },
+                { name: "Ads", text: "Zielgerichtete Werbeanzeigen auf Meta, Google und TikTok." },
+                { name: "Branding", text: "Entwicklung einer visuellen Identität (CI/CD) und Logo-Design." },
+                { name: "Management", text: "Beratung und Begleitung bei Releases und Karriereentscheidungen." },
+                { name: "Content", text: "Strategische Planung von Content-Pieces für maximale Reichweite." },
+                { name: "Analyse", text: "Auswertung von Daten und KPIs zur Optimierung der Performance." }
+            ]
         }
     };
 
@@ -65,27 +96,29 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- KNOB BUILDER LOGIC ---
             const listContainer = document.getElementById('detailList');
             if(listContainer && data.list.length > 0) {
-                listContainer.innerHTML = ''; // Liste leeren
+                listContainer.innerHTML = ''; 
                 
-                // 1. Aufbau des HTMLs
+                // 1. Aufbau
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
                 
                 const knob = document.createElement('div');
                 knob.className = 'knob-control';
-                // Hier wird dein Bild geladen
+                // WICHTIG: Stelle sicher, dass knob.png existiert
                 knob.innerHTML = '<img src="knob.png" class="knob-img" alt="Control Knob" draggable="false">';
                 interfaceDiv.appendChild(knob);
 
                 // Display Area
                 const displayDiv = document.createElement('div');
                 displayDiv.className = 'knob-display-area';
+                
                 const displayTitle = document.createElement('div');
                 displayTitle.className = 'knob-display-title';
-                displayTitle.innerText = data.list[0];
+                displayTitle.innerText = data.list[0].name;
+                
                 const displayDesc = document.createElement('div');
                 displayDesc.className = 'knob-display-desc';
-                displayDesc.innerText = "Ausgewählt"; 
+                displayDesc.innerText = data.list[0].text; 
                 
                 displayDiv.appendChild(displayTitle);
                 displayDiv.appendChild(displayDesc);
@@ -93,36 +126,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 listContainer.appendChild(interfaceDiv);
                 listContainer.appendChild(displayDiv);
 
-                // 2. Positionierung der Labels im Kreis
+                // 2. Positionierung Labels
                 const items = data.list;
-                // Einstellungen für den Halbkreis
-                const radius = 135; // Radius in % (relativ zur Mitte, etwas tricky mit CSS, hier lieber Pixel Logik)
-                // Wir nutzen hier JS für Inline Styles, um flexibel zu sein
-                const totalAngle = 260; // Grad Umfang (nicht ganz 360)
+                const radius = 135; 
+                const totalAngle = 260; // Grad Umfang
                 const startAngle = -130; // Start links unten
                 const step = totalAngle / (items.length - 1);
                 
                 const labelElements = [];
 
-                items.forEach((itemText, index) => {
+                items.forEach((item, index) => {
                     const label = document.createElement('div');
                     label.className = 'knob-label';
                     if(index === 0) label.classList.add('active');
-                    label.innerText = itemText;
+                    label.innerText = item.name; 
                     
-                    // Berechne Position
                     const degree = startAngle + (index * step);
-                    const rad = (degree - 90) * (Math.PI / 180); // -90 offset weil 0 rechts ist
+                    const rad = (degree - 90) * (Math.PI / 180);
                     
-                    // Positionierung relativ zur Mitte (50% 50%)
-                    // Wir schieben es 55% raus
+                    // Radius für Labels
                     const x = 50 + (Math.cos(rad) * 65); 
                     const y = 50 + (Math.sin(rad) * 65);
                     
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
                     
-                    // Klickbarkeit
                     label.onclick = () => {
                         rotateKnobTo(index);
                     };
@@ -140,20 +168,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     labelElements[index].el.classList.add('active');
                     
                     const targetAngle = labelElements[index].angle;
-                    gsap.to(knob, { rotation: targetAngle, duration: 0.6, ease: "back.out(1.5)" });
+                    
+                    // --- MECHANISCHES EINRASTEN (Kein Wobble) ---
+                    gsap.to(knob, { 
+                        rotation: targetAngle, 
+                        duration: 0.5, 
+                        ease: "power4.out" 
+                    });
+                    
                     currentAngle = targetAngle;
 
                     // Text Animation
-                    gsap.to(displayTitle, { opacity: 0, duration: 0.1, onComplete: () => {
-                        displayTitle.innerText = items[index];
-                        gsap.to(displayTitle, { opacity: 1, duration: 0.2 });
-                    }});
+                    gsap.to([displayTitle, displayDesc], { 
+                        opacity: 0, 
+                        y: 5,
+                        duration: 0.1, 
+                        onComplete: () => {
+                            displayTitle.innerText = items[index].name;
+                            displayDesc.innerText = items[index].text; 
+                            gsap.to([displayTitle, displayDesc], { opacity: 1, y: 0, duration: 0.2 });
+                        }
+                    });
                 }
 
-                // Initial Position
                 gsap.set(knob, { rotation: startAngle });
 
-                // --- DRAG FUNKTIONALITÄT ---
+                // --- DRAG ---
                 function getAngle(e) {
                     const rect = interfaceDiv.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
@@ -163,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     const rad = Math.atan2(clientY - centerY, clientX - centerX);
                     let deg = rad * (180 / Math.PI);
-                    return deg + 90; // Korrektur
+                    return deg + 90; 
                 }
 
                 function onMove(e) {
@@ -177,9 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if(!isDragging) return;
                     isDragging = false;
                     
-                    // SNAP: Finde den nächsten Punkt
                     let currentRotRaw = gsap.getProperty(knob, "rotation");
-                    // Normalisieren auf -180 bis 180
                     let currentRot = currentRotRaw % 360;
                     if (currentRot > 180) currentRot -= 360;
                     if (currentRot < -180) currentRot += 360;
@@ -198,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     rotateKnobTo(closestIndex);
                 }
 
-                // Event Listeners
                 knob.addEventListener('mousedown', () => isDragging = true);
                 window.addEventListener('mousemove', onMove);
                 window.addEventListener('mouseup', onEnd);
@@ -207,13 +244,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.addEventListener('touchmove', onMove, {passive: false});
                 window.addEventListener('touchend', onEnd);
             }
-            
         } else {
             console.log("Service ID not found or missing");
         }
     }
 
-    // --- 0. PAGE TRANSITION ---
+    // --- REST OF JS (PAGE TRANSITION, ETC.) ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
