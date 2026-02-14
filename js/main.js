@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "AUDIO PRODUKTION",
             image: "1.jpeg",
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
-            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen: im Studio, auf Sets, bei Live-Events und in komplexen Kampagnen. Diese Erfahrung prägt unsere Arbeitsweise. Wir hören genau hin, treffen bewusste Entscheidungen und setzen Technik gezielt ein – nicht, um sie zu zeigen, sondern um Ergebnisse zu liefern, die funktionieren. Ob Recording, Mixing, Mastering, Sounddesign oder Live-Audio: Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
-            // Erweitert für Knob Texte:
+            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik.",
             list: [
                 { name: "Recording", text: "High-End Aufnahmen in akustisch optimierten Räumen für Vocals und Instrumente." },
                 { name: "Mixing", text: "Wir bringen Balance, Tiefe und den nötigen Druck in deine Spuren." },
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- DYNAMIC PAGE LOADER ---
-    // Checks if we are on service-detail.html and loads the correct text
     if(window.location.pathname.includes('service-detail.html')) {
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
@@ -56,35 +54,30 @@ document.addEventListener('DOMContentLoaded', () => {
         if(id && serviceData[id]) {
             const data = serviceData[id];
             
-            // Set Title
+            // Set Texts
             const titleEl = document.getElementById('detailTitle');
             if(titleEl) titleEl.innerText = data.title;
-            
-            // Set Background Image
             const bgEl = document.getElementById('detailBg');
             if(bgEl) bgEl.src = data.image; 
-            
-            // Set Red Intro Text
             const introEl = document.getElementById('detailIntro');
             if(introEl) introEl.innerText = data.intro;
-            
-            // Set Description Paragraph
             const descEl = document.getElementById('detailDesc');
             if(descEl) descEl.innerText = data.desc;
             
-            // Container
+            const contactBtn = document.getElementById('detailContactBtn');
+            if(contactBtn) contactBtn.onclick = () => window.location.href = `index.html#contact`; 
+
             const listContainer = document.getElementById('detailList');
             const wrapper = document.querySelector('.detail-list-wrapper');
 
             // --- ENTSCHEIDUNG: NUR AUDIO KRIEGT DEN KNOB ---
             if(id === 'audio_music' && listContainer) {
-                // >>>>> KNOB MODUS (NUR AUDIO) <<<<<
                 
-                // CSS Klasse für Knob aktivieren (fixiert Höhe und Flexbox)
+                // Class Setup
                 wrapper.classList.add('knob-active');
                 listContainer.innerHTML = '';
                 
-                // 1. Interface Container
+                // Build Interface
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
                 const knob = document.createElement('div');
@@ -92,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 knob.innerHTML = '<img src="knob.png" class="knob-img" alt="Control Knob" draggable="false" ondragstart="return false;">';
                 interfaceDiv.appendChild(knob);
 
-                // Display Area
+                // Build Display
                 const displayDiv = document.createElement('div');
                 displayDiv.className = 'knob-display-area';
                 const displayTitle = document.createElement('div');
@@ -107,13 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 listContainer.appendChild(interfaceDiv);
                 listContainer.appendChild(displayDiv);
 
-                // Knob Logik
+                // Logic Variables
                 const items = data.list;
                 const startAngle = -130; 
                 const totalArc = 260; 
                 const step = totalArc / (items.length - 1);
                 const labelElements = [];
 
+                // Labels Creation
                 items.forEach((item, index) => {
                     const label = document.createElement('div');
                     label.className = 'knob-label';
@@ -126,27 +120,35 @@ document.addEventListener('DOMContentLoaded', () => {
                     const y = 50 + (Math.sin(rad) * 42);
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
+                    
                     label.onclick = (e) => { e.stopPropagation(); rotateKnobTo(index); };
                     interfaceDiv.appendChild(label);
                     labelElements.push({ el: label, angle: degree });
                 });
 
                 let isDragging = false;
+                // Initiale Position setzen
                 gsap.set(knob, { rotation: startAngle });
 
+                // --- CORE MECHANIC ---
+                
                 function rotateKnobTo(index) {
+                    // 1. Update Labels
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
+                    
                     const targetAngle = labelElements[index].angle;
                     
-                    // --- MECHANISCHES SNAP FEELING (Endgültige Position) ---
+                    // 2. MECHANISCHER SNAP (Das "Klack" Gefühl)
+                    // elastic.out(1, 0.6) macht einen harten Bounce am Ende
                     gsap.to(knob, { 
                         rotation: targetAngle, 
-                        duration: 0.5, 
-                        ease: "back.out(2.5)", // Stärkeres Nachfedern (Klack-Geräusch Effekt)
+                        duration: 0.8, // Etwas länger für den Bounce Effekt
+                        ease: "elastic.out(1, 0.6)", 
                         overwrite: true 
                     });
 
+                    // 3. Text Update
                     gsap.to([displayTitle, displayDesc], { 
                         opacity: 0, y: 5, duration: 0.1, 
                         onComplete: () => {
@@ -172,28 +174,36 @@ document.addEventListener('DOMContentLoaded', () => {
                     e.preventDefault(); 
                     let deg = getAngle(e);
                     
-                    // --- HEAVY WEIGHT FEELING (Während Drag) ---
-                    // Anstatt set (sofort) nutzen wir 'to' mit kleiner Dauer.
-                    // Das simuliert Masse/Trägheit beim Ziehen.
-                    gsap.to(knob, { rotation: deg, duration: 0.3, ease: "power2.out" });
+                    // --- DIRECT CONTROL (Kein Wackeln mehr) ---
+                    // Wir nutzen gsap.set statt gsap.to. 
+                    // Das bedeutet: Der Regler folgt SOFORT, ohne Verzögerung.
+                    gsap.set(knob, { rotation: deg });
                 }
 
                 function onEnd(e) {
                     if(!isDragging) return;
                     isDragging = false;
+                    
+                    // Wo sind wir gerade?
                     let currentRotRaw = gsap.getProperty(knob, "rotation");
+                    // Mathe-Cleanup für 360 Grad Kreis
                     let currentRot = currentRotRaw % 360;
                     if (currentRot > 180) currentRot -= 360;
                     if (currentRot < -180) currentRot += 360;
+
+                    // Welcher Punkt ist am nächsten?
                     let closestIndex = 0;
                     let minDiff = 1000;
                     labelElements.forEach((item, index) => {
                         let diff = Math.abs(item.angle - currentRot);
                         if(diff < minDiff) { minDiff = diff; closestIndex = index; }
                     });
+                    
+                    // SNAP!
                     rotateKnobTo(closestIndex);
                 }
 
+                // Event Listeners
                 knob.addEventListener('mousedown', () => isDragging = true);
                 window.addEventListener('mousemove', onMove);
                 window.addEventListener('mouseup', onEnd);
@@ -202,43 +212,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.addEventListener('touchend', onEnd);
 
             } else if (listContainer) {
-                // >>>>> STANDARD LISTE (VIDEO, EVENTS, ETC.) <<<<<
-                
-                // Stelle sicher, dass Knob-Styles inaktiv sind
+                // >>>>> STANDARD LISTE <<<<<
                 wrapper.classList.remove('knob-active');
-                
                 listContainer.innerHTML = ''; 
-                // Original Klasse setzen
                 listContainer.className = 'detail-list';
-                
                 data.list.forEach((item, index) => {
                     const li = document.createElement('li');
-                    // Check ob item ein Objekt (Audio) oder String (Rest) ist
                     const text = typeof item === 'string' ? item : item.name;
                     li.innerHTML = `${text} <span>0${index + 1}</span>`;
                     listContainer.appendChild(li);
                 });
             }
-            
-            // Wire up the Contact Button
-            const contactBtn = document.getElementById('detailContactBtn');
-            if(contactBtn) {
-                contactBtn.onclick = () => {
-                    window.location.href = `index.html#contact`; 
-                };
-            }
-        } else {
-            console.log("Service ID not found or missing");
         }
     }
 
-    // --- 0. PAGE TRANSITION ---
+    // --- STANDARD FUNKTIONEN (UNVERÄNDERT) ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
     }
 
-    // --- 1. CUSTOM CURSOR ---
     if (window.matchMedia("(min-width: 769px)").matches) {
         const cursor = document.querySelector('.cursor');
         const ring = document.querySelector('.cursor-ring');
@@ -263,7 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 2. SMOOTH SCROLL (LENIS) ---
     if(typeof Lenis !== 'undefined') {
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: false });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
@@ -276,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.lenis = lenis;
     }
 
-    // --- 3. MENU TOGGLE ---
     window.toggleMenu = function() {
         const menu = document.querySelector('.side-menu');
         const overlay = document.querySelector('.menu-overlay');
@@ -289,7 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 4. VIDEO HANDLING (For Index) ---
     const videos = document.querySelectorAll('video');
     const heroText = document.querySelector(".hero-sub");
     if(videos.length > 0 && heroText) {
@@ -306,7 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 5. GALLERY SLIDER (For Index) ---
     const slider = document.querySelector('.gallery-container');
     if(slider) {
         let isDown = false, startX, scrollLeft;
@@ -324,7 +313,6 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
     }
 
-    // --- 6. MODAL (For Gallery) ---
     const modal = document.getElementById('galleryModal');
     if(modal) {
         const modalTitle = document.getElementById('modalTitle');
@@ -343,7 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.closeModal = function() { modal.classList.remove('active'); if(window.lenis) window.lenis.start(); }
     }
 
-    // --- 7. TABS (For Services Section on Index) ---
     if(document.querySelector('.tabs-nav')) {
         window.openTab = function(tabName) {
             document.querySelectorAll('.service-container').forEach(c => c.classList.remove('active'));
@@ -361,7 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ScrollTrigger.create({ trigger: "#services", start: "top 75%", onEnter: () => window.openTab('audio') });
     }
 
-    // --- 8. SCROLL ANIMATIONS ---
     gsap.utils.toArray('.section-title').forEach(title => {
         gsap.from(title, { scrollTrigger: { trigger: title, start: "top 90%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, duration: 1 });
     });
@@ -370,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.to(".vision-text p", { scrollTrigger: { trigger: ".vision-text", start: "top 80%", toggleActions: "play reverse play reverse" }, y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.out" });
     }
     
-    // --- 9. CONTACT FORM ---
     const form = document.querySelector('.contact-form');
     if(form) {
         gsap.from(".contact-info", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: -30, opacity: 0, duration: 1 });
@@ -387,11 +372,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 10. TRANSITION EXIT (Link Clicking) ---
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
-            // Allow JS calls, anchors, mailto to work normally
             if (href && !href.startsWith('#') && !href.startsWith('mailto') && !href.includes('javascript')) {
                 e.preventDefault();
                 if(curtain) {
