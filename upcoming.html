@@ -11,37 +11,31 @@
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
         /* --- BASE STYLES --- */
-        html, body {
-            margin: 0;
-            padding: 0;
+        body {
+            overflow-x: hidden; /* Wichtig für Horizontal Scroll */
             background-color: #050505;
             color: #fff;
-            /* WICHTIG: Wir lassen Lenis das horizontale Scrollen steuern */
-            overflow: hidden; 
-            height: 100vh;
-            width: 100%;
         }
 
         /* --- HORIZONTAL SCROLL CONTAINER --- */
         .timeline-wrapper {
-            /* ÄNDERUNG: Statt 100% Breite nehmen wir die Breite des Inhalts an */
-            width: fit-content; 
+            width: 100%;
             height: 100vh;
             display: flex;
             align-items: center;
+            overflow: hidden;
             position: relative;
-            /* ÄNDERUNG: Padding rechts, damit man die letzte Karte gut sieht */
-            padding-right: 10vw; 
         }
 
         .timeline-track {
             display: flex;
             gap: 4vw; /* Abstand zwischen den Karten */
-            padding: 0 10vw; /* Start Abstand */
+            padding: 0 10vw; /* Start/End Abstand */
             position: relative;
             /* Die Linie des Zeitstrahls */
         }
@@ -52,14 +46,14 @@
             position: absolute;
             top: 50%;
             left: 0;
-            width: 100%; /* Geht über die volle Breite des Tracks */
+            width: 100%;
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.5), transparent);
             z-index: 0;
             transform: translateY(-50%);
         }
 
-        /* --- SPOTLIGHT CARDS (ReactBits Style) - 1 zu 1 übernommen --- */
+        /* --- SPOTLIGHT CARDS (ReactBits Style) --- */
         .event-card {
             min-width: 400px;
             height: 500px;
@@ -75,9 +69,8 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: none;
+            cursor: none; /* Wir blenden den Standard-Cursor aus für Hover */
             overflow: hidden;
-            flex-shrink: 0; /* Wichtig: Verhindert, dass Karten gequetscht werden */
         }
 
         /* Spotlight Effekt Overlay */
@@ -94,7 +87,7 @@
                 transparent 40%
             );
             z-index: 2;
-            opacity: 0;
+            opacity: 0; /* Standardmäßig unsichtbar */
             transition: opacity 0.5s ease;
             pointer-events: none;
         }
@@ -125,7 +118,7 @@
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: exclude;
             -webkit-mask-composite: xor;
-            padding: 1px;
+            padding: 1px; /* Dünne Border */
         }
         
         .event-card:hover::after {
@@ -139,8 +132,15 @@
         }
 
         /* --- CARD CONTENT --- */
-        .card-top { position: relative; z-index: 3; }
-        .card-bottom { position: relative; z-index: 3; }
+        .card-top {
+            position: relative;
+            z-index: 3;
+        }
+
+        .card-bottom {
+            position: relative;
+            z-index: 3;
+        }
 
         .status-badge {
             display: inline-block;
@@ -162,7 +162,8 @@
             font-size: 3rem;
             color: rgba(255, 255, 255, 0.1);
             position: absolute;
-            top: 20px; right: 20px;
+            top: 20px;
+            right: 20px;
             line-height: 1;
             pointer-events: none;
         }
@@ -186,7 +187,8 @@
         .card-number {
             font-family: 'Oswald', sans-serif;
             position: absolute;
-            bottom: -20px; left: 50%;
+            bottom: -20px;
+            left: 50%;
             transform: translateX(-50%);
             font-size: 8rem;
             color: rgba(255,255,255,0.02);
@@ -215,10 +217,20 @@
 
         /* --- MOBILE ANPASSUNG --- */
         @media (max-width: 768px) {
-            .event-card { min-width: 85vw; height: 450px; }
-            .timeline-track { padding: 0 5vw; gap: 5vw; }
-            .fixed-title { top: 100px; }
-            .fixed-title h1 { font-size: 15vw; }
+            .event-card {
+                min-width: 85vw;
+                height: 450px;
+            }
+            .timeline-track {
+                padding: 0 5vw;
+                gap: 5vw;
+            }
+            .fixed-title {
+                top: 100px;
+            }
+            .fixed-title h1 {
+                font-size: 15vw;
+            }
         }
     </style>
 </head>
@@ -263,8 +275,8 @@
             <div class="timeline-track">
                 
                 <div style="min-width: 200px; display: flex; align-items: center; justify-content: center;">
-                    <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px; transform: rotate(0deg); opacity: 0.6;">
-                        SWIPE &rarr;
+                    <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px; transform: rotate(-90deg);">
+                        SCROLL / SWIPE &rarr;
                     </div>
                 </div>
 
@@ -331,25 +343,37 @@
     <script src="js/main.js"></script>
     
     <script>
-        // 1. LENIS HORIZONTAL SETUP
-        // Wir nutzen Lenis im "Horizontal Mode". Das bedeutet:
-        // - Trackpad Swipe nach links/rechts funktioniert nativ.
-        // - Mausrad nach unten wird automatisch in Bewegung nach rechts übersetzt (für Usability).
-        const lenis = new Lenis({
-            orientation: 'horizontal', 
-            gestureOrientation: 'both',
-            smoothWheel: true,
-            wheelMultiplier: 1, 
-            touchMultiplier: 2, 
+        // 1. GSAP SCROLLTRIGGER REGISTRIEREN
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. HORIZONTAL SCROLL LOGIK
+        const track = document.querySelector(".timeline-track");
+        const sections = gsap.utils.toArray(".event-card");
+
+        // Berechne die Breite des Tracks basierend auf dem Inhalt
+        function getScrollAmount() {
+            let trackWidth = track.scrollWidth;
+            return -(trackWidth - window.innerWidth);
+        }
+
+        // Die Animation: Bewegt den Track nach links, während man vertikal scrollt
+        const tween = gsap.to(track, {
+            x: getScrollAmount,
+            duration: 3,
+            ease: "none"
         });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
+        ScrollTrigger.create({
+            trigger: ".timeline-wrapper",
+            start: "top top",
+            end: () => `+=${getScrollAmount() * -1}`, // Länge des Scrolls basierend auf Breite
+            pin: true, // "Klebt" die Seite fest
+            animation: tween,
+            scrub: 1, // Smoothness (High-End Feel)
+            invalidateOnRefresh: true // Neuberechnung bei Resize
+        });
 
-        // 2. SPOTLIGHT HOVER EFFEKT
+        // 3. SPOTLIGHT HOVER EFFEKT (Das "ReactBits" Feature)
         document.querySelectorAll(".event-card").forEach(card => {
             card.onmousemove = e => {
                 const rect = card.getBoundingClientRect();
@@ -361,6 +385,14 @@
                 card.style.setProperty("--mouse-y", `${y}px`);
             };
         });
+
+        // Optional: Smooth Scroll für die ganze Seite (Lenis ist schon eingebunden)
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
     </script>
 </body>
 </html>
