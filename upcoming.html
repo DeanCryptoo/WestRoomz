@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="WESTROOMZ - Upcoming Projects">
+    <title>WESTROOMZ | UPCOMING</title>
+    
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <style>
+        /* Gleiche Styles wie auf der Startseite für Konsistenz */
+        button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
+        input, select, textarea { border-radius: 12px !important; }
+        .menu-toggle-btn { border-radius: 8px !important; }
+
+        /* Spezifische Styles für die Upcoming Page */
+        .upcoming-header {
+            padding-top: 150px;
+            padding-bottom: 50px;
+            text-align: center;
+        }
+        
+        .upcoming-list {
+            max-width: 800px;
+            margin: 0 auto 100px auto;
+            padding: 0 20px;
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .event-date {
+            font-family: 'Oswald', sans-serif;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .event-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .event-desc {
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="global-bg"></div>
+    <div class="page-transition-curtain"></div>
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
+    <div class="red-thread"></div>
+    <div class="cinematic-vignette"></div>
+
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <div class="side-menu">
+        <div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="menu-links">
+                <a href="index.html#hero" class="menu-link interactive">START</a>
+                <a href="index.html#vision" class="menu-link interactive">VISION</a>
+                <a href="impressum.html#team" class="menu-link interactive">TEAM</a>
+                <a href="index.html#services" class="menu-link interactive">OFFERS</a>
+                <a href="#" class="menu-link interactive" style="color: #fff;">UPCOMING</a> <a href="index.html#references" class="menu-link interactive">REFERENZEN</a>
+                <a href="index.html#contact" class="menu-link interactive">KONTAKT</a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+             <a href="impressum.html" class="interactive">IMPRESSUM</a>
+             <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+             <a href="agb.html" class="interactive">AGB</a>
+             <span>© 2026 WESTROOMZ</span>
+        </div>
+    </div>
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <main class="page-wrapper">
+        
+        <section class="upcoming-header">
+            <h1 class="big-lead" style="font-size: 4rem;">COMING SOON</h1>
+            <div class="divider-line" style="margin: 20px auto;"></div>
+            <p style="color: #888; max-width: 400px; margin: 0 auto;">Unsere nächsten Projekte und Events.</p>
+        </section>
+
+        <section class="upcoming-list">
+            
+            <div class="event-card interactive">
+                <span class="status-badge">In Planung</span>
+                <div class="event-date">MÄRZ 2026</div>
+                <h3 class="event-title">WESTROOMZ LABEL NIGHT</h3>
+                <p class="event-desc">Eine Nacht voller Sound und Visuals. Wir präsentieren die neuesten Artists aus unserem Roster in einer exklusiven Location.</p>
+            </div>
+
+            <div class="event-card interactive">
+                <span class="status-badge">Produktion</span>
+                <div class="event-date">APRIL 2026</div>
+                <h3 class="event-title">NEW VIDEO RELEASE</h3>
+                <p class="event-desc">Das neue Musikvideo für [Artist Name]. Gedreht in 8K mit Cinema-Line Kameras. Premiere auf YouTube.</p>
+            </div>
+
+            <div class="event-card interactive">
+                <span class="status-badge">Workshop</span>
+                <div class="event-date">SOMMER 2026</div>
+                <h3 class="event-title">AUDIO MASTERCLASS</h3>
+                <p class="event-desc">Lerne von unseren Engineers, wie du deine Mixes auf das nächste Level bringst. Anmeldung bald möglich.</p>
+            </div>
+
+        </section>
+
+        <footer>
+            <div class="footer-socials">
+                <a href="#" class="social-icon interactive">INSTAGRAM</a>
+                <a href="#" class="social-icon interactive">LINKEDIN</a>
+            </div>
+            <div class="footer-nav">
+                <a href="impressum.html" class="interactive">IMPRESSUM</a>
+                <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+                <a href="agb.html" class="interactive">AGB</a>
+            </div>
+            <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
+        </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
