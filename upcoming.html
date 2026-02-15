@@ -15,33 +15,42 @@
 
     <style>
         /* --- BASE STYLES --- */
-        body {
-            background-color: #050505;
-            color: #fff;
+        html, body {
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Lenis übernimmt das Scrollen */
+            background-color: #050505;
+            color: #fff;
+            /* WICHTIG: Wir lassen Lenis das Scrollen übernehmen */
+            overflow: hidden; 
+            height: 100vh;
+            width: 100vw;
         }
 
-        /* --- HORIZONTAL WRAPPER --- */
-        /* Das ist der Container, der sich bewegt */
-        .horizontal-wrapper {
+        /* --- HORIZONTAL SCROLL CONTAINER --- */
+        /* Dieser Container wird jetzt tatsächlich breit */
+        .timeline-wrapper {
             display: flex;
             align-items: center;
             height: 100vh;
-            width: fit-content; /* Nimmt so viel Platz, wie die Karten brauchen */
-            padding: 0 10vw;
-            gap: 5vw;
+            width: fit-content; /* Nimmt die Breite des Inhalts an */
+            padding: 0 10vw; /* Start-Abstand */
+            padding-right: 20vw; /* End-Abstand */
             position: relative;
-            z-index: 2;
         }
 
-        /* Die rote Linie im Hintergrund (Zeitstrahl) */
+        .timeline-track {
+            display: flex;
+            gap: 4vw; /* Abstand zwischen den Karten */
+            position: relative;
+            align-items: center;
+        }
+
+        /* Die rote Linie im Hintergrund */
         .timeline-line {
             position: absolute;
             top: 50%;
-            left: 0;
-            width: 100%;
+            left: -10vw; /* Startet ganz links vom Screen */
+            right: -20vw; /* Geht bis ganz zum Ende */
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.5), transparent);
             z-index: 0;
@@ -49,9 +58,9 @@
             pointer-events: none;
         }
 
-        /* --- SPOTLIGHT CARDS (ReactBits Style) --- */
+        /* --- SPOTLIGHT CARDS --- */
         .event-card {
-            min-width: 400px; /* Breite der Karte */
+            min-width: 400px;
             height: 500px;
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -62,13 +71,12 @@
             justify-content: space-between;
             position: relative;
             z-index: 1;
-            /* Glassmorphism */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: none; 
             overflow: hidden;
-            flex-shrink: 0; /* Verhindert, dass Karten gequetscht werden */
+            flex-shrink: 0; /* Verhindert das Zusammenquetschen */
         }
 
         /* Spotlight Effekt Overlay */
@@ -119,7 +127,7 @@
             border-color: rgba(255,255,255,0.2);
         }
 
-        /* --- CARD CONTENT --- */
+        /* --- CONTENT TYPOGRAPHY --- */
         .card-top, .card-bottom { position: relative; z-index: 3; }
 
         .status-badge {
@@ -134,6 +142,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(255,0,0,0.1);
         }
 
         .event-date {
@@ -173,37 +182,35 @@
             pointer-events: none;
         }
 
-        /* --- BACKGROUND PARALLAX TEXT --- */
+        /* --- FIXED BACKGROUND TITLE --- */
         .fixed-title {
             position: fixed;
-            top: 50%;
+            top: 15vh;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
+            text-align: center;
             z-index: 0;
             pointer-events: none;
             width: 100vw;
-            overflow: hidden;
             display: flex;
             justify-content: center;
         }
 
         .fixed-title h1 {
-            font-size: 15vw;
+            font-size: 12vw;
             opacity: 0.05;
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
             white-space: nowrap;
-            will-change: transform; /* Performance Optimierung */
+            will-change: transform;
         }
-
-        /* --- NAVIGATION --- */
-        .menu-toggle-btn { position: fixed; top: 30px; left: 30px; z-index: 100; }
 
         /* --- MOBILE --- */
         @media (max-width: 768px) {
             .event-card { min-width: 85vw; height: 450px; }
-            .horizontal-wrapper { padding: 0 5vw; gap: 5vw; }
-            .fixed-title h1 { font-size: 25vw; }
+            .timeline-track { gap: 5vw; }
+            .timeline-wrapper { padding: 0 5vw; padding-right: 10vw; }
+            .fixed-title h1 { font-size: 18vw; }
         }
     </style>
 </head>
@@ -244,88 +251,89 @@
     </div>
 
     <main>
-        <div class="horizontal-wrapper">
+        <section class="timeline-wrapper">
             
             <div class="timeline-line"></div>
 
-            <div style="min-width: 150px; display: flex; align-items: center; justify-content: center; z-index: 2;">
-                <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px; writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.5;">
-                    SCROLL &rarr;
+            <div class="timeline-track">
+                
+                <div style="min-width: 200px; display: flex; align-items: center; justify-content: center; z-index: 2;">
+                    <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px; opacity: 0.6;">
+                         SWIPE &rarr;
+                    </div>
                 </div>
+
+                <div class="event-card interactive">
+                    <div class="card-number">01</div>
+                    <div class="event-date">MAR '26</div>
+                    <div class="card-top">
+                        <span class="status-badge">In Planung</span>
+                        <h3 class="event-title">WestRoomz<br>Label Night</h3>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="event-desc">
+                            Eine Nacht voller Sound und Visuals. Wir präsentieren die neuesten Artists aus unserem Roster in einer exklusiven Off-Location in Münster.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card interactive">
+                    <div class="card-number">02</div>
+                    <div class="event-date">APR '26</div>
+                    <div class="card-top">
+                        <span class="status-badge">Produktion</span>
+                        <h3 class="event-title">New Video<br>Release</h3>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="event-desc">
+                            Das neue Musikvideo für unseren Headliner. Gedreht in 8K mit Cinema-Line Kameras. Premiere live auf YouTube und im Cinema.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card interactive">
+                    <div class="card-number">03</div>
+                    <div class="event-date">SUM '26</div>
+                    <div class="card-top">
+                        <span class="status-badge">Workshop</span>
+                        <h3 class="event-title">Audio<br>Masterclass</h3>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="event-desc">
+                            Lerne von unseren Engineers, wie du deine Mixes auf das nächste Level bringst. Ein Deep-Dive in Mixing, Mastering und Raumakustik.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card interactive">
+                    <div class="card-number">04</div>
+                    <div class="event-date">Q4 '26</div>
+                    <div class="card-top">
+                        <span class="status-badge">Expansion</span>
+                        <h3 class="event-title">New Studio<br>Opening</h3>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="event-desc">
+                            Wir vergrößern uns. Studio B und C werden eröffnet. Mehr Platz für Kreativität, neue Hardware und eine dedizierte Podcast-Lounge.
+                        </p>
+                    </div>
+                </div>
+
             </div>
-
-            <div class="event-card interactive">
-                <div class="card-number">01</div>
-                <div class="event-date">MAR '26</div>
-                <div class="card-top">
-                    <span class="status-badge">In Planung</span>
-                    <h3 class="event-title">WestRoomz<br>Label Night</h3>
-                </div>
-                <div class="card-bottom">
-                    <p class="event-desc">
-                        Eine Nacht voller Sound und Visuals. Wir präsentieren die neuesten Artists aus unserem Roster in einer exklusiven Off-Location in Münster.
-                    </p>
-                </div>
-            </div>
-
-            <div class="event-card interactive">
-                <div class="card-number">02</div>
-                <div class="event-date">APR '26</div>
-                <div class="card-top">
-                    <span class="status-badge">Produktion</span>
-                    <h3 class="event-title">New Video<br>Release</h3>
-                </div>
-                <div class="card-bottom">
-                    <p class="event-desc">
-                        Das neue Musikvideo für unseren Headliner. Gedreht in 8K mit Cinema-Line Kameras. Premiere live auf YouTube und im Cinema.
-                    </p>
-                </div>
-            </div>
-
-            <div class="event-card interactive">
-                <div class="card-number">03</div>
-                <div class="event-date">SUM '26</div>
-                <div class="card-top">
-                    <span class="status-badge">Workshop</span>
-                    <h3 class="event-title">Audio<br>Masterclass</h3>
-                </div>
-                <div class="card-bottom">
-                    <p class="event-desc">
-                        Lerne von unseren Engineers, wie du deine Mixes auf das nächste Level bringst. Ein Deep-Dive in Mixing, Mastering und Raumakustik.
-                    </p>
-                </div>
-            </div>
-
-            <div class="event-card interactive">
-                <div class="card-number">04</div>
-                <div class="event-date">Q4 '26</div>
-                <div class="card-top">
-                    <span class="status-badge">Expansion</span>
-                    <h3 class="event-title">New Studio<br>Opening</h3>
-                </div>
-                <div class="card-bottom">
-                    <p class="event-desc">
-                        Wir vergrößern uns. Studio B und C werden eröffnet. Mehr Platz für Kreativität, neue Hardware und eine dedizierte Podcast-Lounge.
-                    </p>
-                </div>
-            </div>
-
-            <div style="min-width: 100px;"></div>
-
-        </div>
+        </section>
     </main>
 
     <script src="js/main.js"></script>
     
     <script>
         // 1. LENIS HORIZONTAL SETUP
-        // Das sorgt für den High-End "Momentum" Scroll
+        // Das ist der Schlüssel: orientation: 'horizontal'
         const lenis = new Lenis({
-            orientation: 'horizontal', // WICHTIG: Horizontaler Modus
-            gestureOrientation: 'both', // Erlaubt Touchpad (H) und Mausrad (V)
+            orientation: 'horizontal', 
+            gestureOrientation: 'both', // Erlaubt Touchpad (Horizontal) UND Mausrad (Vertikal -> wird zu Horizontal umgewandelt)
             smoothWheel: true,
-            wheelMultiplier: 1, // Geschwindigkeit
-            touchMultiplier: 2, // Touchpad Empfindlichkeit
+            wheelMultiplier: 1, 
+            touchMultiplier: 2, 
         });
 
         function raf(time) {
@@ -334,13 +342,15 @@
         }
         requestAnimationFrame(raf);
 
-        // 2. PARALLAX EFFECT FÜR DEN HINTERGRUND TEXT
+        // 2. PARALLAX EFFECT FÜR TEXT
         const parallaxText = document.getElementById('parallax-text');
         
         lenis.on('scroll', (e) => {
-            // Bewegt den Text langsamer als den Vordergrund (Division durch 10)
-            const scrollPos = e.scroll; 
-            parallaxText.style.transform = `translateX(${-scrollPos / 5}px)`;
+            // e.scroll gibt uns die aktuelle Position
+            // Wir bewegen den Text langsamer als den Rest
+            if(parallaxText) {
+                parallaxText.style.transform = `translateX(${-e.scroll / 5}px) translateX(-50%)`;
+            }
         });
 
         // 3. SPOTLIGHT HOVER EFFEKT
@@ -350,7 +360,6 @@
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
-                // Setze CSS Variablen für die Position der Maus
                 card.style.setProperty("--mouse-x", `${x}px`);
                 card.style.setProperty("--mouse-y", `${y}px`);
             };
