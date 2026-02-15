@@ -21,7 +21,7 @@
             color: #fff;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Verhindert Scrollbalken am Body */
+            overflow: hidden; 
         }
 
         /* --- HORIZONTAL SCROLL CONTAINER --- */
@@ -29,22 +29,24 @@
             width: 100%;
             height: 100%;
             
-            /* WICHTIG: Das hier erlaubt das Scrollen */
+            /* Native Scrolling erlauben */
             overflow-x: auto;
             overflow-y: hidden;
             
             display: flex;
-            align-items: center; /* WICHTIG: Verhindert, dass Karten gezogen werden! */
+            align-items: center; 
             
-            /* Versteckt die Scrollbar, lässt aber Scrollen zu */
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            /* Scrollbar verstecken */
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
             
             /* Smoothness für Mobile */
             -webkit-overflow-scrolling: touch;
+            
+            /* Wichtig für Desktop Smoothness */
+            scroll-behavior: smooth; 
         }
 
-        /* Scrollbar verstecken für Chrome/Safari/Opera */
         .timeline-wrapper::-webkit-scrollbar {
             display: none;
         }
@@ -52,14 +54,14 @@
         .timeline-track {
             display: flex;
             gap: 4vw;
-            padding: 0 10vw; /* Abstand links/rechts */
-            padding-right: 20vw; /* Extra Platz am Ende */
+            padding: 0 10vw; 
+            padding-right: 20vw; 
             position: relative;
-            height: 100%; /* Volle Höhe damit align-items wirkt */
-            align-items: center; /* Zentriert die Karten vertikal */
+            height: 100%; 
+            align-items: center; 
         }
 
-        /* Die rote Linie im Hintergrund */
+        /* Die rote Linie */
         .timeline-track::before {
             content: '';
             position: absolute;
@@ -72,11 +74,11 @@
             transform: translateY(-50%);
         }
 
-        /* --- SPOTLIGHT CARDS (Design 1:1) --- */
+        /* --- SPOTLIGHT CARDS --- */
         .event-card {
-            min-width: 400px; /* Feste Breite */
+            min-width: 400px;
             width: 400px;
-            height: 500px;    /* Feste Höhe */
+            height: 500px;    
             
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -90,10 +92,8 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: grab; /* Zeigt an, dass man ziehen kann */
+            cursor: grab; 
             overflow: hidden;
-            
-            /* EXTREM WICHTIG: Verhindert Quetschen */
             flex-shrink: 0; 
             flex-grow: 0;
         }
@@ -347,26 +347,24 @@
     <script src="js/main.js"></script>
     
     <script>
-        // 1. DESKTOP MAUSRAD FIX
-        // Da wir natives horizontales Scrollen nutzen, würde das Mausrad auf Desktop normalerweise nichts tun.
-        // Dieses Script wandelt das Scrollen nach unten (deltaY) in Scrollen nach rechts (scrollLeft) um.
         const scrollContainer = document.querySelector(".timeline-wrapper");
 
+        // SMART SCROLL LOGIC:
+        // Das hier erkennt, ob du eine Maus (Rad) oder ein Trackpad nutzt.
         scrollContainer.addEventListener("wheel", (evt) => {
-            // Wenn Shift gedrückt ist, lassen wir das native Verhalten zu
-            if(evt.shiftKey) return;
             
-            // Verhindert das "normale" Scrollen
-            evt.preventDefault();
-            
-            // Bewegt den Container seitlich
-            scrollContainer.scrollLeft += evt.deltaY;
-            
-            // Optional: Macht das Scrollen etwas smoother (einfache Implementierung)
-            // scrollContainer.scrollTo({
-            //    left: scrollContainer.scrollLeft + evt.deltaY * 3,
-            //    behavior: 'smooth'
-            // });
+            // Wenn der User horizontal (deltaX) scrollt (z.B. Trackpad Swipe links/rechts):
+            // LASSEN WIR ES ZU. Wir blockieren nichts.
+            if(Math.abs(evt.deltaX) > Math.abs(evt.deltaY)) {
+                return;
+            }
+
+            // Wenn der User vertikal (deltaY) scrollt (z.B. Mausrad):
+            // Dann wandeln wir das in horizontale Bewegung um.
+            if(evt.deltaY !== 0) {
+                evt.preventDefault();
+                scrollContainer.scrollLeft += evt.deltaY;
+            }
         });
 
         // 2. SPOTLIGHT EFFEKT
