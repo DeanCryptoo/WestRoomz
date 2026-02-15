@@ -1,30 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- SOUND SETUP (High End Feeling) ---
-    // Stelle sicher, dass du eine Datei namens 'click.mp3' in deinem Ordner hast!
-    const knobSound = new Audio('click.mp3'); 
-    knobSound.volume = 0.4; // Lautstärke anpassen (0.0 bis 1.0)
+    // --- 1. SOUND SYSTEM (ROBUST & SCHNELL) ---
+    // Wir laden die Datei einmal vor
+    const masterAudio = new Audio('click.mp3');
+    masterAudio.volume = 0.4; 
+    masterAudio.load(); // Erzwingt das Laden sofort
 
-    // Funktion für Feedback (Vibration + Sound)
-    function triggerFeedback() {
-        // 1. SOUND (Für iPhone & alle anderen)
-        // Wir setzen die Zeit auf 0, damit man schnell hintereinander klicken kann
-        knobSound.currentTime = 0; 
-        // play() muss durch User-Interaktion ausgelöst werden (was hier der Fall ist durch Drag/Click)
-        knobSound.play().catch(e => {
-            // Falls der Browser Autoplay blockiert (passiert selten bei Interaktion)
-            // console.log("Audio konnte nicht abgespielt werden", e);
-        });
-
-        // 2. VIBRATION (Nur Android / unterstützte Geräte)
-        if (navigator.vibrate) {
-            navigator.vibrate(15); // Kurzer 15ms Impuls
+    // iOS Audio-Unlocker: Beim ersten Touch wird das Audio-System "scharf geschaltet"
+    let audioUnlocked = false;
+    
+    function unlockAudio() {
+        if (!audioUnlocked) {
+            // Wir spielen den Sound einmal leise und pausieren sofort
+            // Das sagt dem iPhone: "User hat interagiert, Audio ist ab jetzt erlaubt!"
+            const silentPlay = masterAudio.play().then(() => {
+                masterAudio.pause();
+                masterAudio.currentTime = 0;
+            }).catch((e) => {});
+            
+            audioUnlocked = true;
+            // Event Listener entfernen, damit das nur 1x passiert
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('click', unlockAudio);
         }
     }
+    
+    // Unlocker aktivieren
+    document.addEventListener('touchstart', unlockAudio, {passive: true});
+    document.addEventListener('click', unlockAudio, {passive: true});
 
-    // --- DATABASE: SERVICE CONTENT ---
-    const serviceData = {
+    // Die eigentliche Feedback-Funktion
+    function triggerFeedback() {
+        // A) VIBRATION (Android)
+        if (navigator.vibrate) {
+            navigator.vibrate(15); 
+        }
+
+        // B) SOUND (Multi-Shot Technik)
+        // Wir klonen den Master-Sound. Das erlaubt schnelles "Feuern" hintereinander,
+        // ohne dass der vorherige Sound abgeschnitten wird.
+        const soundClone = masterAudio.cloneNode();
+        soundClone.volume = 0.4; 
         
+        // Abspielen und Fehler (z.B. wenn Datei fehlt) ignorieren
+        soundClone.play().catch(() => {}); 
+    }
+
+    // --- 2. DATABASE: SERVICE CONTENT ---
+    const serviceData = {
         "audio_music": {
             title: "AUDIO PRODUKTION",
             image: "1.jpeg",
@@ -39,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: "Set-Ton", text: "Professionelle Tonangel und Aufzeichnung direkt am Filmset." }
             ]
         },
-
         "video_music": {
             title: "VIDEO & CONTENT",
             image: "4.jpeg",
@@ -47,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
             desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt. WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung – für einzelne Produktionen oder zusammenhängende Kampagnen. Von Musikvideos über Social Media Content bis hin zu hochwertigen Imagefilmen.",
             list: ["Musikvideos & Performance", "Artist Visuals", "Werbe- & Imagefilme", "Social-Media-Content", "Video Podcasts", "Produktbilder", "Cover Art", "Kampagnen-Content"]
         },
-
         "event_planning": {
             title: "EVENTS & LIVE",
             image: "7.jpeg",
@@ -55,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
             desc: "WESTROOMZ ist an Veranstaltungen in unterschiedlichen Rollen beteiligt – von technischer Umsetzung bis zur vollständigen Produktionsbegleitung. Wir liefern Struktur, Know-how und eine saubere Umsetzung - von der Planung bis zum laufenden Betrieb vor Ort. Wir begleiten Veranstaltungen modular oder ganzheitlich und übernehmen Verantwortung dort, wo sie gebraucht wird.",
             list: ["Eventplanung & Konzepte", "Live Mixing", "Audio- & Videoproduktion", "Event-Fotografie", "DJ-Services", "Ablauf & Koordination"]
         },
-
         "marketing_general": {
             title: "MARKETING & STRATEGIE",
             image: "5.jpeg",
@@ -63,12 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
             desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien, die deine Brand, deinen Sound oder dein Event nachhaltig positionieren. Wir nutzen datengetriebene Ansätze auf Social Media und verbinden diese mit hochwertigem Content, um echte Fans und Kunden zu erreichen. Von der CI-Entwicklung bis zur Kampagnen-Ausspielung.",
             list: ["Social Media Strategy", "Performance Marketing", "Branding & CI", "Kampagnen-Management", "Content Distribution", "Zielgruppen-Analyse"]
         },
-
         "audio_commercial": { title: "COMMERCIAL", image: "2.jpeg", intro: "...", desc: "...", list: [] },
         "audio_podcast": { title: "PODCASTS", image: "3.jpeg", intro: "...", desc: "...", list: [] }
     };
 
-    // --- DYNAMIC PAGE LOADER ---
+    // --- 3. DYNAMIC PAGE LOADER ---
     if(window.location.pathname.includes('service-detail.html')) {
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
@@ -92,13 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const listContainer = document.getElementById('detailList');
             const wrapper = document.querySelector('.detail-list-wrapper');
 
-            // --- KNOB LOGIC (STUFEN-SCHALTER + SOUND + HAPTIC) ---
+            // --- KNOB LOGIC START ---
             if(id === 'audio_music' && listContainer) {
                 
                 wrapper.classList.add('knob-active');
                 listContainer.innerHTML = '';
                 
-                // UI Aufbauen
+                // UI
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
                 const knob = document.createElement('div');
@@ -120,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 listContainer.appendChild(interfaceDiv);
                 listContainer.appendChild(displayDiv);
 
-                // Variablen
+                // Setup
                 const items = data.list;
                 const totalArc = 260; 
                 const startAngle = -130; 
@@ -132,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let lastMouseAngle = 0;
                 let dragAccumulator = 0; 
 
-                // Labels erstellen
+                // Create Labels
                 items.forEach((item, index) => {
                     const label = document.createElement('div');
                     label.className = 'knob-label';
@@ -156,27 +175,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 gsap.set(knob, { rotation: startAngle });
 
-                // --- FUNKTION: SNAP ---
+                // --- CORE FUNCTION: SNAP & SOUND ---
                 function snapKnobTo(index) {
                     if (index < 0) index = 0;
                     if (index >= items.length) index = items.length - 1;
                     
-                    // Nur Sound/Vibration wenn sich der Index wirklich ändert
+                    // Sound abspielen, wenn sich der Index ändert oder initial
                     if(currentIndex !== index || !isDragging) { 
                        triggerFeedback(); 
                     }
 
                     currentIndex = index;
                     
-                    // Visuals
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
                     
-                    // Knob Animation (Mechanisch)
+                    // Mechanische Animation (Schnell & Hart)
                     gsap.to(knob, { 
                         rotation: labelElements[index].angle, 
-                        duration: 0.4, 
-                        ease: "back.out(2)", 
+                        duration: 0.35, 
+                        ease: "back.out(2.5)", // Kräftiger Snap
                         overwrite: true 
                     });
 
@@ -201,15 +219,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     return (rad * (180 / Math.PI)) + 90;
                 }
 
-                // DRAG START
+                // Interaction Handlers
                 function onDown(e) {
                     isDragging = true;
                     lastMouseAngle = getMouseAngle(e);
                     dragAccumulator = 0; 
-                    gsap.to(knob, { scale: 0.95, duration: 0.1 });
+                    gsap.to(knob, { scale: 0.96, duration: 0.1 });
                 }
 
-                // DRAG MOVE
                 function onMove(e) {
                     if(!isDragging) return;
                     e.preventDefault();
@@ -222,36 +239,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     dragAccumulator += delta;
                     lastMouseAngle = currentMouseAngle;
 
-                    const stepThreshold = 30; // Schwelle für Einrasten
+                    const stepThreshold = 25; // Sensitivität (niedriger = schnelleres Schalten)
 
                     if (dragAccumulator > stepThreshold) {
-                        if (currentIndex < items.length - 1) {
-                            snapKnobTo(currentIndex + 1);
-                        }
+                        if (currentIndex < items.length - 1) snapKnobTo(currentIndex + 1);
                         dragAccumulator = 0; 
                     } 
                     else if (dragAccumulator < -stepThreshold) {
-                        if (currentIndex > 0) {
-                            snapKnobTo(currentIndex - 1);
-                        }
+                        if (currentIndex > 0) snapKnobTo(currentIndex - 1);
                         dragAccumulator = 0; 
                     }
                     
-                    // Visuelle Spannung
+                    // Visuelles "Anspannen" vor dem Sprung
                     const baseAngle = labelElements[currentIndex].angle;
-                    const tension = dragAccumulator * 0.3; 
+                    const tension = dragAccumulator * 0.4; 
                     gsap.set(knob, { rotation: baseAngle + tension });
                 }
 
-                // DRAG END
                 function onEnd(e) {
                     if(!isDragging) return;
                     isDragging = false;
-                    gsap.to(knob, { scale: 1, duration: 0.2 });
-                    snapKnobTo(currentIndex); 
+                    gsap.to(knob, { scale: 1, duration: 0.15 });
+                    snapKnobTo(currentIndex); // Zurück in sichere Position
                 }
 
-                // Events
                 knob.addEventListener('mousedown', onDown);
                 window.addEventListener('mousemove', onMove);
                 window.addEventListener('mouseup', onEnd);
@@ -261,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.addEventListener('touchend', onEnd);
 
             } else if (listContainer) {
-                // >>>>> STANDARD LISTE (FALLBACK) <<<<<
+                // >>>>> FALLBACK (Normale Liste) <<<<<
                 wrapper.classList.remove('knob-active');
                 listContainer.innerHTML = ''; 
                 listContainer.className = 'detail-list';
@@ -275,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- REST OF ORIGINAL JS (UNVERÄNDERT) ---
+    // --- STANDARD CODE ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
