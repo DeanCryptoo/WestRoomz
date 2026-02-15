@@ -11,25 +11,30 @@
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
         /* --- BASE STYLES --- */
         body {
-            overflow-x: hidden; /* Wichtig für Horizontal Scroll */
+            /* Wir erlauben hier das Scrollen, Lenis übernimmt die Kontrolle */
+            margin: 0;
+            padding: 0;
             background-color: #050505;
             color: #fff;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden; /* Lenis steuert den Scrollbalken */
         }
 
         /* --- HORIZONTAL SCROLL CONTAINER --- */
         .timeline-wrapper {
-            width: 100%;
+            /* WICHTIG: fit-content sorgt dafür, dass die Seite breit wird */
+            width: fit-content; 
             height: 100vh;
             display: flex;
             align-items: center;
-            overflow: hidden;
             position: relative;
+            padding-right: 15vw; /* Damit man die letzte Karte ganz sieht */
         }
 
         .timeline-track {
@@ -71,6 +76,9 @@
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: none; /* Wir blenden den Standard-Cursor aus für Hover */
             overflow: hidden;
+            
+            /* WICHTIG: Verhindert, dass die Karten gequetscht werden beim Scrollen */
+            flex-shrink: 0; 
         }
 
         /* Spotlight Effekt Overlay */
@@ -275,8 +283,8 @@
             <div class="timeline-track">
                 
                 <div style="min-width: 200px; display: flex; align-items: center; justify-content: center;">
-                    <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px; transform: rotate(-90deg);">
-                        SCROLL / SWIPE &rarr;
+                    <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px;">
+                        SWIPE &rarr;
                     </div>
                 </div>
 
@@ -343,37 +351,24 @@
     <script src="js/main.js"></script>
     
     <script>
-        // 1. GSAP SCROLLTRIGGER REGISTRIEREN
-        gsap.registerPlugin(ScrollTrigger);
+        // 1. LENIS HORIZONTAL SETUP
+        // Wir aktivieren "orientation: horizontal"
+        // Das erlaubt echtes Wischen nach links/rechts
+        const lenis = new Lenis({
+            orientation: 'horizontal', 
+            gestureOrientation: 'both',
+            smoothWheel: true,
+            wheelMultiplier: 1, 
+            touchMultiplier: 2, 
+        });
 
-        // 2. HORIZONTAL SCROLL LOGIK
-        const track = document.querySelector(".timeline-track");
-        const sections = gsap.utils.toArray(".event-card");
-
-        // Berechne die Breite des Tracks basierend auf dem Inhalt
-        function getScrollAmount() {
-            let trackWidth = track.scrollWidth;
-            return -(trackWidth - window.innerWidth);
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
         }
+        requestAnimationFrame(raf);
 
-        // Die Animation: Bewegt den Track nach links, während man vertikal scrollt
-        const tween = gsap.to(track, {
-            x: getScrollAmount,
-            duration: 3,
-            ease: "none"
-        });
-
-        ScrollTrigger.create({
-            trigger: ".timeline-wrapper",
-            start: "top top",
-            end: () => `+=${getScrollAmount() * -1}`, // Länge des Scrolls basierend auf Breite
-            pin: true, // "Klebt" die Seite fest
-            animation: tween,
-            scrub: 1, // Smoothness (High-End Feel)
-            invalidateOnRefresh: true // Neuberechnung bei Resize
-        });
-
-        // 3. SPOTLIGHT HOVER EFFEKT (Das "ReactBits" Feature)
+        // 2. SPOTLIGHT HOVER EFFEKT
         document.querySelectorAll(".event-card").forEach(card => {
             card.onmousemove = e => {
                 const rect = card.getBoundingClientRect();
@@ -385,14 +380,6 @@
                 card.style.setProperty("--mouse-y", `${y}px`);
             };
         });
-
-        // Optional: Smooth Scroll für die ganze Seite (Lenis ist schon eingebunden)
-        const lenis = new Lenis();
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
     </script>
 </body>
 </html>
