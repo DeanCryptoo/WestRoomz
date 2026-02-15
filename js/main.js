@@ -1,49 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. SOUND SYSTEM (ROBUST & SCHNELL) ---
-    // Wir laden die Datei einmal vor
+    // --- 1. SOUND SYSTEM (FIXED & CLEAN) ---
     const masterAudio = new Audio('click.mp3');
     masterAudio.volume = 0.4; 
-    masterAudio.load(); // Erzwingt das Laden sofort
-
-    // iOS Audio-Unlocker: Beim ersten Touch wird das Audio-System "scharf geschaltet"
-    let audioUnlocked = false;
     
+    // Wir laden ihn vor
+    masterAudio.load();
+
+    // Unlock Audio für iPhone beim ersten Touch
+    let audioUnlocked = false;
     function unlockAudio() {
         if (!audioUnlocked) {
-            // Wir spielen den Sound einmal leise und pausieren sofort
-            // Das sagt dem iPhone: "User hat interagiert, Audio ist ab jetzt erlaubt!"
-            const silentPlay = masterAudio.play().then(() => {
+            masterAudio.play().then(() => {
                 masterAudio.pause();
                 masterAudio.currentTime = 0;
             }).catch((e) => {});
-            
             audioUnlocked = true;
-            // Event Listener entfernen, damit das nur 1x passiert
             document.removeEventListener('touchstart', unlockAudio);
             document.removeEventListener('click', unlockAudio);
         }
     }
-    
-    // Unlocker aktivieren
     document.addEventListener('touchstart', unlockAudio, {passive: true});
     document.addEventListener('click', unlockAudio, {passive: true});
 
-    // Die eigentliche Feedback-Funktion
+    // Variable für Zeit-Sperre (Debounce)
+    let lastSoundTime = 0;
+
+    // Feedback Funktion (Clean & Dry)
     function triggerFeedback() {
-        // A) VIBRATION (Android)
+        const now = Date.now();
+        
+        // SPERRE: Wenn der letzte Klick weniger als 80ms her ist -> ABBRUCH.
+        // Das verhindert das "Doppelt-Hören".
+        if (now - lastSoundTime < 80) return;
+
+        // VIBRATION (Android)
         if (navigator.vibrate) {
             navigator.vibrate(15); 
         }
 
-        // B) SOUND (Multi-Shot Technik)
-        // Wir klonen den Master-Sound. Das erlaubt schnelles "Feuern" hintereinander,
-        // ohne dass der vorherige Sound abgeschnitten wird.
-        const soundClone = masterAudio.cloneNode();
-        soundClone.volume = 0.4; 
-        
-        // Abspielen und Fehler (z.B. wenn Datei fehlt) ignorieren
-        soundClone.play().catch(() => {}); 
+        // SOUND (Single Shot - kein Überlappen mehr)
+        // Wir nutzen hier NICHT cloneNode, damit sich Sounds nicht stapeln.
+        masterAudio.currentTime = 0; 
+        masterAudio.play().catch(() => {});
+
+        lastSoundTime = now;
     }
 
     // --- 2. DATABASE: SERVICE CONTENT ---
@@ -180,8 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (index < 0) index = 0;
                     if (index >= items.length) index = items.length - 1;
                     
-                    // Sound abspielen, wenn sich der Index ändert oder initial
-                    if(currentIndex !== index || !isDragging) { 
+                    // CHECK: Nur Sound spielen, wenn sich der Index wirklich geändert hat!
+                    if(currentIndex !== index) { 
                        triggerFeedback(); 
                     }
 
@@ -190,11 +191,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
                     
-                    // Mechanische Animation (Schnell & Hart)
+                    // Mechanische Animation
                     gsap.to(knob, { 
                         rotation: labelElements[index].angle, 
                         duration: 0.35, 
-                        ease: "back.out(2.5)", // Kräftiger Snap
+                        ease: "back.out(2.5)", 
                         overwrite: true 
                     });
 
@@ -239,18 +240,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     dragAccumulator += delta;
                     lastMouseAngle = currentMouseAngle;
 
-                    const stepThreshold = 25; // Sensitivität (niedriger = schnelleres Schalten)
+                    const stepThreshold = 25; // Sensitivität
 
                     if (dragAccumulator > stepThreshold) {
-                        if (currentIndex < items.length - 1) snapKnobTo(currentIndex + 1);
-                        dragAccumulator = 0; 
+                        if (currentIndex < items.length - 1) {
+                            snapKnobTo(currentIndex + 1);
+                            dragAccumulator = 0; // Reset nur wenn erfolgreich gesprungen
+                        }
                     } 
                     else if (dragAccumulator < -stepThreshold) {
-                        if (currentIndex > 0) snapKnobTo(currentIndex - 1);
-                        dragAccumulator = 0; 
+                        if (currentIndex > 0) {
+                            snapKnobTo(currentIndex - 1);
+                            dragAccumulator = 0; // Reset nur wenn erfolgreich gesprungen
+                        }
                     }
                     
-                    // Visuelles "Anspannen" vor dem Sprung
+                    // Visuelles "Anspannen"
                     const baseAngle = labelElements[currentIndex].angle;
                     const tension = dragAccumulator * 0.4; 
                     gsap.set(knob, { rotation: baseAngle + tension });
@@ -260,7 +265,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     if(!isDragging) return;
                     isDragging = false;
                     gsap.to(knob, { scale: 1, duration: 0.15 });
-                    snapKnobTo(currentIndex); // Zurück in sichere Position
+                    
+                    // Zurücksetzen in perfekte Position (falls halb gezogen)
+                    snapKnobTo(currentIndex); 
                 }
 
                 knob.addEventListener('mousedown', onDown);
@@ -286,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- STANDARD CODE ---
+    // --- REST OF ORIGINAL JS ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
