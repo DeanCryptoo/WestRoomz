@@ -1,19 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. SOUND SYSTEM (FIXED & CLEAN) ---
-    const masterAudio = new Audio('click.mp3');
-    masterAudio.volume = 0.4; 
-    
-    // Wir laden ihn vor
-    masterAudio.load();
+    // --- 1. SOUND SYSTEM (STRIKT & TROCKEN) ---
+    const clickSound = new Audio('click.mp3');
+    clickSound.volume = 0.4; 
+    clickSound.load();
 
-    // Unlock Audio für iPhone beim ersten Touch
+    // iOS Audio-Unlocker
     let audioUnlocked = false;
     function unlockAudio() {
         if (!audioUnlocked) {
-            masterAudio.play().then(() => {
-                masterAudio.pause();
-                masterAudio.currentTime = 0;
+            clickSound.play().then(() => {
+                clickSound.pause();
+                clickSound.currentTime = 0;
             }).catch((e) => {});
             audioUnlocked = true;
             document.removeEventListener('touchstart', unlockAudio);
@@ -23,28 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('touchstart', unlockAudio, {passive: true});
     document.addEventListener('click', unlockAudio, {passive: true});
 
-    // Variable für Zeit-Sperre (Debounce)
-    let lastSoundTime = 0;
-
-    // Feedback Funktion (Clean & Dry)
-    function triggerFeedback() {
-        const now = Date.now();
-        
-        // SPERRE: Wenn der letzte Klick weniger als 80ms her ist -> ABBRUCH.
-        // Das verhindert das "Doppelt-Hören".
-        if (now - lastSoundTime < 80) return;
-
+    // Feedback Funktion
+    function playClick() {
         // VIBRATION (Android)
-        if (navigator.vibrate) {
-            navigator.vibrate(15); 
-        }
+        if (navigator.vibrate) navigator.vibrate(15);
 
-        // SOUND (Single Shot - kein Überlappen mehr)
-        // Wir nutzen hier NICHT cloneNode, damit sich Sounds nicht stapeln.
-        masterAudio.currentTime = 0; 
-        masterAudio.play().catch(() => {});
-
-        lastSoundTime = now;
+        // SOUND (Reset & Play für trockenen Klick)
+        clickSound.currentTime = 0;
+        clickSound.play().catch(() => {});
     }
 
     // --- 2. DATABASE: SERVICE CONTENT ---
@@ -166,9 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
                     
+                    // Bei Klick: Sound JA (true)
                     label.onclick = (e) => { 
                         e.stopPropagation(); 
-                        snapKnobTo(index); 
+                        snapKnobTo(index, true); 
                     };
                     interfaceDiv.appendChild(label);
                     labelElements.push({ el: label, angle: degree });
@@ -176,14 +161,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 gsap.set(knob, { rotation: startAngle });
 
-                // --- CORE FUNCTION: SNAP & SOUND ---
-                function snapKnobTo(index) {
+                // --- CORE FUNCTION: SNAP ---
+                // Neuer Parameter: playSound (Boolean)
+                // Wir erzwingen: Sound nur wenn explizit erlaubt (beim Ziehen), nicht beim Korrigieren (Loslassen)
+                function snapKnobTo(index, playSound = false) {
                     if (index < 0) index = 0;
                     if (index >= items.length) index = items.length - 1;
                     
-                    // CHECK: Nur Sound spielen, wenn sich der Index wirklich geändert hat!
-                    if(currentIndex !== index) { 
-                       triggerFeedback(); 
+                    // Sound abspielen?
+                    if(playSound && currentIndex !== index) { 
+                       playClick(); 
                     }
 
                     currentIndex = index;
@@ -191,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
                     
-                    // Mechanische Animation
                     gsap.to(knob, { 
                         rotation: labelElements[index].angle, 
                         duration: 0.35, 
@@ -199,7 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         overwrite: true 
                     });
 
-                    // Text Update
                     gsap.to([displayTitle, displayDesc], { 
                         opacity: 0, y: 5, duration: 0.1, 
                         onComplete: () => {
@@ -220,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return (rad * (180 / Math.PI)) + 90;
                 }
 
-                // Interaction Handlers
+                // DRAG START
                 function onDown(e) {
                     isDragging = true;
                     lastMouseAngle = getMouseAngle(e);
@@ -228,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     gsap.to(knob, { scale: 0.96, duration: 0.1 });
                 }
 
+                // DRAG MOVE
                 function onMove(e) {
                     if(!isDragging) return;
                     e.preventDefault();
@@ -240,34 +226,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     dragAccumulator += delta;
                     lastMouseAngle = currentMouseAngle;
 
-                    const stepThreshold = 25; // Sensitivität
+                    const stepThreshold = 25; 
 
                     if (dragAccumulator > stepThreshold) {
                         if (currentIndex < items.length - 1) {
-                            snapKnobTo(currentIndex + 1);
-                            dragAccumulator = 0; // Reset nur wenn erfolgreich gesprungen
+                            // HIER: Sound JA (true)
+                            snapKnobTo(currentIndex + 1, true);
+                            dragAccumulator = 0; 
                         }
                     } 
                     else if (dragAccumulator < -stepThreshold) {
                         if (currentIndex > 0) {
-                            snapKnobTo(currentIndex - 1);
-                            dragAccumulator = 0; // Reset nur wenn erfolgreich gesprungen
+                            // HIER: Sound JA (true)
+                            snapKnobTo(currentIndex - 1, true);
+                            dragAccumulator = 0; 
                         }
                     }
                     
-                    // Visuelles "Anspannen"
                     const baseAngle = labelElements[currentIndex].angle;
                     const tension = dragAccumulator * 0.4; 
                     gsap.set(knob, { rotation: baseAngle + tension });
                 }
 
+                // DRAG END
                 function onEnd(e) {
                     if(!isDragging) return;
                     isDragging = false;
                     gsap.to(knob, { scale: 1, duration: 0.15 });
                     
-                    // Zurücksetzen in perfekte Position (falls halb gezogen)
-                    snapKnobTo(currentIndex); 
+                    // HIER: Sound NEIN (false oder weglassen)
+                    // Das ist der Fix: Beim Loslassen korrigiert er nur leise.
+                    snapKnobTo(currentIndex, false); 
                 }
 
                 knob.addEventListener('mousedown', onDown);
@@ -279,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.addEventListener('touchend', onEnd);
 
             } else if (listContainer) {
-                // >>>>> FALLBACK (Normale Liste) <<<<<
+                // >>>>> STANDARD LISTE <<<<<
                 wrapper.classList.remove('knob-active');
                 listContainer.innerHTML = ''; 
                 listContainer.className = 'detail-list';
