@@ -11,54 +11,49 @@
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
         /* --- BASE STYLES --- */
-        html, body {
-            margin: 0;
-            padding: 0;
+        body {
+            overflow-x: hidden; /* Wichtig für Horizontal Scroll */
             background-color: #050505;
             color: #fff;
-            /* WICHTIG: Wir lassen Lenis das Scrollen übernehmen */
-            overflow: hidden; 
-            height: 100vh;
-            width: 100vw;
         }
 
         /* --- HORIZONTAL SCROLL CONTAINER --- */
-        /* Dieser Container wird jetzt tatsächlich breit */
         .timeline-wrapper {
+            width: 100%;
+            height: 100vh;
             display: flex;
             align-items: center;
-            height: 100vh;
-            width: fit-content; /* Nimmt die Breite des Inhalts an */
-            padding: 0 10vw; /* Start-Abstand */
-            padding-right: 20vw; /* End-Abstand */
+            overflow: hidden;
             position: relative;
         }
 
         .timeline-track {
             display: flex;
             gap: 4vw; /* Abstand zwischen den Karten */
+            padding: 0 10vw; /* Start/End Abstand */
             position: relative;
-            align-items: center;
+            /* Die Linie des Zeitstrahls */
         }
 
-        /* Die rote Linie im Hintergrund */
-        .timeline-line {
+        /* Die rote Linie im Hintergrund (Zeitstrahl) */
+        .timeline-track::before {
+            content: '';
             position: absolute;
             top: 50%;
-            left: -10vw; /* Startet ganz links vom Screen */
-            right: -20vw; /* Geht bis ganz zum Ende */
+            left: 0;
+            width: 100%;
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.5), transparent);
             z-index: 0;
             transform: translateY(-50%);
-            pointer-events: none;
         }
 
-        /* --- SPOTLIGHT CARDS --- */
+        /* --- SPOTLIGHT CARDS (ReactBits Style) --- */
         .event-card {
             min-width: 400px;
             height: 500px;
@@ -74,34 +69,41 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: none; 
+            cursor: none; /* Wir blenden den Standard-Cursor aus für Hover */
             overflow: hidden;
-            flex-shrink: 0; /* Verhindert das Zusammenquetschen */
         }
 
         /* Spotlight Effekt Overlay */
         .event-card::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: radial-gradient(
                 800px circle at var(--mouse-x) var(--mouse-y), 
                 rgba(255, 255, 255, 0.06),
                 transparent 40%
             );
             z-index: 2;
-            opacity: 0;
+            opacity: 0; /* Standardmäßig unsichtbar */
             transition: opacity 0.5s ease;
             pointer-events: none;
         }
 
-        .event-card:hover::before { opacity: 1; }
+        .event-card:hover::before {
+            opacity: 1;
+        }
 
         /* Border Glow Effekt */
         .event-card::after {
             content: "";
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border-radius: 24px;
             background: radial-gradient(
                 600px circle at var(--mouse-x) var(--mouse-y), 
@@ -116,10 +118,12 @@
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: exclude;
             -webkit-mask-composite: xor;
-            padding: 1px;
+            padding: 1px; /* Dünne Border */
         }
         
-        .event-card:hover::after { opacity: 1; }
+        .event-card:hover::after {
+            opacity: 1;
+        }
 
         .event-card:hover {
             transform: scale(1.02) translateY(-10px);
@@ -127,8 +131,16 @@
             border-color: rgba(255,255,255,0.2);
         }
 
-        /* --- CONTENT TYPOGRAPHY --- */
-        .card-top, .card-bottom { position: relative; z-index: 3; }
+        /* --- CARD CONTENT --- */
+        .card-top {
+            position: relative;
+            z-index: 3;
+        }
+
+        .card-bottom {
+            position: relative;
+            z-index: 3;
+        }
 
         .status-badge {
             display: inline-block;
@@ -150,7 +162,8 @@
             font-size: 3rem;
             color: rgba(255, 255, 255, 0.1);
             position: absolute;
-            top: 20px; right: 20px;
+            top: 20px;
+            right: 20px;
             line-height: 1;
             pointer-events: none;
         }
@@ -174,7 +187,8 @@
         .card-number {
             font-family: 'Oswald', sans-serif;
             position: absolute;
-            bottom: -20px; left: 50%;
+            bottom: -20px;
+            left: 50%;
             transform: translateX(-50%);
             font-size: 8rem;
             color: rgba(255,255,255,0.02);
@@ -182,35 +196,41 @@
             pointer-events: none;
         }
 
-        /* --- FIXED BACKGROUND TITLE --- */
+        /* --- INTRO TEXT --- */
         .fixed-title {
             position: fixed;
-            top: 15vh;
+            top: 120px;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             z-index: 0;
             pointer-events: none;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
         }
 
         .fixed-title h1 {
-            font-size: 12vw;
+            font-size: 8vw;
             opacity: 0.05;
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
             white-space: nowrap;
-            will-change: transform;
         }
 
-        /* --- MOBILE --- */
+        /* --- MOBILE ANPASSUNG --- */
         @media (max-width: 768px) {
-            .event-card { min-width: 85vw; height: 450px; }
-            .timeline-track { gap: 5vw; }
-            .timeline-wrapper { padding: 0 5vw; padding-right: 10vw; }
-            .fixed-title h1 { font-size: 18vw; }
+            .event-card {
+                min-width: 85vw;
+                height: 450px;
+            }
+            .timeline-track {
+                padding: 0 5vw;
+                gap: 5vw;
+            }
+            .fixed-title {
+                top: 100px;
+            }
+            .fixed-title h1 {
+                font-size: 15vw;
+            }
         }
     </style>
 </head>
@@ -247,19 +267,16 @@
     <div class="menu-overlay" onclick="toggleMenu()"></div>
 
     <div class="fixed-title">
-        <h1 id="parallax-text">FUTURE PROJECTS</h1>
+        <h1>FUTURE PROJECTS</h1>
     </div>
 
     <main>
         <section class="timeline-wrapper">
-            
-            <div class="timeline-line"></div>
-
             <div class="timeline-track">
                 
-                <div style="min-width: 200px; display: flex; align-items: center; justify-content: center; z-index: 2;">
-                    <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px; opacity: 0.6;">
-                         SWIPE &rarr;
+                <div style="min-width: 200px; display: flex; align-items: center; justify-content: center;">
+                    <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px; transform: rotate(-90deg);">
+                        SCROLL / SWIPE &rarr;
                     </div>
                 </div>
 
@@ -326,44 +343,56 @@
     <script src="js/main.js"></script>
     
     <script>
-        // 1. LENIS HORIZONTAL SETUP
-        // Das ist der Schlüssel: orientation: 'horizontal'
-        const lenis = new Lenis({
-            orientation: 'horizontal', 
-            gestureOrientation: 'both', // Erlaubt Touchpad (Horizontal) UND Mausrad (Vertikal -> wird zu Horizontal umgewandelt)
-            smoothWheel: true,
-            wheelMultiplier: 1, 
-            touchMultiplier: 2, 
-        });
+        // 1. GSAP SCROLLTRIGGER REGISTRIEREN
+        gsap.registerPlugin(ScrollTrigger);
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
+        // 2. HORIZONTAL SCROLL LOGIK
+        const track = document.querySelector(".timeline-track");
+        const sections = gsap.utils.toArray(".event-card");
+
+        // Berechne die Breite des Tracks basierend auf dem Inhalt
+        function getScrollAmount() {
+            let trackWidth = track.scrollWidth;
+            return -(trackWidth - window.innerWidth);
         }
-        requestAnimationFrame(raf);
 
-        // 2. PARALLAX EFFECT FÜR TEXT
-        const parallaxText = document.getElementById('parallax-text');
-        
-        lenis.on('scroll', (e) => {
-            // e.scroll gibt uns die aktuelle Position
-            // Wir bewegen den Text langsamer als den Rest
-            if(parallaxText) {
-                parallaxText.style.transform = `translateX(${-e.scroll / 5}px) translateX(-50%)`;
-            }
+        // Die Animation: Bewegt den Track nach links, während man vertikal scrollt
+        const tween = gsap.to(track, {
+            x: getScrollAmount,
+            duration: 3,
+            ease: "none"
         });
 
-        // 3. SPOTLIGHT HOVER EFFEKT
+        ScrollTrigger.create({
+            trigger: ".timeline-wrapper",
+            start: "top top",
+            end: () => `+=${getScrollAmount() * -1}`, // Länge des Scrolls basierend auf Breite
+            pin: true, // "Klebt" die Seite fest
+            animation: tween,
+            scrub: 1, // Smoothness (High-End Feel)
+            invalidateOnRefresh: true // Neuberechnung bei Resize
+        });
+
+        // 3. SPOTLIGHT HOVER EFFEKT (Das "ReactBits" Feature)
         document.querySelectorAll(".event-card").forEach(card => {
             card.onmousemove = e => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
+                // Setze CSS Variablen für die Position der Maus
                 card.style.setProperty("--mouse-x", `${x}px`);
                 card.style.setProperty("--mouse-y", `${y}px`);
             };
         });
+
+        // Optional: Smooth Scroll für die ganze Seite (Lenis ist schon eingebunden)
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
     </script>
 </body>
 </html>
