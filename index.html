@@ -17,7 +17,7 @@
     <style>
         /* Macht alle Buttons rund */
         button, .tab-btn, .submit-btn, .book-btn, .menu-link {
-            border-radius: 30px !important; /* Je höher die Zahl, desto runder */
+            border-radius: 30px !important;
         }
 
         /* Macht Eingabefelder und Dropdowns rund */
@@ -35,14 +35,32 @@
             border-radius: 20px !important;
         }
 
-        /* Optional: Auch das Menü-Icon etwas abrunden */
+        /* Menü-Icon abrunden */
         .menu-toggle-btn {
             border-radius: 8px !important;
         }
         
-        /* Optional: Bilder im Marquee (Referenzen) leicht abrunden */
+        /* --- ANPASSUNG REFERENZ LOGOS --- */
         .ref-logo-img {
+            /* DEUTLICH GRÖSSER */
+            height: 100px !important;  
+            width: auto !important;
+            
+            /* SOFORT SICHTBAR (KEIN HOVER NÖTIG) */
+            opacity: 1 !important;     
+            filter: none !important;   
+            
+            /* ABSTAND & DESIGN */
+            margin: 0 40px !important; /* Mehr Platz zwischen den großen Logos */
             border-radius: 8px !important;
+            object-fit: contain;
+        }
+        
+        /* Damit der Container hoch genug für die großen Logos ist */
+        .marquee-track {
+            display: flex;
+            align-items: center; /* Logos vertikal zentrieren */
+            gap: 20px;
         }
     </style>
     </head>
