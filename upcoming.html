@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
         /* --- BASE STYLES --- */
@@ -21,34 +20,46 @@
             background-color: #050505;
             color: #fff;
             width: 100%;
-            height: 100vh;
-            
-            /* WICHTIGE ÄNDERUNG FÜR MOBILE: */
-            overflow-y: hidden; /* Vertikal gesperrt */
-            overflow-x: auto;   /* Auto erlaubt natives Wischen auf dem Handy! */
-            
-            /* Sorgt für smoothness auf iOS wenn JS mal kurz lädt */
-            -webkit-overflow-scrolling: touch; 
+            height: 100%;
+            overflow: hidden; /* Verhindert Scrollbalken am Body */
         }
 
         /* --- HORIZONTAL SCROLL CONTAINER --- */
         .timeline-wrapper {
-            width: fit-content; /* Passt sich der Breite des Inhalts an */
-            height: 100vh;
+            width: 100%;
+            height: 100%;
+            
+            /* WICHTIG: Das hier erlaubt das Scrollen */
+            overflow-x: auto;
+            overflow-y: hidden;
+            
             display: flex;
-            align-items: center;
-            position: relative;
-            padding-right: 15vw;
+            align-items: center; /* WICHTIG: Verhindert, dass Karten gezogen werden! */
+            
+            /* Versteckt die Scrollbar, lässt aber Scrollen zu */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            
+            /* Smoothness für Mobile */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Scrollbar verstecken für Chrome/Safari/Opera */
+        .timeline-wrapper::-webkit-scrollbar {
+            display: none;
         }
 
         .timeline-track {
             display: flex;
-            gap: 4vw; 
-            padding: 0 10vw; 
+            gap: 4vw;
+            padding: 0 10vw; /* Abstand links/rechts */
+            padding-right: 20vw; /* Extra Platz am Ende */
             position: relative;
+            height: 100%; /* Volle Höhe damit align-items wirkt */
+            align-items: center; /* Zentriert die Karten vertikal */
         }
 
-        /* Die rote Linie im Hintergrund (Zeitstrahl) */
+        /* Die rote Linie im Hintergrund */
         .timeline-track::before {
             content: '';
             position: absolute;
@@ -61,10 +72,12 @@
             transform: translateY(-50%);
         }
 
-        /* --- SPOTLIGHT CARDS --- */
+        /* --- SPOTLIGHT CARDS (Design 1:1) --- */
         .event-card {
-            min-width: 400px;
-            height: 500px;
+            min-width: 400px; /* Feste Breite */
+            width: 400px;
+            height: 500px;    /* Feste Höhe */
+            
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
@@ -77,9 +90,16 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: none;
+            cursor: grab; /* Zeigt an, dass man ziehen kann */
             overflow: hidden;
+            
+            /* EXTREM WICHTIG: Verhindert Quetschen */
             flex-shrink: 0; 
+            flex-grow: 0;
+        }
+
+        .event-card:active {
+            cursor: grabbing;
         }
 
         /* Spotlight Effekt Overlay */
@@ -97,7 +117,6 @@
             transition: opacity 0.5s ease;
             pointer-events: none;
         }
-
         .event-card:hover::before { opacity: 1; }
 
         /* Border Glow Effekt */
@@ -121,7 +140,6 @@
             -webkit-mask-composite: xor;
             padding: 1px;
         }
-        
         .event-card:hover::after { opacity: 1; }
 
         .event-card:hover {
@@ -146,7 +164,6 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(255,0,0,0.1);
         }
 
         .event-date {
@@ -195,6 +212,7 @@
             text-align: center;
             z-index: 0;
             pointer-events: none;
+            width: 100%;
         }
 
         .fixed-title h1 {
@@ -208,11 +226,13 @@
         /* --- MOBILE ANPASSUNG --- */
         @media (max-width: 768px) {
             .event-card {
-                min-width: 85vw; /* Etwas breiter als Bildschirm, damit man swipen muss */
+                min-width: 85vw;
+                width: 85vw;
                 height: 450px;
             }
             .timeline-track {
                 padding: 0 5vw;
+                padding-right: 10vw;
                 gap: 5vw;
             }
             .fixed-title { top: 100px; }
@@ -256,97 +276,100 @@
         <h1>FUTURE PROJECTS</h1>
     </div>
 
-    <main>
-        <section class="timeline-wrapper">
-            <div class="timeline-track">
-                
-                <div style="min-width: 200px; display: flex; align-items: center; justify-content: center;">
-                    <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px;">
-                        SWIPE &rarr;
-                    </div>
+    <main class="timeline-wrapper">
+        <div class="timeline-track">
+            
+            <div style="min-width: 200px; display: flex; align-items: center; justify-content: center; height: 100%;">
+                <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px;">
+                    SWIPE &rarr;
                 </div>
-
-                <div class="event-card interactive">
-                    <div class="card-number">01</div>
-                    <div class="event-date">MAR '26</div>
-                    <div class="card-top">
-                        <span class="status-badge">In Planung</span>
-                        <h3 class="event-title">WestRoomz<br>Label Night</h3>
-                    </div>
-                    <div class="card-bottom">
-                        <p class="event-desc">
-                            Eine Nacht voller Sound und Visuals. Wir präsentieren die neuesten Artists aus unserem Roster in einer exklusiven Off-Location in Münster.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="event-card interactive">
-                    <div class="card-number">02</div>
-                    <div class="event-date">APR '26</div>
-                    <div class="card-top">
-                        <span class="status-badge">Produktion</span>
-                        <h3 class="event-title">New Video<br>Release</h3>
-                    </div>
-                    <div class="card-bottom">
-                        <p class="event-desc">
-                            Das neue Musikvideo für unseren Headliner. Gedreht in 8K mit Cinema-Line Kameras. Premiere live auf YouTube und im Cinema.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="event-card interactive">
-                    <div class="card-number">03</div>
-                    <div class="event-date">SUM '26</div>
-                    <div class="card-top">
-                        <span class="status-badge">Workshop</span>
-                        <h3 class="event-title">Audio<br>Masterclass</h3>
-                    </div>
-                    <div class="card-bottom">
-                        <p class="event-desc">
-                            Lerne von unseren Engineers, wie du deine Mixes auf das nächste Level bringst. Ein Deep-Dive in Mixing, Mastering und Raumakustik.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="event-card interactive">
-                    <div class="card-number">04</div>
-                    <div class="event-date">Q4 '26</div>
-                    <div class="card-top">
-                        <span class="status-badge">Expansion</span>
-                        <h3 class="event-title">New Studio<br>Opening</h3>
-                    </div>
-                    <div class="card-bottom">
-                        <p class="event-desc">
-                            Wir vergrößern uns. Studio B und C werden eröffnet. Mehr Platz für Kreativität, neue Hardware und eine dedizierte Podcast-Lounge.
-                        </p>
-                    </div>
-                </div>
-                
-                <div style="min-width: 10vw;"></div>
-
             </div>
-        </section>
+
+            <div class="event-card interactive">
+                <div class="card-number">01</div>
+                <div class="event-date">MAR '26</div>
+                <div class="card-top">
+                    <span class="status-badge">In Planung</span>
+                    <h3 class="event-title">WestRoomz<br>Label Night</h3>
+                </div>
+                <div class="card-bottom">
+                    <p class="event-desc">
+                        Eine Nacht voller Sound und Visuals. Wir präsentieren die neuesten Artists aus unserem Roster in einer exklusiven Off-Location in Münster.
+                    </p>
+                </div>
+            </div>
+
+            <div class="event-card interactive">
+                <div class="card-number">02</div>
+                <div class="event-date">APR '26</div>
+                <div class="card-top">
+                    <span class="status-badge">Produktion</span>
+                    <h3 class="event-title">New Video<br>Release</h3>
+                </div>
+                <div class="card-bottom">
+                    <p class="event-desc">
+                        Das neue Musikvideo für unseren Headliner. Gedreht in 8K mit Cinema-Line Kameras. Premiere live auf YouTube und im Cinema.
+                    </p>
+                </div>
+            </div>
+
+            <div class="event-card interactive">
+                <div class="card-number">03</div>
+                <div class="event-date">SUM '26</div>
+                <div class="card-top">
+                    <span class="status-badge">Workshop</span>
+                    <h3 class="event-title">Audio<br>Masterclass</h3>
+                </div>
+                <div class="card-bottom">
+                    <p class="event-desc">
+                        Lerne von unseren Engineers, wie du deine Mixes auf das nächste Level bringst. Ein Deep-Dive in Mixing, Mastering und Raumakustik.
+                    </p>
+                </div>
+            </div>
+
+            <div class="event-card interactive">
+                <div class="card-number">04</div>
+                <div class="event-date">Q4 '26</div>
+                <div class="card-top">
+                    <span class="status-badge">Expansion</span>
+                    <h3 class="event-title">New Studio<br>Opening</h3>
+                </div>
+                <div class="card-bottom">
+                    <p class="event-desc">
+                        Wir vergrößern uns. Studio B und C werden eröffnet. Mehr Platz für Kreativität, neue Hardware und eine dedizierte Podcast-Lounge.
+                    </p>
+                </div>
+            </div>
+
+        </div>
     </main>
 
     <script src="js/main.js"></script>
     
     <script>
-        // 1. LENIS HORIZONTAL SETUP
-        const lenis = new Lenis({
-            orientation: 'horizontal', 
-            gestureOrientation: 'both',
-            smoothWheel: true,
-            wheelMultiplier: 1, 
-            touchMultiplier: 2, 
+        // 1. DESKTOP MAUSRAD FIX
+        // Da wir natives horizontales Scrollen nutzen, würde das Mausrad auf Desktop normalerweise nichts tun.
+        // Dieses Script wandelt das Scrollen nach unten (deltaY) in Scrollen nach rechts (scrollLeft) um.
+        const scrollContainer = document.querySelector(".timeline-wrapper");
+
+        scrollContainer.addEventListener("wheel", (evt) => {
+            // Wenn Shift gedrückt ist, lassen wir das native Verhalten zu
+            if(evt.shiftKey) return;
+            
+            // Verhindert das "normale" Scrollen
+            evt.preventDefault();
+            
+            // Bewegt den Container seitlich
+            scrollContainer.scrollLeft += evt.deltaY;
+            
+            // Optional: Macht das Scrollen etwas smoother (einfache Implementierung)
+            // scrollContainer.scrollTo({
+            //    left: scrollContainer.scrollLeft + evt.deltaY * 3,
+            //    behavior: 'smooth'
+            // });
         });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // 2. SPOTLIGHT HOVER EFFEKT
+        // 2. SPOTLIGHT EFFEKT
         document.querySelectorAll(".event-card").forEach(card => {
             card.onmousemove = e => {
                 const rect = card.getBoundingClientRect();
