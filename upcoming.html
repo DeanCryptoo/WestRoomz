@@ -28,22 +28,13 @@
         .timeline-wrapper {
             width: 100%;
             height: 100%;
-            
-            /* Native Scrolling erlauben */
             overflow-x: auto;
             overflow-y: hidden;
-            
             display: flex;
             align-items: center; 
-            
-            /* Scrollbar verstecken */
             -ms-overflow-style: none;  
             scrollbar-width: none;  
-            
-            /* Smoothness für Mobile */
             -webkit-overflow-scrolling: touch;
-            
-            /* Wichtig für Desktop Smoothness */
             scroll-behavior: smooth; 
         }
 
@@ -74,12 +65,20 @@
             transform: translateY(-50%);
         }
 
+        /* --- SWIPE INTRO TEXT --- */
+        .swipe-intro {
+            min-width: 200px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100%;
+        }
+
         /* --- SPOTLIGHT CARDS --- */
         .event-card {
             min-width: 400px;
             width: 400px;
             height: 500px;    
-            
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
@@ -98,47 +97,22 @@
             flex-grow: 0;
         }
 
-        .event-card:active {
-            cursor: grabbing;
-        }
+        .event-card:active { cursor: grabbing; }
 
-        /* Spotlight Effekt Overlay */
+        /* Spotlight & Glow */
         .event-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(
-                800px circle at var(--mouse-x) var(--mouse-y), 
-                rgba(255, 255, 255, 0.06),
-                transparent 40%
-            );
-            z-index: 2;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+            z-index: 2; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
         }
         .event-card:hover::before { opacity: 1; }
 
-        /* Border Glow Effekt */
         .event-card::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 24px;
-            background: radial-gradient(
-                600px circle at var(--mouse-x) var(--mouse-y), 
-                rgba(255, 255, 255, 0.4),
-                transparent 40%
-            );
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            -webkit-mask-composite: xor;
-            padding: 1px;
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 24px;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.4), transparent 40%);
+            z-index: 1; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude; -webkit-mask-composite: xor; padding: 1px;
         }
         .event-card:hover::after { opacity: 1; }
 
@@ -153,74 +127,39 @@
         .card-bottom { position: relative; z-index: 3; }
 
         .status-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff3333;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
+            display: inline-block; padding: 6px 14px; background: rgba(255, 0, 0, 0.1); color: #ff3333;
+            border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 100px; font-size: 0.75rem;
+            font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
         }
 
         .event-date {
-            font-family: 'Oswald', sans-serif;
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.1);
-            position: absolute;
-            top: 20px; right: 20px;
-            line-height: 1;
-            pointer-events: none;
+            font-family: 'Oswald', sans-serif; font-size: 3rem; color: rgba(255, 255, 255, 0.1);
+            position: absolute; top: 20px; right: 20px; line-height: 1; pointer-events: none;
         }
 
         .event-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            color: #fff;
-            line-height: 1.1;
-            text-transform: uppercase;
+            font-family: 'Oswald', sans-serif; font-size: 2.2rem; margin-bottom: 15px; color: #fff;
+            line-height: 1.1; text-transform: uppercase;
         }
 
         .event-desc {
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            color: #aaa;
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif; font-size: 1rem; color: #aaa; line-height: 1.6;
         }
 
         .card-number {
-            font-family: 'Oswald', sans-serif;
-            position: absolute;
-            bottom: -20px; left: 50%;
-            transform: translateX(-50%);
-            font-size: 8rem;
-            color: rgba(255,255,255,0.02);
-            z-index: 0;
-            pointer-events: none;
+            font-family: 'Oswald', sans-serif; position: absolute; bottom: -20px; left: 50%;
+            transform: translateX(-50%); font-size: 8rem; color: rgba(255,255,255,0.02);
+            z-index: 0; pointer-events: none;
         }
 
         /* --- INTRO TEXT --- */
         .fixed-title {
-            position: fixed;
-            top: 120px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 0;
-            pointer-events: none;
-            width: 100%;
+            position: fixed; top: 120px; left: 50%; transform: translateX(-50%); text-align: center;
+            z-index: 0; pointer-events: none; width: 100%;
         }
-
         .fixed-title h1 {
-            font-size: 8vw;
-            opacity: 0.05;
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            white-space: nowrap;
+            font-size: 8vw; opacity: 0.05; font-family: 'Oswald', sans-serif;
+            text-transform: uppercase; white-space: nowrap;
         }
 
         /* --- MOBILE ANPASSUNG --- */
@@ -231,12 +170,18 @@
                 height: 450px;
             }
             .timeline-track {
-                padding: 0 5vw;
+                /* ÄNDERUNG: Weniger Padding links, damit Karte 1 sofort sichtbar ist */
+                padding: 0 5vw; 
                 padding-right: 10vw;
                 gap: 5vw;
             }
             .fixed-title { top: 100px; }
             .fixed-title h1 { font-size: 15vw; }
+
+            /* ÄNDERUNG: "SWIPE" Text auf Mobile ausblenden */
+            .swipe-intro {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -279,7 +224,7 @@
     <main class="timeline-wrapper">
         <div class="timeline-track">
             
-            <div style="min-width: 200px; display: flex; align-items: center; justify-content: center; height: 100%;">
+            <div class="swipe-intro">
                 <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px;">
                     SWIPE &rarr;
                 </div>
@@ -349,25 +294,20 @@
     <script>
         const scrollContainer = document.querySelector(".timeline-wrapper");
 
-        // SMART SCROLL LOGIC:
-        // Das hier erkennt, ob du eine Maus (Rad) oder ein Trackpad nutzt.
+        // SMART SCROLL LOGIC (Desktop)
         scrollContainer.addEventListener("wheel", (evt) => {
-            
-            // Wenn der User horizontal (deltaX) scrollt (z.B. Trackpad Swipe links/rechts):
-            // LASSEN WIR ES ZU. Wir blockieren nichts.
+            // Wenn horizontal gescrollt wird (Trackpad), nix tun (nativ lassen)
             if(Math.abs(evt.deltaX) > Math.abs(evt.deltaY)) {
                 return;
             }
-
-            // Wenn der User vertikal (deltaY) scrollt (z.B. Mausrad):
-            // Dann wandeln wir das in horizontale Bewegung um.
+            // Wenn vertikal gescrollt wird (Mausrad), in horizontal umwandeln
             if(evt.deltaY !== 0) {
                 evt.preventDefault();
                 scrollContainer.scrollLeft += evt.deltaY;
             }
         });
 
-        // 2. SPOTLIGHT EFFEKT
+        // SPOTLIGHT EFFEKT
         document.querySelectorAll(".event-card").forEach(card => {
             card.onmousemove = e => {
                 const rect = card.getBoundingClientRect();
