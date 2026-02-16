@@ -631,3 +631,95 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
         padding-left: 30px !important;
     }
 }
+/* ========================================================= */
+/* --- GLASS KINETIC BOX (NUR FÜR VIDEO, EVENTS, MARKETING) --- */
+/* ========================================================= */
+
+/* 1. Der Kasten selbst (Milchglas-Optik) */
+/* WICHTIG: :not(.knob-active) sorgt dafür, dass Audio NICHT verändert wird! */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) {
+    background: rgba(20, 20, 20, 0.4) !important; /* Dunkles Glas */
+    backdrop-filter: blur(12px) !important;         /* Der Blur-Effekt */
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Feine Linie */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5) !important;     /* Tiefer Schatten */
+    border-radius: 20px !important;
+    padding: 40px !important;
+}
+
+/* Die Überschrift "LEISTUNGEN" im neuen Kasten */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) h3 {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-bottom: 15px !important;
+    margin-bottom: 25px !important;
+    font-size: 1.3rem !important;
+    letter-spacing: 3px !important;
+}
+
+/* 2. Die Listen-Elemente (Die Animation) */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li {
+    position: relative !important;
+    padding: 18px 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important; /* Sehr feine Linie */
+    transition: border-bottom-color 0.3s ease !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    overflow: visible !important; /* Wichtig für den Neon-Balken */
+}
+
+/* NEU: Der rote Neon-Balken (erscheint links beim Hover) */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li::before {
+    content: '';
+    position: absolute;
+    left: -20px; /* Sitzt links neben dem Text */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%; 
+    width: 3px;
+    background: var(--accent); /* Rot */
+    opacity: 0; /* Unsichtbar am Anfang */
+    box-shadow: 0 0 10px var(--accent); /* Neon Glow */
+    transition: opacity 0.3s ease, left 0.3s ease;
+}
+
+/* Hover-Status für den Balken */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover::before {
+    opacity: 1;
+    left: 0; /* Rutscht leicht rein */
+}
+
+/* Hover-Status für die Linie unten */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover {
+    border-bottom-color: rgba(255, 0, 0, 0.4) !important;
+}
+
+/* 3. Der Text (Schiebt sich nach rechts) */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.1rem !important;
+    color: #999 !important;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* Wenn man mit der Maus drüber fährt */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover {
+    padding-left: 20px !important; /* Der Slide-Effekt nach rechts */
+    color: white !important;
+    font-weight: 700 !important; /* Fett */
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+/* 4. Die Zahlen (01, 02...) */
+/* Wir nehmen an, dass die Zahlen in einem <span> oder am Ende stehen */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li span {
+    font-family: 'Oswald', sans-serif !important;
+    color: var(--primary) !important; /* Dunkelrot am Anfang */
+    transition: color 0.3s ease, opacity 0.3s ease !important;
+}
+
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover span {
+    color: white !important; /* Wird weiß */
+    opacity: 0.3 !important; /* Wird dunkler, damit Fokus auf Text liegt */
+    transform: none !important; /* Verhindert das Wegrollen vom alten Effekt, falls gewünscht */
+}
