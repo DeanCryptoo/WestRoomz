@@ -392,7 +392,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 }
 
 /* ========================================================= */
-/* --- UPDATED TYPOGRAPHY FOR LEFT SIDE (CONTENT IS ORIGINAL) --- */
+/* --- HIGH END TYPOGRAPHY UPDATE (LEFT SIDE ONLY) --- */
 /* ========================================================= */
 
 /* Der Container links wird etwas aufgeräumt */
@@ -403,7 +403,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     padding-right: 40px; /* Mehr Luft zur Liste/Bild */
 }
 
-/* Die rote Headline (Original Text, besseres Layout) */
+/* Die rote Headline (Intro) */
 .detail-desc h2 {
     font-family: var(--font-head);
     font-size: 3.5rem !important; /* Viel Größer */
@@ -412,24 +412,29 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     color: var(--accent);
     margin-bottom: 40px !important;
     letter-spacing: -1px; /* Modernes, enges Kerning */
+    /* Optional: Ein leichter Glitch-Effekt Textur */
     text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+    white-space: pre-line; /* Damit der Zeilenumbruch \n im JS funktioniert */
 }
 
-/* --- HIER IST DER FIX FÜR DEN KLEINEN WEISSEN TEXT --- */
-/* Wir machen ihn groß, sauber und modern (Clean Manifesto) */
+/* --- UPDATE: BODY TEXT (MODERN & CLEAN) MIT ROTER LINIE --- */
+/* Hier ist der Fix: Großer Text + Die coole rote Linie */
 .detail-desc p {
-    font-family: 'Inter', sans-serif !important; /* Moderne, saubere Schrift */
-    font-size: 1.25rem !important; /* Richtig schön groß und lesbar */
+    font-family: 'Inter', sans-serif !important; /* Zurück zu einer sauberen Schrift */
+    font-size: 1.15rem !important; /* Deutlich größer (war vorher ca 0.9) */
     line-height: 1.6 !important; /* Angenehmer Lesefluss */
-    font-weight: 300 !important; /* Elegant und Light */
-    color: #ffffff !important; /* Reinweiß für maximalen Kontrast */
-    max-width: 100% !important; 
+    font-weight: 300 !important; /* Light / Elegant */
+    color: #e0e0e0 !important; /* Fast Weiß statt dunkles Grau -> besserer Kontrast */
+    max-width: 100% !important; /* Nutzt den Platz besser */
     margin-bottom: 40px !important;
-    opacity: 0.95; /* Fast volle Deckkraft */
-    letter-spacing: 0.5px; /* Leicht sperren für Premium-Look */
+    
+    /* DIE ROTE LINIE IST ZURÜCK: */
+    border-left: 2px solid var(--accent) !important; 
+    padding-left: 30px !important; /* Schöner Abstand zur Linie */
+    opacity: 0.9;
 }
 
-/* Der Button Anpassung */
+/* Der Button Anpassung für diesen Look */
 .detail-desc .book-btn {
     align-self: flex-start;
     font-size: 0.9rem;
@@ -449,9 +454,6 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 @media (max-width: 768px) {
     .detail-desc h2 {
         font-size: 2.2rem !important;
-    }
-    .detail-desc p {
-        font-size: 1.1rem !important;
     }
     .detail-desc {
         padding-right: 0;
