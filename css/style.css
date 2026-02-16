@@ -372,22 +372,85 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 .detail-list li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: white; font-size: 1.1rem; display: flex; justify-content: space-between; }
 .detail-list span { color: var(--accent); font-family: var(--font-head); }
 
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    body { background-attachment: scroll; }
+    .service-card, .tab-btn { backdrop-filter: none; background: rgba(20, 20, 20, 0.95); }
+    .service-grid:hover .service-card:not(:hover) { opacity: 1; filter: none; transform: none; }
+    html, body, a, button, input, select, textarea { cursor: auto !important; }
+    .cursor, .cursor-ring { display: none !important; }
+    .hero { height: 75vh; min-height: 500px; }
+    .hero-video { object-fit: cover; } 
+    .hero-content { bottom: 10px; }
+    .video-desktop { display: none; }
+    .video-mobile { display: block; }
+    .vision-section { padding: 80px 5%; }
+    .big-lead { font-size: 2rem; }
+    .network-section { grid-template-columns: 1fr; gap: 60px; padding: 80px 5%; text-align: center; }
+    .network-text { text-align: center; }
+    .mini-divider { margin: 30px auto; } 
+    .network-logo-container { justify-content: center; }
+
+    /* HIER DIE HANDY-ANPASSUNG: INSTAGRAM STYLE (1080x1080) */
+    .gallery-item { 
+        width: 85vw;            
+        height: auto;            
+        aspect-ratio: 1 / 1;  /* ZWINGT ES ZU EINEM QUADRAT */
+        border-radius: 30px;  /* Runde Ecken */
+    }
+
+    /* NEU: LOGO ANPASSUNG FÜR HANDY */
+    .ref-logo-img { height: 40px; margin: 0 20px; }
+
+    .modal-overlay { padding: 0; }
+    .modal-header { padding: 20px; }
+    .modal-content-wrapper { padding: 20px; }
+    .modal-grid { grid-template-columns: 1fr; gap: 30px; }
+    .modal-img { width: 100%; height: auto; min-height: 250px; aspect-ratio: 3/2; }
+    .modal-title { font-size: 1.5rem; }
+    .ref-logo { font-size: 3rem; }
+    .services-section, .contact-section { padding: 50px 5%; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .section-title { font-size: 3rem; }
+    .section-title::after { right: -10px; }
+    .hero-sub { font-size: 1rem; letter-spacing: 3px; }
+    .tab-btn { padding: 10px 20px; font-size: 1.1rem; flex: 1 1 auto; text-align: center; }
+    .service-grid { grid-template-columns: 1fr; }
+    .service-card { padding: 30px; }
+    .red-thread { display: none; }
+    .side-menu { width: 100%; padding: 100px 20px 40px; }
+    .back-home-wrapper { top: 20px; right: 20px; }
+    .back-btn { font-size: 1rem; padding: 8px 15px; }
+    .detail-hero { height: 40vh; }
+    .detail-hero h1 { font-size: 2.5rem; }
+    .detail-content { grid-template-columns: 1fr; gap: 50px; padding: 60px 5%; }
+
+    /* HIDE VISUAL BREAK ON MOBILE */
+    .expand-gallery { display: none !important; }
+}
+
 /* ========================================================= */
 /* --- KNOB SYSTEM (NUR AKTIV WENN KLASSE DA IST) --- */
 /* ========================================================= */
 
+/* Spezial-Modus: Knob (wird nur per JS aktiviert bei Audio) */
 .detail-list-wrapper.knob-active {
+    /* Feste Basis für Desktop - Verhindert Springen */
     height: 650px; 
     width: 100%;
+    
+    /* Flexbox nur hier aktivieren */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    
     padding: 30px;
     overflow: hidden;
     position: relative;
 }
 
+/* Titel im Knob-Modus zentriert und fixiert */
 .detail-list-wrapper.knob-active h3 {
     font-size: 1.5rem;
     letter-spacing: 2px;
@@ -401,15 +464,16 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     color: white;
 }
 
+/* Knob Center Container (ZENTRIERT & AUTOSCALE) */
 .knob-interface {
     position: relative;
     width: 350px;
     height: 350px;
-    flex: 1 1 auto; 
+    flex: 1 1 auto; /* Nimmt den Platz */
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto; 
+    margin: 0 auto; /* Horizontale Zentrierung */
     user-select: none;
     -webkit-user-select: none;
 }
@@ -420,7 +484,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /* Initiale Zentrierung */
     z-index: 10;
     cursor: grab;
     will-change: transform;
@@ -461,13 +525,14 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     font-weight: 600;
 }
 
+/* Text Area Unten (Fixed Height = Anti-Wobble) */
 .knob-display-area {
     width: 100%;
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.1);
     padding-top: 20px;
     flex: 0 0 auto; 
-    min-height: 140px; 
+    min-height: 140px; /* Hier ist der Anti-Wobble Trick */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -512,42 +577,56 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .knob-display-desc { font-size: 0.9rem; }
 }
 
-/* ========================================================= */
-/* --- HIGH END TYPOGRAPHY UPDATE (Left Side) --- */
-/* ========================================================= */
+/* --- UPDATE: HIGH END TEXT (SAFE VERSION) --- */
 
+/* 1. Basis-Styling für ALLE Geräte (Handy & PC) */
 .detail-desc {
-    padding-right: 40px;
+    /* Padding rechts nur, wenn Platz ist, sonst 0 */
+    padding-right: 0; 
 }
 
+/* Rote Headline: Style überall, aber Größe variabel */
 .detail-desc h2 {
     font-family: var(--font-head);
-    font-size: 3.5rem !important;
-    line-height: 0.95 !important;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 30px !important;
     letter-spacing: -1px;
     text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+    line-height: 1.0 !important;
+    /* Standard-Größe für Handy */
+    font-size: 2.2rem !important; 
 }
 
+/* Beschreibungstext: Style überall (Rote Linie!) */
 .detail-desc p {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 1.15rem !important;
+    font-family: 'Inter', sans-serif !important; 
     line-height: 1.6 !important;
     font-weight: 300 !important;
     color: #e0e0e0 !important;
     margin-bottom: 40px !important;
-    /* Die rote Linie */
+    
+    /* HIER IST DIE ROTE LINIE (Sichtbar auf allen Geräten) */
     position: relative !important;
-    padding-left: 25px !important;
+    padding-left: 20px !important; 
     border-left: 2px solid var(--accent) !important;
+    
+    /* Standard-Größe für Handy */
+    font-size: 1rem !important;
 }
 
-/* --- MOBILE FIX (CRITICAL) --- */
-/* Without this, the 3.5rem font destroys mobile */
-@media (max-width: 768px) {
-    .detail-desc { padding-right: 0; }
-    .detail-desc h2 { font-size: 2.2rem !important; }
-    .detail-desc p { font-size: 1rem !important; }
+/* 2. NUR FÜR DESKTOP (Große Screens ab 769px) */
+/* Hier machen wir es riesig, weil Platz da ist */
+@media (min-width: 769px) {
+    .detail-desc {
+        padding-right: 40px; /* Abstand zur rechten Seite */
+    }
+    .detail-desc h2 {
+        font-size: 3.5rem !important; /* RIESIG NUR AM PC */
+        line-height: 0.95 !important;
+    }
+    .detail-desc p {
+        font-size: 1.15rem !important; /* Etwas größer am PC */
+        padding-left: 30px !important;
+    }
 }
