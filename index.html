@@ -42,18 +42,24 @@
         
         /* --- ANPASSUNG REFERENZ LOGOS --- */
         .ref-logo-img {
+            /* DEUTLICH GRÖSSER */
             height: 100px !important;  
             width: auto !important;
-            opacity: 1 !important;        
-            filter: none !important;    
-            margin: 0 40px !important; 
+            
+            /* SOFORT SICHTBAR (KEIN HOVER NÖTIG) */
+            opacity: 1 !important;     
+            filter: none !important;   
+            
+            /* ABSTAND & DESIGN */
+            margin: 0 40px !important; /* Mehr Platz zwischen den großen Logos */
             border-radius: 8px !important;
             object-fit: contain;
         }
         
+        /* Damit der Container hoch genug für die großen Logos ist */
         .marquee-track {
             display: flex;
-            align-items: center; 
+            align-items: center; /* Logos vertikal zentrieren */
             gap: 20px;
         }
     </style>
@@ -62,13 +68,9 @@
 
     <div class="cinematic-bg-wrapper">
         <div class="bg-layer active" id="bg-hero" style="background-image: url('wr1.jpg');"></div>
-        
         <div class="bg-layer" id="bg-vision" style="background-image: url('wr6.jpg');"></div>
-        
         <div class="bg-layer" id="bg-services" style="background-image: url('wr3.jpg');"></div>
-        
         <div class="bg-layer" id="bg-references" style="background-image: url('wr5.jpg');"></div>
-        
         <div class="bg-layer" id="bg-contact" style="background-image: url('wr2.jpg');"></div>
     </div>
 
@@ -309,49 +311,33 @@
     <script src="js/main.js"></script>
 
     <script>
-        document.addEventListener("scroll", function() {
-            const scrollPosition = window.scrollY + (window.innerHeight / 2); // Trigger bei Bildschirm-Mitte
+        document.addEventListener("DOMContentLoaded", function() {
+            gsap.registerPlugin(ScrollTrigger);
 
-            // Hol dir die Positionen der Sektionen
-            // Wir prüfen mit try/catch oder if, falls eine ID fehlt
-            const getPos = (id) => {
-                const el = document.getElementById(id);
-                return el ? el.offsetTop : 0;
+            const layers = {
+                'hero': document.getElementById('bg-hero'),
+                'vision': document.getElementById('bg-vision'),
+                'services': document.getElementById('bg-services'),
+                'references': document.getElementById('bg-references'),
+                'contact': document.getElementById('bg-contact')
             };
 
-            const sectionHero = getPos('hero');
-            const sectionVision = getPos('vision');
-            const sectionServices = getPos('services');
-            const sectionRef = getPos('references');
-            const sectionContact = getPos('contact');
-
-            // Alle Hintergründe ausschalten
-            function resetBgs() {
-                document.querySelectorAll('.bg-layer').forEach(bg => bg.classList.remove('active'));
+            function switchBg(activeKey) {
+                Object.keys(layers).forEach(key => {
+                    if (layers[key]) layers[key].classList.toggle('active', key === activeKey);
+                });
             }
 
-            // LOGIK: Welches Bild soll an sein? (Von unten nach oben geprüft)
-            if (scrollPosition > sectionContact) {
-                resetBgs();
-                document.getElementById('bg-contact').classList.add('active');
-            } 
-            else if (scrollPosition > sectionRef) {
-                resetBgs();
-                document.getElementById('bg-references').classList.add('active');
-            } 
-            else if (scrollPosition > sectionServices) {
-                resetBgs();
-                document.getElementById('bg-services').classList.add('active');
-            } 
-            else if (scrollPosition > sectionVision) {
-                resetBgs();
-                document.getElementById('bg-vision').classList.add('active');
-            } 
-            else {
-                // Ganz oben (Hero)
-                resetBgs();
-                document.getElementById('bg-hero').classList.add('active');
-            }
+            const sectionIds = ['hero', 'vision', 'services', 'references', 'contact'];
+            sectionIds.forEach(id => {
+                ScrollTrigger.create({
+                    trigger: "#" + id,
+                    start: "top center",
+                    end: "bottom center",
+                    onEnter: () => switchBg(id),
+                    onEnterBack: () => switchBg(id)
+                });
+            });
         });
     </script>
 </body>
