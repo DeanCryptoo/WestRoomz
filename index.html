@@ -302,5 +302,30 @@
         </footer>
     </main>
     <script src="js/main.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Deine Bild-Namen (kurz und sauber)
+        const images = [
+            'wr1.jpg', 
+            'wr2.jpg', 
+            'wr3.jpg', 
+            'wr4.jpg', 
+            'wr5.jpg', 
+            'wr6.jpg'
+        ];
+
+        // 2. Zufälliges Bild auswählen
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+
+        // 3. Hintergrund-Element suchen
+        const bg = document.querySelector('.global-bg');
+        
+        if(bg) {
+            // Bild setzen
+            bg.style.backgroundImage = "url('" + randomImage + "')";
+            console.log("Westroomz Vibe geladen: " + randomImage);
+        }
+    });
+</script>
 </body>
 </html>
