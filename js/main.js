@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. SOUND SYSTEM (STRIKT & TROCKEN) ---
