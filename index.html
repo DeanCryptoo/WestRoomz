@@ -42,31 +42,36 @@
         
         /* --- ANPASSUNG REFERENZ LOGOS --- */
         .ref-logo-img {
-            /* DEUTLICH GRÖSSER */
             height: 100px !important;  
             width: auto !important;
-            
-            /* SOFORT SICHTBAR (KEIN HOVER NÖTIG) */
-            opacity: 1 !important;     
-            filter: none !important;   
-            
-            /* ABSTAND & DESIGN */
-            margin: 0 40px !important; /* Mehr Platz zwischen den großen Logos */
+            opacity: 1 !important;        
+            filter: none !important;    
+            margin: 0 40px !important; 
             border-radius: 8px !important;
             object-fit: contain;
         }
         
-        /* Damit der Container hoch genug für die großen Logos ist */
         .marquee-track {
             display: flex;
-            align-items: center; /* Logos vertikal zentrieren */
+            align-items: center; 
             gap: 20px;
         }
     </style>
     </head>
 <body>
 
-    <div class="global-bg"></div>
+    <div class="cinematic-bg-wrapper">
+        <div class="bg-layer active" id="bg-hero" style="background-image: url('wr1.jpg');"></div>
+        
+        <div class="bg-layer" id="bg-vision" style="background-image: url('wr6.jpg');"></div>
+        
+        <div class="bg-layer" id="bg-services" style="background-image: url('wr3.jpg');"></div>
+        
+        <div class="bg-layer" id="bg-references" style="background-image: url('wr5.jpg');"></div>
+        
+        <div class="bg-layer" id="bg-contact" style="background-image: url('wr2.jpg');"></div>
+    </div>
+
     <div class="page-transition-curtain"></div>
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
@@ -302,30 +307,52 @@
         </footer>
     </main>
     <script src="js/main.js"></script>
+
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // 1. Deine Bild-Namen (kurz und sauber)
-        const images = [
-            'wr1.jpg', 
-            'wr2.jpg', 
-            'wr3.jpg', 
-            'wr4.jpg', 
-            'wr5.jpg', 
-            'wr6.jpg'
-        ];
+        document.addEventListener("scroll", function() {
+            const scrollPosition = window.scrollY + (window.innerHeight / 2); // Trigger bei Bildschirm-Mitte
 
-        // 2. Zufälliges Bild auswählen
-        const randomImage = images[Math.floor(Math.random() * images.length)];
+            // Hol dir die Positionen der Sektionen
+            // Wir prüfen mit try/catch oder if, falls eine ID fehlt
+            const getPos = (id) => {
+                const el = document.getElementById(id);
+                return el ? el.offsetTop : 0;
+            };
 
-        // 3. Hintergrund-Element suchen
-        const bg = document.querySelector('.global-bg');
-        
-        if(bg) {
-            // Bild setzen
-            bg.style.backgroundImage = "url('" + randomImage + "')";
-            console.log("Westroomz Vibe geladen: " + randomImage);
-        }
-    });
-</script>
+            const sectionHero = getPos('hero');
+            const sectionVision = getPos('vision');
+            const sectionServices = getPos('services');
+            const sectionRef = getPos('references');
+            const sectionContact = getPos('contact');
+
+            // Alle Hintergründe ausschalten
+            function resetBgs() {
+                document.querySelectorAll('.bg-layer').forEach(bg => bg.classList.remove('active'));
+            }
+
+            // LOGIK: Welches Bild soll an sein? (Von unten nach oben geprüft)
+            if (scrollPosition > sectionContact) {
+                resetBgs();
+                document.getElementById('bg-contact').classList.add('active');
+            } 
+            else if (scrollPosition > sectionRef) {
+                resetBgs();
+                document.getElementById('bg-references').classList.add('active');
+            } 
+            else if (scrollPosition > sectionServices) {
+                resetBgs();
+                document.getElementById('bg-services').classList.add('active');
+            } 
+            else if (scrollPosition > sectionVision) {
+                resetBgs();
+                document.getElementById('bg-vision').classList.add('active');
+            } 
+            else {
+                // Ganz oben (Hero)
+                resetBgs();
+                document.getElementById('bg-hero').classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>
