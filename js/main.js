@@ -23,10 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Feedback Funktion
     function playClick() {
-        // VIBRATION (Android)
         if (navigator.vibrate) navigator.vibrate(15);
-
-        // SOUND (Reset & Play für trockenen Klick)
         clickSound.currentTime = 0;
         clickSound.play().catch(() => {});
     }
@@ -37,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "AUDIO PRODUKTION",
             image: "1.jpeg",
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
-            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen: im Studio, auf Sets, bei Live-Events und in komplexen Kampagnen. Diese Erfahrung prägt unsere Arbeitsweise. Wir hören genau hin, treffen bewusste Entscheidungen und setzen Technik gezielt ein – nicht, um sie zu zeigen, sondern um Ergebnisse zu liefern, die funktionieren. Ob Recording, Mixing, Mastering, Sounddesign oder Live-Audio: Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
+            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen. Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
             list: [
                 { name: "Recording", text: "High-End Aufnahmen in akustisch optimierten Räumen für Vocals und Instrumente." },
                 { name: "Mixing", text: "Wir bringen Balance, Tiefe und den nötigen Druck in deine Spuren." },
@@ -51,21 +48,31 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "VIDEO & CONTENT",
             image: "4.jpeg",
             intro: "Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.",
-            desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt. WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung – für einzelne Produktionen oder zusammenhängende Kampagnen. Von Musikvideos über Social Media Content bis hin zu hochwertigen Imagefilmen.",
-            list: ["Musikvideos & Performance", "Artist Visuals", "Werbe- & Imagefilme", "Social-Media-Content", "Video Podcasts", "Produktbilder", "Cover Art", "Kampagnen-Content"]
+            desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt. WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung.",
+            // HIER NEU: Bilder zu den Services hinzugefügt für den Hover-Effekt
+            list: [
+                { name: "Musikvideos", image: "1.jpeg" }, // Bilddateien ggf. anpassen
+                { name: "Artist Visuals", image: "2.jpeg" },
+                { name: "Imagefilme", image: "3.jpeg" },
+                { name: "Social Content", image: "4.jpeg" },
+                { name: "Video Podcasts", image: "5.jpeg" },
+                { name: "Produktbilder", image: "6.jpeg" },
+                { name: "Cover Art", image: "7.jpeg" },
+                { name: "Kampagnen", image: "8.jpeg" }
+            ]
         },
         "event_planning": {
             title: "EVENTS & LIVE",
             image: "7.jpeg",
             intro: "Events erfordern mehr als Technik. Wir liefern Struktur.",
-            desc: "WESTROOMZ ist an Veranstaltungen in unterschiedlichen Rollen beteiligt – von technischer Umsetzung bis zur vollständigen Produktionsbegleitung. Wir liefern Struktur, Know-how und eine saubere Umsetzung - von der Planung bis zum laufenden Betrieb vor Ort. Wir begleiten Veranstaltungen modular oder ganzheitlich und übernehmen Verantwortung dort, wo sie gebraucht wird.",
+            desc: "WESTROOMZ ist an Veranstaltungen in unterschiedlichen Rollen beteiligt – von technischer Umsetzung bis zur vollständigen Produktionsbegleitung.",
             list: ["Eventplanung & Konzepte", "Live Mixing", "Audio- & Videoproduktion", "Event-Fotografie", "DJ-Services", "Ablauf & Koordination"]
         },
         "marketing_general": {
             title: "MARKETING & STRATEGIE",
             image: "5.jpeg",
             intro: "Sichtbarkeit ist kein Zufall, sondern das Ergebnis präziser Planung.",
-            desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien, die deine Brand, deinen Sound oder dein Event nachhaltig positionieren. Wir nutzen datengetriebene Ansätze auf Social Media und verbinden diese mit hochwertigem Content, um echte Fans und Kunden zu erreichen. Von der CI-Entwicklung bis zur Kampagnen-Ausspielung.",
+            desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien, die deine Brand positionieren.",
             list: ["Social Media Strategy", "Performance Marketing", "Branding & CI", "Kampagnen-Management", "Content Distribution", "Zielgruppen-Analyse"]
         },
         "audio_commercial": { title: "COMMERCIAL", image: "2.jpeg", intro: "...", desc: "...", list: [] },
@@ -76,11 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if(window.location.pathname.includes('service-detail.html')) {
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
-        
+       
         if(id && serviceData[id]) {
             const data = serviceData[id];
-            
-            // Set Texts
+           
+            // Set Base Texts
             const titleEl = document.getElementById('detailTitle');
             if(titleEl) titleEl.innerText = data.title;
             const bgEl = document.getElementById('detailBg');
@@ -89,19 +96,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if(introEl) introEl.innerText = data.intro;
             const descEl = document.getElementById('detailDesc');
             if(descEl) descEl.innerText = data.desc;
-            
+           
             const contactBtn = document.getElementById('detailContactBtn');
             if(contactBtn) contactBtn.onclick = () => window.location.href = `index.html#contact`; 
 
             const listContainer = document.getElementById('detailList');
             const wrapper = document.querySelector('.detail-list-wrapper');
 
-            // --- KNOB LOGIC START ---
+            // --- A: AUDIO KNOB LOGIC (BLEIBT UNVERÄNDERT) ---
             if(id === 'audio_music' && listContainer) {
-                
+             
                 wrapper.classList.add('knob-active');
                 listContainer.innerHTML = '';
-                
+             
                 // UI
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
@@ -124,13 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 listContainer.appendChild(interfaceDiv);
                 listContainer.appendChild(displayDiv);
 
-                // Setup
+                // Setup Logic (Copy of original knob logic)
                 const items = data.list;
                 const totalArc = 260; 
                 const startAngle = -130; 
                 const step = totalArc / (items.length - 1); 
                 const labelElements = [];
-                
+             
                 let currentIndex = 0; 
                 let isDragging = false;
                 let lastMouseAngle = 0;
@@ -142,15 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     label.className = 'knob-label';
                     if(index === 0) label.classList.add('active');
                     label.innerText = item.name;
-                    
+                   
                     const degree = startAngle + (index * step);
                     const rad = (degree - 90) * (Math.PI / 180);
                     const x = 50 + (Math.cos(rad) * 42); 
                     const y = 50 + (Math.sin(rad) * 42);
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
-                    
-                    // Bei Klick: Sound JA (true)
+                   
                     label.onclick = (e) => { 
                         e.stopPropagation(); 
                         snapKnobTo(index, true); 
@@ -161,23 +167,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 gsap.set(knob, { rotation: startAngle });
 
-                // --- CORE FUNCTION: SNAP ---
-                // Neuer Parameter: playSound (Boolean)
-                // Wir erzwingen: Sound nur wenn explizit erlaubt (beim Ziehen), nicht beim Korrigieren (Loslassen)
                 function snapKnobTo(index, playSound = false) {
                     if (index < 0) index = 0;
                     if (index >= items.length) index = items.length - 1;
-                    
-                    // Sound abspielen?
-                    if(playSound && currentIndex !== index) { 
-                       playClick(); 
-                    }
+                   
+                    if(playSound && currentIndex !== index) playClick(); 
 
                     currentIndex = index;
-                    
+                   
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
-                    
+                   
                     gsap.to(knob, { 
                         rotation: labelElements[index].angle, 
                         duration: 0.35, 
@@ -205,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return (rad * (180 / Math.PI)) + 90;
                 }
 
-                // DRAG START
                 function onDown(e) {
                     isDragging = true;
                     lastMouseAngle = getMouseAngle(e);
@@ -213,16 +212,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     gsap.to(knob, { scale: 0.96, duration: 0.1 });
                 }
 
-                // DRAG MOVE
                 function onMove(e) {
                     if(!isDragging) return;
                     e.preventDefault();
-                    
+                   
                     const currentMouseAngle = getMouseAngle(e);
                     let delta = currentMouseAngle - lastMouseAngle;
                     if (delta > 180) delta -= 360;
                     if (delta < -180) delta += 360;
-                    
+                   
                     dragAccumulator += delta;
                     lastMouseAngle = currentMouseAngle;
 
@@ -230,46 +228,89 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (dragAccumulator > stepThreshold) {
                         if (currentIndex < items.length - 1) {
-                            // HIER: Sound JA (true)
                             snapKnobTo(currentIndex + 1, true);
                             dragAccumulator = 0; 
                         }
                     } 
                     else if (dragAccumulator < -stepThreshold) {
                         if (currentIndex > 0) {
-                            // HIER: Sound JA (true)
                             snapKnobTo(currentIndex - 1, true);
                             dragAccumulator = 0; 
                         }
                     }
-                    
+                   
                     const baseAngle = labelElements[currentIndex].angle;
                     const tension = dragAccumulator * 0.4; 
                     gsap.set(knob, { rotation: baseAngle + tension });
                 }
 
-                // DRAG END
                 function onEnd(e) {
                     if(!isDragging) return;
                     isDragging = false;
                     gsap.to(knob, { scale: 1, duration: 0.15 });
-                    
-                    // HIER: Sound NEIN (false oder weglassen)
-                    // Das ist der Fix: Beim Loslassen korrigiert er nur leise.
                     snapKnobTo(currentIndex, false); 
                 }
 
                 knob.addEventListener('mousedown', onDown);
                 window.addEventListener('mousemove', onMove);
                 window.addEventListener('mouseup', onEnd);
-                
                 knob.addEventListener('touchstart', onDown, {passive: false});
                 window.addEventListener('touchmove', onMove, {passive: false});
                 window.addEventListener('touchend', onEnd);
 
-            } else if (listContainer) {
-                // >>>>> STANDARD LISTE <<<<<
+            } 
+            // --- B: VIDEO CINEMATIC LOGIC (NEU!!!) ---
+            else if (id === 'video_music' && listContainer) {
+                
+                // Wrapper Klasse hinzufügen für CSS
+                wrapper.classList.add('cinematic-active');
+                listContainer.innerHTML = '';
+                listContainer.className = 'cinematic-list';
+
+                // 1. Background Layer (Wechselt Bilder)
+                const bgLayer = document.createElement('div');
+                bgLayer.className = 'cinematic-bg-layer';
+                const bgImage = document.createElement('img');
+                bgImage.src = data.list[0].image || data.image; // Startbild
+                bgLayer.appendChild(bgImage);
+                wrapper.appendChild(bgLayer); // Hinter den Text legen
+
+                // 2. Liste aufbauen
+                data.list.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'cinematic-item';
+                    
+                    // Struktur: 01 // TEXT
+                    li.innerHTML = `<span class="cin-num">0${index + 1}</span> <span class="cin-text">${item.name}</span>`;
+                    
+                    // Hover Events
+                    li.addEventListener('mouseenter', () => {
+                        // Sound
+                        playClick();
+                        
+                        // Bildwechsel (weicher Fade via CSS)
+                        const newSrc = item.image;
+                        // Kurzer Fade-Out Trick könnte man machen, aber wir tauschen hart und lassen CSS faden
+                        gsap.to(bgImage, { opacity: 0, duration: 0.1, onComplete: () => {
+                            bgImage.src = newSrc;
+                            gsap.to(bgImage, { opacity: 0.4, duration: 0.4 }); // Opacity 0.4 damit Text lesbar bleibt
+                        }});
+
+                        // Active State Text
+                        document.querySelectorAll('.cinematic-item').forEach(el => el.classList.remove('active'));
+                        li.classList.add('active');
+                    });
+
+                    listContainer.appendChild(li);
+                });
+
+                // Set initial active
+                listContainer.children[0].classList.add('active');
+            }
+            // --- C: STANDARD LISTE (EVENTS & MARKETING) ---
+            else if (listContainer) {
                 wrapper.classList.remove('knob-active');
+                wrapper.classList.remove('cinematic-active');
                 listContainer.innerHTML = ''; 
                 listContainer.className = 'detail-list';
                 data.list.forEach((item, index) => {
@@ -282,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- REST OF ORIGINAL JS ---
+    // --- REST OF ORIGINAL JS (Transition, Cursor, Lenis...) ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
