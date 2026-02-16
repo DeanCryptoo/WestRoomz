@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. SOUND SYSTEM ---
+    // --- 1. SOUND SYSTEM (STRIKT & TROCKEN) ---
     const clickSound = new Audio('click.mp3');
     clickSound.volume = 0.4; 
     clickSound.load();
@@ -21,19 +21,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('touchstart', unlockAudio, {passive: true});
     document.addEventListener('click', unlockAudio, {passive: true});
 
+    // Feedback Funktion
     function playClick() {
+        // VIBRATION (Android)
         if (navigator.vibrate) navigator.vibrate(15);
+
+        // SOUND (Reset & Play für trockenen Klick)
         clickSound.currentTime = 0;
         clickSound.play().catch(() => {});
     }
 
-    // --- 2. DATABASE ---
+    // --- 2. DATABASE: SERVICE CONTENT ---
     const serviceData = {
         "audio_music": {
             title: "AUDIO PRODUKTION",
             image: "1.jpeg",
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
-            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen. Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
+            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen: im Studio, auf Sets, bei Live-Events und in komplexen Kampagnen. Diese Erfahrung prägt unsere Arbeitsweise. Wir hören genau hin, treffen bewusste Entscheidungen und setzen Technik gezielt ein – nicht, um sie zu zeigen, sondern um Ergebnisse zu liefern, die funktionieren. Ob Recording, Mixing, Mastering, Sounddesign oder Live-Audio: Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
             list: [
                 { name: "Recording", text: "High-End Aufnahmen in akustisch optimierten Räumen für Vocals und Instrumente." },
                 { name: "Mixing", text: "Wir bringen Balance, Tiefe und den nötigen Druck in deine Spuren." },
@@ -46,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "video_music": {
             title: "VIDEO & CONTENT",
             image: "4.jpeg",
-            // --- ORIGINAL TEXT WIEDERHERGESTELLT ---
             intro: "Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.",
             desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt. WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung – für einzelne Produktionen oder zusammenhängende Kampagnen. Von Musikvideos über Social Media Content bis hin zu hochwertigen Imagefilmen.",
             list: ["Musikvideos & Performance", "Artist Visuals", "Werbe- & Imagefilme", "Social-Media-Content", "Video Podcasts", "Produktbilder", "Cover Art", "Kampagnen-Content"]
@@ -69,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "audio_podcast": { title: "PODCASTS", image: "3.jpeg", intro: "...", desc: "...", list: [] }
     };
 
-    // --- 3. PAGE LOADER ---
+    // --- 3. DYNAMIC PAGE LOADER ---
     if(window.location.pathname.includes('service-detail.html')) {
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
@@ -77,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(id && serviceData[id]) {
             const data = serviceData[id];
             
+            // Set Texts
             const titleEl = document.getElementById('detailTitle');
             if(titleEl) titleEl.innerText = data.title;
             const bgEl = document.getElementById('detailBg');
@@ -92,11 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const listContainer = document.getElementById('detailList');
             const wrapper = document.querySelector('.detail-list-wrapper');
 
-            // --- KNOB LOGIC (AUDIO) ---
+            // --- KNOB LOGIC START ---
             if(id === 'audio_music' && listContainer) {
+                
                 wrapper.classList.add('knob-active');
                 listContainer.innerHTML = '';
                 
+                // UI
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
                 const knob = document.createElement('div');
@@ -118,47 +124,73 @@ document.addEventListener('DOMContentLoaded', () => {
                 listContainer.appendChild(interfaceDiv);
                 listContainer.appendChild(displayDiv);
 
+                // Setup
                 const items = data.list;
                 const totalArc = 260; 
                 const startAngle = -130; 
                 const step = totalArc / (items.length - 1); 
                 const labelElements = [];
+                
                 let currentIndex = 0; 
                 let isDragging = false;
                 let lastMouseAngle = 0;
                 let dragAccumulator = 0; 
 
+                // Create Labels
                 items.forEach((item, index) => {
                     const label = document.createElement('div');
                     label.className = 'knob-label';
                     if(index === 0) label.classList.add('active');
                     label.innerText = item.name;
+                    
                     const degree = startAngle + (index * step);
                     const rad = (degree - 90) * (Math.PI / 180);
                     const x = 50 + (Math.cos(rad) * 42); 
                     const y = 50 + (Math.sin(rad) * 42);
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
-                    label.onclick = (e) => { e.stopPropagation(); snapKnobTo(index, true); };
+                    
+                    // Bei Klick: Sound JA (true)
+                    label.onclick = (e) => { 
+                        e.stopPropagation(); 
+                        snapKnobTo(index, true); 
+                    };
                     interfaceDiv.appendChild(label);
                     labelElements.push({ el: label, angle: degree });
                 });
 
                 gsap.set(knob, { rotation: startAngle });
 
+                // --- CORE FUNCTION: SNAP ---
                 function snapKnobTo(index, playSound = false) {
                     if (index < 0) index = 0;
                     if (index >= items.length) index = items.length - 1;
-                    if(playSound && currentIndex !== index) playClick(); 
+                    
+                    // Sound abspielen?
+                    if(playSound && currentIndex !== index) { 
+                       playClick(); 
+                    }
+
                     currentIndex = index;
+                    
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
-                    gsap.to(knob, { rotation: labelElements[index].angle, duration: 0.35, ease: "back.out(2.5)", overwrite: true });
-                    gsap.to([displayTitle, displayDesc], { opacity: 0, y: 5, duration: 0.1, onComplete: () => {
-                        displayTitle.innerText = items[index].name;
-                        displayDesc.innerText = items[index].text; 
-                        gsap.to([displayTitle, displayDesc], { opacity: 1, y: 0, duration: 0.2 });
-                    }});
+                    
+                    gsap.to(knob, { 
+                        rotation: labelElements[index].angle, 
+                        duration: 0.35, 
+                        ease: "back.out(2.5)", 
+                        overwrite: true 
+                    });
+
+                    gsap.to([displayTitle, displayDesc], { 
+                        opacity: 0, y: 5, duration: 0.1, 
+                        onComplete: () => {
+                            displayTitle.innerText = items[index].name;
+                            displayDesc.innerText = items[index].text; 
+                            gsap.to([displayTitle, displayDesc], { opacity: 1, y: 0, duration: 0.2 });
+                        }
+                    });
                 }
 
                 function getMouseAngle(e) {
@@ -171,34 +203,69 @@ document.addEventListener('DOMContentLoaded', () => {
                     return (rad * (180 / Math.PI)) + 90;
                 }
 
-                function onDown(e) { isDragging = true; lastMouseAngle = getMouseAngle(e); dragAccumulator = 0; gsap.to(knob, { scale: 0.96, duration: 0.1 }); }
+                // DRAG START
+                function onDown(e) {
+                    isDragging = true;
+                    lastMouseAngle = getMouseAngle(e);
+                    dragAccumulator = 0; 
+                    gsap.to(knob, { scale: 0.96, duration: 0.1 });
+                }
+
+                // DRAG MOVE
                 function onMove(e) {
                     if(!isDragging) return;
                     e.preventDefault();
+                    
                     const currentMouseAngle = getMouseAngle(e);
                     let delta = currentMouseAngle - lastMouseAngle;
                     if (delta > 180) delta -= 360;
                     if (delta < -180) delta += 360;
+                    
                     dragAccumulator += delta;
                     lastMouseAngle = currentMouseAngle;
+
                     const stepThreshold = 25; 
-                    if (dragAccumulator > stepThreshold) { if (currentIndex < items.length - 1) { snapKnobTo(currentIndex + 1, true); dragAccumulator = 0; } } 
-                    else if (dragAccumulator < -stepThreshold) { if (currentIndex > 0) { snapKnobTo(currentIndex - 1, true); dragAccumulator = 0; } }
+
+                    if (dragAccumulator > stepThreshold) {
+                        if (currentIndex < items.length - 1) {
+                            // HIER: Sound JA (true)
+                            snapKnobTo(currentIndex + 1, true);
+                            dragAccumulator = 0; 
+                        }
+                    } 
+                    else if (dragAccumulator < -stepThreshold) {
+                        if (currentIndex > 0) {
+                            // HIER: Sound JA (true)
+                            snapKnobTo(currentIndex - 1, true);
+                            dragAccumulator = 0; 
+                        }
+                    }
+                    
                     const baseAngle = labelElements[currentIndex].angle;
                     const tension = dragAccumulator * 0.4; 
                     gsap.set(knob, { rotation: baseAngle + tension });
                 }
-                function onEnd(e) { if(!isDragging) return; isDragging = false; gsap.to(knob, { scale: 1, duration: 0.15 }); snapKnobTo(currentIndex, false); }
+
+                // DRAG END
+                function onEnd(e) {
+                    if(!isDragging) return;
+                    isDragging = false;
+                    gsap.to(knob, { scale: 1, duration: 0.15 });
+                    
+                    // HIER: Sound NEIN (false oder weglassen)
+                    snapKnobTo(currentIndex, false); 
+                }
 
                 knob.addEventListener('mousedown', onDown);
                 window.addEventListener('mousemove', onMove);
                 window.addEventListener('mouseup', onEnd);
+                
                 knob.addEventListener('touchstart', onDown, {passive: false});
                 window.addEventListener('touchmove', onMove, {passive: false});
                 window.addEventListener('touchend', onEnd);
 
             } else if (listContainer) {
-                // STANDARD LISTE (VIDEO & REST)
+                // >>>>> STANDARD LISTE <<<<<
                 wrapper.classList.remove('knob-active');
                 listContainer.innerHTML = ''; 
                 listContainer.className = 'detail-list';
@@ -212,9 +279,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 4. ALLGEMEIN ---
+    // --- REST OF ORIGINAL JS ---
     const curtain = document.querySelector('.page-transition-curtain');
-    if(curtain) { gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 }); }
+    if(curtain) {
+        gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
+    }
 
     if (window.matchMedia("(min-width: 769px)").matches) {
         const cursor = document.querySelector('.cursor');
@@ -258,7 +327,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn = document.querySelector('.menu-toggle-btn');
         if(menu && overlay && btn) {
             menu.classList.toggle('active'); overlay.classList.toggle('active'); btn.classList.toggle('open');
-            if(menu.classList.contains('active')){ gsap.fromTo('.menu-link', {x: -30, opacity: 0}, {x: 0, opacity: 1, stagger: 0.1, delay: 0.2}); }
+            if(menu.classList.contains('active')){
+                gsap.fromTo('.menu-link', {x: -30, opacity: 0}, {x: 0, opacity: 1, stagger: 0.1, delay: 0.2});
+            }
         }
     }
 
@@ -320,8 +391,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(tabName).classList.add('active');
             const btns = document.querySelectorAll('.tab-btn');
             btns.forEach(b => { if(b.textContent.toLowerCase().includes(tabName)) b.classList.add('active'); });
+            
             const content = document.querySelector(`#${tabName} .vision-text`);
-            if(content) { gsap.fromTo(content, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }); }
+            if(content) {
+                gsap.fromTo(content, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" });
+            }
             ScrollTrigger.refresh();
         }
         ScrollTrigger.create({ trigger: "#services", start: "top 75%", onEnter: () => window.openTab('audio') });
@@ -358,7 +432,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 if(curtain) {
                     gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { scaleY: 1, duration: 0.6, ease: "power4.inOut", onComplete: () => { window.location.href = href; } });
-                } else { window.location.href = href; }
+                } else {
+                    window.location.href = href;
+                }
             }
         });
     });
