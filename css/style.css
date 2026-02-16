@@ -392,81 +392,32 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 }
 
 /* ========================================================= */
-/* --- HIGH END TYPOGRAPHY UPDATE (LEFT SIDE ONLY) --- */
+/* --- HIGH END TYPOGRAPHY UPDATE (Linke Seite) --- */
 /* ========================================================= */
 
-/* Der Container links wird etwas aufgeräumt */
 .detail-desc {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-right: 40px; /* Mehr Luft zur Liste/Bild */
+    padding-right: 40px;
 }
 
-/* Die rote Headline (Intro) */
 .detail-desc h2 {
     font-family: var(--font-head);
-    font-size: 3.5rem !important; /* Viel Größer */
-    line-height: 0.95 !important; /* Sehr eng, damit es wie ein Block wirkt */
+    font-size: 3.5rem !important;
+    line-height: 0.95 !important;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 40px !important;
-    letter-spacing: -1px; /* Modernes, enges Kerning */
-    /* Optional: Ein leichter Glitch-Effekt Textur */
+    margin-bottom: 30px !important;
+    letter-spacing: -1px;
     text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-    white-space: pre-line; /* Damit der Zeilenumbruch \n im JS funktioniert */
 }
 
-/* --- UPDATE: BODY TEXT (MODERN & CLEAN) MIT ROTER LINIE --- */
-/* Hier ist der Fix: Großer Text + Die coole rote Linie */
 .detail-desc p {
-    font-family: 'Inter', sans-serif !important; /* Zurück zu einer sauberen Schrift */
-    font-size: 1.1rem !important; /* Deutlich größer (war vorher ca 0.9) */
-    line-height: 1.6 !important; /* Angenehmer Lesefluss */
-    color: #ddd !important; /* Hell, aber nicht 100% Weiß */
-    max-width: 100% !important; /* Nutzt den Platz besser */
-    margin-bottom: 50px !important;
-    
-    /* DIE ROTE LINIE IST ZURÜCK: */
-    position: relative !important;
-    padding-left: 30px !important; /* Schöner Abstand zur Linie */
-    border: none !important;
-}
-
-/* DAS GRAFISCHE ELEMENT (Die Linie - ROBUST GEMACHT) */
-.detail-desc p::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 5px; /* Kleiner Offset von oben */
-    bottom: 5px; /* Nicht ganz bis unten */
-    width: 2px; /* Dicke der Linie */
-    background-color: var(--accent) !important; /* HARTES ROT */
-    box-shadow: 0 0 10px var(--accent); /* DER GLOW */
-}
-
-/* Der Button Anpassung für diesen Look */
-.detail-desc .book-btn {
-    align-self: flex-start;
-    font-size: 0.9rem;
-    padding: 15px 40px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: transparent;
-    letter-spacing: 3px;
-}
-
-.detail-desc .book-btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
-}
-
-/* Mobile Anpassung */
-@media (max-width: 768px) {
-    .detail-desc h2 {
-        font-size: 2.2rem !important;
-    }
-    .detail-desc {
-        padding-right: 0;
-    }
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.15rem !important;
+    line-height: 1.6 !important;
+    font-weight: 300 !important;
+    color: #e0e0e0 !important;
+    margin-bottom: 40px !important;
+    /* Die rote Linie */
+    border-left: 2px solid var(--accent) !important;
+    padding-left: 25px !important;
 }
