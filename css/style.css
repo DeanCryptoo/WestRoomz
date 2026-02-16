@@ -493,6 +493,25 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     margin: 0 auto;
 }
 
+/* Responsive Anpassung NUR für den Knob-Modus */
+@media (max-width: 768px) {
+    .detail-list-wrapper.knob-active { 
+        height: auto; 
+        min-height: 550px; 
+        padding: 20px; 
+    }
+    .knob-interface { 
+        width: 280px; 
+        height: 280px; 
+        margin: 10px auto; /* Zentriert auf Mobile */
+    }
+    .knob-control { width: 120px; height: 120px; }
+    .knob-label { font-size: 0.7rem; width: 90px; }
+    .knob-label.active { font-size: 0.9rem; }
+    .knob-display-title { font-size: 1.8rem; }
+    .knob-display-desc { font-size: 0.9rem; }
+}
+
 /* ========================================================= */
 /* --- HIGH END TYPOGRAPHY UPDATE (Left Side) --- */
 /* ========================================================= */
@@ -501,10 +520,9 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     padding-right: 40px;
 }
 
-/* 1. Die rote Headline (High-End Groß) */
 .detail-desc h2 {
     font-family: var(--font-head);
-    font-size: 3.5rem !important; /* Viel Größer */
+    font-size: 3.5rem !important;
     line-height: 0.95 !important;
     text-transform: uppercase;
     color: var(--accent);
@@ -513,74 +531,23 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
 }
 
-/* 2. Der Text darunter (Clean & Rote Linie) */
 .detail-desc p {
-    font-family: 'Inter', sans-serif !important; 
+    font-family: 'Inter', sans-serif !important;
     font-size: 1.15rem !important;
     line-height: 1.6 !important;
     font-weight: 300 !important;
     color: #e0e0e0 !important;
     margin-bottom: 40px !important;
-    
     /* Die rote Linie */
     position: relative !important;
-    padding-left: 30px !important;
+    padding-left: 25px !important;
     border-left: 2px solid var(--accent) !important;
 }
 
-/* 3. Button */
-.detail-desc .book-btn {
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    padding: 15px 35px;
-    border: 1px solid rgba(255,255,255,0.3);
-}
-
-/* ========================================================= */
-/* --- MOBILE FIX (Alles sicher stapeln) --- */
-/* ========================================================= */
-
+/* --- MOBILE FIX (CRITICAL) --- */
+/* Without this, the 3.5rem font destroys mobile */
 @media (max-width: 768px) {
-    /* 1. Layout-Stapel erzwingen */
-    .detail-content {
-        display: flex !important;
-        flex-direction: column;
-        padding: 40px 20px !important;
-        gap: 40px !important;
-    }
-
-    /* 2. Text wieder normalisieren für Handy */
-    .detail-desc {
-        padding-right: 0 !important;
-        margin-bottom: 20px;
-    }
-    .detail-desc h2 {
-        font-size: 2.2rem !important; /* Kleiner als Desktop */
-        line-height: 1.1 !important;
-    }
-    .detail-desc p {
-        font-size: 1rem !important;
-        padding-left: 15px !important; /* Weniger Abstand */
-        margin-bottom: 30px !important;
-    }
-
-    /* 3. Knob/Liste fixen */
-    .detail-list-wrapper,
-    .detail-list-wrapper.knob-active {
-        width: 100% !important;
-        height: auto !important;
-        min-height: 400px;
-        padding: 20px !important;
-    }
-
-    .knob-interface {
-        width: 260px !important;
-        height: 260px !important;
-        margin: 0 auto 20px auto !important;
-    }
-    .knob-control {
-        width: 110px !important;
-        height: 110px !important;
-    }
-    .knob-display-title { font-size: 1.5rem !important; }
+    .detail-desc { padding-right: 0; }
+    .detail-desc h2 { font-size: 2.2rem !important; }
+    .detail-desc p { font-size: 1rem !important; }
 }
