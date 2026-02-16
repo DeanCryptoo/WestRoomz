@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "video_music": {
             title: "VIDEO & CONTENT",
             image: "4.jpeg",
-            // --- HIER IST DAS TEXT-UPDATE (STEP 1) ---
+            // --- UPDATED TEXT: HIGH END / EDITORIAL ---
             intro: "NICHT NUR GESEHEN WERDEN. \nIM GEDÄCHTNIS BRENNEN.",
             desc: "0,05 Sekunden. Solange entscheidet das Auge über Relevanz. In einer Welt voller Rauschen produzieren wir keine Zufallstreffer, sondern visuelle Identitäten. Ob Musikvideo, Kampagne oder Imagefilm: Wir übersetzen Sound und Marke in eine Bildsprache, die nicht weggeklickt wird. High-End. Kompromisslos. WestRoomz.",
             list: ["Musikvideos & Performance", "Artist Visuals", "Werbe- & Imagefilme", "Social-Media-Content", "Video Podcasts", "Produktbilder", "Cover Art", "Kampagnen-Content"]
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const listContainer = document.getElementById('detailList');
             const wrapper = document.querySelector('.detail-list-wrapper');
 
-            // --- KNOB LOGIC START (Audio Only) ---
+            // --- KNOB LOGIC START (Only for Audio) ---
             if(id === 'audio_music' && listContainer) {
               
                 wrapper.classList.add('knob-active');
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.addEventListener('touchend', onEnd);
 
             } else if (listContainer) {
-                // STANDARD LISTE
+                // STANDARD LISTE (Fallback & Video)
                 wrapper.classList.remove('knob-active');
                 listContainer.innerHTML = ''; 
                 listContainer.className = 'detail-list';
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- REST OF ORIGINAL JS ---
+    // --- REST OF ORIGINAL JS (Transitions, Video Hero, etc.) ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
