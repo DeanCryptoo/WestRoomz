@@ -1,3 +1,4 @@
+
 :root {
     --primary: #990000;
     --accent: #ff0000;
@@ -161,7 +162,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 /* GALLERY SLIDER */
 .gallery-section { padding: 0; background: #080808; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
 .gallery-container {
-    display: flex; gap: 20px; padding: 50px 0; width: max-content;    
+    display: flex; gap: 20px; padding: 50px 0; width: max-content;   
     animation: sliderMove 60s linear infinite; will-change: transform; cursor: grab;
 }
 @keyframes sliderMove {
@@ -394,7 +395,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     /* HIER DIE HANDY-ANPASSUNG: INSTAGRAM STYLE (1080x1080) */
     .gallery-item { 
         width: 85vw;            
-        height: auto;            
+        height: auto;           
         aspect-ratio: 1 / 1;  /* ZWINGT ES ZU EINEM QUADRAT */
         border-radius: 30px;  /* Runde Ecken */
     }
