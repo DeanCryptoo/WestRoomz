@@ -67,11 +67,9 @@
 <body>
 
     <div class="cinematic-bg-wrapper">
-        <div class="bg-layer active" id="bg-hero" style="background-image: url('wr1.jpg');"></div>
-        <div class="bg-layer" id="bg-vision" style="background-image: url('wr6.jpg');"></div>
-        <div class="bg-layer" id="bg-services" style="background-image: url('wr3.jpg');"></div>
-        <div class="bg-layer" id="bg-references" style="background-image: url('wr5.jpg');"></div>
-        <div class="bg-layer" id="bg-contact" style="background-image: url('wr2.jpg');"></div>
+        <div class="bg-layer active" id="bg-act1" style="background-image: url('wr1.jpg');"></div>
+        
+        <div class="bg-layer" id="bg-act2" style="background-image: url('wr5.jpg');"></div>
     </div>
 
     <div class="page-transition-curtain"></div>
@@ -314,30 +312,31 @@
         document.addEventListener("DOMContentLoaded", function() {
             gsap.registerPlugin(ScrollTrigger);
 
-            const layers = {
-                'hero': document.getElementById('bg-hero'),
-                'vision': document.getElementById('bg-vision'),
-                'services': document.getElementById('bg-services'),
-                'references': document.getElementById('bg-references'),
-                'contact': document.getElementById('bg-contact')
-            };
+            const bgAct1 = document.getElementById('bg-act1'); // Zeppelin
+            const bgAct2 = document.getElementById('bg-act2'); // Schild
 
-            function switchBg(activeKey) {
-                Object.keys(layers).forEach(key => {
-                    if (layers[key]) layers[key].classList.toggle('active', key === activeKey);
-                });
+            function activate(bgToShow) {
+                bgAct1.classList.remove('active');
+                bgAct2.classList.remove('active');
+                bgToShow.classList.add('active');
             }
 
-            const sectionIds = ['hero', 'vision', 'services', 'references', 'contact'];
-            sectionIds.forEach(id => {
-                ScrollTrigger.create({
-                    trigger: "#" + id,
-                    start: "top center",
-                    end: "bottom center",
-                    onEnter: () => switchBg(id),
-                    onEnterBack: () => switchBg(id)
-                });
+            // REGEL 1: Solange man oben ist (Hero & Vision) -> Zeppelin
+            ScrollTrigger.create({
+                trigger: "#vision", 
+                start: "top center",
+                onEnterBack: () => activate(bgAct1), 
             });
+
+            // REGEL 2: Ab "Services" (und darunter) -> Schild
+            ScrollTrigger.create({
+                trigger: "#services",
+                start: "top center", 
+                onEnter: () => activate(bgAct2), 
+            });
+            
+            // Start: Zeppelin
+            activate(bgAct1);
         });
     </script>
 </body>
