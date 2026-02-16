@@ -23,10 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Feedback Funktion
     function playClick() {
-        // VIBRATION (Android)
         if (navigator.vibrate) navigator.vibrate(15);
-
-        // SOUND (Reset & Play für trockenen Klick)
         clickSound.currentTime = 0;
         clickSound.play().catch(() => {});
     }
@@ -37,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "AUDIO PRODUKTION",
             image: "1.jpeg",
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
-            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen: im Studio, auf Sets, bei Live-Events und in komplexen Kampagnen. Diese Erfahrung prägt unsere Arbeitsweise. Wir hören genau hin, treffen bewusste Entscheidungen und setzen Technik gezielt ein – nicht, um sie zu zeigen, sondern um Ergebnisse zu liefern, die funktionieren. Ob Recording, Mixing, Mastering, Sounddesign oder Live-Audio: Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
+            desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen. Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
             list: [
                 { name: "Recording", text: "High-End Aufnahmen in akustisch optimierten Räumen für Vocals und Instrumente." },
                 { name: "Mixing", text: "Wir bringen Balance, Tiefe und den nötigen Druck in deine Spuren." },
@@ -50,8 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         "video_music": {
             title: "VIDEO & CONTENT",
             image: "4.jpeg",
-            intro: "Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.",
-            desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt. WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung – für einzelne Produktionen oder zusammenhängende Kampagnen. Von Musikvideos über Social Media Content bis hin zu hochwertigen Imagefilmen.",
+            // --- HIER IST DAS TEXT-UPDATE (STEP 1) ---
+            intro: "NICHT NUR GESEHEN WERDEN. \nIM GEDÄCHTNIS BRENNEN.",
+            desc: "0,05 Sekunden. Solange entscheidet das Auge über Relevanz. In einer Welt voller Rauschen produzieren wir keine Zufallstreffer, sondern visuelle Identitäten. Ob Musikvideo, Kampagne oder Imagefilm: Wir übersetzen Sound und Marke in eine Bildsprache, die nicht weggeklickt wird. High-End. Kompromisslos. WestRoomz.",
             list: ["Musikvideos & Performance", "Artist Visuals", "Werbe- & Imagefilme", "Social-Media-Content", "Video Podcasts", "Produktbilder", "Cover Art", "Kampagnen-Content"]
         },
         "event_planning": {
@@ -96,12 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const listContainer = document.getElementById('detailList');
             const wrapper = document.querySelector('.detail-list-wrapper');
 
-            // --- KNOB LOGIC START ---
+            // --- KNOB LOGIC START (Audio Only) ---
             if(id === 'audio_music' && listContainer) {
-                
+              
                 wrapper.classList.add('knob-active');
                 listContainer.innerHTML = '';
-                
+              
                 // UI
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
@@ -130,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const startAngle = -130; 
                 const step = totalArc / (items.length - 1); 
                 const labelElements = [];
-                
+              
                 let currentIndex = 0; 
                 let isDragging = false;
                 let lastMouseAngle = 0;
@@ -142,15 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     label.className = 'knob-label';
                     if(index === 0) label.classList.add('active');
                     label.innerText = item.name;
-                    
+                   
                     const degree = startAngle + (index * step);
                     const rad = (degree - 90) * (Math.PI / 180);
                     const x = 50 + (Math.cos(rad) * 42); 
                     const y = 50 + (Math.sin(rad) * 42);
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
-                    
-                    // Bei Klick: Sound JA (true)
+                   
                     label.onclick = (e) => { 
                         e.stopPropagation(); 
                         snapKnobTo(index, true); 
@@ -161,23 +158,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 gsap.set(knob, { rotation: startAngle });
 
-                // --- CORE FUNCTION: SNAP ---
-                // Neuer Parameter: playSound (Boolean)
-                // Wir erzwingen: Sound nur wenn explizit erlaubt (beim Ziehen), nicht beim Korrigieren (Loslassen)
                 function snapKnobTo(index, playSound = false) {
                     if (index < 0) index = 0;
                     if (index >= items.length) index = items.length - 1;
-                    
-                    // Sound abspielen?
-                    if(playSound && currentIndex !== index) { 
-                       playClick(); 
-                    }
+                   
+                    if(playSound && currentIndex !== index) playClick(); 
 
                     currentIndex = index;
-                    
+                   
                     labelElements.forEach(l => l.el.classList.remove('active'));
                     labelElements[index].el.classList.add('active');
-                    
+                   
                     gsap.to(knob, { 
                         rotation: labelElements[index].angle, 
                         duration: 0.35, 
@@ -205,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return (rad * (180 / Math.PI)) + 90;
                 }
 
-                // DRAG START
                 function onDown(e) {
                     isDragging = true;
                     lastMouseAngle = getMouseAngle(e);
@@ -213,16 +203,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     gsap.to(knob, { scale: 0.96, duration: 0.1 });
                 }
 
-                // DRAG MOVE
                 function onMove(e) {
                     if(!isDragging) return;
                     e.preventDefault();
-                    
+                   
                     const currentMouseAngle = getMouseAngle(e);
                     let delta = currentMouseAngle - lastMouseAngle;
                     if (delta > 180) delta -= 360;
                     if (delta < -180) delta += 360;
-                    
+                   
                     dragAccumulator += delta;
                     lastMouseAngle = currentMouseAngle;
 
@@ -230,45 +219,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (dragAccumulator > stepThreshold) {
                         if (currentIndex < items.length - 1) {
-                            // HIER: Sound JA (true)
                             snapKnobTo(currentIndex + 1, true);
                             dragAccumulator = 0; 
                         }
                     } 
                     else if (dragAccumulator < -stepThreshold) {
                         if (currentIndex > 0) {
-                            // HIER: Sound JA (true)
                             snapKnobTo(currentIndex - 1, true);
                             dragAccumulator = 0; 
                         }
                     }
-                    
+                   
                     const baseAngle = labelElements[currentIndex].angle;
                     const tension = dragAccumulator * 0.4; 
                     gsap.set(knob, { rotation: baseAngle + tension });
                 }
 
-                // DRAG END
                 function onEnd(e) {
                     if(!isDragging) return;
                     isDragging = false;
                     gsap.to(knob, { scale: 1, duration: 0.15 });
-                    
-                    // HIER: Sound NEIN (false oder weglassen)
-                    // Das ist der Fix: Beim Loslassen korrigiert er nur leise.
                     snapKnobTo(currentIndex, false); 
                 }
 
                 knob.addEventListener('mousedown', onDown);
                 window.addEventListener('mousemove', onMove);
                 window.addEventListener('mouseup', onEnd);
-                
                 knob.addEventListener('touchstart', onDown, {passive: false});
                 window.addEventListener('touchmove', onMove, {passive: false});
                 window.addEventListener('touchend', onEnd);
 
             } else if (listContainer) {
-                // >>>>> STANDARD LISTE <<<<<
+                // STANDARD LISTE
                 wrapper.classList.remove('knob-active');
                 listContainer.innerHTML = ''; 
                 listContainer.className = 'detail-list';
