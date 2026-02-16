@@ -372,47 +372,22 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 .detail-list li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: white; font-size: 1.1rem; display: flex; justify-content: space-between; }
 .detail-list span { color: var(--accent); font-family: var(--font-head); }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .detail-list-wrapper.knob-active { 
-        height: auto; 
-        min-height: 550px; 
-        padding: 20px; 
-    }
-    .knob-interface { 
-        width: 280px; 
-        height: 280px; 
-        margin: 10px auto; /* Zentriert auf Mobile */
-    }
-    .knob-control { width: 120px; height: 120px; }
-    .knob-label { font-size: 0.7rem; width: 90px; }
-    .knob-label.active { font-size: 0.9rem; }
-    .knob-display-title { font-size: 1.8rem; }
-    .knob-display-desc { font-size: 0.9rem; }
-}
-
 /* ========================================================= */
 /* --- KNOB SYSTEM (NUR AKTIV WENN KLASSE DA IST) --- */
 /* ========================================================= */
 
-/* Spezial-Modus: Knob (wird nur per JS aktiviert bei Audio) */
 .detail-list-wrapper.knob-active {
-    /* Feste Basis für Desktop - Verhindert Springen */
     height: 650px; 
     width: 100%;
-    
-    /* Flexbox nur hier aktivieren */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    
     padding: 30px;
     overflow: hidden;
     position: relative;
 }
 
-/* Titel im Knob-Modus zentriert und fixiert */
 .detail-list-wrapper.knob-active h3 {
     font-size: 1.5rem;
     letter-spacing: 2px;
@@ -426,16 +401,15 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     color: white;
 }
 
-/* Knob Center Container (ZENTRIERT & AUTOSCALE) */
 .knob-interface {
     position: relative;
     width: 350px;
     height: 350px;
-    flex: 1 1 auto; /* Nimmt den Platz */
+    flex: 1 1 auto; 
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto; /* Horizontale Zentrierung */
+    margin: 0 auto; 
     user-select: none;
     -webkit-user-select: none;
 }
@@ -446,7 +420,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Initiale Zentrierung */
+    transform: translate(-50%, -50%);
     z-index: 10;
     cursor: grab;
     will-change: transform;
@@ -487,14 +461,13 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     font-weight: 600;
 }
 
-/* Text Area Unten (Fixed Height = Anti-Wobble) */
 .knob-display-area {
     width: 100%;
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.1);
     padding-top: 20px;
     flex: 0 0 auto; 
-    min-height: 140px; /* Hier ist der Anti-Wobble Trick */
+    min-height: 140px; 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -520,30 +493,18 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     margin: 0 auto;
 }
 
-/* Responsive Anpassung NUR für den Knob-Modus */
-@media (max-width: 768px) {
-    .detail-list-wrapper.knob-active { 
-        height: auto; 
-        min-height: 550px; 
-        padding: 20px; 
-    }
-    .knob-interface { 
-        width: 280px; 
-        height: 280px; 
-        margin: 10px auto; /* Zentriert auf Mobile */
-    }
-    .knob-control { width: 120px; height: 120px; }
-    .knob-label { font-size: 0.7rem; width: 90px; }
-    .knob-label.active { font-size: 0.9rem; }
-    .knob-display-title { font-size: 1.8rem; }
-    .knob-display-desc { font-size: 0.9rem; }
+/* ========================================================= */
+/* --- HIGH END TYPOGRAPHY UPDATE (Left Side) --- */
+/* ========================================================= */
+
+.detail-desc {
+    padding-right: 40px;
 }
 
-/* --- HIGH END TYPOGRAPHY UPDATE (Left Side) --- */
-.detail-desc { padding-right: 40px; }
+/* 1. Die rote Headline (High-End Groß) */
 .detail-desc h2 {
     font-family: var(--font-head);
-    font-size: 3.5rem !important;
+    font-size: 3.5rem !important; /* Viel Größer */
     line-height: 0.95 !important;
     text-transform: uppercase;
     color: var(--accent);
@@ -551,18 +512,75 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     letter-spacing: -1px;
     text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
 }
+
+/* 2. Der Text darunter (Clean & Rote Linie) */
 .detail-desc p {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Inter', sans-serif !important; 
     font-size: 1.15rem !important;
     line-height: 1.6 !important;
     font-weight: 300 !important;
     color: #e0e0e0 !important;
     margin-bottom: 40px !important;
-    border-left: 2px solid var(--accent) !important; /* THE RED LINE */
-    padding-left: 25px !important;
+    
+    /* Die rote Linie */
+    position: relative !important;
+    padding-left: 30px !important;
+    border-left: 2px solid var(--accent) !important;
 }
-/* Mobile Fix */
+
+/* 3. Button */
+.detail-desc .book-btn {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    padding: 15px 35px;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* ========================================================= */
+/* --- MOBILE FIX (Alles sicher stapeln) --- */
+/* ========================================================= */
+
 @media (max-width: 768px) {
-    .detail-desc h2 { font-size: 2.2rem !important; }
-    .detail-desc { padding-right: 0; }
+    /* 1. Layout-Stapel erzwingen */
+    .detail-content {
+        display: flex !important;
+        flex-direction: column;
+        padding: 40px 20px !important;
+        gap: 40px !important;
+    }
+
+    /* 2. Text wieder normalisieren für Handy */
+    .detail-desc {
+        padding-right: 0 !important;
+        margin-bottom: 20px;
+    }
+    .detail-desc h2 {
+        font-size: 2.2rem !important; /* Kleiner als Desktop */
+        line-height: 1.1 !important;
+    }
+    .detail-desc p {
+        font-size: 1rem !important;
+        padding-left: 15px !important; /* Weniger Abstand */
+        margin-bottom: 30px !important;
+    }
+
+    /* 3. Knob/Liste fixen */
+    .detail-list-wrapper,
+    .detail-list-wrapper.knob-active {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 400px;
+        padding: 20px !important;
+    }
+
+    .knob-interface {
+        width: 260px !important;
+        height: 260px !important;
+        margin: 0 auto 20px auto !important;
+    }
+    .knob-control {
+        width: 110px !important;
+        height: 110px !important;
+    }
+    .knob-display-title { font-size: 1.5rem !important; }
 }
