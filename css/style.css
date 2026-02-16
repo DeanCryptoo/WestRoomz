@@ -161,7 +161,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 /* GALLERY SLIDER */
 .gallery-section { padding: 0; background: #080808; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
 .gallery-container {
-    display: flex; gap: 20px; padding: 50px 0; width: max-content;   
+    display: flex; gap: 20px; padding: 50px 0; width: max-content;    
     animation: sliderMove 60s linear infinite; will-change: transform; cursor: grab;
 }
 @keyframes sliderMove {
@@ -394,7 +394,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     /* HIER DIE HANDY-ANPASSUNG: INSTAGRAM STYLE (1080x1080) */
     .gallery-item { 
         width: 85vw;            
-        height: auto;           
+        height: auto;            
         aspect-ratio: 1 / 1;  /* ZWINGT ES ZU EINEM QUADRAT */
         border-radius: 30px;  /* Runde Ecken */
     }
@@ -575,4 +575,68 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .knob-label.active { font-size: 0.9rem; }
     .knob-display-title { font-size: 1.8rem; }
     .knob-display-desc { font-size: 0.9rem; }
+}
+
+/* ========================================================= */
+/* --- HIGH END TYPOGRAPHY UPDATE (LEFT SIDE ONLY) --- */
+/* ========================================================= */
+
+/* Der Container links wird etwas aufgeräumt */
+.detail-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 40px; /* Mehr Luft zur Liste/Bild */
+}
+
+/* Die rote Headline (Intro) */
+.detail-desc h2 {
+    font-family: var(--font-head);
+    font-size: 3.5rem !important; /* Viel Größer */
+    line-height: 0.95 !important; /* Sehr eng, damit es wie ein Block wirkt */
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 40px !important;
+    letter-spacing: -1px; /* Modernes, enges Kerning */
+    /* Optional: Ein leichter Glitch-Effekt Textur */
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+    white-space: pre-line; /* Damit der Zeilenumbruch \n im JS funktioniert */
+}
+
+/* Der Beschreibungstext */
+.detail-desc p {
+    font-family: 'Courier New', Courier, monospace; /* Tech/Raw Vibe */
+    font-size: 0.95rem !important;
+    line-height: 1.8 !important;
+    color: #cccccc;
+    max-width: 90%;
+    margin-bottom: 50px !important;
+    border-left: 1px solid var(--accent); /* Rote Linie links */
+    padding-left: 20px;
+}
+
+/* Der Button Anpassung für diesen Look */
+.detail-desc .book-btn {
+    align-self: flex-start;
+    font-size: 0.9rem;
+    padding: 15px 40px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    letter-spacing: 3px;
+}
+
+.detail-desc .book-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+}
+
+/* Mobile Anpassung */
+@media (max-width: 768px) {
+    .detail-desc h2 {
+        font-size: 2.2rem !important;
+    }
+    .detail-desc {
+        padding-right: 0;
+    }
 }
