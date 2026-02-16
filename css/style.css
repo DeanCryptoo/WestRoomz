@@ -630,3 +630,56 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
         padding-left: 30px !important;
     }
 }
+/* ========================================================= */
+/* --- HIGH END TYPOGRAPHY UPDATE (SAFE VERSION) --- */
+/* ========================================================= */
+
+/* 1. Basis-Styling für ALLE Geräte (Handy & PC) */
+/* Hier aktivieren wir die rote Linie und die neue Schriftart */
+.detail-desc p {
+    font-family: 'Inter', sans-serif !important; 
+    line-height: 1.6 !important;
+    font-weight: 300 !important;
+    color: #e0e0e0 !important;
+    margin-bottom: 40px !important;
+    
+    /* HIER IST DIE ROTE LINIE (Sichtbar auf allen Geräten) */
+    position: relative !important;
+    padding-left: 20px !important; 
+    border-left: 2px solid var(--accent) !important;
+    
+    /* Standard-Größe für Handy (Sicher!) */
+    font-size: 1rem !important;
+}
+
+/* Style für die rote Überschrift (Basis) */
+.detail-desc h2 {
+    font-family: var(--font-head);
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 30px !important;
+    letter-spacing: -1px;
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+    line-height: 1.0 !important;
+    
+    /* Standard-Größe für Handy (Sicher!) */
+    font-size: 2.2rem !important; 
+}
+
+/* 2. NUR FÜR DESKTOP (Große Screens ab 769px) */
+/* Hier machen wir es riesig und High-End, weil Platz da ist */
+@media (min-width: 769px) {
+    .detail-desc {
+        padding-right: 40px; /* Abstand zur rechten Seite */
+    }
+    
+    .detail-desc h2 {
+        font-size: 3.5rem !important; /* RIESIG NUR AM PC */
+        line-height: 0.95 !important;
+    }
+    
+    .detail-desc p {
+        font-size: 1.15rem !important; /* Etwas größer am PC */
+        padding-left: 30px !important; /* Mehr Abstand zur Linie am PC */
+    }
+}
