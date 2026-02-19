@@ -32,24 +32,25 @@
             margin-top: 130px !important; 
         }
 
-        /* HIER ANGEPASST: Macht die Auswahl größer UND schiebt sie weiter auseinander (Nur Desktop) */
+        /* HIER KORRIGIERT: Keine zerstörenden Margins mehr! Nur reine Schriftgröße und Schutz vor Umbrüchen */
         @media (min-width: 769px) {
             #detailList {
-                /* Falls dein Skript Flexbox oder Grid nutzt, zwingt das die Elemente auseinander */
-                gap: 50px !important; 
+                /* Gibt dem Container maximale Breite, damit die Wörter Platz haben und nicht gequetscht werden */
+                width: 100% !important;
+                max-width: 900px !important; 
+                margin-left: auto !important;
+                margin-right: auto !important;
             }
             #detailList div, 
             #detailList span, 
             #detailList a {
-                font-size: 26px !important; 
+                /* Schön groß, aber sicher (kannst du auch wieder auf 26px testen) */
+                font-size: 24px !important; 
                 font-weight: 500 !important;
-                
-                /* HIER NEU: Das Spacing! Schiebt die Wörter nach links und rechts auseinander */
-                margin-left: 30px !important;
-                margin-right: 30px !important;
-                
-                /* Macht die Buchstaben selbst ein ganz kleines bisschen luftiger (wirkt edler) */
-                letter-spacing: 1px !important;
+                /* Streckt die Wörter in sich selbst leicht, wirkt luftiger */
+                letter-spacing: 2px !important; 
+                /* DAS WICHTIGSTE: Verhindert, dass Wörter wie "SOUNDDESIGN" in zwei Zeilen zerbrechen! */
+                white-space: nowrap !important; 
             }
         }
 
@@ -66,7 +67,7 @@
              display: none !important; 
         }
 
-        /* MOBILE EINSTELLUNGEN (UNBERÜHRT!) */
+        /* MOBILE EINSTELLUNGEN (KOMPLETT UNBERÜHRT!) */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
