@@ -50,23 +50,24 @@
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
                 
-                /* Das Bild wird nicht mehr gezoomt, sondern passt sich immer der Breite an! */
-                background-size: 100% 100% !important; 
+                /* Das Bild nutzt 100% der Breite, behält aber seine echte Höhe (kein Verzerren!) */
+                background-size: 100% auto !important; 
                 background-position: center top !important;
-                background-color: #08090a !important; /* Falls das Bild nicht bis ganz unten reicht, füllt diese Farbe auf */
+                background-repeat: no-repeat !important;
+                
+                /* Diese Farbe füllt den leeren Bereich unten für den Text auf. 
+                   Du kannst den HEX-Code an den dunkelsten Ton deines Metalls anpassen */
+                background-color: #181a1b !important; 
                 
                 width: 100% !important; 
                 min-height: unset !important; 
                 height: auto !important; 
-                
-                /* Gibt der Box eine Basis-Höhe, die dem Bild entspricht (ca. 1:1), 
-                   aber lässt sie für den Text nach unten wachsen */
                 aspect-ratio: auto !important;
-                padding-bottom: 60px !important; 
+                padding-bottom: 50px !important; 
             }
             .detail-list-container {
-                /* Abstand für den Knob von oben - passe das an, falls der Knob auf dem Logo hängt */
-                margin-top: 120px !important; 
+                /* Knob etwas weiter nach oben gezogen */
+                margin-top: 30px !important; 
             }
         }
     </style>
@@ -117,6 +118,3 @@
     <script src="js/main.js"></script>
 </body>
 </html>
-
-
-
