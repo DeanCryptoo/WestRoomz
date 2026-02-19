@@ -24,35 +24,14 @@
             border: none !important;
             border-radius: 20px !important; 
             overflow: hidden !important; 
-            min-height: 720px !important; 
+            /* Gibt dem Kasten eine solide Grundhöhe und ein Polster nach unten */
+            min-height: 780px !important; 
             height: auto !important;
-            /* NEU: Gibt dem Text unten Polster, damit er nicht aus dem Bild rutscht */
             padding-bottom: 60px !important; 
         }
 
         .detail-list-container {
             margin-top: 130px !important; 
-        }
-
-        /* DESKTOP-SPEZIFISCHE TEXT-ANPASSUNGEN */
-        @media (min-width: 769px) {
-            #detailList {
-                width: 100% !important;
-                /* NEU: Erhöht die maximale Breite, damit die äußeren Wörter weiter nach links/rechts können */
-                max-width: 1150px !important; 
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
-            #detailList div, 
-            #detailList span, 
-            #detailList a {
-                font-size: 24px !important; 
-                font-weight: 500 !important;
-                letter-spacing: 2px !important; 
-                white-space: nowrap !important; 
-                /* NEU: Sorgt für Abstand zwischen den Wörtern (z.B. Mastering & Sounddesign) */
-                margin: 0 15px !important; 
-            }
         }
 
         .detail-list-wrapper h3 {
@@ -68,7 +47,30 @@
              display: none !important; 
         }
 
-        /* --- MOBILE EINSTELLUNGEN (Unverändert, da passend) --- */
+        /* --- DESKTOP TEXT-KORREKTUREN --- */
+        @media (min-width: 769px) {
+            #detailList {
+                width: 100% !important;
+            }
+            
+            #detailList div {
+                /* Setzt den langen Text unten auf normal, damit er wieder umbricht und nicht den Kasten sprengt! */
+                white-space: normal !important; 
+                line-height: 1.5 !important;
+                margin: 0 !important; 
+            }
+
+            /* Gezielt NUR die rotierenden Wörter im Rad ansprechen (die vom JS absolut positioniert werden) */
+            #detailList div[style*="absolute"] {
+                /* Etwas feiner, damit "Mastering" & "Sounddesign" sich nicht mehr küssen */
+                font-size: 20px !important; 
+                font-weight: 500 !important;
+                letter-spacing: 1.5px !important; 
+                white-space: nowrap !important; /* Nur diese Wörter brechen nicht um */
+            }
+        }
+
+        /* --- MOBILE EINSTELLUNGEN (Unangetastet, da passend!) --- */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
@@ -79,7 +81,7 @@
                 min-height: unset !important; 
                 height: auto !important; 
                 aspect-ratio: auto !important;
-                padding-bottom: 20px !important; 
+                padding-bottom: 40px !important; 
             }
             .detail-list-container {
                 margin-top: 95px !important; 
