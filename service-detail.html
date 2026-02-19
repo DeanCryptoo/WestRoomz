@@ -20,7 +20,7 @@
             background-size: cover !important;
             background-position: center top !important; 
             background-repeat: no-repeat !important;
-            background-color: transparent !important;
+            background-color: #08090a !important; /* Dunkles Metal-Grau als Grundfarbe */
             border: none !important;
             border-radius: 20px !important; 
             overflow: hidden !important; 
@@ -51,11 +51,12 @@
         /* --- NEU: SPEZIELLE REGELN NUR FÜR HANDYS --- */
         @media (max-width: 768px) {
             .detail-list-wrapper {
-                /* Zentriert den Ausschnitt perfekt in der Mitte, statt ihn oben anzukleben */
-                background-position: center center !important; 
+                /* Zwingt das Bild, in der Breite komplett reinzupassen (kein Abschneiden an den Seiten) */
+                background-size: 100% auto !important; 
+                background-position: top center !important; 
             }
             .detail-list-container {
-                /* Nimmt auf dem kleinen Display etwas den übertriebenen Abstand raus */
+                /* Zieht den Text auf dem Handy etwas weiter nach oben ins Bild hinein */
                 margin-top: 50px !important; 
             }
         }
@@ -107,5 +108,3 @@
     <script src="js/main.js"></script>
 </body>
 </html>
-
-
