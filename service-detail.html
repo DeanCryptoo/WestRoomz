@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* DESKTOP EINSTELLUNGEN */
+        /* --- DESKTOP EINSTELLUNGEN --- */
         .detail-list-wrapper {
             background-image: url('WR_Plugin.png') !important;
             background-size: cover !important;
@@ -29,7 +29,29 @@
         }
 
         .detail-list-container {
-            margin-top: 100px !important; 
+            margin-top: 130px !important; 
+        }
+
+        /* HIER KORRIGIERT: Reine Schriftgröße und Schutz vor Umbrüchen */
+        @media (min-width: 769px) {
+            #detailList {
+                /* Gibt dem Container maximale Breite, damit die Wörter Platz haben und nicht gequetscht werden */
+                width: 100% !important;
+                max-width: 900px !important; 
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            #detailList div, 
+            #detailList span, 
+            #detailList a {
+                /* Schön groß, aber sicher */
+                font-size: 24px !important; 
+                font-weight: 500 !important;
+                /* Streckt die Wörter in sich selbst leicht, wirkt luftiger */
+                letter-spacing: 2px !important; 
+                /* DAS WICHTIGSTE: Verhindert, dass Wörter wie "SOUNDDESIGN" in zwei Zeilen zerbrechen! */
+                white-space: nowrap !important; 
+            }
         }
 
         .detail-list-wrapper h3 {
@@ -45,20 +67,24 @@
              display: none !important; 
         }
 
-        /* MOBILE EINSTELLUNGEN (Spezielle Anpassung für das Mobile Bild) */
+        /* --- MOBILE EINSTELLUNGEN --- */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
-                background-size: cover !important;
-                background-position: center center !important;
+                background-size: cover !important; 
+                background-position: center top !important;
+                background-repeat: no-repeat !important;
                 width: 100% !important; 
                 min-height: unset !important; 
-                /* 4/5 Format: Etwas höher als ein Quadrat, damit der Text unten Platz hat */
-                aspect-ratio: 4 / 5 !important; 
+                height: auto !important; 
+                aspect-ratio: auto !important;
+                padding-bottom: 20px !important; 
             }
             .detail-list-container {
-                /* Positioniert den Knob und den Text harmonisch in der etwas höheren Box */
-                margin-top: 20px !important; 
+                margin-top: 95px !important; 
+            }
+            .detail-desc {
+                margin-bottom: 10px !important;
             }
         }
     </style>
