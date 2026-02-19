@@ -16,7 +16,6 @@
     <style>
         /* --- DESKTOP EINSTELLUNGEN --- */
         .detail-list-wrapper {
-            /* Dateiname auf .jpg aktualisiert */
             background-image: url('WR_Plugin.jpg') !important;
             background-size: 100% 100% !important; 
             background-position: center center !important; 
@@ -31,48 +30,33 @@
         }
 
         .detail-list-container {
-            margin-top: 90px !important; 
+            /* Abstand erhöht, da die Überschrift "LEISTUNGEN" weg ist, damit alles auf Position bleibt */
+            margin-top: 140px !important; 
         }
 
-        .detail-list-wrapper h3 {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
-            padding-bottom: 15px !important;
-            margin-bottom: 20px !important;
-            width: 60% !important; 
-            margin-left: auto !important; 
-            margin-right: auto !important; 
-        }
-        
         .detail-list-container::before {
              display: none !important; 
         }
 
-        /* ==========================================================
-           NEU: ROUTE 1 "ECLIPSE" (Massiver schwarzer Schatten)
-           ========================================================== */
-           
-        /* 1. Das aktive Wort bleibt knallrot, bekommt aber eine harte schwarze Kante und tiefen Schatten */
+        /* --- ROUTE 1 "ECLIPSE" (Massiver schwarzer Schatten) --- */
         #detailList div[style*="color: rgb(255, 0, 0)"],
         #detailList div[style*="color: red"],
         #detailList .active {
-            color: #ff0000 !important; /* Knalliges Rot */
-            font-weight: 700 !important; /* Etwas fetter, damit es sich besser durchsetzt */
+            color: #ff0000 !important; 
+            font-weight: 700 !important; 
             text-shadow: 
                 -1px -1px 0 #000,  
                  1px -1px 0 #000,
                 -1px  1px 0 #000,
-                 1px  1px 0 #000, /* Harte schwarze Outline (4-fach für Schärfe) */
-                 0px 0px 15px rgba(0, 0, 0, 1), /* Dichter, tiefer schwarzer Kernschatten */
-                 0px 0px 40px rgba(0, 0, 0, 0.9) !important; /* Breiter schwarzer Umgebungsschatten */
+                 1px  1px 0 #000, 
+                 0px 0px 15px rgba(0, 0, 0, 1), 
+                 0px 0px 40px rgba(0, 0, 0, 0.9) !important; 
         }
 
-        /* 2. Inaktive Wörter werden heller (grau) mit scharfem Schatten für Lesbarkeit auf Metall */
         #detailList div:not([style*="color: rgb(255, 0, 0)"]):not([style*="color: red"]) {
-            color: #999999 !important; /* Helles Grau */
-            text-shadow: 0px 1px 4px rgba(0,0,0,1) !important; /* Harter Schatten für Kontrast */
+            color: #999999 !important; 
+            text-shadow: 0px 1px 4px rgba(0,0,0,1) !important; 
         }
-        /* ========================================================== */
-
 
         /* --- DESKTOP TEXT-KORREKTUREN --- */
         @media (min-width: 769px) {
@@ -110,7 +94,8 @@
                 padding-bottom: 40px !important; 
             }
             .detail-list-container {
-                margin-top: 95px !important; 
+                /* Auch hier den Abstand angepasst, da die Überschrift fehlt */
+                margin-top: 140px !important; 
             }
             .detail-desc {
                 margin-bottom: 10px !important;
@@ -150,7 +135,6 @@
             </div>
             
             <div class="detail-list-wrapper glass-kinetic-box">
-                <h3>LEISTUNGEN</h3>
                 <div id="detailList" class="detail-list-container"></div>
             </div>
         </section>
