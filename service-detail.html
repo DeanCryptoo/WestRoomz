@@ -24,7 +24,7 @@
             border: none !important;
             border-radius: 20px !important; 
             overflow: hidden !important; 
-            min-height: 720px !important; /* NEU: Erzwingt eine feste Größe, damit nichts mehr abgeschnitten wird */
+            min-height: 720px !important; 
             height: auto !important;
         }
 
@@ -46,6 +46,18 @@
         /* Versteckt eventuell störende alte Linien */
         .detail-list-container::before {
              display: none !important; 
+        }
+
+        /* --- NEU: SPEZIELLE REGELN NUR FÜR HANDYS --- */
+        @media (max-width: 768px) {
+            .detail-list-wrapper {
+                /* Zentriert den Ausschnitt perfekt in der Mitte, statt ihn oben anzukleben */
+                background-position: center center !important; 
+            }
+            .detail-list-container {
+                /* Nimmt auf dem kleinen Display etwas den übertriebenen Abstand raus */
+                margin-top: 50px !important; 
+            }
         }
     </style>
 </head>
