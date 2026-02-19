@@ -17,7 +17,6 @@
         /* --- DESKTOP EINSTELLUNGEN --- */
         .detail-list-wrapper {
             background-image: url('WR_Plugin.png') !important;
-            /* DER FIX: Zwingt das Bild exakt in die Box, kein Abschneiden der Pegel mehr! */
             background-size: 100% 100% !important; 
             background-position: center center !important; 
             background-repeat: no-repeat !important;
@@ -31,7 +30,6 @@
         }
 
         .detail-list-container {
-            /* Zieht den Kreis leicht nach oben, um unten Platz für den Text zu machen */
             margin-top: 90px !important; 
         }
 
@@ -58,23 +56,21 @@
             }
             
             #detailList div {
-                /* Erlaubt dem langen Info-Text unten den normalen Umbruch */
                 white-space: normal !important; 
                 line-height: 1.5 !important;
             }
 
             /* Gezielt NUR die rotierenden Wörter im Rad ansprechen */
             #detailList div[style*="absolute"] {
-                /* Minimal kleiner, damit "Mastering" & "Sounddesign" sauberen Abstand haben */
-                font-size: 19px !important; 
+                /* NEU: Schrift wieder größer und mit breiterem Spacing! */
+                font-size: 22px !important; 
                 font-weight: 500 !important;
-                letter-spacing: 1px !important; 
-                /* Verhindert das Umbrechen einzelner Menüpunkte */
+                letter-spacing: 2.5px !important; 
                 white-space: nowrap !important; 
             }
         }
 
-        /* --- MOBILE EINSTELLUNGEN (Unverändert, wie von dir bestätigt) --- */
+        /* --- MOBILE EINSTELLUNGEN (Unverändert) --- */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
