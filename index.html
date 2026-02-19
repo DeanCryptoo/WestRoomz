@@ -83,6 +83,28 @@
             border-top: none !important;
             border-bottom: none !important;
         }
+
+        /* DRAGGABLE SLIDER ANPASSUNGEN */
+        .gallery-container {
+            display: flex; 
+            gap: 20px; 
+            padding: 50px 0; 
+            width: max-content;
+            /* ALTE ANIMATION ENTFERNT - JS ÜBERNIMMT DAS JETZT */
+            will-change: transform; 
+            cursor: grab;
+        }
+        
+        .gallery-container:active {
+            cursor: grabbing; /* Zeigt die geschlossene Hand beim Ziehen */
+        }
+
+        /* Verhindert, dass der Browser versucht, die Bilder beim Draggen herunterzuladen */
+        .gallery-item img {
+            pointer-events: none; 
+            user-select: none;
+            -webkit-user-drag: none;
+        }
     </style>
     </head>
 <body>
@@ -157,7 +179,7 @@
         </section>
 
         <section id="gallery" class="gallery-section">
-            <div class="gallery-container interactive">
+            <div class="gallery-container interactive" id="draggable-slider">
                 <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
                 <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
                 <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
@@ -323,6 +345,7 @@
             <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
+    
     <script src="js/main.js"></script>
 
     <script>
@@ -354,6 +377,100 @@
             
             // Start: Zeppelin
             activate(bgAct1);
+
+            // ==========================================
+            // DRAGGABLE ENDLESS SLIDER SCRIPT
+            // ==========================================
+            const slider = document.getElementById('draggable-slider');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            
+            // Auto-Scroll Geschwindigkeit (Höher = Schneller)
+            let speed = 1.5; 
+            let autoScroll;
+
+            // Klonen der Bilder für den Endlos-Loop
+            const cloneCount = slider.children.length;
+            for (let i = 0; i < cloneCount; i++) {
+                slider.appendChild(slider.children[i].cloneNode(true));
+            }
+
+            // Funktion für das automatische Scrollen
+            function startAutoScroll() {
+                autoScroll = setInterval(() => {
+                    slider.scrollLeft += speed;
+                    checkLoop();
+                }, 16); // ca. 60 FPS
+            }
+
+            function stopAutoScroll() {
+                clearInterval(autoScroll);
+            }
+
+            // Endlos-Loop Check
+            function checkLoop() {
+                // Wenn wir in der Mitte angekommen sind, springe zurück zum Start
+                if (slider.scrollLeft >= (slider.scrollWidth / 2)) {
+                    slider.scrollLeft = 0;
+                } else if (slider.scrollLeft <= 0) {
+                    slider.scrollLeft = (slider.scrollWidth / 2) - 1;
+                }
+            }
+
+            // Maus-Events (Desktop)
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                stopAutoScroll(); // Pausiert den Auto-Scroll beim Ziehen
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                if (isDown) {
+                    isDown = false;
+                    startAutoScroll(); // Startet wieder, wenn die Maus rausgeht
+                }
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                startAutoScroll(); // Startet wieder nach dem Loslassen
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2; // Die 2 bestimmt, wie "schnell" das Ziehen ist
+                slider.scrollLeft = scrollLeft - walk;
+                checkLoop();
+            });
+
+            // Touch-Events (Handy)
+            slider.addEventListener('touchstart', (e) => {
+                isDown = true;
+                stopAutoScroll();
+                startX = e.touches[0].pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            }, { passive: true });
+
+            slider.addEventListener('touchend', () => {
+                isDown = false;
+                startAutoScroll();
+            });
+
+            slider.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                const x = e.touches[0].pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+                checkLoop();
+            }, { passive: true });
+
+            // Beim Laden starten und initiale Position setzen
+            slider.style.overflowX = 'hidden'; // Versteckt den Scrollbalken
+            startAutoScroll();
         });
     </script>
 </body>
