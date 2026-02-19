@@ -20,7 +20,7 @@
             background-size: cover !important;
             background-position: center top !important; 
             background-repeat: no-repeat !important;
-            background-color: #08090a !important; /* Dunkles Metal-Grau als Grundfarbe */
+            background-color: #08090a !important; 
             border: none !important;
             border-radius: 20px !important; 
             overflow: hidden !important; 
@@ -28,7 +28,7 @@
             height: auto !important;
         }
 
-        /* Verschiebt den Regler und die Texte sanft nach unten */
+        /* Verschiebt den Regler und die Texte sanft nach unten (Desktop) */
         .detail-list-container {
             margin-top: 100px !important; 
         }
@@ -48,16 +48,18 @@
              display: none !important; 
         }
 
-        /* --- NEU: SPEZIELLE REGELN NUR FÜR HANDYS --- */
+        /* --- NEU: DER GOLDENE MITTELWEG FÜR HANDYS --- */
         @media (max-width: 768px) {
             .detail-list-wrapper {
-                /* Zwingt das Bild, in der Breite komplett reinzupassen (kein Abschneiden an den Seiten) */
-                background-size: 100% auto !important; 
-                background-position: top center !important; 
+                /* Zoomen leicht rein (135%), damit das Bild wirkt, aber die Pegel noch erkennbar sind */
+                background-size: 135% auto !important; 
+                /* Schieben das Bild 70px runter, um oben sauber Platz für "LEISTUNGEN" zu machen */
+                background-position: center 70px !important; 
+                min-height: 620px !important; 
             }
             .detail-list-container {
-                /* Zieht den Text auf dem Handy etwas weiter nach oben ins Bild hinein */
-                margin-top: 50px !important; 
+                /* Ziehen den Knob massiv nach oben ins Bild rein, direkt unter das WR-Logo */
+                margin-top: 15px !important; 
             }
         }
     </style>
