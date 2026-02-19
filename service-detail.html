@@ -29,16 +29,19 @@
         }
 
         .detail-list-container {
-            margin-top: 100px !important; 
+            /* HIER ANGEPASST: Von 100px auf 130px erhöht, damit der Text das WR-Logo nicht berührt */
+            margin-top: 130px !important; 
         }
 
-        /* HIER NEU: Macht die Leistungen-Auswahl NUR auf dem Desktop größer */
+        /* HIER NEU: Macht die Leistungen-Auswahl NUR auf dem Desktop noch größer */
         @media (min-width: 769px) {
             #detailList div, 
             #detailList span, 
             #detailList a {
-                /* Hier kannst du den Wert anpassen (z.B. 24px, 26px oder 1.5rem), bis es passt */
-                font-size: 22px !important; 
+                /* Schrift ist jetzt nochmal größer (26px) */
+                font-size: 26px !important; 
+                /* Ein kleines bisschen dicker, damit sie bei der Größe gut wirkt */
+                font-weight: 500 !important;
             }
         }
 
@@ -55,7 +58,7 @@
              display: none !important; 
         }
 
-        /* MOBILE EINSTELLUNGEN */
+        /* MOBILE EINSTELLUNGEN (UNBERÜHRT!) */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
