@@ -42,68 +42,54 @@
         
         /* --- ANPASSUNG REFERENZ LOGOS --- */
         .ref-logo-img {
-            /* DEUTLICH GRÖSSER */
             height: 100px !important;  
             width: auto !important;
-            
-            /* SOFORT SICHTBAR (KEIN HOVER NÖTIG) */
             opacity: 1 !important;     
             filter: none !important;   
-            
-            /* ABSTAND & DESIGN */
-            margin: 0 40px !important; /* Mehr Platz zwischen den großen Logos */
+            margin: 0 40px !important; 
             border-radius: 8px !important;
             object-fit: contain;
         }
         
-        /* Damit der Container hoch genug für die großen Logos ist */
         .marquee-track {
             display: flex;
-            align-items: center; /* Logos vertikal zentrieren */
-            width: max-content !important; /* Zwingt den Container auf die echte Breite aller Logos */
-            gap: 0 !important; /* WICHTIG: Kein Gap! Die Abstände kommen vom margin der Logos, so geht die 50% Rechnung exakt auf */
+            align-items: center; 
+            width: max-content !important; 
+            gap: 0 !important; 
         }
 
-        /* VERHINDERT LEERE LÜCKEN & SCROLLBALKEN */
         .marquee-wrapper {
             overflow: hidden !important; 
             width: 100% !important;
             display: flex !important;
         }
 
-        /* REFERENZEN BEREICH ABRUNDEN */
         .ref-section {
             border-radius: 40px !important;
-            margin: 0 2% !important; /* Kleiner Abstand links/rechts, damit die Rundung sichtbar ist */
+            margin: 0 2% !important; 
         }
 
-        /* FOTO-SLIDER HINTERGRUND TRANSPARENT MACHEN & LINIEN ENTFERNEN */
         .gallery-section {
             background: transparent !important;
             border-top: none !important;
             border-bottom: none !important;
         }
 
-        /* DRAGGABLE SLIDER ANPASSUNGEN */
+        /* --- DRAGGABLE SLIDER FIX --- */
         .gallery-container {
-            display: flex; 
-            gap: 20px; 
-            padding: 50px 0; 
-            width: max-content;
-            /* ALTE ANIMATION ENTFERNT - JS ÜBERNIMMT DAS JETZT */
-            will-change: transform; 
-            cursor: grab;
+            animation: none !important; /* Stoppt die alte CSS Animation, damit JS übernehmen kann */
+            cursor: grab !important;
+            will-change: transform;
         }
         
         .gallery-container:active {
-            cursor: grabbing; /* Zeigt die geschlossene Hand beim Ziehen */
+            cursor: grabbing !important;
         }
 
-        /* Verhindert, dass der Browser versucht, die Bilder beim Draggen herunterzuladen */
         .gallery-item img {
-            pointer-events: none; 
-            user-select: none;
-            -webkit-user-drag: none;
+            pointer-events: none !important; 
+            user-select: none !important;
+            -webkit-user-drag: none !important;
         }
     </style>
     </head>
@@ -111,7 +97,6 @@
 
     <div class="cinematic-bg-wrapper">
         <div class="bg-layer active" id="bg-act1" style="background-image: url('wr1.jpg');"></div>
-        
         <div class="bg-layer" id="bg-act2" style="background-image: url('wr5.jpg');"></div>
     </div>
 
@@ -352,8 +337,8 @@
         document.addEventListener("DOMContentLoaded", function() {
             gsap.registerPlugin(ScrollTrigger);
 
-            const bgAct1 = document.getElementById('bg-act1'); // Zeppelin
-            const bgAct2 = document.getElementById('bg-act2'); // Schild
+            const bgAct1 = document.getElementById('bg-act1'); 
+            const bgAct2 = document.getElementById('bg-act2'); 
 
             function activate(bgToShow) {
                 bgAct1.classList.remove('active');
@@ -361,116 +346,96 @@
                 bgToShow.classList.add('active');
             }
 
-            // REGEL 1: Solange man oben ist (Hero & Vision) -> Zeppelin
             ScrollTrigger.create({
                 trigger: "#vision", 
                 start: "top center",
                 onEnterBack: () => activate(bgAct1), 
             });
 
-            // REGEL 2: Ab "Services" (und darunter) -> Schild
             ScrollTrigger.create({
                 trigger: "#services",
                 start: "top center", 
                 onEnter: () => activate(bgAct2), 
             });
             
-            // Start: Zeppelin
             activate(bgAct1);
 
             // ==========================================
-            // DRAGGABLE ENDLESS SLIDER SCRIPT
+            // NEUER DRAGGABLE ENDLESS SLIDER
             // ==========================================
             const slider = document.getElementById('draggable-slider');
             let isDown = false;
             let startX;
-            let scrollLeft;
+            let currentX = 0;
             
-            // Auto-Scroll Geschwindigkeit (Höher = Schneller)
+            // Auto-Scroll Geschwindigkeit hier anpassen (Höher = Schneller)
             let speed = 1.5; 
-            let autoScroll;
+            let halfWidth = 0;
 
-            // Klonen der Bilder für den Endlos-Loop
-            const cloneCount = slider.children.length;
-            for (let i = 0; i < cloneCount; i++) {
-                slider.appendChild(slider.children[i].cloneNode(true));
+            // Berechnet die Mitte für den unsichtbaren Sprung-Loop
+            function calculateWidth() {
+                halfWidth = slider.scrollWidth / 2;
             }
+            
+            // Warten, bis CSS geladen ist, dann berechnen
+            setTimeout(calculateWidth, 100);
+            window.addEventListener('resize', calculateWidth);
 
-            // Funktion für das automatische Scrollen
-            function startAutoScroll() {
-                autoScroll = setInterval(() => {
-                    slider.scrollLeft += speed;
-                    checkLoop();
-                }, 16); // ca. 60 FPS
-            }
-
-            function stopAutoScroll() {
-                clearInterval(autoScroll);
-            }
-
-            // Endlos-Loop Check
-            function checkLoop() {
-                // Wenn wir in der Mitte angekommen sind, springe zurück zum Start
-                if (slider.scrollLeft >= (slider.scrollWidth / 2)) {
-                    slider.scrollLeft = 0;
-                } else if (slider.scrollLeft <= 0) {
-                    slider.scrollLeft = (slider.scrollWidth / 2) - 1;
+            function animate() {
+                if (!isDown) {
+                    currentX -= speed; 
                 }
+
+                if (halfWidth > 0) {
+                    // Der unsichtbare Sprung für den Endlos-Loop
+                    if (currentX <= -halfWidth) {
+                        currentX += halfWidth; 
+                    } else if (currentX > 0) {
+                        currentX -= halfWidth; 
+                    }
+                }
+
+                slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
+                requestAnimationFrame(animate);
             }
 
-            // Maus-Events (Desktop)
+            // MAUS EVENTS (PC)
             slider.addEventListener('mousedown', (e) => {
                 isDown = true;
-                stopAutoScroll(); // Pausiert den Auto-Scroll beim Ziehen
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
+                startX = e.pageX - currentX;
             });
 
             slider.addEventListener('mouseleave', () => {
-                if (isDown) {
-                    isDown = false;
-                    startAutoScroll(); // Startet wieder, wenn die Maus rausgeht
-                }
+                isDown = false;
             });
 
-            slider.addEventListener('mouseup', () => {
+            window.addEventListener('mouseup', () => {
                 isDown = false;
-                startAutoScroll(); // Startet wieder nach dem Loslassen
             });
 
             slider.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
                 e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2; // Die 2 bestimmt, wie "schnell" das Ziehen ist
-                slider.scrollLeft = scrollLeft - walk;
-                checkLoop();
+                currentX = e.pageX - startX;
             });
 
-            // Touch-Events (Handy)
+            // TOUCH EVENTS (Handy)
             slider.addEventListener('touchstart', (e) => {
                 isDown = true;
-                stopAutoScroll();
-                startX = e.touches[0].pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
+                startX = e.touches[0].pageX - currentX;
             }, { passive: true });
 
-            slider.addEventListener('touchend', () => {
+            window.addEventListener('touchend', () => {
                 isDown = false;
-                startAutoScroll();
             });
 
             slider.addEventListener('touchmove', (e) => {
                 if (!isDown) return;
-                const x = e.touches[0].pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2;
-                slider.scrollLeft = scrollLeft - walk;
-                checkLoop();
+                currentX = e.touches[0].pageX - startX;
             }, { passive: true });
 
-            // Beim Laden starten und initiale Position setzen
-            slider.style.overflowX = 'hidden'; // Versteckt den Scrollbalken
-            startAutoScroll();
+            // Startet die flüssige Animation
+            requestAnimationFrame(animate);
         });
     </script>
 </body>
