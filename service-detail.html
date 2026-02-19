@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* Ersetzt den grauen Hintergrund durch das Plugin-Bild */
+        /* Ersetzt den grauen Hintergrund durch das Plugin-Bild und rundet die Ecken ab */
         .detail-list-wrapper {
             background-image: url('WR_Plugin.png') !important;
             background-size: cover !important;
@@ -22,11 +22,28 @@
             background-repeat: no-repeat !important;
             background-color: transparent !important;
             border: none !important;
+            border-radius: 20px !important; /* NEU: Rundet die Ecken des gesamten Kastens ab */
+            overflow: hidden !important; /* Stellt sicher, dass das Bild an den abgerundeten Ecken abgeschnitten wird */
         }
 
-        /* NEU: Verschiebt den Regler und die Texte sanft nach unten (100px) */
+        /* Verschiebt den Regler und die Texte sanft nach unten (100px) */
         .detail-list-container {
             margin-top: 100px !important; 
+        }
+
+        /* NEU: Passt die obere Linie unter "LEISTUNGEN" an */
+        .detail-list-wrapper h3 {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; /* Macht die Linie dezent grau */
+            padding-bottom: 15px !important;
+            margin-bottom: 20px !important;
+            width: 60% !important; /* Macht die Linie kürzer */
+            margin-left: auto !important; /* Zentriert die Linie */
+            margin-right: auto !important; /* Zentriert die Linie */
+        }
+        
+        /* Falls die Linie im JS anders generiert wird, hilft das hier zusätzlich: */
+        .detail-list-container::before {
+             display: none !important; /* Versteckt eventuell alte, durchgehende Linien */
         }
     </style>
 </head>
