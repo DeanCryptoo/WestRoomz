@@ -26,31 +26,32 @@
             overflow: hidden !important; 
             min-height: 720px !important; 
             height: auto !important;
+            /* NEU: Gibt dem Text unten Polster, damit er nicht aus dem Bild rutscht */
+            padding-bottom: 60px !important; 
         }
 
         .detail-list-container {
             margin-top: 130px !important; 
         }
 
-        /* HIER KORRIGIERT: Reine Schriftgröße und Schutz vor Umbrüchen */
+        /* DESKTOP-SPEZIFISCHE TEXT-ANPASSUNGEN */
         @media (min-width: 769px) {
             #detailList {
-                /* Gibt dem Container maximale Breite, damit die Wörter Platz haben und nicht gequetscht werden */
                 width: 100% !important;
-                max-width: 900px !important; 
+                /* NEU: Erhöht die maximale Breite, damit die äußeren Wörter weiter nach links/rechts können */
+                max-width: 1150px !important; 
                 margin-left: auto !important;
                 margin-right: auto !important;
             }
             #detailList div, 
             #detailList span, 
             #detailList a {
-                /* Schön groß, aber sicher */
                 font-size: 24px !important; 
                 font-weight: 500 !important;
-                /* Streckt die Wörter in sich selbst leicht, wirkt luftiger */
                 letter-spacing: 2px !important; 
-                /* DAS WICHTIGSTE: Verhindert, dass Wörter wie "SOUNDDESIGN" in zwei Zeilen zerbrechen! */
                 white-space: nowrap !important; 
+                /* NEU: Sorgt für Abstand zwischen den Wörtern (z.B. Mastering & Sounddesign) */
+                margin: 0 15px !important; 
             }
         }
 
@@ -67,7 +68,7 @@
              display: none !important; 
         }
 
-        /* --- MOBILE EINSTELLUNGEN --- */
+        /* --- MOBILE EINSTELLUNGEN (Unverändert, da passend) --- */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
