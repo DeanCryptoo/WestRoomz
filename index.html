@@ -56,6 +56,14 @@
             align-items: center; 
             width: max-content !important; 
             gap: 0 !important; 
+            /* NEU: Animation für den nahtlosen Loop */
+            animation: marquee-scroll 25s linear infinite !important;
+        }
+
+        /* NEU: Keyframes für den Loop (verschiebt genau um die Hälfte, da die Logos dupliziert sind) */
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .marquee-wrapper {
