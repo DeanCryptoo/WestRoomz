@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* Ersetzt den grauen Hintergrund, rundet ab und zwingt den Kasten zur richtigen Größe */
+        /* DESKTOP EINSTELLUNGEN */
         .detail-list-wrapper {
             background-image: url('WR_Plugin.png') !important;
             background-size: cover !important;
@@ -28,12 +28,10 @@
             height: auto !important;
         }
 
-        /* Verschiebt den Regler und die Texte sanft nach unten (Desktop) */
         .detail-list-container {
             margin-top: 100px !important; 
         }
 
-        /* Passt die obere Linie unter "LEISTUNGEN" an */
         .detail-list-wrapper h3 {
             border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
             padding-bottom: 15px !important;
@@ -43,23 +41,22 @@
             margin-right: auto !important; 
         }
         
-        /* Versteckt eventuell störende alte Linien */
         .detail-list-container::before {
              display: none !important; 
         }
 
-        /* --- NEU: DER GOLDENE MITTELWEG FÜR HANDYS --- */
+        /* MOBILE EINSTELLUNGEN (Spezielle Anpassung für das 9:16 Bild) */
         @media (max-width: 768px) {
             .detail-list-wrapper {
-                /* Zoomen leicht rein (135%), damit das Bild wirkt, aber die Pegel noch erkennbar sind */
-                background-size: 135% auto !important; 
-                /* Schieben das Bild 70px runter, um oben sauber Platz für "LEISTUNGEN" zu machen */
-                background-position: center 70px !important; 
-                min-height: 620px !important; 
+                /* Lädt dein neues Mobile-Bild von GitHub */
+                background-image: url('Firefly_Gemini Flash.jpg') !important; 
+                background-size: cover !important;
+                background-position: center center !important;
+                min-height: 80vh !important; /* Erhöht die Box-Höhe für das Hochformat */
             }
             .detail-list-container {
-                /* Ziehen den Knob massiv nach oben ins Bild rein, direkt unter das WR-Logo */
-                margin-top: 15px !important; 
+                /* Schiebt den Knob-Bereich weiter nach unten, passend zum neuen Bildlayout */
+                margin-top: 220px !important; 
             }
         }
     </style>
