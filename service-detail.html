@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -14,60 +12,52 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* Ersetzt den grauen Hintergrund durch das Plugin-Bild */
-        .detail-list-wrapper {
-            background-image: url('WR_Plugin.png') !important;
+        /* 1. Dieser Block feuert NUR, wenn die Klasse 'audio-theme' aktiv ist */
+        .audio-theme.detail-list-wrapper {
+            /* Kombiniert einen abdunkelnden "Nebel" in der Mitte mit deinem Plugin-Bild */
+            background-image: 
+                radial-gradient(circle at center, rgba(0, 0, 0, 0.85) 15%, rgba(0, 0, 0, 0.4) 40%, transparent 70%),
+                url('WR_Plugin.png') !important;
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
-            background-color: transparent !important;
+            background-color: #050505 !important;
             border: none !important;
         }
+
+        /* 2. Macht die Menüpunkte im Audio-Bereich hellgrau und gibt ihnen einen starken schwarzen Schatten */
+        .audio-theme .detail-list-container div {
+            color: #e0e0e0 !important; /* Helles Grau für perfekten Kontrast zum Metall */
+            text-shadow: 
+                0px 2px 4px rgba(0, 0, 0, 1), 
+                0px 0px 15px rgba(0, 0, 0, 1), 
+                0px 0px 30px rgba(0, 0, 0, 0.9) !important;
+        }
+
+        /* Sichert ab, dass das rote leuchtende Element (z.B. MASTERING) rot bleibt, aber den Schatten bekommt */
+        .audio-theme .detail-list-container div[style*="color: red"],
+        .audio-theme .detail-list-container div[style*="color: rgb(255, 0, 0)"],
+        .audio-theme .detail-list-container .active {
+            text-shadow: 
+                0px 2px 4px rgba(0, 0, 0, 1), 
+                0px 0px 15px rgba(0, 0, 0, 1) !important;
+        }
     </style>
-</head>
-<body>
-   <div class="global-bg"></div>
-    <div class="page-transition-curtain"></div>
-    <div class="cursor"></div>
-    <div class="cursor-ring"></div>
-    <div class="menu-toggle-btn interactive" onclick="toggleMenu()"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
-    
-    <div class="back-home-wrapper">
-        <a href="index.html#services" class="back-btn interactive">ZURÜCK</a>
-    </div>
 
-    <div class="side-menu">
-        <div><div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div><div class="menu-links"><a href="index.html" class="menu-link interactive">START</a><a href="index.html#vision" class="menu-link interactive">VISION</a><a href="index.html#contact" class="menu-link interactive">KONTAKT</a></div></div>
-        <div class="sidebar-footer"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div>
-    </div>
-    <div class="menu-overlay" onclick="toggleMenu()"></div>
-
-    <main class="page-wrapper">
-        <header class="detail-hero">
-            <img id="detailBg" src="" alt="Service Background" class="detail-hero-bg">
-            <div class="hero-overlay"></div>
-            <h1 id="detailTitle">LOADING...</h1>
-        </header>
-
-        <section class="detail-content">
-            <div class="detail-desc">
-                <h2 id="detailIntro"></h2>
-                <p id="detailDesc"></p>
-                <button id="detailContactBtn" class="book-btn interactive">JETZT ANFRAGEN</button>
-            </div>
+    <script>
+        // 3. Prüft beim Laden der Seite, ob wir uns im Audio-Bereich befinden
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
             
-            <div class="detail-list-wrapper glass-kinetic-box">
-                <h3>LEISTUNGEN</h3>
-                <div id="detailList" class="detail-list-container"></div>
-            </div>
-        </section>
-
-        <footer>
-            <div class="footer-socials"><a href="#" class="social-icon interactive">INSTAGRAM</a><a href="#" class="social-icon interactive">LINKEDIN</a></div>
-            <div class="footer-nav"><a href="impressum.html" class="interactive">IMPRESSUM</a><a href="datenschutz.html" class="interactive">DATENSCHUTZ</a><a href="agb.html" class="interactive">AGB</a></div>
-            <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
-        </footer>
-    </main>
-    <script src="js/main.js"></script>
-</body>
-</html>
+            // Wenn in der URL das Wort "audio" vorkommt...
+            if (id && id.toLowerCase().includes('audio')) {
+                // ...suchen wir den Kasten und geben ihm die neue Optik
+                const wrapper = document.querySelector('.detail-list-wrapper');
+                if (wrapper) {
+                    wrapper.classList.add('audio-theme');
+                }
+            }
+        });
+    </script>
+</head>
