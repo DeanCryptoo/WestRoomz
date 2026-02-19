@@ -14,32 +14,19 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* Nur aktiv für die Audio-Ansicht */
-        .audio-theme.detail-list-wrapper {
-            background-image: 
-                radial-gradient(circle at center, rgba(0, 0, 0, 0.85) 15%, rgba(0, 0, 0, 0.4) 40%, transparent 70%),
-                url('WR_Plugin.png') !important;
+        /* Ersetzt den grauen Hintergrund durch das Plugin-Bild */
+        .detail-list-wrapper {
+            background-image: url('WR_Plugin.png') !important;
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
-            background-color: #050505 !important;
+            background-color: transparent !important;
             border: none !important;
         }
 
-        .audio-theme .detail-list-container div {
-            color: #e0e0e0 !important;
-            text-shadow: 
-                0px 2px 4px rgba(0, 0, 0, 1), 
-                0px 0px 15px rgba(0, 0, 0, 1), 
-                0px 0px 30px rgba(0, 0, 0, 0.9) !important;
-        }
-
-        .audio-theme .detail-list-container div[style*="color: red"],
-        .audio-theme .detail-list-container div[style*="color: rgb(255, 0, 0)"],
-        .audio-theme .detail-list-container .active {
-            text-shadow: 
-                0px 2px 4px rgba(0, 0, 0, 1), 
-                0px 0px 15px rgba(0, 0, 0, 1) !important;
+        /* NEU: Verschiebt den Regler und die kreisförmigen Texte nach unten, weg vom WR-Logo */
+        .detail-list-container {
+            margin-top: 80px !important; 
         }
     </style>
 </head>
@@ -86,22 +73,6 @@
             <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
-    
     <script src="js/main.js"></script>
-    <script>
-        // Prüft, ob wir auf der Audio-Seite sind, und lädt das Theme (mit kleiner Verzögerung, um main.js nicht zu stören)
-        document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const id = urlParams.get('id');
-                if (id && id.toLowerCase().includes('audio')) {
-                    const wrapper = document.querySelector('.detail-list-wrapper');
-                    if (wrapper) {
-                        wrapper.classList.add('audio-theme');
-                    }
-                }
-            }, 100); 
-        });
-    </script>
 </body>
 </html>
