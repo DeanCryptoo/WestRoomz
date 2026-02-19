@@ -17,21 +17,22 @@
         /* --- DESKTOP EINSTELLUNGEN --- */
         .detail-list-wrapper {
             background-image: url('WR_Plugin.png') !important;
-            background-size: cover !important;
-            background-position: center top !important; 
+            /* DER FIX: Zwingt das Bild exakt in die Box, kein Abschneiden der Pegel mehr! */
+            background-size: 100% 100% !important; 
+            background-position: center center !important; 
             background-repeat: no-repeat !important;
             background-color: #08090a !important; 
             border: none !important;
             border-radius: 20px !important; 
             overflow: hidden !important; 
-            /* Gibt dem Kasten eine solide Grundhöhe und ein Polster nach unten */
-            min-height: 780px !important; 
+            min-height: 720px !important; 
             height: auto !important;
-            padding-bottom: 60px !important; 
+            padding-bottom: 25px !important; 
         }
 
         .detail-list-container {
-            margin-top: 130px !important; 
+            /* Zieht den Kreis leicht nach oben, um unten Platz für den Text zu machen */
+            margin-top: 90px !important; 
         }
 
         .detail-list-wrapper h3 {
@@ -51,26 +52,29 @@
         @media (min-width: 769px) {
             #detailList {
                 width: 100% !important;
+                max-width: 1150px !important; 
+                margin-left: auto !important;
+                margin-right: auto !important;
             }
             
             #detailList div {
-                /* Setzt den langen Text unten auf normal, damit er wieder umbricht und nicht den Kasten sprengt! */
+                /* Erlaubt dem langen Info-Text unten den normalen Umbruch */
                 white-space: normal !important; 
                 line-height: 1.5 !important;
-                margin: 0 !important; 
             }
 
-            /* Gezielt NUR die rotierenden Wörter im Rad ansprechen (die vom JS absolut positioniert werden) */
+            /* Gezielt NUR die rotierenden Wörter im Rad ansprechen */
             #detailList div[style*="absolute"] {
-                /* Etwas feiner, damit "Mastering" & "Sounddesign" sich nicht mehr küssen */
-                font-size: 20px !important; 
+                /* Minimal kleiner, damit "Mastering" & "Sounddesign" sauberen Abstand haben */
+                font-size: 19px !important; 
                 font-weight: 500 !important;
-                letter-spacing: 1.5px !important; 
-                white-space: nowrap !important; /* Nur diese Wörter brechen nicht um */
+                letter-spacing: 1px !important; 
+                /* Verhindert das Umbrechen einzelner Menüpunkte */
+                white-space: nowrap !important; 
             }
         }
 
-        /* --- MOBILE EINSTELLUNGEN (Unangetastet, da passend!) --- */
+        /* --- MOBILE EINSTELLUNGEN (Unverändert, wie von dir bestätigt) --- */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
