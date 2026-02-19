@@ -48,25 +48,30 @@
         /* MOBILE EINSTELLUNGEN (Für neues Bild im 4:5 oder 9:16 Format) */
         @media (max-width: 768px) {
             .detail-list-wrapper {
-                /* Setze hier später den Namen deines NEUEN, hohen Bildes ein */
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
-                
-                /* Das Bild füllt die Box jetzt perfekt aus */
                 background-size: cover !important; 
                 background-position: center top !important;
                 background-repeat: no-repeat !important;
-                
                 width: 100% !important; 
                 min-height: unset !important; 
-                /* Die Box passt sich der Höhe des Textes an */
                 height: auto !important; 
                 aspect-ratio: auto !important;
-                /* Platz nach unten für den Text */
-                padding-bottom: 50px !important; 
+                
+                /* HIER ANGEPASST: Verringert den schwarzen Leerraum ganz unten im Kasten */
+                /* Vorher 50px, jetzt auf 20px reduziert. Du kannst das bis 0px runterstellen. */
+                padding-bottom: 20px !important; 
             }
             .detail-list-container {
-                /* Positioniert den Knob harmonisch im neuen Hochformat */
-                margin-top: 80px !important; 
+                /* HIER ANGEPASST: Schiebt den gesamten Knob-Bereich inkl. der ersten Wörter 
+                   ein winziges Stück weiter nach unten, weg vom Logo. */
+                /* Vorher 80px, jetzt auf 95px erhöht. */
+                margin-top: 95px !important; 
+            }
+            
+            /* HIER NEU: Greift gezielt den sich ändernden Text ganz unten an, 
+               falls er durch das geringere Padding jetzt zu nah am Rand klebt. */
+            .detail-desc {
+                margin-bottom: 10px !important;
             }
         }
     </style>
