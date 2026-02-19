@@ -45,20 +45,25 @@
              display: none !important; 
         }
 
-        /* MOBILE EINSTELLUNGEN (Spezielle Anpassung für das Mobile Bild) */
+        /* MOBILE EINSTELLUNGEN */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
                 background-size: cover !important;
-                background-position: center center !important;
+                background-position: center top !important;
                 width: 100% !important; 
+                
+                /* Hier ist die Magie: Wir lassen die Box automatisch mit dem Text mitwachsen */
                 min-height: unset !important; 
-                /* 4/5 Format: Etwas höher als ein Quadrat, damit der Text unten Platz hat */
-                aspect-ratio: 4 / 5 !important; 
+                height: auto !important; 
+                aspect-ratio: auto !important; /* Hebt vorherige fixe Formate auf */
+                
+                /* Sorgt für Luft unter dem Text, damit nichts abgeschnitten wird */
+                padding-bottom: 50px !important; 
             }
             .detail-list-container {
-                /* Positioniert den Knob und den Text harmonisch in der etwas höheren Box */
-                margin-top: 20px !important; 
+                /* Zentriert den Knob schön im verfügbaren Platz */
+                margin-top: 30px !important; 
             }
         }
     </style>
