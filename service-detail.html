@@ -32,6 +32,16 @@
             margin-top: 100px !important; 
         }
 
+        /* HIER NEU: Macht die Leistungen-Auswahl NUR auf dem Desktop größer */
+        @media (min-width: 769px) {
+            #detailList div, 
+            #detailList span, 
+            #detailList a {
+                /* Hier kannst du den Wert anpassen (z.B. 24px, 26px oder 1.5rem), bis es passt */
+                font-size: 22px !important; 
+            }
+        }
+
         .detail-list-wrapper h3 {
             border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
             padding-bottom: 15px !important;
@@ -45,7 +55,7 @@
              display: none !important; 
         }
 
-        /* MOBILE EINSTELLUNGEN (Für neues Bild im 4:5 oder 9:16 Format) */
+        /* MOBILE EINSTELLUNGEN */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
@@ -56,20 +66,11 @@
                 min-height: unset !important; 
                 height: auto !important; 
                 aspect-ratio: auto !important;
-                
-                /* HIER ANGEPASST: Verringert den schwarzen Leerraum ganz unten im Kasten */
-                /* Vorher 50px, jetzt auf 20px reduziert. Du kannst das bis 0px runterstellen. */
                 padding-bottom: 20px !important; 
             }
             .detail-list-container {
-                /* HIER ANGEPASST: Schiebt den gesamten Knob-Bereich inkl. der ersten Wörter 
-                   ein winziges Stück weiter nach unten, weg vom Logo. */
-                /* Vorher 80px, jetzt auf 95px erhöht. */
                 margin-top: 95px !important; 
             }
-            
-            /* HIER NEU: Greift gezielt den sich ändernden Text ganz unten an, 
-               falls er durch das geringere Padding jetzt zu nah am Rand klebt. */
             .detail-desc {
                 margin-bottom: 10px !important;
             }
