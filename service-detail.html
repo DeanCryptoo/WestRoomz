@@ -45,29 +45,28 @@
              display: none !important; 
         }
 
-        /* MOBILE EINSTELLUNGEN */
+        /* MOBILE EINSTELLUNGEN (Für neues Bild im 4:5 oder 9:16 Format) */
         @media (max-width: 768px) {
             .detail-list-wrapper {
+                /* Setze hier später den Namen deines NEUEN, hohen Bildes ein */
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
                 
-                /* Das Bild nutzt 100% der Breite, behält aber seine echte Höhe (kein Verzerren!) */
-                background-size: 100% auto !important; 
+                /* Das Bild füllt die Box jetzt perfekt aus */
+                background-size: cover !important; 
                 background-position: center top !important;
                 background-repeat: no-repeat !important;
                 
-                /* Diese Farbe füllt den leeren Bereich unten für den Text auf. 
-                   Du kannst den HEX-Code an den dunkelsten Ton deines Metalls anpassen */
-                background-color: #181a1b !important; 
-                
                 width: 100% !important; 
                 min-height: unset !important; 
+                /* Die Box passt sich der Höhe des Textes an */
                 height: auto !important; 
                 aspect-ratio: auto !important;
+                /* Platz nach unten für den Text */
                 padding-bottom: 50px !important; 
             }
             .detail-list-container {
-                /* Knob etwas weiter nach oben gezogen */
-                margin-top: 30px !important; 
+                /* Positioniert den Knob harmonisch im neuen Hochformat */
+                margin-top: 80px !important; 
             }
         }
     </style>
