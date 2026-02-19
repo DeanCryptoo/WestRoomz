@@ -16,7 +16,7 @@
     <style>
         /* --- DESKTOP EINSTELLUNGEN --- */
         .detail-list-wrapper {
-            background-image: url('WR_Plugin.jpg') !important;
+            background-image: url('WR_Plugin.png') !important;
             background-size: 100% 100% !important; 
             background-position: center center !important; 
             background-repeat: no-repeat !important;
@@ -46,6 +46,30 @@
              display: none !important; 
         }
 
+        /* ==========================================================
+           NEU: ROUTE 2 "WHITE HOT" (Gilt für Desktop & Mobile) 
+           ========================================================== */
+           
+        /* 1. Das aktive Wort wird extrem heiß (weiß) mit roter Aura */
+        #detailList div[style*="color: rgb(255, 0, 0)"],
+        #detailList div[style*="color: red"],
+        #detailList .active {
+            color: #ffffff !important; /* Strahlendes Weiß */
+            text-shadow: 
+                0px 0px 10px rgba(255, 0, 0, 1),   /* Rotes Glühen um das weiße Wort */
+                0px 0px 20px rgba(255, 0, 0, 0.8), /* Erweitertes rotes Glühen */
+                0px 4px 15px rgba(0, 0, 0, 1),     /* Harter schwarzer Schatten zur Trennung */
+                0px 10px 30px rgba(0, 0, 0, 0.9) !important; /* Tiefer schwarzer Nebel */
+        }
+
+        /* 2. Inaktive Wörter (alles was NICHT rot markiert ist) werden etwas gedimmt */
+        #detailList div:not([style*="color: rgb(255, 0, 0)"]):not([style*="color: red"]) {
+            color: #666666 !important; /* Dezent dunkleres Grau */
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.8) !important; /* Leichter schwarzer Drop-Shadow */
+        }
+        /* ========================================================== */
+
+
         /* --- DESKTOP TEXT-KORREKTUREN --- */
         @media (min-width: 769px) {
             #detailList {
@@ -62,7 +86,6 @@
 
             /* Gezielt NUR die rotierenden Wörter im Rad ansprechen */
             #detailList div[style*="absolute"] {
-                /* NEU: Schrift wieder größer und mit breiterem Spacing! */
                 font-size: 22px !important; 
                 font-weight: 500 !important;
                 letter-spacing: 2.5px !important; 
@@ -70,7 +93,7 @@
             }
         }
 
-        /* --- MOBILE EINSTELLUNGEN (Unverändert) --- */
+        /* --- MOBILE EINSTELLUNGEN --- */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
