@@ -45,18 +45,20 @@
              display: none !important; 
         }
 
-        /* MOBILE EINSTELLUNGEN (Spezielle Anpassung für das 9:16 Bild) */
+        /* MOBILE EINSTELLUNGEN (Spezielle Anpassung für das 1:1 Bild) */
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 /* Lädt dein neues Mobile-Bild von GitHub */
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
                 background-size: cover !important;
                 background-position: center center !important;
-                min-height: 80vh !important; /* Erhöht die Box-Höhe für das Hochformat */
+                width: 100% !important; 
+                min-height: unset !important; 
+                aspect-ratio: 1 / 1 !important; 
             }
             .detail-list-container {
-                /* Schiebt den Knob-Bereich weiter nach unten, passend zum neuen Bildlayout */
-                margin-top: 220px !important; 
+                /* Angepasster Abstand für das neue 1:1 Format */
+                margin-top: 150px !important; 
             }
         }
     </style>
