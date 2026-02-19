@@ -16,6 +16,7 @@
     <style>
         /* --- DESKTOP EINSTELLUNGEN --- */
         .detail-list-wrapper {
+            /* Dateiname auf .jpg aktualisiert */
             background-image: url('WR_Plugin.jpg') !important;
             background-size: 100% 100% !important; 
             background-position: center center !important; 
@@ -47,25 +48,28 @@
         }
 
         /* ==========================================================
-           NEU: ROUTE 2 "WHITE HOT" (Gilt für Desktop & Mobile) 
+           NEU: ROUTE 1 "ECLIPSE" (Massiver schwarzer Schatten)
            ========================================================== */
            
-        /* 1. Das aktive Wort wird extrem heiß (weiß) mit roter Aura */
+        /* 1. Das aktive Wort bleibt knallrot, bekommt aber eine harte schwarze Kante und tiefen Schatten */
         #detailList div[style*="color: rgb(255, 0, 0)"],
         #detailList div[style*="color: red"],
         #detailList .active {
-            color: #ffffff !important; /* Strahlendes Weiß */
+            color: #ff0000 !important; /* Knalliges Rot */
+            font-weight: 700 !important; /* Etwas fetter, damit es sich besser durchsetzt */
             text-shadow: 
-                0px 0px 10px rgba(255, 0, 0, 1),   /* Rotes Glühen um das weiße Wort */
-                0px 0px 20px rgba(255, 0, 0, 0.8), /* Erweitertes rotes Glühen */
-                0px 4px 15px rgba(0, 0, 0, 1),     /* Harter schwarzer Schatten zur Trennung */
-                0px 10px 30px rgba(0, 0, 0, 0.9) !important; /* Tiefer schwarzer Nebel */
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                -1px  1px 0 #000,
+                 1px  1px 0 #000, /* Harte schwarze Outline (4-fach für Schärfe) */
+                 0px 0px 15px rgba(0, 0, 0, 1), /* Dichter, tiefer schwarzer Kernschatten */
+                 0px 0px 40px rgba(0, 0, 0, 0.9) !important; /* Breiter schwarzer Umgebungsschatten */
         }
 
-        /* 2. Inaktive Wörter (alles was NICHT rot markiert ist) werden etwas gedimmt */
+        /* 2. Inaktive Wörter werden heller (grau) mit scharfem Schatten für Lesbarkeit auf Metall */
         #detailList div:not([style*="color: rgb(255, 0, 0)"]):not([style*="color: red"]) {
-            color: #666666 !important; /* Dezent dunkleres Grau */
-            text-shadow: 0px 2px 5px rgba(0,0,0,0.8) !important; /* Leichter schwarzer Drop-Shadow */
+            color: #999999 !important; /* Helles Grau */
+            text-shadow: 0px 1px 4px rgba(0,0,0,1) !important; /* Harter Schatten für Kontrast */
         }
         /* ========================================================== */
 
@@ -84,7 +88,6 @@
                 line-height: 1.5 !important;
             }
 
-            /* Gezielt NUR die rotierenden Wörter im Rad ansprechen */
             #detailList div[style*="absolute"] {
                 font-size: 22px !important; 
                 font-weight: 500 !important;
