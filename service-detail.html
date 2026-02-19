@@ -29,19 +29,27 @@
         }
 
         .detail-list-container {
-            /* HIER ANGEPASST: Von 100px auf 130px erhöht, damit der Text das WR-Logo nicht berührt */
             margin-top: 130px !important; 
         }
 
-        /* HIER NEU: Macht die Leistungen-Auswahl NUR auf dem Desktop noch größer */
+        /* HIER ANGEPASST: Macht die Auswahl größer UND schiebt sie weiter auseinander (Nur Desktop) */
         @media (min-width: 769px) {
+            #detailList {
+                /* Falls dein Skript Flexbox oder Grid nutzt, zwingt das die Elemente auseinander */
+                gap: 50px !important; 
+            }
             #detailList div, 
             #detailList span, 
             #detailList a {
-                /* Schrift ist jetzt nochmal größer (26px) */
                 font-size: 26px !important; 
-                /* Ein kleines bisschen dicker, damit sie bei der Größe gut wirkt */
                 font-weight: 500 !important;
+                
+                /* HIER NEU: Das Spacing! Schiebt die Wörter nach links und rechts auseinander */
+                margin-left: 30px !important;
+                margin-right: 30px !important;
+                
+                /* Macht die Buchstaben selbst ein ganz kleines bisschen luftiger (wirkt edler) */
+                letter-spacing: 1px !important;
             }
         }
 
