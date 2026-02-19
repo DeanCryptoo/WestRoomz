@@ -14,21 +14,21 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* Ersetzt den grauen Hintergrund durch das Plugin-Bild und rundet die Ecken ab */
+        /* Ersetzt den grauen Hintergrund, rundet ab und zwingt den Kasten zur richtigen Größe */
         .detail-list-wrapper {
             background-image: url('WR_Plugin.png') !important;
             background-size: cover !important;
-            background-position: center !important;
+            background-position: center top !important; 
             background-repeat: no-repeat !important;
             background-color: transparent !important;
             border: none !important;
             border-radius: 20px !important; 
             overflow: hidden !important; 
-            height: auto !important; /* NEU: Zwingt den Kasten, sich der Höhe des Textes anzupassen */
-            padding-bottom: 140px !important; /* NEU: Gibt dem Text unten noch mehr Platz */
+            min-height: 720px !important; /* NEU: Erzwingt eine feste Größe, damit nichts mehr abgeschnitten wird */
+            height: auto !important;
         }
 
-        /* Verschiebt den Regler und die Texte sanft nach unten (100px) */
+        /* Verschiebt den Regler und die Texte sanft nach unten */
         .detail-list-container {
             margin-top: 100px !important; 
         }
@@ -43,7 +43,7 @@
             margin-right: auto !important; 
         }
         
-        /* Falls die Linie im JS anders generiert wird, hilft das hier zusätzlich: */
+        /* Versteckt eventuell störende alte Linien */
         .detail-list-container::before {
              display: none !important; 
         }
