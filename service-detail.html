@@ -49,21 +49,24 @@
         @media (max-width: 768px) {
             .detail-list-wrapper {
                 background-image: url('Firefly_Gemini Flash.jpg') !important; 
-                background-size: cover !important;
-                background-position: center top !important;
-                width: 100% !important; 
                 
-                /* Hier ist die Magie: Wir lassen die Box automatisch mit dem Text mitwachsen */
+                /* Das Bild wird nicht mehr gezoomt, sondern passt sich immer der Breite an! */
+                background-size: 100% 100% !important; 
+                background-position: center top !important;
+                background-color: #08090a !important; /* Falls das Bild nicht bis ganz unten reicht, füllt diese Farbe auf */
+                
+                width: 100% !important; 
                 min-height: unset !important; 
                 height: auto !important; 
-                aspect-ratio: auto !important; /* Hebt vorherige fixe Formate auf */
                 
-                /* Sorgt für Luft unter dem Text, damit nichts abgeschnitten wird */
-                padding-bottom: 50px !important; 
+                /* Gibt der Box eine Basis-Höhe, die dem Bild entspricht (ca. 1:1), 
+                   aber lässt sie für den Text nach unten wachsen */
+                aspect-ratio: auto !important;
+                padding-bottom: 60px !important; 
             }
             .detail-list-container {
-                /* Zentriert den Knob schön im verfügbaren Platz */
-                margin-top: 30px !important; 
+                /* Abstand für den Knob von oben - passe das an, falls der Knob auf dem Logo hängt */
+                margin-top: 120px !important; 
             }
         }
     </style>
