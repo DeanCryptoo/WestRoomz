@@ -60,7 +60,8 @@
         .marquee-track {
             display: flex;
             align-items: center; /* Logos vertikal zentrieren */
-            gap: 20px;
+            width: max-content !important; /* Zwingt den Container auf die echte Breite aller Logos */
+            gap: 0 !important; /* WICHTIG: Kein Gap! Die Abstände kommen vom margin der Logos, so geht die 50% Rechnung exakt auf */
         }
     </style>
     </head>
