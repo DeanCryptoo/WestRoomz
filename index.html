@@ -193,7 +193,7 @@
             <div class="hero-content"><p class="hero-sub">UNERREICHTE QUALITÄT</p></div>
         </header>
 
-        <div class="gradual-blur-top">
+        <div class="gradual-blur-bottom">
             <div class="blur-layer blur-1"></div>
             <div class="blur-layer blur-2"></div>
             <div class="blur-layer blur-3"></div>
@@ -386,6 +386,9 @@
 
             const bgAct1 = document.getElementById('bg-act1'); 
             const bgAct2 = document.getElementById('bg-act2'); 
+            
+            // DEN BLUR SUCHEN
+            const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
 
             function activate(bgToShow) {
                 bgAct1.classList.remove('active');
@@ -404,6 +407,26 @@
                 start: "top center", 
                 onEnter: () => activate(bgAct2), 
             });
+            
+            // --- NEUE MAGIE: BLUR NUR ANZEIGEN, WENN WIR VOM VIDEO WEGSIND ---
+            if(blurOverlay) {
+                // Schalte den Blur ein, sobald man bis zu "Vision" gescrollt hat
+                ScrollTrigger.create({
+                    trigger: "#vision",
+                    start: "top 80%", // Wenn "Vision" leicht im Bild auftaucht
+                    onEnter: () => blurOverlay.style.opacity = '1',
+                    onLeaveBack: () => blurOverlay.style.opacity = '0' // Und wieder unsichtbar, wenn man zum Video hochscrollt
+                });
+                
+                // Schalte den Blur aus, wenn man ganz unten beim Impressum ankommt (damit man alles lesen kann)
+                ScrollTrigger.create({
+                    trigger: "footer",
+                    start: "top 100%", 
+                    onEnter: () => blurOverlay.style.opacity = '0',
+                    onLeaveBack: () => blurOverlay.style.opacity = '1'
+                });
+            }
+            // ------------------------------------------------------------------
             
             activate(bgAct1);
 
