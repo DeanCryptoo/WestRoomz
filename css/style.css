@@ -794,77 +794,30 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 }
 
 /* ========================================================= */
-/* --- PURE CSS GRADUAL BLUR (ULTRA SMOOTH BOTTOM) --- */
+/* --- BUG-FREE GRADUAL BLUR (APPLE / IOS STYLE) --- */
 /* ========================================================= */
 .gradual-blur-bottom {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    /* Etwas höher für einen längeren, weicheren Ausklang */
+    /* Schöne Höhe für einen weichen Ausklang */
     height: 35vh; 
-    min-height: 300px;
+    min-height: 250px;
     z-index: 120;
     pointer-events: none;
-    isolation: isolate;
+    
+    /* 1. Nur EIN einziger, starker Blur-Effekt (verhindert Safari-Treppen) */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    
+    /* 2. Eine extrem weiche Maske, die die Unschärfe nach oben ausfadet */
+    mask-image: linear-gradient(to top, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+    
+    /* 3. Ein perfekt abgestimmter, stufenloser Farbverlauf ins Schwarze */
+    background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.7) 40%, rgba(5,5,5,0.2) 70%, rgba(5,5,5,0) 100%);
     
     opacity: 0; 
-    /* Ein sehr weicher, luxuriöser Übergang beim Einblenden (1.2 Sekunden) */
     transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-    
-    /* Der dunkle Verlauf schluckt den Text jetzt weicher und nicht so abrupt */
-    background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.7) 30%, rgba(5,5,5,0.2) 65%, rgba(5,5,5,0) 100%);
-}
-
-.gradual-blur-bottom .blur-layer {
-    position: absolute;
-    inset: 0;
-}
-
-/* Stufe 1: Harter Blur (32px statt 24px) */
-.gradual-blur-bottom .blur-1 {
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
-    mask-image: linear-gradient(to top, black 0%, black 15%, transparent 35%);
-    -webkit-mask-image: linear-gradient(to top, black 0%, black 15%, transparent 35%);
-}
-
-/* Stufe 2 */
-.gradual-blur-bottom .blur-2 {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    mask-image: linear-gradient(to top, transparent 10%, black 25%, black 40%, transparent 60%);
-    -webkit-mask-image: linear-gradient(to top, transparent 10%, black 25%, black 40%, transparent 60%);
-}
-
-/* Stufe 3 */
-.gradual-blur-bottom .blur-3 {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    mask-image: linear-gradient(to top, transparent 30%, black 45%, black 60%, transparent 80%);
-    -webkit-mask-image: linear-gradient(to top, transparent 30%, black 45%, black 60%, transparent 80%);
-}
-
-/* Stufe 4 */
-.gradual-blur-bottom .blur-4 {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    mask-image: linear-gradient(to top, transparent 50%, black 65%, black 80%, transparent 95%);
-    -webkit-mask-image: linear-gradient(to top, transparent 50%, black 65%, black 80%, transparent 95%);
-}
-
-/* Stufe 5 */
-.gradual-blur-bottom .blur-5 {
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    mask-image: linear-gradient(to top, transparent 70%, black 85%, black 95%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to top, transparent 70%, black 85%, black 95%, transparent 100%);
-}
-
-/* NEU: Stufe 6 - Der unsichtbare, perfekte Ausklang ganz oben ins Nichts */
-.gradual-blur-bottom .blur-6 {
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-    mask-image: linear-gradient(to top, transparent 85%, black 95%, black 100%);
-    -webkit-mask-image: linear-gradient(to top, transparent 85%, black 95%, black 100%);
 }
