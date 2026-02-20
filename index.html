@@ -199,7 +199,7 @@
             <div class="blur-layer blur-3"></div>
             <div class="blur-layer blur-4"></div>
             <div class="blur-layer blur-5"></div>
-        </div>
+            <div class="blur-layer blur-6"></div> </div>
         <section id="vision" class="vision-section">
             <div>
                 <h2 class="big-lead">VISION. MADE. REAL.</h2>
@@ -410,12 +410,12 @@
             
             // --- NEUE MAGIE: BLUR NUR ANZEIGEN, WENN WIR VOM VIDEO WEGSIND ---
             if(blurOverlay) {
-                // Schalte den Blur ein, sobald man bis zu "Vision" gescrollt hat
+                // Schalte den Blur ein, sobald man bis zu "Vision" gescrollt hat (bei 95% für weicheren Start)
                 ScrollTrigger.create({
                     trigger: "#vision",
-                    start: "top 80%", // Wenn "Vision" leicht im Bild auftaucht
+                    start: "top 95%", 
                     onEnter: () => blurOverlay.style.opacity = '1',
-                    onLeaveBack: () => blurOverlay.style.opacity = '0' // Und wieder unsichtbar, wenn man zum Video hochscrollt
+                    onLeaveBack: () => blurOverlay.style.opacity = '0' 
                 });
                 
                 // Schalte den Blur aus, wenn man ganz unten beim Impressum ankommt (damit man alles lesen kann)
