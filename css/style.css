@@ -333,8 +333,8 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 
 /* --- NEU: LOGO STYLING FÜR REFERENZEN (BILDER) --- */
 .ref-logo-img {
-    height: 60px;           /* Einheitliche Höhe */
-    width: auto;           /* Breite passt sich an */
+    height: 60px;          /* Einheitliche Höhe */
+    width: auto;          /* Breite passt sich an */
     margin: 0 40px;        /* Abstand zwischen Logos */
     opacity: 0.6;          /* Etwas dezenter */
     filter: grayscale(100%); /* Schwarz-Weiß-Look */
@@ -751,4 +751,44 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     color: white !important; /* Wird weiß */
     opacity: 0.3 !important; /* Wird dunkler, damit Fokus auf Text liegt */
     transform: none !important; /* Verhindert das Wegrollen vom alten Effekt, falls gewünscht */
+}
+
+/* ========================================================= */
+/* --- PREMIUM LASER BORDER FÜR REFERENZEN --- */
+/* ========================================================= */
+.laser-border-wrapper {
+    position: relative;
+    border-radius: 42px !important;
+    padding: 2px !important; /* Dicke des Laser-Strahls */
+    overflow: hidden;
+    margin: 0 2% !important; /* Nimmt den Abstand auf, den die ref-section vorher hatte */
+    background: transparent;
+}
+
+.laser-border-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%; 
+    height: 500%;
+    background: conic-gradient(from 0deg, transparent 70%, #ff0000 95%, transparent 100%);
+    transform: translate(-50%, -50%);
+    animation: rotate-laser 6s linear infinite;
+    z-index: 0;
+}
+
+.laser-border-inner {
+    position: relative;
+    background-color: #050505; 
+    border-radius: 40px !important;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+@keyframes rotate-laser {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
