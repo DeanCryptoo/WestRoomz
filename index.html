@@ -74,7 +74,7 @@
         /* --- REFERENZEN BEREICH - OPTIMIERTER LOOK --- */
         .ref-section {
             border-radius: 40px !important;
-            margin: 0 2% !important; 
+            margin: 0 !important; /* GEÄNDERT: Margin sitzt jetzt perfekt auf dem Laser-Wrapper */
             position: relative !important;
             /* Tieferes Schwarz mit sanftem roten Schimmer am Rand */
             background: radial-gradient(circle at center, #0a0a0a 0%, #050505 100%) !important;
@@ -282,47 +282,50 @@
 
         </section>
 
-        <section id="references" class="ref-section">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h2 class="section-title">REFERENZEN</h2>
-            </div>
-            
-            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
-                <div class="vision-text" style="opacity: 1; transform: none;">
-                    <p style="opacity: 1; transform: none;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
-                </div>
-            </div>
+        <div id="references" class="laser-border-wrapper">
+            <div class="laser-border-inner">
+                <section class="ref-section">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h2 class="section-title">REFERENZEN</h2>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
+                        <div class="vision-text" style="opacity: 1; transform: none;">
+                            <p style="opacity: 1; transform: none;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
+                        </div>
+                    </div>
 
-            <div class="marquee-wrapper">
-                <div class="marquee-track">
-                    <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                    <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                    <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                    <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                    <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                    <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                    <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                    <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                    <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                    <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                    <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                    <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                    <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                    <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                    <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                    <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                    <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                    <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                    <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                    <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                    <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                    <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                    <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                    <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                </div>
+                    <div class="marquee-wrapper">
+                        <div class="marquee-track">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                        </div>
+                    </div>
+                </section>
             </div>
-        </section>
-
+        </div>
         <section id="contact" class="contact-section">
             <div class="contact-grid">
                 <div class="contact-info">
