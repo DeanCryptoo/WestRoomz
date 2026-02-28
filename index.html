@@ -186,8 +186,8 @@
     <main class="page-wrapper">
         <header id="hero" class="hero">
             <div class="video-container">
-                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
-                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-desktop" autoplay muted loop playsinline disablePictureInPicture><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline disablePictureInPicture><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -203,7 +203,8 @@
             </div>
         </header>
 
-        <div class="gradual-blur-bottom"></div>
+        <div class="black-to-bg-fade"></div>
+
         <section id="vision" class="vision-section">
             <div>
                 <h2 class="big-lead">VISION. MADE. REAL.</h2>
@@ -416,23 +417,6 @@
             }
 
             gsap.registerPlugin(ScrollTrigger);
-            
-            const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
-            if(blurOverlay) {
-                ScrollTrigger.create({
-                    trigger: "#vision",
-                    start: "top 95%", 
-                    onEnter: () => blurOverlay.style.opacity = '1',
-                    onLeaveBack: () => blurOverlay.style.opacity = '0' 
-                });
-                
-                ScrollTrigger.create({
-                    trigger: "footer",
-                    start: "top 100%", 
-                    onEnter: () => blurOverlay.style.opacity = '0',
-                    onLeaveBack: () => blurOverlay.style.opacity = '1'
-                });
-            }
 
             const slider = document.getElementById('draggable-slider');
             let isDown = false;
