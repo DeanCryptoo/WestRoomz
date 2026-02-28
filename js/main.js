@@ -297,10 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- REST OF ORIGINAL JS (Mit Performance- und Video-Updates) ---
+    // --- REST OF ORIGINAL JS ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
-        // Delay entfernt für sofortigen Start
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut" });
     }
 
@@ -328,17 +327,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- OPTIMIERTE SCROLL PERFORMANCE FÜR MACBOOK ---
     if(typeof Lenis !== 'undefined') {
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: false });
-        
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
         if(typeof ScrollTrigger !== 'undefined') {
             lenis.on('scroll', ScrollTrigger.update);
             gsap.ticker.add((time) => { lenis.raf(time * 1000); });
             gsap.ticker.lagSmoothing(0);
-        } else {
-            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-            requestAnimationFrame(raf);
         }
         window.lenis = lenis;
     }
@@ -359,41 +355,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroText = document.querySelector(".hero-sub");
     if(videos.length > 0) {
         if(heroText) gsap.set(heroText, { opacity: 0, y: 20 });
-        
         videos.forEach(video => {
-            // Zwingt Safari zum sofortigen Autoplay
-            video.defaultMuted = true;
+            video.defaultMuted = true; 
             video.muted = true; 
             video.play().catch(() => {});
-            
             video.addEventListener('timeupdate', () => {
-                if(heroText) {
-                    if (video.currentTime >= 4.5 && gsap.getProperty(heroText, "opacity") === 0) {
-                        gsap.to(heroText, { opacity: 1, y: 0, duration: 0.5 });
-                    } else if (video.currentTime < 0.5) {
-                        gsap.set(heroText, { opacity: 0, y: 20 });
-                    }
+                if (heroText && video.currentTime >= 4.5 && gsap.getProperty(heroText, "opacity") === 0) {
+                    gsap.to(heroText, { opacity: 1, y: 0, duration: 0.5 });
+                } else if (heroText && video.currentTime < 0.5) {
+                    gsap.set(heroText, { opacity: 0, y: 20 });
                 }
             });
         });
     }
 
-    const slider = document.querySelector('.gallery-container');
-    if(slider) {
-        let isDown = false, startX, scrollLeft;
-        function autoScroll() {
-            if(!isDown && slider) {
-                slider.scrollLeft += 0.5;
-                if(slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth)) slider.scrollLeft = 0;
-            }
-            requestAnimationFrame(autoScroll);
-        }
-        autoScroll();
-        slider.addEventListener('mousedown', (e) => { isDown = true; slider.classList.add('active'); startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; });
-        slider.addEventListener('mouseleave', () => { isDown = false; slider.classList.remove('active'); });
-        slider.addEventListener('mouseup', () => { isDown = false; slider.classList.remove('active'); });
-        slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
-    }
+    // ACHTUNG: Der alte, fehlerhafte Slider-Code wurde hier entfernt! 
+    // Der korrekte Slider-Code liegt bereits in deiner index.html
 
     const modal = document.getElementById('galleryModal');
     if(modal) {
