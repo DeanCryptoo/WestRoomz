@@ -15,32 +15,26 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* Macht alle Buttons rund */
         button, .tab-btn, .submit-btn, .book-btn, .menu-link {
             border-radius: 30px !important;
         }
 
-        /* Macht Eingabefelder und Dropdowns rund */
         input, select, textarea {
             border-radius: 12px !important;
         }
 
-        /* Macht Bilder in der Galerie rund */
         .gallery-item img {
             border-radius: 12px !important;
         }
 
-        /* Macht das Kontakt-Formular und Service-Boxen rund */
         .contact-form, .service-container, .modal-content-wrapper {
             border-radius: 20px !important;
         }
 
-        /* Menü-Icon abrunden */
         .menu-toggle-btn {
             border-radius: 8px !important;
         }
         
-        /* --- ANPASSUNG REFERENZ LOGOS --- */
         .ref-logo-img {
             height: 100px !important;  
             width: auto !important;
@@ -56,7 +50,6 @@
             align-items: center; 
             width: max-content !important; 
             gap: 0 !important; 
-            /* Wichtig für den nahtlosen Loop */
             animation: marquee-scroll 40s linear infinite !important;
         }
 
@@ -71,7 +64,6 @@
             display: flex !important;
         }
 
-        /* --- REFERENZEN BEREICH - OPTIMIERTER LOOK --- */
         .ref-section {
             border-radius: 40px !important;
             margin: 0 !important; 
@@ -83,7 +75,6 @@
             padding: 100px 0 !important;
         }
 
-        /* DAS WASSERZEICHEN - VERBESSERT */
         .ref-section::before {
             content: "";
             position: absolute;
@@ -114,7 +105,6 @@
             border-bottom: none !important;
         }
 
-        /* --- DRAGGABLE SLIDER FIX --- */
         .gallery-container {
             animation: none !important;
             cursor: grab !important;
@@ -222,8 +212,7 @@
 <body>
 
     <div class="cinematic-bg-wrapper">
-        <div class="bg-layer active" id="bg-act1" style="background-image: url('wr1.jpg');"></div>
-        <div class="bg-layer" id="bg-act2" style="background-image: url('wr5.jpg');"></div>
+        <div class="bg-layer active" style="background-image: url('wrbusiness.JPG'); opacity: 1;"></div>
     </div>
 
     <div class="page-transition-curtain"></div>
@@ -271,8 +260,8 @@
     <main class="page-wrapper">
         <header id="hero" class="hero">
             <div class="video-container">
-                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
-                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto" poster="wr1.jpg"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto" poster="wr1.jpg"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -454,31 +443,9 @@
                 });
             }
 
-            // Originaler Code ab hier...
             gsap.registerPlugin(ScrollTrigger);
 
-            const bgAct1 = document.getElementById('bg-act1'); 
-            const bgAct2 = document.getElementById('bg-act2'); 
-            
             const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
-
-            function activate(bgToShow) {
-                bgAct1.classList.remove('active');
-                bgAct2.classList.remove('active');
-                bgToShow.classList.add('active');
-            }
-
-            ScrollTrigger.create({
-                trigger: "#vision", 
-                start: "top center",
-                onEnterBack: () => activate(bgAct1), 
-            });
-
-            ScrollTrigger.create({
-                trigger: "#services",
-                start: "top center", 
-                onEnter: () => activate(bgAct2), 
-            });
             
             if(blurOverlay) {
                 ScrollTrigger.create({
@@ -494,65 +461,6 @@
                     onEnter: () => blurOverlay.style.opacity = '0',
                     onLeaveBack: () => blurOverlay.style.opacity = '1'
                 });
-            }
-            
-            activate(bgAct1);
-
-            const slider = document.getElementById('draggable-slider');
-            let isDown = false;
-            let startX;
-            let currentX = 0;
-            let speed = 1.5; 
-            let halfWidth = 0;
-
-            function calculateWidth() {
-                if(slider) halfWidth = slider.scrollWidth / 2;
-            }
-            
-            setTimeout(calculateWidth, 100);
-            window.addEventListener('resize', calculateWidth);
-
-            function animate() {
-                if(!slider) return;
-                if (!isDown) {
-                    currentX -= speed; 
-                }
-                if (halfWidth > 0) {
-                    if (currentX <= -halfWidth) {
-                        currentX += halfWidth; 
-                    } else if (currentX > 0) {
-                        currentX -= halfWidth; 
-                    }
-                }
-                slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
-                requestAnimationFrame(animate);
-            }
-
-            if(slider) {
-                slider.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    startX = e.pageX - currentX;
-                });
-
-                slider.addEventListener('mouseleave', () => { isDown = false; });
-                window.addEventListener('mouseup', () => { isDown = false; });
-                slider.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault();
-                    currentX = e.pageX - startX;
-                });
-
-                slider.addEventListener('touchstart', (e) => {
-                    isDown = true;
-                    startX = e.touches[0].pageX - currentX;
-                }, { passive: true });
-                window.addEventListener('touchend', () => { isDown = false; });
-                slider.addEventListener('touchmove', (e) => {
-                    if (!isDown) return;
-                    currentX = e.touches[0].pageX - startX;
-                }, { passive: true });
-
-                requestAnimationFrame(animate);
             }
         });
     </script>
