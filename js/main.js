@@ -279,27 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-    // --- TOGGLE SWITCH LOGIC (MIT CURTAIN ANIMATION) ---
-    // Diese Funktion lässt den Schalter korrekt mit dem Vorhang arbeiten
-    const businessToggle = document.getElementById('businessToggle');
-    if (businessToggle) {
-        businessToggle.addEventListener('change', function() {
-            const targetUrl = this.checked ? 'business.html' : 'index.html';
-            const curtain = document.querySelector('.page-transition-curtain');
-            
-            if (curtain && typeof gsap !== 'undefined') {
-                gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
-                    scaleY: 1, duration: 0.6, ease: "power4.inOut", 
-                    onComplete: () => { window.location.href = targetUrl; } 
-                });
-            } else {
-                window.location.href = targetUrl;
-            }
-        });
-    }
-
-
     // --- REST OF ORIGINAL JS ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
@@ -330,24 +309,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-    // --- OPTIMIERTE SCROLL PERFORMANCE (VERHINDERT RUCKELN) ---
     if(typeof Lenis !== 'undefined') {
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: false });
-        
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
         if(typeof ScrollTrigger !== 'undefined') {
-            // Verbindet Lenis mit GSAP. Kein doppelter RAF Aufruf!
             lenis.on('scroll', ScrollTrigger.update);
             gsap.ticker.add((time) => { lenis.raf(time * 1000); });
             gsap.ticker.lagSmoothing(0);
-        } else {
-            // Fallback
-            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-            requestAnimationFrame(raf);
         }
         window.lenis = lenis;
     }
-
 
     window.toggleMenu = function() {
         const menu = document.querySelector('.side-menu');
