@@ -305,25 +305,6 @@
             </div>
         </section>
 
-        <section id="gallery" class="gallery-section">
-            <div class="gallery-container interactive" id="draggable-slider">
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
-            </div>
-        </section>
-
         <section id="services" class="services-section">
             <div style="text-align: center; margin-bottom: 50px;">
                 <h2 class="section-title">WAS WIR TUN</h2>
@@ -522,59 +503,62 @@
             
             activate(bgAct1);
 
+            // SICHERHEITSABFRAGE: Slider Code wird nur ausgeführt, wenn er da ist (auf der Index-Seite)
             const slider = document.getElementById('draggable-slider');
-            let isDown = false;
-            let startX;
-            let currentX = 0;
-            let speed = 1.5; 
-            let halfWidth = 0;
+            if (slider) {
+                let isDown = false;
+                let startX;
+                let currentX = 0;
+                let speed = 1.5; 
+                let halfWidth = 0;
 
-            function calculateWidth() {
-                halfWidth = slider.scrollWidth / 2;
-            }
-            
-            setTimeout(calculateWidth, 100);
-            window.addEventListener('resize', calculateWidth);
-
-            function animate() {
-                if (!isDown) {
-                    currentX -= speed; 
+                function calculateWidth() {
+                    halfWidth = slider.scrollWidth / 2;
                 }
-                if (halfWidth > 0) {
-                    if (currentX <= -halfWidth) {
-                        currentX += halfWidth; 
-                    } else if (currentX > 0) {
-                        currentX -= halfWidth; 
+                
+                setTimeout(calculateWidth, 100);
+                window.addEventListener('resize', calculateWidth);
+
+                function animate() {
+                    if (!isDown) {
+                        currentX -= speed; 
                     }
+                    if (halfWidth > 0) {
+                        if (currentX <= -halfWidth) {
+                            currentX += halfWidth; 
+                        } else if (currentX > 0) {
+                            currentX -= halfWidth; 
+                        }
+                    }
+                    slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
+                    requestAnimationFrame(animate);
                 }
-                slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
+
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    startX = e.pageX - currentX;
+                });
+
+                slider.addEventListener('mouseleave', () => { isDown = false; });
+                window.addEventListener('mouseup', () => { isDown = false; });
+                slider.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    currentX = e.pageX - startX;
+                });
+
+                slider.addEventListener('touchstart', (e) => {
+                    isDown = true;
+                    startX = e.touches[0].pageX - currentX;
+                }, { passive: true });
+                window.addEventListener('touchend', () => { isDown = false; });
+                slider.addEventListener('touchmove', (e) => {
+                    if (!isDown) return;
+                    currentX = e.touches[0].pageX - startX;
+                }, { passive: true });
+
                 requestAnimationFrame(animate);
             }
-
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                startX = e.pageX - currentX;
-            });
-
-            slider.addEventListener('mouseleave', () => { isDown = false; });
-            window.addEventListener('mouseup', () => { isDown = false; });
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                currentX = e.pageX - startX;
-            });
-
-            slider.addEventListener('touchstart', (e) => {
-                isDown = true;
-                startX = e.touches[0].pageX - currentX;
-            }, { passive: true });
-            window.addEventListener('touchend', () => { isDown = false; });
-            slider.addEventListener('touchmove', (e) => {
-                if (!isDown) return;
-                currentX = e.touches[0].pageX - startX;
-            }, { passive: true });
-
-            requestAnimationFrame(animate);
         });
     </script>
 </body>
