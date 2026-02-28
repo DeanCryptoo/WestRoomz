@@ -59,14 +59,14 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out; /* Sehr weicher Übergang */
-    filter: brightness(0.35); /* Look: Dezent und Dunkel - Blur entfernt für Performance und Schärfe */
+    transition: opacity 1.5s ease-in-out;
+    filter: brightness(0.35); 
     transform: scale(1.1);
 }
 
 .bg-layer.active {
     opacity: 1;
-    animation: calmZoom 60s infinite alternate linear; /* Langsames Atmen */
+    animation: calmZoom 60s infinite alternate linear; 
 }
 
 @keyframes calmZoom {
@@ -165,17 +165,47 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
     display: flex; align-items: center; justify-content: center;
     overflow: hidden; background: #000;
 }
+
+/* --- HIER DIE ÄNDERUNGEN FÜR DEN BLUR-STREIFEN UND SANFTEN ÜBERGANG --- */
+
 .video-container { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; 
-    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
 }
+
 .hero-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; will-change: transform; }
 .video-mobile { display: none; }
+
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%); z-index: 1; 
+    /* Geht ganz unten ins Schwarz über, damit ein sauberer Cut zum weißen Bild entsteht */
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(5,5,5,0.8) 85%, #050505 100%); 
+    z-index: 1; 
 }
+
+/* NEU: Der gezielte Blur-Streifen EXAKT auf der Kante */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -5vh; /* Sitzt genau auf der Kante zwischen Video und Vision-Text */
+    left: 0;
+    width: 100%;
+    height: 20vh; /* Schmaler Streifen */
+    
+    /* Der Unschärfe-Effekt (Blur) */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    /* Eine Maske für den Blur, damit der Blur-Balken selbst keine harten Kanten hat, sondern nach oben und unten weich ausläuft */
+    mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+    
+    z-index: 10;
+    pointer-events: none;
+}
+/* ------------------------------------------------------------------------ */
+
 .hero-content { z-index: 100; text-align: center; padding: 0 20px; position: absolute; bottom: 50px; width: 100%; }
 .hero-sub {
     font-size: 1.2rem; letter-spacing: 8px; font-family: var(--font-head); font-weight: 400; text-transform: uppercase; opacity: 0; 
