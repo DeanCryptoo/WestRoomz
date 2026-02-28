@@ -132,24 +132,22 @@
         }
 
         /* ========================================================= */
-        /* --- TOGGLE SWITCH DIREKT IM HTML (SICHERHEITS-FIX) --- */
+        /* --- TOGGLE SWITCH ZENTRIERT IM VIDEO --- */
         /* ========================================================= */
         .site-toggle-container {
-            position: fixed;
-            top: 80px; /* Genau unter den 3 Streifen */
-            left: 30px; /* Gleiche Linie wie die 3 Streifen */
-            z-index: 99999; /* Ganz vorne */
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 20px;
             font-family: 'Oswald', sans-serif;
             color: #fff;
             pointer-events: auto;
+            margin-bottom: 30px;
         }
 
         .toggle-label {
-            font-size: 1rem;
-            letter-spacing: 1px;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
             color: #aaaaaa;
             transition: color 0.3s, text-shadow 0.3s;
@@ -158,14 +156,14 @@
         .site-toggle-container.is-creators .label-creators,
         .site-toggle-container.is-business .label-business {
             color: #ff0000;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
         }
 
         .ios-switch {
             position: relative;
             display: inline-block;
-            width: 50px;
-            height: 28px;
+            width: 80px;
+            height: 44px;
             cursor: pointer;
         }
 
@@ -181,16 +179,16 @@
             top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(255, 255, 255, 0.2);
             transition: .4s;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         .slider:before {
             position: absolute;
             content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
+            height: 32px;
+            width: 32px;
+            left: 4px;
+            bottom: 4px;
             background-color: white;
             transition: .4s;
         }
@@ -201,11 +199,11 @@
         }
 
         input:checked + .slider:before {
-            transform: translateX(22px);
+            transform: translateX(36px);
         }
 
         .slider.round {
-            border-radius: 34px;
+            border-radius: 50px;
         }
 
         .slider.round:before {
@@ -213,15 +211,11 @@
         }
 
         @media (max-width: 768px) {
-            .site-toggle-container {
-                top: 70px; /* Handy-Anpassung unter dem Menü */
-                left: 20px;
-                gap: 8px;
-            }
-            .toggle-label { font-size: 0.8rem; }
-            .ios-switch { width: 44px; height: 24px; }
-            .slider:before { height: 16px; width: 16px; bottom: 3px; left: 3px; }
-            input:checked + .slider:before { transform: translateX(20px); }
+            .site-toggle-container { gap: 12px; margin-bottom: 20px; }
+            .toggle-label { font-size: 1.1rem; }
+            .ios-switch { width: 60px; height: 34px; }
+            .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; }
+            input:checked + .slider:before { transform: translateX(26px); }
         }
     </style>
 </head>
@@ -264,15 +258,6 @@
     </div>
     <div class="menu-overlay" onclick="toggleMenu()"></div>
 
-    <div class="site-toggle-container is-business interactive">
-        <span class="toggle-label label-creators">Creators</span>
-        <label class="ios-switch">
-            <input type="checkbox" id="businessToggle" checked>
-            <span class="slider round"></span>
-        </label>
-        <span class="toggle-label label-business">Business</span>
-    </div>
-
     <div class="modal-overlay" id="galleryModal">
         <div class="modal-header">
             <h2 class="modal-title" id="modalTitle">GALLERY</h2>
@@ -290,7 +275,17 @@
                 <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
             </div>
             <div class="hero-overlay"></div>
-            <div class="hero-content"><p class="hero-sub">UNERREICHTE QUALITÄT</p></div>
+            <div class="hero-content">
+                <div class="site-toggle-container is-business interactive">
+                    <span class="toggle-label label-creators">Creators</span>
+                    <label class="ios-switch">
+                        <input type="checkbox" id="businessToggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label label-business">Business</span>
+                </div>
+                <p class="hero-sub">UNERREICHTE QUALITÄT</p>
+            </div>
         </header>
 
         <div class="gradual-blur-bottom"></div>
@@ -503,37 +498,37 @@
             
             activate(bgAct1);
 
-            // SICHERHEITSABFRAGE: Slider Code wird nur ausgeführt, wenn er da ist (auf der Index-Seite)
             const slider = document.getElementById('draggable-slider');
-            if (slider) {
-                let isDown = false;
-                let startX;
-                let currentX = 0;
-                let speed = 1.5; 
-                let halfWidth = 0;
+            let isDown = false;
+            let startX;
+            let currentX = 0;
+            let speed = 1.5; 
+            let halfWidth = 0;
 
-                function calculateWidth() {
-                    halfWidth = slider.scrollWidth / 2;
+            function calculateWidth() {
+                if(slider) halfWidth = slider.scrollWidth / 2;
+            }
+            
+            setTimeout(calculateWidth, 100);
+            window.addEventListener('resize', calculateWidth);
+
+            function animate() {
+                if(!slider) return;
+                if (!isDown) {
+                    currentX -= speed; 
                 }
-                
-                setTimeout(calculateWidth, 100);
-                window.addEventListener('resize', calculateWidth);
-
-                function animate() {
-                    if (!isDown) {
-                        currentX -= speed; 
+                if (halfWidth > 0) {
+                    if (currentX <= -halfWidth) {
+                        currentX += halfWidth; 
+                    } else if (currentX > 0) {
+                        currentX -= halfWidth; 
                     }
-                    if (halfWidth > 0) {
-                        if (currentX <= -halfWidth) {
-                            currentX += halfWidth; 
-                        } else if (currentX > 0) {
-                            currentX -= halfWidth; 
-                        }
-                    }
-                    slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
-                    requestAnimationFrame(animate);
                 }
+                slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
+                requestAnimationFrame(animate);
+            }
 
+            if(slider) {
                 slider.addEventListener('mousedown', (e) => {
                     isDown = true;
                     startX = e.pageX - currentX;
