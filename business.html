@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="WESTROOMZ - Audio, Video & Event Production Agency.">
+    <meta name="description" content="WESTROOMZ - Event Production & Marketing Agency.">
     <title>WESTROOMZ | Business. Events. Marketing.</title>
     
     <link rel="icon" type="image/jpeg" href="logo.jpg">
@@ -74,9 +74,8 @@
         /* --- REFERENZEN BEREICH - OPTIMIERTER LOOK --- */
         .ref-section {
             border-radius: 40px !important;
-            margin: 0 !important;
+            margin: 0 !important; 
             position: relative !important;
-            /* Tieferes Schwarz mit sanftem roten Schimmer am Rand */
             background: radial-gradient(circle at center, #0a0a0a 0%, #050505 100%) !important;
             border: 1px solid rgba(153, 0, 0, 0.15) !important;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8) !important;
@@ -91,7 +90,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 40%;
+            width: 40%; 
             height: 80%;
             background-image: url('logo.jpg') !important; 
             background-repeat: no-repeat;
@@ -131,6 +130,99 @@
             user-select: none !important;
             -webkit-user-drag: none !important;
         }
+
+        /* ========================================================= */
+        /* --- TOGGLE SWITCH DIREKT IM HTML (SICHERHEITS-FIX) --- */
+        /* ========================================================= */
+        .site-toggle-container {
+            position: fixed;
+            top: 80px; /* Genau unter den 3 Streifen */
+            left: 30px; /* Gleiche Linie wie die 3 Streifen */
+            z-index: 99999; /* Ganz vorne */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Oswald', sans-serif;
+            color: #fff;
+            pointer-events: auto;
+        }
+
+        .toggle-label {
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #aaaaaa;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .site-toggle-container.is-creators .label-creators,
+        .site-toggle-container.is-business .label-business {
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .ios-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .ios-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .4s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #990000;
+            border-color: #ff0000;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .site-toggle-container {
+                top: 70px; /* Handy-Anpassung unter dem Menü */
+                left: 20px;
+                gap: 8px;
+            }
+            .toggle-label { font-size: 0.8rem; }
+            .ios-switch { width: 44px; height: 24px; }
+            .slider:before { height: 16px; width: 16px; bottom: 3px; left: 3px; }
+            input:checked + .slider:before { transform: translateX(20px); }
+        }
     </style>
 </head>
 <body>
@@ -148,14 +240,6 @@
 
     <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-    </div>
-
-    <div class="site-toggle-container is-business interactive">
-        <span class="toggle-label label-creators">Creators</span>
-        <label class="ios-switch">
-            <input type="checkbox" id="businessToggle" checked> <span class="slider round"></span>
-        </label>
-        <span class="toggle-label label-business">Business</span>
     </div>
 
     <div class="side-menu">
@@ -179,6 +263,15 @@
         </div>
     </div>
     <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <div class="site-toggle-container is-business interactive">
+        <span class="toggle-label label-creators">Creators</span>
+        <label class="ios-switch">
+            <input type="checkbox" id="businessToggle" checked>
+            <span class="slider round"></span>
+        </label>
+        <span class="toggle-label label-business">Business</span>
+    </div>
 
     <div class="modal-overlay" id="galleryModal">
         <div class="modal-header">
@@ -240,7 +333,7 @@
                 <button class="tab-btn active interactive" onclick="openTab('event')">EVENTS</button>
                 <button class="tab-btn interactive" onclick="openTab('marketing')">MARKETING</button>
             </div>
-            
+
              <div id="event" class="service-container active">
                 <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
                     <p style="margin-bottom: 30px; opacity: 1; transform: none;">
@@ -280,6 +373,24 @@
 
                     <div class="marquee-wrapper">
                         <div class="marquee-track">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
                             <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
                             <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
                             <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
@@ -347,5 +458,124 @@
     </main>
     
     <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const businessToggle = document.getElementById('businessToggle');
+            if (businessToggle) {
+                businessToggle.addEventListener('change', function() {
+                    const targetUrl = this.checked ? 'business.html' : 'index.html';
+                    const curtain = document.querySelector('.page-transition-curtain');
+                    
+                    if (curtain && typeof gsap !== 'undefined') {
+                        gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
+                            scaleY: 1, duration: 0.6, ease: "power4.inOut", 
+                            onComplete: () => { window.location.href = targetUrl; } 
+                        });
+                    } else {
+                        window.location.href = targetUrl;
+                    }
+                });
+            }
+
+            // Originaler Code ab hier...
+            gsap.registerPlugin(ScrollTrigger);
+
+            const bgAct1 = document.getElementById('bg-act1'); 
+            const bgAct2 = document.getElementById('bg-act2'); 
+            
+            const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
+
+            function activate(bgToShow) {
+                bgAct1.classList.remove('active');
+                bgAct2.classList.remove('active');
+                bgToShow.classList.add('active');
+            }
+
+            ScrollTrigger.create({
+                trigger: "#vision", 
+                start: "top center",
+                onEnterBack: () => activate(bgAct1), 
+            });
+
+            ScrollTrigger.create({
+                trigger: "#services",
+                start: "top center", 
+                onEnter: () => activate(bgAct2), 
+            });
+            
+            if(blurOverlay) {
+                ScrollTrigger.create({
+                    trigger: "#vision",
+                    start: "top 95%", 
+                    onEnter: () => blurOverlay.style.opacity = '1',
+                    onLeaveBack: () => blurOverlay.style.opacity = '0' 
+                });
+                
+                ScrollTrigger.create({
+                    trigger: "footer",
+                    start: "top 100%", 
+                    onEnter: () => blurOverlay.style.opacity = '0',
+                    onLeaveBack: () => blurOverlay.style.opacity = '1'
+                });
+            }
+            
+            activate(bgAct1);
+
+            const slider = document.getElementById('draggable-slider');
+            let isDown = false;
+            let startX;
+            let currentX = 0;
+            let speed = 1.5; 
+            let halfWidth = 0;
+
+            function calculateWidth() {
+                halfWidth = slider.scrollWidth / 2;
+            }
+            
+            setTimeout(calculateWidth, 100);
+            window.addEventListener('resize', calculateWidth);
+
+            function animate() {
+                if (!isDown) {
+                    currentX -= speed; 
+                }
+                if (halfWidth > 0) {
+                    if (currentX <= -halfWidth) {
+                        currentX += halfWidth; 
+                    } else if (currentX > 0) {
+                        currentX -= halfWidth; 
+                    }
+                }
+                slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
+                requestAnimationFrame(animate);
+            }
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - currentX;
+            });
+
+            slider.addEventListener('mouseleave', () => { isDown = false; });
+            window.addEventListener('mouseup', () => { isDown = false; });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                currentX = e.pageX - startX;
+            });
+
+            slider.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - currentX;
+            }, { passive: true });
+            window.addEventListener('touchend', () => { isDown = false; });
+            slider.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                currentX = e.touches[0].pageX - startX;
+            }, { passive: true });
+
+            requestAnimationFrame(animate);
+        });
+    </script>
 </body>
 </html>
