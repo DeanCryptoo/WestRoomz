@@ -74,7 +74,7 @@
         /* --- REFERENZEN BEREICH - OPTIMIERTER LOOK --- */
         .ref-section {
             border-radius: 40px !important;
-            margin: 0 !important;
+            margin: 0 !important; /* GEÄNDERT: Margin sitzt jetzt perfekt auf dem Laser-Wrapper */
             position: relative !important;
             /* Tieferes Schwarz mit sanftem roten Schimmer am Rand */
             background: radial-gradient(circle at center, #0a0a0a 0%, #050505 100%) !important;
@@ -88,6 +88,415 @@
         .ref-section::before {
             content: "";
             position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40%; /* Kleiner für mehr Eleganz */
+            height: 80%;
+            background-image: url('logo.jpg') !important; 
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            /* Noch dezenterer Blend-Mode für edle Optik */
+            opacity: 0.05; 
+            mix-blend-mode: lighten; 
+            filter: grayscale(100%) contrast(120%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .ref-section > div, .marquee-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-section {
+            background: transparent !important;
+            border-top: none !important;
+            border-bottom: none !important;
+        }
+
+        /* --- DRAGGABLE SLIDER FIX --- */
+        .gallery-container {
+            animation: none !important;
+            cursor: grab !important;
+            will-change: transform;
+        }
+        
+        .gallery-container:active {
+            cursor: grabbing !important;
+        }
+
+        .gallery-item img {
+            pointer-events: none !important; 
+            user-select: none !important;
+            -webkit-user-drag: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cinematic-bg-wrapper">
+        <div class="bg-layer active" id="bg-act1" style="background-image: url('wr1.jpg');"></div>
+        <div class="bg-layer" id="bg-act2" style="background-image: url('wr5.jpg');"></div>
+    </div>
+
+    <div class="page-transition-curtain"></div>
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
+    <div class="red-thread"></div>
+    <div class="cinematic-vignette"></div>
+
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <div class="site-toggle-container is-creators interactive">
+        <span class="toggle-label label-creators">Creators</span>
+        <label class="ios-switch">
+            <input type="checkbox" id="businessToggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="toggle-label label-business">Business</span>
+    </div>
+
+    <div class="side-menu">
+        <div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="menu-links">
+                <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
+                <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="impressum.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+                <a href="upcoming.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
+                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
+                <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+             <a href="impressum.html" class="interactive">IMPRESSUM</a>
+             <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+             <a href="agb.html" class="interactive">AGB</a>
+             <span>© 2026 WESTROOMZ</span>
+        </div>
+    </div>
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">GALLERY</h2>
+            <div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div>
+        </div>
+        <div class="modal-content-wrapper">
+            <div class="modal-grid" id="modalGrid"></div>
+        </div>
+    </div>
+
+    <main class="page-wrapper">
+        <header id="hero" class="hero">
+            <div class="video-container">
+                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content"><p class="hero-sub">UNERREICHTE QUALITÄT</p></div>
+        </header>
+
+        <div class="gradual-blur-bottom"></div>
+        <section id="vision" class="vision-section">
+            <div>
+                <h2 class="big-lead">VISION. MADE. REAL.</h2>
+                <div class="divider-line"></div>
+                <div class="vision-text">
+                    <p>WESTROOMZ ist eine kreative Produktionsagentur für Audio, Video und Events. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
+                    <p>Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery-section">
+            <div class="gallery-container interactive" id="draggable-slider">
+                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 class="section-title">WAS WIR TUN</h2>
+            </div>
+            
+            <div class="tabs-nav">
+                <button class="tab-btn active interactive" onclick="openTab('audio')">AUDIO</button>
+                <button class="tab-btn interactive" onclick="openTab('video')">VIDEO</button>
+                <button class="tab-btn interactive" onclick="openTab('event')">EVENTS</button>
+                <button class="tab-btn interactive" onclick="openTab('marketing')">MARKETING</button>
+            </div>
+            
+            <div id="audio" class="service-container active">
+                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
+                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
+                        Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.
+                        Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes
+                        Gefühl für Klang, Raum und Dynamik.
+                    </p>
+                    <a href="service-detail.html?id=audio_music" class="book-btn interactive">DETAILS</a>
+                </div>
+            </div>
+
+            <div id="video" class="service-container">
+                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
+                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
+                        Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.
+                        Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur
+                        jeweiligen Marke, Musik oder Idee passt.
+                        WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung.
+                    </p>
+                    <a href="service-detail.html?id=video_music" class="book-btn interactive">DETAILS</a>
+                </div>
+             </div>
+
+             <div id="event" class="service-container">
+                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
+                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
+                        Events erfordern mehr als Technik.
+                        Wir liefern Struktur, Know-how und eine saubere Umsetzung – von der Planung bis zum laufenden
+                        Betrieb vor Ort.
+                        WESTROOMZ begleitet Veranstaltungen modular oder ganzheitlich und übernimmt Verantwortung.
+                    </p>
+                    <a href="service-detail.html?id=event_planning" class="book-btn interactive">DETAILS</a>
+                </div>
+             </div>
+
+             <div id="marketing" class="service-container">
+                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
+                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
+                        Reichweite braucht Strategie. Wir analysieren Zielgruppen, definieren Botschaften und platzieren deine Marke dort, wo sie gesehen wird. 
+                        WESTROOMZ verbindet kreativen Content mit performance-orientiertem Marketing für maximale Sichtbarkeit.
+                    </p>
+                    <a href="service-detail.html?id=marketing_general" class="book-btn interactive">DETAILS</a>
+                </div>
+            </div>
+
+        </section>
+
+        <div id="references" class="laser-border-wrapper">
+            <div class="laser-border-inner">
+                <section class="ref-section">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h2 class="section-title">REFERENZEN</h2>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
+                        <div class="vision-text" style="opacity: 1; transform: none;">
+                            <p style="opacity: 1; transform: none;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
+                        </div>
+                    </div>
+
+                    <div class="marquee-wrapper">
+                        <div class="marquee-track">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <section id="contact" class="contact-section">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2 class="section-title">KONTAKT</h2>
+                    <p style="color: #888;">Du planst eine Produktion oder suchst einen technischen Partner?</p>
+                    <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
+                        <p>INFO@WESTROOMZ.DE</p>
+                        <p>TEL. 01577 877 8502</p>
+                        <p>AM ALTEN SPORTPLATZ 37, 48477 HÖRSTEL</p>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <label>ABTEILUNG</label>
+                    <select id="department" class="interactive">
+                        <option value="General">Allgemeine Anfrage</option>
+                        <option value="Audio">Audio</option>
+                        <option value="Video">Video</option>
+                        <option value="Event">Eventplanung</option>
+                        <option value="Marketing">Marketing</option>
+                    </select>
+                    <label>NAME</label>
+                    <input type="text" id="name" class="interactive" required>
+                    <label>PROJEKT</label>
+                    <input type="text" id="subject" class="interactive" placeholder="Projekt...">
+                    <label>NACHRICHT</label>
+                    <textarea id="message" class="interactive" rows="5"></textarea>
+                    <button type="submit" class="submit-btn interactive">ABSENDEN</button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-socials">
+                <a href="#" class="social-icon interactive">INSTAGRAM</a>
+                <a href="#" class="social-icon interactive">LINKEDIN</a>
+            </div>
+            <div class="footer-nav">
+                <a href="impressum.html" class="interactive">IMPRESSUM</a>
+                <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+                <a href="agb.html" class="interactive">AGB</a>
+            </div>
+            <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
+        </footer>
+    </main>
+    
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const bgAct1 = document.getElementById('bg-act1'); 
+            const bgAct2 = document.getElementById('bg-act2'); 
+            
+            const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
+
+            function activate(bgToShow) {
+                bgAct1.classList.remove('active');
+                bgAct2.classList.remove('active');
+                bgToShow.classList.add('active');
+            }
+
+            ScrollTrigger.create({
+                trigger: "#vision", 
+                start: "top center",
+                onEnterBack: () => activate(bgAct1), 
+            });
+
+            ScrollTrigger.create({
+                trigger: "#services",
+                start: "top center", 
+                onEnter: () => activate(bgAct2), 
+            });
+            
+            if(blurOverlay) {
+                ScrollTrigger.create({
+                    trigger: "#vision",
+                    start: "top 95%", 
+                    onEnter: () => blurOverlay.style.opacity = '1',
+                    onLeaveBack: () => blurOverlay.style.opacity = '0' 
+                });
+                
+                ScrollTrigger.create({
+                    trigger: "footer",
+                    start: "top 100%", 
+                    onEnter: () => blurOverlay.style.opacity = '0',
+                    onLeaveBack: () => blurOverlay.style.opacity = '1'
+                });
+            }
+            
+            activate(bgAct1);
+
+            const slider = document.getElementById('draggable-slider');
+            let isDown = false;
+            let startX;
+            let currentX = 0;
+            let speed = 1.5; 
+            let halfWidth = 0;
+
+            function calculateWidth() {
+                halfWidth = slider.scrollWidth / 2;
+            }
+            
+            setTimeout(calculateWidth, 100);
+            window.addEventListener('resize', calculateWidth);
+
+            function animate() {
+                if (!isDown) {
+                    currentX -= speed; 
+                }
+                if (halfWidth > 0) {
+                    if (currentX <= -halfWidth) {
+                        currentX += halfWidth; 
+                    } else if (currentX > 0) {
+                        currentX -= halfWidth; 
+                    }
+                }
+                slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
+                requestAnimationFrame(animate);
+            }
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - currentX;
+            });
+
+            slider.addEventListener('mouseleave', () => { isDown = false; });
+            window.addEventListener('mouseup', () => { isDown = false; });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                currentX = e.pageX - startX;
+            });
+
+            slider.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - currentX;
+            }, { passive: true });
+            window.addEventListener('touchend', () => { isDown = false; });
+            slider.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                currentX = e.touches[0].pageX - startX;
+            }, { passive: true });
+
+            requestAnimationFrame(animate);
+        });
+    </script>
+</body>
+</html>            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
