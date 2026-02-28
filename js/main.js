@@ -31,6 +31,24 @@ document.addEventListener('DOMContentLoaded', () => {
         clickSound.play().catch(() => {});
     }
 
+    // --- NEU: TOGGLE SWITCH LOGIC (CREATORS / BUSINESS) ---
+    const businessToggle = document.getElementById('businessToggle');
+    if (businessToggle) {
+        businessToggle.addEventListener('change', function() {
+            const targetUrl = this.checked ? 'business.html' : 'index.html';
+            const curtain = document.querySelector('.page-transition-curtain');
+            
+            if (curtain && typeof gsap !== 'undefined') {
+                gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
+                    scaleY: 1, duration: 0.6, ease: "power4.inOut", 
+                    onComplete: () => { window.location.href = targetUrl; } 
+                });
+            } else {
+                window.location.href = targetUrl;
+            }
+        });
+    }
+
     // --- 2. DATABASE: SERVICE CONTENT ---
     const serviceData = {
         "audio_music": {
@@ -279,10 +297,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- REST OF ORIGINAL JS ---
+    // --- REST OF ORIGINAL JS (Mit Performance- und Video-Updates) ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
-        gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut", delay: 0.2 });
+        // Delay entfernt für sofortigen Start
+        gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut" });
     }
 
     if (window.matchMedia("(min-width: 769px)").matches) {
@@ -309,14 +328,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- OPTIMIERTE SCROLL PERFORMANCE FÜR MACBOOK ---
     if(typeof Lenis !== 'undefined') {
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: false });
-        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-        requestAnimationFrame(raf);
+        
         if(typeof ScrollTrigger !== 'undefined') {
             lenis.on('scroll', ScrollTrigger.update);
             gsap.ticker.add((time) => { lenis.raf(time * 1000); });
             gsap.ticker.lagSmoothing(0);
+        } else {
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
         }
         window.lenis = lenis;
     }
@@ -335,15 +357,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const videos = document.querySelectorAll('video');
     const heroText = document.querySelector(".hero-sub");
-    if(videos.length > 0 && heroText) {
-        gsap.set(heroText, { opacity: 0, y: 20 });
+    if(videos.length > 0) {
+        if(heroText) gsap.set(heroText, { opacity: 0, y: 20 });
+        
         videos.forEach(video => {
-            video.muted = true; video.play().catch(() => {});
+            // Zwingt Safari zum sofortigen Autoplay
+            video.defaultMuted = true;
+            video.muted = true; 
+            video.play().catch(() => {});
+            
             video.addEventListener('timeupdate', () => {
-                if (video.currentTime >= 4.5 && gsap.getProperty(heroText, "opacity") === 0) {
-                    gsap.to(heroText, { opacity: 1, y: 0, duration: 0.5 });
-                } else if (video.currentTime < 0.5) {
-                    gsap.set(heroText, { opacity: 0, y: 20 });
+                if(heroText) {
+                    if (video.currentTime >= 4.5 && gsap.getProperty(heroText, "opacity") === 0) {
+                        gsap.to(heroText, { opacity: 1, y: 0, duration: 0.5 });
+                    } else if (video.currentTime < 0.5) {
+                        gsap.set(heroText, { opacity: 0, y: 20 });
+                    }
                 }
             });
         });
