@@ -15,32 +15,12 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* Macht alle Buttons rund */
-        button, .tab-btn, .submit-btn, .book-btn, .menu-link {
-            border-radius: 30px !important;
-        }
-
-        /* Macht Eingabefelder und Dropdowns rund */
-        input, select, textarea {
-            border-radius: 12px !important;
-        }
-
-        /* Macht Bilder in der Galerie rund */
-        .gallery-item img {
-            border-radius: 12px !important;
-        }
-
-        /* Macht das Kontakt-Formular und Service-Boxen rund */
-        .contact-form, .service-container, .modal-content-wrapper {
-            border-radius: 20px !important;
-        }
-
-        /* Menü-Icon abrunden */
-        .menu-toggle-btn {
-            border-radius: 8px !important;
-        }
+        button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
+        input, select, textarea { border-radius: 12px !important; }
+        .gallery-item img { border-radius: 12px !important; }
+        .contact-form, .service-container, .modal-content-wrapper { border-radius: 20px !important; }
+        .menu-toggle-btn { border-radius: 8px !important; }
         
-        /* --- ANPASSUNG REFERENZ LOGOS --- */
         .ref-logo-img {
             height: 100px !important;  
             width: auto !important;
@@ -56,7 +36,6 @@
             align-items: center; 
             width: max-content !important; 
             gap: 0 !important; 
-            /* Wichtig für den nahtlosen Loop */
             animation: marquee-scroll 40s linear infinite !important;
         }
 
@@ -71,7 +50,6 @@
             display: flex !important;
         }
 
-        /* --- REFERENZEN BEREICH - OPTIMIERTER LOOK --- */
         .ref-section {
             border-radius: 40px !important;
             margin: 0 !important; 
@@ -83,7 +61,6 @@
             padding: 100px 0 !important;
         }
 
-        /* DAS WASSERZEICHEN - VERBESSERT */
         .ref-section::before {
             content: "";
             position: absolute;
@@ -103,50 +80,31 @@
             pointer-events: none;
         }
 
-        .ref-section > div, .marquee-wrapper {
-            position: relative;
-            z-index: 2;
-        }
+        .ref-section > div, .marquee-wrapper { position: relative; z-index: 2; }
+        .gallery-section { background: transparent !important; border-top: none !important; border-bottom: none !important; }
 
-        .gallery-section {
-            background: transparent !important;
-            border-top: none !important;
-            border-bottom: none !important;
-        }
-
-        /* --- DRAGGABLE SLIDER FIX --- */
         .gallery-container {
             animation: none !important;
             cursor: grab !important;
             will-change: transform;
         }
         
-        .gallery-container:active {
-            cursor: grabbing !important;
-        }
+        .gallery-container:active { cursor: grabbing !important; }
+        .gallery-item img { pointer-events: none !important; user-select: none !important; -webkit-user-drag: none !important; }
 
-        .gallery-item img {
-            pointer-events: none !important; 
-            user-select: none !important;
-            -webkit-user-drag: none !important;
-        }
-
-        /* ========================================================= */
-        /* --- TOGGLE SWITCH ZENTRIERT IM VIDEO --- */
-        /* ========================================================= */
         .site-toggle-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px; /* Mehr Abstand */
+            gap: 20px;
             font-family: 'Oswald', sans-serif;
             color: #fff;
             pointer-events: auto;
-            margin-bottom: 30px; /* Abstand zum Text darunter */
+            margin-bottom: 30px;
         }
 
         .toggle-label {
-            font-size: 1.5rem; /* Schrift deutlich größer */
+            font-size: 1.5rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: #aaaaaa;
@@ -159,56 +117,14 @@
             text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
         }
 
-        .ios-switch {
-            position: relative;
-            display: inline-block;
-            width: 80px; /* Schalter breiter */
-            height: 44px; /* Schalter höher */
-            cursor: pointer;
-        }
-
-        .ios-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: .4s;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 32px; /* Runder Knopf größer */
-            width: 32px; 
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-        }
-
-        input:checked + .slider {
-            background-color: #990000;
-            border-color: #ff0000;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(36px); /* Angepasster Laufweg für großen Schalter */
-        }
-
-        .slider.round {
-            border-radius: 50px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
+        .ios-switch { position: relative; display: inline-block; width: 80px; height: 44px; cursor: pointer; }
+        .ios-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255, 255, 255, 0.2); transition: .4s; border: 2px solid rgba(255, 255, 255, 0.3); }
+        .slider:before { position: absolute; content: ""; height: 32px; width: 32px; left: 4px; bottom: 4px; background-color: white; transition: .4s; }
+        input:checked + .slider { background-color: #990000; border-color: #ff0000; }
+        input:checked + .slider:before { transform: translateX(36px); }
+        .slider.round { border-radius: 50px; }
+        .slider.round:before { border-radius: 50%; }
 
         @media (max-width: 768px) {
             .site-toggle-container { gap: 12px; margin-bottom: 20px; }
@@ -222,8 +138,7 @@
 <body>
 
     <div class="cinematic-bg-wrapper">
-        <div class="bg-layer active" id="bg-act1" style="background-image: url('wr1.jpg');"></div>
-        <div class="bg-layer" id="bg-act2" style="background-image: url('wr5.jpg');"></div>
+        <div class="bg-layer active" style="background-image: url('wr5.jpg'); opacity: 1;"></div>
     </div>
 
     <div class="page-transition-curtain"></div>
@@ -271,8 +186,8 @@
     <main class="page-wrapper">
         <header id="hero" class="hero">
             <div class="video-container">
-                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
-                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto" poster="wr1.jpg"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto" poster="wr1.jpg"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -500,32 +415,9 @@
                 });
             }
 
-            // Originaler Code ab hier...
             gsap.registerPlugin(ScrollTrigger);
-
-            const bgAct1 = document.getElementById('bg-act1'); 
-            const bgAct2 = document.getElementById('bg-act2'); 
             
             const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
-
-            function activate(bgToShow) {
-                bgAct1.classList.remove('active');
-                bgAct2.classList.remove('active');
-                bgToShow.classList.add('active');
-            }
-
-            ScrollTrigger.create({
-                trigger: "#vision", 
-                start: "top center",
-                onEnterBack: () => activate(bgAct1), 
-            });
-
-            ScrollTrigger.create({
-                trigger: "#services",
-                start: "top center", 
-                onEnter: () => activate(bgAct2), 
-            });
-            
             if(blurOverlay) {
                 ScrollTrigger.create({
                     trigger: "#vision",
@@ -541,8 +433,6 @@
                     onLeaveBack: () => blurOverlay.style.opacity = '1'
                 });
             }
-            
-            activate(bgAct1);
 
             const slider = document.getElementById('draggable-slider');
             let isDown = false;
