@@ -163,38 +163,22 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
 .hero {
     height: 100vh; width: 100%; position: relative;
     display: flex; align-items: center; justify-content: center;
-    background: #000;
+    overflow: hidden; background: #000;
 }
 
 .video-container { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; 
-    pointer-events: none; 
-    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
 }
 
 .hero-video { 
     width: 100%; height: 100%; object-fit: cover; opacity: 0.8; will-change: transform; 
-    pointer-events: none; 
-}
-
-/* DIE ABSOLUTE NUKLEAR-OPTION GEGEN DEN IOS PLAY BUTTON */
-.hero-video::-webkit-media-controls,
-.hero-video::-webkit-media-controls-enclosure,
-.hero-video::-webkit-media-controls-panel,
-.hero-video::-webkit-media-controls-start-playback-button,
-.hero-video::-webkit-media-controls-play-button {
-    display: none !important;
-    -webkit-appearance: none !important;
-    opacity: 0 !important;
 }
 
 .video-mobile { display: none; }
 
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 85%, #000 100%); 
-    z-index: 1; 
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(5,5,5,1)); z-index: 1; 
 }
 
 .hero-content { z-index: 100; text-align: center; padding: 0 20px; position: absolute; bottom: 50px; width: 100%; }
@@ -212,40 +196,6 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     content: ''; position: absolute; bottom: 10px; right: -20px;
     width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 10px var(--accent);
 }
-
-/* VISION SECTION & DER PERFEKTE ÜBERGANGS-FIX */
-.vision-section { 
-    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; 
-    padding: 150px 10%; 
-    position: relative; /* Wichtig für den Übergang */
-}
-
-/* DAS IST DER NEUE ÜBERGANG (KLEBT IMMER PERFEKT OBEN AN DER VISION SECTION) */
-.vision-section::before {
-    content: '';
-    position: absolute;
-    top: -2px; /* Zieht den Verlauf 2px nach oben, um absolut jede Lücke zu killen */
-    left: 0;
-    width: 100%;
-    height: 35vh; /* Zieht das Schwarz weich über den Hintergrund nach unten */
-    background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
-    
-    /* Der Blur genau auf der Kante */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    
-    /* Lässt den Blur weich ausfaden */
-    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-    
-    pointer-events: none;
-    z-index: -1; /* Legt sich unter den Text, aber über das Hintergrundbild */
-}
-
-.big-lead { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; letter-spacing: 2px; }
-.vision-text { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); max-width: 800px; }
-.vision-text p { opacity: 0; transform: translateY(30px); }
-.divider-line { width: 2px; height: 100px; background: var(--primary); margin: 30px auto; }
 
 /* GALLERY SLIDER */
 .gallery-section { padding: 0; background: #080808; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
@@ -267,6 +217,13 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     -webkit-user-drag: none; user-drag: none; pointer-events: none; will-change: transform;
 }
 .gallery-item:hover img { transform: scale(1.05); }
+
+/* VISION */
+.vision-section { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; padding: 150px 10%; }
+.big-lead { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; letter-spacing: 2px; }
+.vision-text { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); max-width: 800px; }
+.vision-text p { opacity: 0; transform: translateY(30px); }
+.divider-line { width: 2px; height: 100px; background: var(--primary); margin: 30px auto; }
 
 /* NETWORK */
 .network-section {
@@ -375,19 +332,28 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .marquee-track { display: flex; gap: 60px; animation: marquee 25s linear infinite; will-change: transform; transform: translate3d(0,0,0); }
 .marquee-track.reverse { animation-direction: reverse; }
 
+/* Styles für die alten Text-Logos (optional) */
+.ref-logo {
+    font-family: var(--font-head); font-size: 5rem; text-transform: uppercase;
+    color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.3); transition: 0.15s ease-out; cursor: default;
+    display: inline-block; padding: 0 10px; position: relative;
+}
+.ref-logo:hover { color: white; -webkit-text-stroke: 1px white; text-shadow: 0 0 20px rgba(255,255,255,0.5); transform: scale(1.02); }
+
+/* --- NEU: LOGO STYLING FÜR REFERENZEN (BILDER) --- */
 .ref-logo-img {
-    height: 60px;          
-    width: auto;          
-    margin: 0 40px;        
-    opacity: 0.6;          
-    filter: grayscale(100%); 
+    height: 60px;          /* Einheitliche Höhe */
+    width: auto;          /* Breite passt sich an */
+    margin: 0 40px;        /* Abstand zwischen Logos */
+    opacity: 0.6;          /* Etwas dezenter */
+    filter: grayscale(100%); /* Schwarz-Weiß-Look */
     transition: all 0.3s ease;
     cursor: pointer;
 }
 .ref-logo-img:hover {
-    opacity: 1;            
-    filter: grayscale(0%); 
-    transform: scale(1.1); 
+    opacity: 1;            /* Volle Sichtbarkeit bei Mauszeiger */
+    filter: grayscale(0%); /* Farbe kommt zurück */
+    transform: scale(1.1); /* Kleiner Zoom-Effekt */
 }
 
 @keyframes marquee { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
@@ -445,7 +411,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 .detail-list li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: white; font-size: 1.1rem; display: flex; justify-content: space-between; }
 .detail-list span { color: var(--accent); font-family: var(--font-head); }
 
-/* RESPONSIVE (INKL. DEM KORRIGIERTEN ÜBERGANG FÜR MOBILE) */
+/* RESPONSIVE */
 @media (max-width: 768px) {
     body { background-attachment: scroll; }
     .service-card, .tab-btn { backdrop-filter: none; background: rgba(20, 20, 20, 0.95); }
@@ -457,23 +423,22 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .hero-content { bottom: 10px; }
     .video-desktop { display: none; }
     .video-mobile { display: block; }
-    
-    /* Der Übergang passt sich der mobilen Padding-Größe an */
     .vision-section { padding: 80px 5%; }
-    
     .big-lead { font-size: 2rem; }
     .network-section { grid-template-columns: 1fr; gap: 60px; padding: 80px 5%; text-align: center; }
     .network-text { text-align: center; }
     .mini-divider { margin: 30px auto; } 
     .network-logo-container { justify-content: center; }
 
+    /* HIER DIE HANDY-ANPASSUNG: INSTAGRAM STYLE (1080x1080) */
     .gallery-item { 
         width: 85vw;             
         height: auto;            
-        aspect-ratio: 1 / 1;  
-        border-radius: 30px;  
+        aspect-ratio: 1 / 1;  /* ZWINGT ES ZU EINEM QUADRAT */
+        border-radius: 30px;  /* Runde Ecken */
     }
 
+    /* NEU: LOGO ANPASSUNG FÜR HANDY */
     .ref-logo-img { height: 40px; margin: 0 20px; }
 
     .modal-overlay { padding: 0; }
@@ -482,6 +447,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .modal-grid { grid-template-columns: 1fr; gap: 30px; }
     .modal-img { width: 100%; height: auto; min-height: 250px; aspect-ratio: 3/2; }
     .modal-title { font-size: 1.5rem; }
+    .ref-logo { font-size: 3rem; }
     .services-section, .contact-section { padding: 50px 5%; }
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     .section-title { font-size: 3rem; }
@@ -498,6 +464,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .detail-hero h1 { font-size: 2.5rem; }
     .detail-content { grid-template-columns: 1fr; gap: 50px; padding: 60px 5%; }
 
+    /* HIDE VISUAL BREAK ON MOBILE */
     .expand-gallery { display: none !important; }
 }
 
@@ -505,18 +472,24 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 /* --- KNOB SYSTEM (NUR AKTIV WENN KLASSE DA IST) --- */
 /* ========================================================= */
 
+/* Spezial-Modus: Knob (wird nur per JS aktiviert bei Audio) */
 .detail-list-wrapper.knob-active {
+    /* Feste Basis für Desktop - Verhindert Springen */
     height: 650px; 
     width: 100%;
+    
+    /* Flexbox nur hier aktivieren */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    
     padding: 30px;
     overflow: hidden;
     position: relative;
 }
 
+/* Titel im Knob-Modus zentriert und fixiert */
 .detail-list-wrapper.knob-active h3 {
     font-size: 1.5rem;
     letter-spacing: 2px;
@@ -530,15 +503,16 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     color: white;
 }
 
+/* Knob Center Container (ZENTRIERT & AUTOSCALE) */
 .knob-interface {
     position: relative;
     width: 350px;
     height: 350px;
-    flex: 1 1 auto; 
+    flex: 1 1 auto; /* Nimmt den Platz */
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto; 
+    margin: 0 auto; /* Horizontale Zentrierung */
     user-select: none;
     -webkit-user-select: none;
 }
@@ -549,7 +523,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%); /* Initiale Zentrierung */
     z-index: 10;
     cursor: grab;
     will-change: transform;
@@ -590,13 +564,14 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     font-weight: 600;
 }
 
+/* Text Area Unten (Fixed Height = Anti-Wobble) */
 .knob-display-area {
     width: 100%;
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.1);
     padding-top: 20px;
     flex: 0 0 auto; 
-    min-height: 140px; 
+    min-height: 140px; /* Hier ist der Anti-Wobble Trick */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -622,6 +597,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     margin: 0 auto;
 }
 
+/* Responsive Anpassung NUR für den Knob-Modus */
 @media (max-width: 768px) {
     .detail-list-wrapper.knob-active { 
         height: auto; 
@@ -631,7 +607,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .knob-interface { 
         width: 280px; 
         height: 280px; 
-        margin: 10px auto; 
+        margin: 10px auto; /* Zentriert auf Mobile */
     }
     .knob-control { width: 120px; height: 120px; }
     .knob-label { font-size: 0.7rem; width: 90px; }
@@ -640,8 +616,15 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .knob-display-desc { font-size: 0.9rem; }
 }
 
-/* --- UPDATE: HIGH END TEXT --- */
-.detail-desc { padding-right: 0; }
+/* --- UPDATE: HIGH END TEXT (SAFE VERSION) --- */
+
+/* 1. Basis-Styling für ALLE Geräte (Handy & PC) */
+.detail-desc {
+    /* Padding rechts nur, wenn Platz ist, sonst 0 */
+    padding-right: 0; 
+}
+
+/* Rote Headline: Style überall, aber Größe variabel */
 .detail-desc h2 {
     font-family: var(--font-head);
     text-transform: uppercase;
@@ -650,38 +633,59 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     letter-spacing: -1px;
     text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
     line-height: 1.0 !important;
+    /* Standard-Größe für Handy */
     font-size: 2.2rem !important; 
 }
 
+/* Beschreibungstext: Style überall (Rote Linie!) */
 .detail-desc p {
     font-family: 'Inter', sans-serif !important; 
     line-height: 1.6 !important;
     font-weight: 300 !important;
     color: #e0e0e0 !important;
     margin-bottom: 40px !important;
+    
+    /* HIER IST DIE ROTE LINIE (Sichtbar auf allen Geräten) */
     position: relative !important;
     padding-left: 20px !important; 
     border-left: 2px solid var(--accent) !important;
+    
+    /* Standard-Größe für Handy */
     font-size: 1rem !important;
 }
 
+/* 2. NUR FÜR DESKTOP (Große Screens ab 769px) */
+/* Hier machen wir es riesig, weil Platz da ist */
 @media (min-width: 769px) {
-    .detail-desc { padding-right: 40px; }
-    .detail-desc h2 { font-size: 3.5rem !important; line-height: 0.95 !important; }
-    .detail-desc p { font-size: 1.15rem !important; padding-left: 30px !important; }
+    .detail-desc {
+        padding-right: 40px; /* Abstand zur rechten Seite */
+    }
+    .detail-desc h2 {
+        font-size: 3.5rem !important; /* RIESIG NUR AM PC */
+        line-height: 0.95 !important;
+    }
+    .detail-desc p {
+        font-size: 1.15rem !important; /* Etwas größer am PC */
+        padding-left: 30px !important;
+    }
 }
+/* ========================================================= */
+/* --- GLASS KINETIC BOX (NUR FÜR VIDEO, EVENTS, MARKETING) --- */
+/* ========================================================= */
 
-/* --- GLASS KINETIC BOX --- */
+/* 1. Der Kasten selbst (Milchglas-Optik) */
+/* WICHTIG: :not(.knob-active) sorgt dafür, dass Audio NICHT verändert wird! */
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) {
-    background: rgba(20, 20, 20, 0.4) !important; 
-    backdrop-filter: blur(12px) !important;         
+    background: rgba(20, 20, 20, 0.4) !important; /* Dunkles Glas */
+    backdrop-filter: blur(12px) !important;         /* Der Blur-Effekt */
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important; 
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5) !important;     
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Feine Linie */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5) !important;     /* Tiefer Schatten */
     border-radius: 20px !important;
     padding: 40px !important;
 }
 
+/* Die Überschrift "LEISTUNGEN" im neuen Kasten */
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) h3 {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     padding-bottom: 15px !important;
@@ -690,34 +694,45 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     letter-spacing: 3px !important;
 }
 
+/* 2. Die Listen-Elemente (Die Animation) */
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li {
     position: relative !important;
     padding: 18px 0 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important; /* Sehr feine Linie */
     transition: border-bottom-color 0.3s ease !important;
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    overflow: visible !important; 
+    overflow: visible !important; /* Wichtig für den Neon-Balken */
 }
 
+/* NEU: Der rote Neon-Balken (erscheint links beim Hover) */
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li::before {
     content: '';
     position: absolute;
-    left: -20px; 
+    left: -20px; /* Sitzt links neben dem Text */
     top: 50%;
     transform: translateY(-50%);
     height: 60%; 
     width: 3px;
-    background: var(--accent); 
-    opacity: 0; 
-    box-shadow: 0 0 10px var(--accent); 
+    background: var(--accent); /* Rot */
+    opacity: 0; /* Unsichtbar am Anfang */
+    box-shadow: 0 0 10px var(--accent); /* Neon Glow */
     transition: opacity 0.3s ease, left 0.3s ease;
 }
 
-.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover::before { opacity: 1; left: 0; }
-.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover { border-bottom-color: rgba(255, 0, 0, 0.4) !important; }
+/* Hover-Status für den Balken */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover::before {
+    opacity: 1;
+    left: 0; /* Rutscht leicht rein */
+}
 
+/* Hover-Status für die Linie unten */
+.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover {
+    border-bottom-color: rgba(255, 0, 0, 0.4) !important;
+}
+
+/* 3. Der Text (Schiebt sich nach rechts) */
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li {
     font-family: 'Inter', sans-serif !important;
     font-size: 1.1rem !important;
@@ -725,32 +740,37 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
+/* Wenn man mit der Maus drüber fährt */
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover {
-    padding-left: 20px !important; 
+    padding-left: 20px !important; /* Der Slide-Effekt nach rechts */
     color: white !important;
-    font-weight: 700 !important; 
+    font-weight: 700 !important; /* Fett */
     text-shadow: 0 0 10px rgba(255,255,255,0.3);
 }
 
+/* 4. Die Zahlen (01, 02...) */
+/* Wir nehmen an, dass die Zahlen in einem <span> oder am Ende stehen */
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li span {
     font-family: 'Oswald', sans-serif !important;
-    color: var(--primary) !important; 
+    color: var(--primary) !important; /* Dunkelrot am Anfang */
     transition: color 0.3s ease, opacity 0.3s ease !important;
 }
 
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover span {
-    color: white !important; 
-    opacity: 0.3 !important; 
-    transform: none !important; 
+    color: white !important; /* Wird weiß */
+    opacity: 0.3 !important; /* Wird dunkler, damit Fokus auf Text liegt */
+    transform: none !important; /* Verhindert das Wegrollen vom alten Effekt, falls gewünscht */
 }
 
-/* --- PREMIUM LASER BORDER --- */
+/* ========================================================= */
+/* --- PREMIUM LASER BORDER FÜR REFERENZEN --- */
+/* ========================================================= */
 .laser-border-wrapper {
     position: relative;
     border-radius: 42px !important;
-    padding: 2px !important; 
+    padding: 2px !important; /* Dicke des Laser-Strahls */
     overflow: hidden;
-    margin: 0 2% !important; 
+    margin: 0 2% !important; /* Nimmt den Abstand auf, den die ref-section vorher hatte */
     background: transparent;
 }
 
@@ -780,4 +800,33 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 @keyframes rotate-laser {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ========================================================= */
+/* --- BUG-FREE GRADUAL BLUR (APPLE / IOS STYLE) --- */
+/* ========================================================= */
+.gradual-blur-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Schöne Höhe für einen weichen Ausklang */
+    height: 35vh; 
+    min-height: 250px;
+    z-index: 120;
+    pointer-events: none;
+    
+    /* 1. Nur EIN einziger, starker Blur-Effekt (verhindert Safari-Treppen) */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    
+    /* 2. Eine extrem weiche Maske, die die Unschärfe nach oben ausfadet */
+    mask-image: linear-gradient(to top, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+    
+    /* 3. Ein perfekt abgestimmter, stufenloser Farbverlauf ins Schwarze */
+    background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.7) 40%, rgba(5,5,5,0.2) 70%, rgba(5,5,5,0) 100%);
+    
+    opacity: 0; 
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
