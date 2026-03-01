@@ -163,14 +163,11 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
 .hero {
     height: 100vh; width: 100%; position: relative;
     display: flex; align-items: center; justify-content: center;
-    background: #000;
+    overflow: hidden; background: #000;
 }
 
 .video-container { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; 
-    pointer-events: none; 
-    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
 }
 
 .hero-video { 
@@ -191,10 +188,21 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
 
 .video-mobile { display: none; }
 
+/* --- NEU: STROMSPARMODUS FALLBACK --- */
+.mobile-poster-fallback {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('grillzreal.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1; 
+}
+/* ------------------------------------- */
+
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 85%, #000 100%); 
-    z-index: 1; 
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(5,5,5,1)); z-index: 1; 
 }
 
 .hero-content { z-index: 100; text-align: center; padding: 0 20px; position: absolute; bottom: 50px; width: 100%; }
@@ -212,40 +220,6 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     content: ''; position: absolute; bottom: 10px; right: -20px;
     width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 10px var(--accent);
 }
-
-/* VISION SECTION & DER PERFEKTE ÜBERGANGS-FIX */
-.vision-section { 
-    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; 
-    padding: 150px 10%; 
-    position: relative; /* Wichtig für den Übergang */
-}
-
-/* DAS IST DER NEUE ÜBERGANG (KLEBT IMMER PERFEKT OBEN AN DER VISION SECTION) */
-.vision-section::before {
-    content: '';
-    position: absolute;
-    top: -2px; /* Zieht den Verlauf 2px nach oben, um absolut jede Lücke zu killen */
-    left: 0;
-    width: 100%;
-    height: 35vh; /* Zieht das Schwarz weich über den Hintergrund nach unten */
-    background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
-    
-    /* Der Blur genau auf der Kante */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    
-    /* Lässt den Blur weich ausfaden */
-    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-    
-    pointer-events: none;
-    z-index: -1; /* Legt sich unter den Text, aber über das Hintergrundbild */
-}
-
-.big-lead { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; letter-spacing: 2px; }
-.vision-text { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); max-width: 800px; }
-.vision-text p { opacity: 0; transform: translateY(30px); }
-.divider-line { width: 2px; height: 100px; background: var(--primary); margin: 30px auto; }
 
 /* GALLERY SLIDER */
 .gallery-section { padding: 0; background: #080808; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
@@ -267,6 +241,13 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     -webkit-user-drag: none; user-drag: none; pointer-events: none; will-change: transform;
 }
 .gallery-item:hover img { transform: scale(1.05); }
+
+/* VISION */
+.vision-section { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; padding: 150px 10%; }
+.big-lead { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; letter-spacing: 2px; }
+.vision-text { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); max-width: 800px; }
+.vision-text p { opacity: 0; transform: translateY(30px); }
+.divider-line { width: 2px; height: 100px; background: var(--primary); margin: 30px auto; }
 
 /* NETWORK */
 .network-section {
@@ -445,7 +426,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 .detail-list li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: white; font-size: 1.1rem; display: flex; justify-content: space-between; }
 .detail-list span { color: var(--accent); font-family: var(--font-head); }
 
-/* RESPONSIVE (INKL. DEM KORRIGIERTEN ÜBERGANG FÜR MOBILE) */
+/* RESPONSIVE */
 @media (max-width: 768px) {
     body { background-attachment: scroll; }
     .service-card, .tab-btn { backdrop-filter: none; background: rgba(20, 20, 20, 0.95); }
@@ -458,9 +439,12 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .video-desktop { display: none; }
     .video-mobile { display: block; }
     
-    /* Der Übergang passt sich der mobilen Padding-Größe an */
-    .vision-section { padding: 80px 5%; }
+    /* --- NEU: STROMSPARMODUS FALLBACK --- */
+    .mobile-poster-fallback { display: block; }
+    .js-mobile-video { opacity: 0; transition: opacity 0.3s ease; }
+    /* ------------------------------------- */
     
+    .vision-section { padding: 80px 5%; }
     .big-lead { font-size: 2rem; }
     .network-section { grid-template-columns: 1fr; gap: 60px; padding: 80px 5%; text-align: center; }
     .network-text { text-align: center; }
@@ -780,4 +764,33 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 @keyframes rotate-laser {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ========================================================= */
+/* --- BUG-FREE GRADUAL BLUR (APPLE / IOS STYLE) --- */
+/* ========================================================= */
+.gradual-blur-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Schöne Höhe für einen weichen Ausklang */
+    height: 35vh; 
+    min-height: 250px;
+    z-index: 120;
+    pointer-events: none;
+    
+    /* 1. Nur EIN einziger, starker Blur-Effekt (verhindert Safari-Treppen) */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    
+    /* 2. Eine extrem weiche Maske, die die Unschärfe nach oben ausfadet */
+    mask-image: linear-gradient(to top, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+    
+    /* 3. Ein perfekt abgestimmter, stufenloser Farbverlauf ins Schwarze */
+    background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.7) 40%, rgba(5,5,5,0.2) 70%, rgba(5,5,5,0) 100%);
+    
+    opacity: 0; 
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
