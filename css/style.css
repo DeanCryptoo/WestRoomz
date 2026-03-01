@@ -13,6 +13,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* GLOBAL SCROLLBAR HIDE */
 ::-webkit-scrollbar { display: none; }
 * { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -158,7 +159,7 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
 }
 .menu-overlay.active { opacity: 1; pointer-events: auto; }
 
-/* HERO & VIDEO FALLBACK SYSTEM */
+/* HERO */
 .hero {
     height: 100vh; width: 100%; position: relative;
     display: flex; align-items: center; justify-content: center;
@@ -168,32 +169,17 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
 .video-container { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; 
     pointer-events: none; 
-    /* Perfekter weicher Übergang unten (spart GPU Leistung!) */
-    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-    /* FALLBACK: Das Standbild liegt direkt im Container */
-    background-image: url('../grillzreal.png'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #000;
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
 }
 
 .hero-video { 
-    width: 100%; height: 100%; object-fit: cover; 
-    will-change: transform, opacity; 
+    /* HIER GEÄNDERT: opacity ist 1 statt 0.8, damit das Desktop-Video massiv ist */
+    width: 100%; height: 100%; object-fit: cover; opacity: 1; will-change: transform; 
     pointer-events: none; 
-    /* Startet unsichtbar, damit das Hintergrundbild zeigt */
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
 }
 
-/* Wird vom JS hinzugefügt, wenn das Video ERFOLGREICH startet */
-.hero-video.is-playing {
-    opacity: 0.8;
-}
-
-/* NUKLEAR-OPTION GEGEN DEN IOS PLAY BUTTON */
+/* DIE ABSOLUTE NUKLEAR-OPTION GEGEN DEN IOS PLAY BUTTON */
 .hero-video::-webkit-media-controls,
 .hero-video::-webkit-media-controls-enclosure,
 .hero-video::-webkit-media-controls-panel,
@@ -232,23 +218,29 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .vision-section { 
     display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; 
     padding: 150px 10%; 
-    position: relative;
+    position: relative; /* Wichtig für den Übergang */
 }
 
+/* DAS IST DER NEUE ÜBERGANG (KLEBT IMMER PERFEKT OBEN AN DER VISION SECTION) */
 .vision-section::before {
     content: '';
     position: absolute;
-    top: -2px; 
+    top: -2px; /* Zieht den Verlauf 2px nach oben, um absolut jede Lücke zu killen */
     left: 0;
     width: 100%;
-    height: 35vh; 
+    height: 35vh; /* Zieht das Schwarz weich über den Hintergrund nach unten */
     background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
+    
+    /* Der Blur genau auf der Kante */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
+    
+    /* Lässt den Blur weich ausfaden */
     mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    
     pointer-events: none;
-    z-index: -1; 
+    z-index: -1; /* Legt sich unter den Text, aber über das Hintergrundbild */
 }
 
 .big-lead { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; letter-spacing: 2px; }
@@ -463,12 +455,14 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .cursor, .cursor-ring { display: none !important; }
     .hero { height: 75vh; min-height: 500px; }
     .hero-video { object-fit: cover; } 
+    /* HIER DIE ÄNDERUNG: Handy behält die Deckkraft von 0.8 */
+    .hero-video { opacity: 0.8; }
+    
     .hero-content { bottom: 10px; }
     .video-desktop { display: none; }
     .video-mobile { display: block; }
     
     .vision-section { padding: 80px 5%; }
-    
     .big-lead { font-size: 2rem; }
     .network-section { grid-template-columns: 1fr; gap: 60px; padding: 80px 5%; text-align: center; }
     .network-text { text-align: center; }
