@@ -71,6 +71,17 @@
             .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; }
             input:checked + .slider:before { transform: translateX(26px); }
         }
+
+        /* --- NEU: ZWINGT DEN DESKTOP, DAS STANDBILD ZU IGNORIEREN --- */
+        @media (min-width: 769px) {
+            .hero .video-container { 
+                background-image: none !important; 
+                background-color: transparent !important; 
+            }
+            .hero-video { 
+                opacity: 0.8 !important; /* Stellt sicher, dass das Desktop-Video normal sichtbar ist */
+            }
+        }
     </style>
 </head>
 <body>
@@ -336,7 +347,6 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // --- DER PROFI-FIX FÜR DAS IOS VIDEO PROBLEM ---
             const videos = document.querySelectorAll('.hero-video');
             videos.forEach(video => {
                 video.muted = true;
@@ -351,7 +361,6 @@
                     });
                 }
             });
-            // ------------------------------------------------
 
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
