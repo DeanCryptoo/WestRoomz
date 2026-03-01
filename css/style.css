@@ -467,7 +467,16 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .video-desktop { display: none; }
     .video-mobile { display: block; }
     
-    .vision-section { padding: 80px 5%; }
+    /* HIER DIE EINZIGE ÄNDERUNG: Fixt das Safari-Loch beim Scrollen durch leichte Überlappung */
+    .vision-section { 
+        padding: 80px 5%; 
+        margin-top: -15px; 
+    }
+    
+    .vision-section::before {
+        top: -15px; 
+    }
+    /* ---------------------------------------------------------------------------------------- */
     
     .big-lead { font-size: 2rem; }
     .network-section { grid-template-columns: 1fr; gap: 60px; padding: 80px 5%; text-align: center; }
