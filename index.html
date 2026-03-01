@@ -187,8 +187,7 @@
         <header id="hero" class="hero">
             <div class="video-container">
                 <video class="hero-video video-desktop" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
-                <video class="hero-video video-mobile js-mobile-video" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
-                <div class="mobile-poster-fallback"></div>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture poster="grillzreal.png"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -204,7 +203,6 @@
             </div>
         </header>
 
-        <div class="gradual-blur-bottom"></div>
         <section id="vision" class="vision-section">
             <div>
                 <h2 class="big-lead">VISION. MADE. REAL.</h2>
@@ -400,24 +398,27 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // --- NEU: LOGISCHER STROMSPARMODUS-FIX ---
-            if (window.innerWidth <= 768) {
-                const mobileVideo = document.querySelector('.js-mobile-video');
-                const posterFallback = document.querySelector('.mobile-poster-fallback');
+            // --- DER PROFI-FIX FÜR DAS IOS VIDEO PROBLEM ---
+            const videos = document.querySelectorAll('.hero-video');
+            videos.forEach(video => {
+                // Erzwinge die Attribute, die Apple verlangt
+                video.muted = true;
+                video.setAttribute('playsinline', 'playsinline');
                 
-                if(mobileVideo && posterFallback) {
-                    let playPromise = mobileVideo.play();
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            mobileVideo.style.opacity = "0.8"; // Original-Opacity
-                            posterFallback.style.display = "none";
-                        }).catch(error => {
-                            // Autoplay wurde blockiert! Video bleibt unsichtbar (opacity 0), Standbild bleibt stehen.
-                        });
-                    }
+                // Versuche, das Video per Code zu starten
+                let playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Alles gut, Video läuft
+                    }).catch(error => {
+                        // iOS STROMSPARMODUS HAT BLOCKIERT!
+                        // Damit nicht der Zeppelin angezeigt wird, spulen wir das Video
+                        // sofort um 0.5 Sekunden vor - dort sind die Grillz!
+                        video.currentTime = 0.5;
+                    });
                 }
-            }
-            // ------------------------------------------
+            });
+            // ------------------------------------------------
 
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
@@ -437,23 +438,6 @@
             }
 
             gsap.registerPlugin(ScrollTrigger);
-            
-            const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
-            if(blurOverlay) {
-                ScrollTrigger.create({
-                    trigger: "#vision",
-                    start: "top 95%", 
-                    onEnter: () => blurOverlay.style.opacity = '1',
-                    onLeaveBack: () => blurOverlay.style.opacity = '0' 
-                });
-                
-                ScrollTrigger.create({
-                    trigger: "footer",
-                    start: "top 100%", 
-                    onEnter: () => blurOverlay.style.opacity = '0',
-                    onLeaveBack: () => blurOverlay.style.opacity = '1'
-                });
-            }
 
             const slider = document.getElementById('draggable-slider');
             let isDown = false;
