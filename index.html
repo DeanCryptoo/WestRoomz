@@ -186,8 +186,8 @@
     <main class="page-wrapper">
         <header id="hero" class="hero">
             <div class="video-container">
-                <video class="hero-video video-desktop" autoplay muted loop playsinline disablePictureInPicture><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
-                <video class="hero-video video-mobile" autoplay muted loop playsinline disablePictureInPicture><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-desktop" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -202,8 +202,6 @@
                 <p class="hero-sub">UNERREICHTE QUALITÄT</p>
             </div>
         </header>
-
-        <div class="black-to-bg-fade"></div>
 
         <section id="vision" class="vision-section">
             <div>
@@ -399,6 +397,29 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- DER PROFI-FIX FÜR DAS IOS VIDEO PROBLEM ---
+            const videos = document.querySelectorAll('.hero-video');
+            videos.forEach(video => {
+                // Erzwinge die Attribute, die Apple verlangt
+                video.muted = true;
+                video.setAttribute('playsinline', 'playsinline');
+                
+                // Versuche, das Video per Code zu starten
+                let playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Alles gut, Video läuft
+                    }).catch(error => {
+                        // iOS STROMSPARMODUS HAT BLOCKIERT!
+                        // Damit nicht der Zeppelin angezeigt wird, spulen wir das Video
+                        // sofort um 0.5 Sekunden vor - dort sind die Grillz!
+                        video.currentTime = 0.5;
+                    });
+                }
+            });
+            // ------------------------------------------------
+
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
