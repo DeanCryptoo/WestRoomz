@@ -123,9 +123,9 @@
 
     <main class="page-wrapper">
         <header id="hero" class="hero">
-            <div class="video-container">
-                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="auto" poster="wr1.jpg"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
-                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="auto" poster="wr1.jpg"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+            <div class="video-container" style="background-image: url('grillzreal.png');">
+                <video class="hero-video video-desktop" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture poster="grillzreal.png"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture poster="grillzreal.png"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -272,6 +272,15 @@
                             <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
                             <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
                             <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
                         </div>
                     </div>
                 </section>
@@ -326,6 +335,24 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- DER PROFI-FIX FÜR DAS IOS VIDEO PROBLEM ---
+            const videos = document.querySelectorAll('.hero-video');
+            videos.forEach(video => {
+                video.muted = true;
+                video.setAttribute('playsinline', 'playsinline');
+                
+                let playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        video.classList.add('is-playing');
+                    }).catch(error => {
+                        video.style.display = 'none';
+                    });
+                }
+            });
+            // ------------------------------------------------
+
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
