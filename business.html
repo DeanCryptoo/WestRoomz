@@ -286,7 +286,6 @@
             margin-bottom: 24px;
         }
         
-        /* RESPONSIFIX: Verhindert, dass das Wort "außergewöhnlich" aus dem Bild rutscht */
         @media (max-width: 768px) {
             .cta-headline { font-size: 2.2rem; }
         }
@@ -463,7 +462,6 @@
             margin: 0 auto;
         }
         
-        /* Integrierter Kontakt-Bereich */
         .footer-contact-area {
             display: grid;
             grid-template-columns: 1fr;
@@ -483,7 +481,6 @@
             letter-spacing: -1px;
         }
         
-        /* RESPONSIFIX: Verhindert Umbruchprobleme im Footer-Überschriftstext */
         @media (max-width: 768px) {
             .footer-contact-info h2 { font-size: 2rem; }
         }
@@ -499,22 +496,20 @@
             max-width: 480px;
         }
 
-        /* PREMIUM FINISH: "Opal-Glow" Kontaktinfos */
+        /* FIX: Perfektes, strahlendes Weiß für die Kontakt-Infos passend zur Headline */
         .contact-details {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.2rem;
-            color: #ffffff !important; /* Wichtig */
-            opacity: 1; /* Volle Sichtbarkeit */
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.5); /* Glasiges, glänzendes Leuchten */
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 900;
+            color: #ffffff !important;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            letter-spacing: 1px;
+            gap: 16px;
+            letter-spacing: -0.5px;
         }
         .contact-details p { margin: 0; }
         .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; }
 
-        /* Das Glassmorphism Kontaktformular */
         .footer-form-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
             border: 1px solid rgba(255,255,255,0.08);
@@ -567,18 +562,24 @@
             background-color: rgba(0,0,0,0.6) !important;
         }
 
-        .footer-input::placeholder { color: rgba(255,255,255,0.4); } /* Etwas sichtbarer */
+        .footer-input::placeholder { color: rgba(255,255,255,0.4); } 
         select.footer-input option { background-color: #111; color: white; }
 
-        /* Links Bereich */
+        /* FIX: Grid für den unteren Link-Bereich - Rechtliches und Navigation jetzt nebeneinander */
         .footer-links-section {
             display: grid;
             grid-template-columns: 1fr;
             gap: 40px;
             padding: 60px 0;
         }
-        @media (min-width: 768px) { .footer-links-section { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } }
+        @media (min-width: 768px) { 
+            .footer-links-section { grid-template-columns: repeat(2, 1fr); } 
+            .footer-brand { grid-column: 1 / -1; } /* Auf dem Tablet volle Breite */
+        }
+        @media (min-width: 1024px) { 
+            .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } 
+            .footer-brand { grid-column: auto; } /* Auf dem Desktop korrekte Spalten */
+        }
         
         .footer-brand .brand-logo {
             display: flex;
@@ -1070,7 +1071,7 @@
                 </div>
 
                 <div class="footer-links-section">
-                    <div class="footer-brand" style="grid-column: span 2;">
+                    <div class="footer-brand">
                         <a href="#hero" class="brand-logo interactive">
                             <div class="brand-icon">W</div>
                             <span class="brand-name">WESTROOMZ</span>
