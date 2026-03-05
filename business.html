@@ -7,7 +7,7 @@
     <title>WESTROOMZ | Business. Events. Marketing.</title>
     
     <link rel="icon" type="image/jpeg" href="logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -43,8 +43,6 @@
         .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
 
         /* === NEUE ORBIT CARDS (4er Grid) === */
-        
-        /* Standard Grid Layout für Desktop */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -62,7 +60,6 @@
             .services-grid { grid-template-columns: repeat(2, 1fr); gap: 50px; }
         }
 
-        /* Die Orbit Card Wrapper */
         .orbit-card {
             position: relative;
             border-radius: 20px;
@@ -72,12 +69,9 @@
         }
 
         @media (min-width: 769px) {
-            .orbit-card:hover {
-                transform: translateY(-5px);
-            }
+            .orbit-card:hover { transform: translateY(-5px); }
         }
 
-        /* Der animierte Hintergrund (Roter Orbit-Glow für Desktop) */
         .orbit-glow-bg {
             position: absolute;
             inset: 0;
@@ -87,7 +81,6 @@
             background: transparent;
         }
 
-        /* Der weiße Content-Bereich der Karte */
         .orbit-card-content {
             position: relative;
             z-index: 10;
@@ -106,18 +99,17 @@
             font-family: 'Oswald', sans-serif;
             font-size: 1.8rem; 
             margin-bottom: 20px;
-            color: #1d1d1f;
+            color: #1d1d1f !important;
         }
 
         .orbit-card p {
             font-size: 1.05rem; 
-            color: #6e6e73;
+            color: #6e6e73 !important;
             margin-bottom: 30px;
             line-height: 1.6;
             flex-grow: 1; 
         }
 
-        /* Die Keyframes für das Rote Pulsieren (Desktop) */
         @keyframes orbit-glow {
             0% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
             50% { transform: scale(1.02); box-shadow: 0 0 40px 10px rgba(153, 0, 0, 0.6); }
@@ -132,10 +124,8 @@
                 overflow-x: auto;
                 overflow-y: visible; 
                 scroll-snap-type: x mandatory; 
-                
                 gap: 40px; 
                 padding: 40px 30px 60px 30px; 
-                
                 -webkit-overflow-scrolling: touch; 
                 scrollbar-width: none; 
             }
@@ -146,41 +136,23 @@
                 scroll-snap-align: center; 
             }
             
-            .orbit-card-content {
-                padding: 40px 25px !important; 
-            }
-            
-            .orbit-card h3 {
-                font-size: 1.6rem !important;
-                margin-bottom: 15px !important;
-            }
-            .orbit-card p {
-                font-size: 1rem !important;
-                margin-bottom: 25px !important;
-            }
+            .orbit-card-content { padding: 40px 25px !important; }
+            .orbit-card h3 { font-size: 1.6rem !important; margin-bottom: 15px !important; }
+            .orbit-card p { font-size: 1rem !important; margin-bottom: 25px !important; }
 
-            /* FIX: FLÜSSIGER, WEICHER ORBIT-GLOW FÜR MOBILE */
             .orbit-glow-bg {
-                /* Deaktiviert das statische Pulsieren vom Desktop */
                 animation: none !important;
                 box-shadow: none !important;
-                
-                /* Hält das weiche Licht innerhalb der abgerundeten Karten-Form */
                 overflow: hidden; 
                 border-radius: 20px;
                 -webkit-mask-image: -webkit-radial-gradient(white, black);
             }
 
-            /* Der weiche, rotierende Lichtkegel im Hintergrund */
             .orbit-glow-bg::before {
                 content: '';
                 position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                
-                /* Der Farbverlauf (mit sanfterem Übergang) */
+                top: -50%; left: -50%;
+                width: 200%; height: 200%;
                 background: conic-gradient(
                     from 0deg,
                     transparent 0%,
@@ -188,21 +160,264 @@
                     rgba(255, 0, 0, 0.3) 75%,
                     #ff0000 100%
                 );
-                
-                /* Der Blur für den weichen Flow */
                 filter: blur(20px); 
-                
-                /* Die Drehung (etwas langsamer für einen edleren Flow) */
                 animation: spin-flow 4s linear infinite;
             }
         }
 
-        /* Die Animations-Regel für den rotierenden Flow auf Mobile */
         @keyframes spin-flow {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
         /* === ENDE ORBIT CARDS === */
+
+        /* === PREMIUM CTA / VISION BLOCK (DARK MODE) === */
+        .premium-cta-section {
+            width: 100%;
+            padding: 100px 24px;
+            background-color: #111111; 
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0 80px 0; 
+        }
+
+        .cta-bg-glow-top {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.5), transparent);
+        }
+        .cta-glow-left {
+            position: absolute;
+            top: -30%; left: -10%;
+            width: 60%; height: 80%;
+            background-color: rgba(220, 38, 38, 0.15);
+            border-radius: 50%;
+            filter: blur(120px);
+            transform: rotate(-12deg);
+            pointer-events: none;
+        }
+        .cta-glow-right {
+            position: absolute;
+            bottom: -30%; right: -10%;
+            width: 60%; height: 80%;
+            background-color: rgba(153, 27, 27, 0.15);
+            border-radius: 50%;
+            filter: blur(120px);
+            transform: rotate(12deg);
+            pointer-events: none;
+        }
+
+        .cta-card {
+            position: relative;
+            z-index: 20;
+            max-width: 1100px;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 48px;
+            padding: 60px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .cta-card { padding: 40px 20px; border-radius: 32px; }
+            .premium-cta-section { padding: 60px 16px; margin: 20px 0 60px 0; }
+        }
+
+        .cta-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            position: relative;
+        }
+
+        @media (min-width: 1024px) {
+            .cta-content-wrapper { flex-direction: row; align-items: center; gap: 80px; }
+        }
+
+        .cta-text-content { flex: 1; text-align: center; }
+        @media (min-width: 1024px) { .cta-text-content { text-align: left; } }
+
+        .cta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background-color: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: 30px;
+            color: #ef4444;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulse-border 2s infinite;
+            margin-bottom: 30px;
+        }
+
+        .cta-badge svg { width: 14px; height: 14px; fill: currentColor; }
+
+        .cta-headline {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white !important; 
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+        @media (min-width: 768px) { .cta-headline { font-size: 3.5rem; } }
+
+        .cta-headline .highlight-red {
+            color: #dc2626 !important;
+            font-style: italic;
+        }
+
+        .cta-description {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 1.125rem !important;
+            color: #a3a3a3 !important;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+        @media (min-width: 1024px) { .cta-description { margin-left: 0; } }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        @media (min-width: 640px) { .cta-buttons { flex-direction: row; justify-content: center; } }
+        @media (min-width: 1024px) { .cta-buttons { justify-content: flex-start; } }
+
+        .cta-btn-primary {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: #dc2626 !important;
+            color: white !important;
+            font-weight: 900;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            padding: 0 40px;
+            height: 64px;
+            border-radius: 20px !important;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
+        }
+        .cta-btn-primary:hover { background-color: #b91c1c !important; transform: translateY(-2px); }
+        .cta-btn-primary svg { width: 20px; height: 20px; transition: transform 0.3s; }
+        .cta-btn-primary:hover svg { transform: translateX(5px); }
+
+        .cta-btn-secondary {
+            display: flex;
+            align-items: center;
+            height: 64px;
+            padding: 0 32px;
+            color: white !important;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            text-decoration: none;
+            border-radius: 20px !important;
+            transition: background 0.3s;
+        }
+        .cta-btn-secondary:hover { background-color: rgba(255,255,255,0.1); text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.5); }
+
+        .cta-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            color: #d4d4d4 !important;
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+        @media (min-width: 1024px) { .cta-features { justify-content: flex-start; } }
+        .cta-features span { display: flex; align-items: center; gap: 8px; }
+        .cta-features svg { width: 16px; height: 16px; }
+        .text-emerald { color: #10b981; }
+        .text-amber { color: #f59e0b; }
+        .text-blue { color: #3b82f6; }
+
+        .cta-visual-side { display: none; width: 320px; flex-shrink: 0; }
+        @media (min-width: 1024px) { .cta-visual-side { display: block; } }
+
+        .trust-badge-card {
+            background-color: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            backdrop-filter: blur(40px);
+            animation: floating 6s ease-in-out infinite;
+            color: white !important;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tb-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .tb-icon {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background-color: rgba(220, 38, 38, 0.2);
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .tb-icon svg { width: 24px; height: 24px; fill: #ef4444; color: #ef4444; }
+        .tb-title { font-size: 0.875rem; font-weight: 900; font-style: italic; margin-bottom: 4px; color: white !important;}
+        .tb-stars { display: flex; gap: 4px; }
+        .tb-stars .dot { width: 8px; height: 8px; border-radius: 50%; background-color: #dc2626; }
+
+        .tb-progress { margin-bottom: 24px; }
+        .tb-progress-bar {
+            height: 8px; width: 100%;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 10px; overflow: hidden; margin-bottom: 8px;
+        }
+        .tb-progress-fill {
+            height: 100%; background-color: #dc2626; width: 0%;
+            animation: fillBar 2s ease-out 1s forwards;
+        }
+        .tb-progress-text {
+            display: flex; justify-content: space-between;
+            font-size: 0.625rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: #9ca3af;
+        }
+
+        .tb-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .tb-footer span:first-child { font-size: 0.75rem; font-weight: 700; color: #d4d4d4 !important; }
+        .tb-badge {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #10b981; font-size: 0.75rem; font-weight: 700;
+            padding: 4px 10px; border-radius: 12px;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(-5px) rotate(-2deg); }
+            50% { transform: translateY(5px) rotate(2deg); }
+        }
+        @keyframes fillBar { to { width: 100%; } }
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(220, 38, 38, 0.2); }
+            50% { border-color: rgba(220, 38, 38, 0.6); }
+        }
+        /* === ENDE PREMIUM CTA BLOCK === */
 
         button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
         input, select, textarea { border-radius: 12px !important; }
@@ -375,13 +590,84 @@
         </header>
 
         <div class="gradual-blur-bottom"></div>
-        <section id="vision" class="vision-section">
-            <div>
-                <h2 class="big-lead">VISION. MADE. REAL.</h2>
-                <div class="divider-line"></div>
-                <div class="vision-text">
-                    <p>WESTROOMZ ist eine kreative Produktionsagentur für Events und Marketing. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
-                    <p>Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
+
+        <section id="vision" class="premium-cta-section">
+            <div class="cta-bg-glow-top"></div>
+            <div class="cta-glow-left"></div>
+            <div class="cta-glow-right"></div>
+
+            <div class="cta-card">
+                <div class="cta-content-wrapper">
+                    
+                    <div class="cta-text-content">
+                        <div class="cta-badge">
+                            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2l.5-.5m-3-3l3 3M10 14.5L19 5.5a2.12 2.12 0 0 0-3-3L7 11.5M10 14.5l-3-3m3 3l3 3m-3-3l-3-3m3 3l3 3"/></svg>
+                            DEINE VISION. UNSERE BÜHNE.
+                        </div>
+
+                        <h2 class="cta-headline">
+                            Bereit, etwas <span class="highlight-red">Außergewöhnliches</span> zu erschaffen?
+                        </h2>
+
+                        <p class="cta-description">
+                            Ob Live-Event, Corporate Stream oder kreative Content-Produktion. Erlebe die Power einer professionellen Produktionsagentur – entwickelt für maximale Wirkung, klare Struktur und unvergessliche Momente.
+                        </p>
+
+                        <div class="cta-buttons">
+                            <a href="#contact" class="cta-btn-primary interactive">
+                                Projekt anfragen 
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                            <a href="#services" class="cta-btn-secondary interactive">Unsere Leistungen</a>
+                        </div>
+
+                        <div class="cta-features">
+                            <span>
+                                <svg class="text-emerald" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Höchste Präzision
+                            </span>
+                            <span>
+                                <svg class="text-amber" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                360° Umsetzung
+                            </span>
+                            <span>
+                                <svg class="text-blue" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                State-of-the-Art Technik
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="cta-visual-side">
+                        <div class="trust-badge-card">
+                            <div class="tb-header">
+                                <div class="tb-icon">
+                                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                </div>
+                                <div class="tb-title-wrapper">
+                                    <div class="tb-title">Premium Agentur</div>
+                                    <div class="tb-stars">
+                                        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tb-progress">
+                                <div class="tb-progress-bar">
+                                    <div class="tb-progress-fill"></div>
+                                </div>
+                                <div class="tb-progress-text">
+                                    <span>Erfolgsquote</span>
+                                    <span style="color: white;">100% In-House</span>
+                                </div>
+                            </div>
+
+                            <div class="tb-footer">
+                                <span>Erfolgreiche Projekte</span>
+                                <span class="tb-badge">50+</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
