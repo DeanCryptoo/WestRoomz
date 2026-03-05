@@ -832,6 +832,32 @@
             .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; }
             input:checked + .slider:before { transform: translateX(26px); }
         }
+
+        /* === CURSOR CSS HINZUGEFÜGT === */
+        * { cursor: none !important; }
+        
+        #slice-cursor-canvas {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 99999;
+        }
+
+        #slice-cursor-dot {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100000;
+            border-radius: 50%;
+            background-color: white;
+            mix-blend-mode: difference;
+            width: 12px;
+            height: 12px;
+            transition: transform 0.3s ease;
+            transform: translate(-50%, -50%) scale(1);
+        }
     </style>
 </head>
 <body>
@@ -841,8 +867,6 @@
     </div>
 
     <div class="page-transition-curtain"></div>
-    <div class="cursor"></div>
-    <div class="cursor-ring"></div>
     <div class="red-thread"></div>
     <div class="cinematic-vignette"></div>
 
@@ -1168,6 +1192,9 @@
         </footer>
     </main>
     
+    <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
+    <div id="slice-cursor-dot" aria-hidden="true"></div>
+
     <script src="js/main.js"></script>
 
     <script>
@@ -1193,6 +1220,113 @@
                     });
                 }
             }
+        });
+
+        /* === CURSOR LOGIK HINZUGEFÜGT === */
+        document.addEventListener("DOMContentLoaded", () => {
+            const canvas = document.getElementById("slice-cursor-canvas");
+            const dot = document.getElementById("slice-cursor-dot");
+            const ctx = canvas.getContext("2d");
+
+            // Cursor Einstellungen - Farbe an Westrooms Rot angepasst
+            const color = "#dc2626"; // Du kannst das auf "#00fffc" (Cyan) ändern wenn du magst
+            const pointsNumber = 40;
+            const widthFactor = 0.3;
+            const spring = 0.4;
+            const friction = 0.5;
+            const hoverScale = 5;
+            
+            let mouseMoved = false;
+            let isHovering = false;
+            const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+            // Trail Array vorbereiten
+            const trail = new Array(pointsNumber).fill().map(() => ({
+                x: pointer.x,
+                y: pointer.y,
+                dx: 0,
+                dy: 0,
+            }));
+
+            const updateMousePosition = (eX, eY) => {
+                pointer.x = eX * window.devicePixelRatio;
+                pointer.y = eY * window.devicePixelRatio;
+            };
+
+            const handleMouseMove = (e) => {
+                mouseMoved = true;
+                updateMousePosition(e.clientX, e.clientY);
+
+                // Check ob man über einem klickbaren Element ist (Links, Buttons, etc.)
+                const target = e.target;
+                const interactive = target.closest('a, button, input, textarea, select, .interactive, [role="button"], [tabindex]:not([tabindex="-1"])');
+                isHovering = !!interactive;
+            };
+
+            const handleTouchMove = (e) => {
+                mouseMoved = true;
+                const touch = e.targetTouches[0];
+                updateMousePosition(touch.clientX, touch.clientY);
+            };
+
+            const setupCanvas = () => {
+                canvas.width = window.innerWidth * window.devicePixelRatio;
+                canvas.height = window.innerHeight * window.devicePixelRatio;
+            };
+
+            setupCanvas();
+            window.addEventListener("resize", setupCanvas);
+            window.addEventListener("mousemove", handleMouseMove);
+            window.addEventListener("touchmove", handleTouchMove, { passive: true });
+
+            const update = (t) => {
+                // Intro Animation, wenn die Maus noch nicht bewegt wurde
+                if (!mouseMoved) {
+                    pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * canvas.width;
+                    pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * canvas.height;
+                }
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                trail.forEach((p, pIdx) => {
+                    const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
+                    const currentSpring = pIdx === 0 ? .4 * spring : spring;
+                    p.dx += (prev.x - p.x) * currentSpring;
+                    p.dy += (prev.y - p.y) * currentSpring;
+                    p.dx *= friction;
+                    p.dy *= friction;
+                    p.x += p.dx;
+                    p.y += p.dy;
+                });
+
+                ctx.lineCap = "round";
+                ctx.strokeStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(trail[0].x, trail[0].y);
+
+                for (let i = 1; i < trail.length - 1; i++) {
+                    const xc = .5 * (trail[i].x + trail[i + 1].x);
+                    const yc = .5 * (trail[i].y + trail[i + 1].y);
+                    ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
+                    ctx.lineWidth = widthFactor * (pointsNumber - i) * window.devicePixelRatio;
+                    ctx.stroke();
+                }
+                if (trail.length > 0) {
+                    ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y);
+                    ctx.stroke();
+                }
+
+                // Render den weißen Punkt
+                if (dot) {
+                    dot.style.left = `${pointer.x / window.devicePixelRatio}px`;
+                    dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
+                    dot.style.transform = `translate(-50%, -50%) scale(${isHovering ? hoverScale : 1})`;
+                }
+
+                window.requestAnimationFrame(update);
+            };
+
+            window.requestAnimationFrame(update);
         });
     </script>
 </body>
