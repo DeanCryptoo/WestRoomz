@@ -188,7 +188,7 @@
             width: 100%;
             padding: 100px 24px 120px 24px;
             margin: 0 0 80px 0; 
-            background-color: #ffffff; /* Hier ist jetzt der weiße Hintergrund */
+            background-color: #ffffff; /* Weißer Hintergrund */
             border-bottom-left-radius: 60px;
             border-bottom-right-radius: 60px;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
@@ -243,13 +243,12 @@
             z-index: 20;
             max-width: 1100px;
             width: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.005));
-            border: 1px solid rgba(255,255,255,0.08);
+            /* Card bekommt einen weißen Hintergrund und weichen Schatten zur Abhebung */
+            background: #ffffff; 
+            border: 1px solid rgba(0,0,0,0.05);
             border-radius: 48px;
             padding: 60px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
             overflow: hidden;
         }
 
@@ -293,15 +292,14 @@
         .cta-headline {
             font-family: 'Inter', sans-serif !important;
             font-weight: 900;
-            color: #1d1d1f !important; /* Hier auf schwarz geändert */
+            color: #1d1d1f !important; /* HIER: Headline in Schwarz */
             line-height: 1.1;
             margin-bottom: 24px;
         }
         
-        /* FIX: Perfekt abgestimmte Größe ohne Bindestriche */
         @media (max-width: 768px) {
             .cta-headline { 
-                font-size: 1.75rem; /* Genau passend für lange deutsche Wörter */
+                font-size: 1.75rem;
                 letter-spacing: -0.5px;
             }
         }
@@ -313,14 +311,14 @@
         }
 
         .cta-headline .highlight-red {
-            color: #dc2626 !important;
+            color: #dc2626 !important; /* HIER: Außergewöhnliches bleibt Rot */
             font-style: italic;
         }
 
         .cta-description {
             font-family: 'Inter', sans-serif !important;
             font-size: 1.125rem !important;
-            color: #6e6e73 !important; /* Text auf dunkelgrau geändert für Lesbarkeit */
+            color: #6e6e73 !important; /* Dunkelgrau, damit es auf Weiß lesbar bleibt */
             line-height: 1.6;
             max-width: 600px;
             margin: 0 auto 30px auto;
@@ -364,22 +362,23 @@
             align-items: center;
             height: 64px;
             padding: 0 32px;
-            color: #1d1d1f !important; /* Auch diesen Text auf dunkel geändert */
+            background-color: #1d1d1f !important; /* HIER: Button schwarz */
+            color: #dc2626 !important; /* HIER: Text rot */
             font-weight: 700;
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
             text-decoration: none;
             border-radius: 20px !important;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
         }
-        .cta-btn-secondary:hover { background-color: rgba(0,0,0,0.05); text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.5); }
+        .cta-btn-secondary:hover { background-color: #000000 !important; transform: translateY(-2px); }
 
         .cta-features {
             display: flex;
             flex-wrap: wrap;
             gap: 24px;
             justify-content: center;
-            color: #1d1d1f !important; /* Icons-Text auf dunkelgrau/schwarz geändert */
+            color: #1d1d1f !important; /* HIER: Text der Features schwarz */
             font-size: 0.875rem;
             font-family: 'Inter', sans-serif;
             font-weight: 600;
@@ -388,6 +387,8 @@
         @media (min-width: 1024px) { .cta-features { justify-content: flex-start; } }
         .cta-features span { display: flex; align-items: center; gap: 8px; }
         .cta-features svg { width: 16px; height: 16px; }
+        
+        /* HIER: Icons behalten ihre Farbe */
         .text-emerald { color: #10b981; }
         .text-amber { color: #f59e0b; }
         .text-blue { color: #3b82f6; }
@@ -396,13 +397,11 @@
         @media (min-width: 1024px) { .cta-visual-side { display: block; } }
 
         .trust-badge-card {
-            background-color: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.1);
+            background-color: #1d1d1f; /* Dunkler Kasten für Kontrast auf dem weißen Hintergrund */
+            border: 1px solid rgba(0,0,0,0.1);
             border-radius: 24px;
             padding: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            backdrop-filter: blur(40px);
-            animation: floating 6s ease-in-out infinite;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             color: white !important;
             font-family: 'Inter', sans-serif;
         }
@@ -413,7 +412,6 @@
             border-radius: 50%;
             background-color: rgba(220, 38, 38, 0.2);
             display: flex; justify-content: center; align-items: center;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
         }
         .tb-icon svg { width: 24px; height: 24px; fill: #ef4444; color: #ef4444; }
         .tb-title { font-size: 0.875rem; font-weight: 900; font-style: italic; margin-bottom: 4px; color: white !important;}
@@ -447,10 +445,6 @@
             padding: 4px 10px; border-radius: 12px;
         }
 
-        @keyframes floating {
-            0%, 100% { transform: translateY(-5px) rotate(-2deg); }
-            50% { transform: translateY(5px) rotate(2deg); }
-        }
         @keyframes fillBar { to { width: 100%; } }
         @keyframes pulse-border {
             0%, 100% { border-color: rgba(220, 38, 38, 0.2); }
@@ -501,7 +495,6 @@
             color: #ffffff !important;
         }
         
-        /* FIX: Auch hier die perfekte Größe ohne Silbentrennung */
         @media (max-width: 768px) {
             .footer-contact-info h2 { 
                 font-size: 1.85rem; 
@@ -525,7 +518,6 @@
             max-width: 480px;
         }
 
-        /* Strahlendes Weiß für die Kontakt-Infos */
         .contact-details {
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
@@ -600,7 +592,6 @@
         .footer-input::placeholder { color: rgba(255,255,255,0.4); } 
         select.footer-input option { background-color: #111; color: white; }
 
-        /* === Footer Links Grid === */
         .footer-links-section {
             display: grid;
             grid-template-columns: repeat(2, 1fr); 
@@ -967,8 +958,7 @@
                                     <div class="tb-progress-fill"></div>
                                 </div>
                                 <div class="tb-progress-text">
-                                    <span>Erfolgsquote</span>
-                                    <span style="color: white;">100% In-House</span>
+                                    <span style="color: white !important;">Erfolgsquote</span> <span style="color: white;">100% In-House</span>
                                 </div>
                             </div>
 
@@ -1197,7 +1187,3 @@
     </script>
 </body>
 </html>
-
-
-
-
