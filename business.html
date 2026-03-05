@@ -282,21 +282,21 @@
             font-weight: 900;
             color: white !important; 
             line-height: 1.1;
-            letter-spacing: -1px;
             margin-bottom: 24px;
-            /* FIX: Erlaubt sauberen Umbruch bei überlangen Wörtern */
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            hyphens: auto;
-            -webkit-hyphens: auto;
         }
         
+        /* FIX: Perfekt abgestimmte Größe ohne Bindestriche */
         @media (max-width: 768px) {
-            /* FIX: Fluid Typography - schrumpft stufenlos auf kleinen Handys mit */
-            .cta-headline { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+            .cta-headline { 
+                font-size: 1.75rem; /* Genau passend für lange deutsche Wörter */
+                letter-spacing: -0.5px;
+            }
         }
         @media (min-width: 769px) { 
-            .cta-headline { font-size: 3.5rem; } 
+            .cta-headline { 
+                font-size: 3.5rem; 
+                letter-spacing: -1px;
+            } 
         }
 
         .cta-headline .highlight-red {
@@ -486,18 +486,21 @@
             line-height: 1.1;
             margin-bottom: 24px;
             color: #ffffff !important;
-            letter-spacing: -1px;
-            /* FIX: Fluid Typography und Silbentrennung auch hier im Footer */
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            hyphens: auto;
-            -webkit-hyphens: auto;
         }
         
+        /* FIX: Auch hier die perfekte Größe ohne Silbentrennung */
         @media (max-width: 768px) {
-            .footer-contact-info h2 { font-size: clamp(1.8rem, 9vw, 2.5rem); }
+            .footer-contact-info h2 { 
+                font-size: 1.85rem; 
+                letter-spacing: -0.5px;
+            }
         }
-        @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; } }
+        @media (min-width: 769px) { 
+            .footer-contact-info h2 { 
+                font-size: 3rem; 
+                letter-spacing: -1px;
+            } 
+        }
 
         .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; }
         
@@ -520,7 +523,6 @@
             letter-spacing: -0.5px;
         }
         
-        /* Fix für Apple und Android Auto-Links */
         .contact-details p, .contact-details a { 
             margin: 0 !important; 
             color: #ffffff !important; 
@@ -902,7 +904,7 @@
                         </div>
 
                         <h2 class="cta-headline">
-                            Bereit, etwas <span class="highlight-red">Außer&shy;gewöhn&shy;liches</span> zu erschaffen?
+                            Bereit, etwas <span class="highlight-red">Außergewöhnliches</span> zu erschaffen?
                         </h2>
 
                         <p class="cta-description">
@@ -1061,7 +1063,7 @@
                     
                     <div class="footer-contact-info">
                         <h2>
-                            Lass uns etwas <br><span class="highlight-red">Groß&shy;artiges</span> erschaffen.
+                            Lass uns etwas <br><span class="highlight-red">Großartiges</span> erschaffen.
                         </h2>
                         <p>Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.</p>
                         
