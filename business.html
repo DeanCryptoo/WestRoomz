@@ -497,7 +497,7 @@
             max-width: 480px;
         }
 
-        /* ULTIMATIVER FIX: Knallhartes, strahlendes Weiß, das JEDE globale Regel überschreibt */
+        /* Strahlendes Weiß für die Kontakt-Infos */
         .contact-details {
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
@@ -508,12 +508,12 @@
             letter-spacing: -0.5px;
         }
         
-        /* Fix für Apple und Android Auto-Links sowie globale p-Regeln */
+        /* Fix für Apple und Android Auto-Links */
         .contact-details p, .contact-details a { 
             margin: 0 !important; 
             color: #ffffff !important; 
             text-decoration: none !important;
-            -webkit-text-fill-color: #ffffff !important; /* Zwingt iOS das Blau zu vergessen */
+            -webkit-text-fill-color: #ffffff !important; 
         }
         
         .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; }
@@ -573,20 +573,26 @@
         .footer-input::placeholder { color: rgba(255,255,255,0.4); } 
         select.footer-input option { background-color: #111; color: white; }
 
-        /* Links Bereich - Grid korrigiert */
+        /* === FIX: Footer Links Grid für sauberes Side-by-Side auf dem Handy === */
         .footer-links-section {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
+            grid-template-columns: repeat(2, 1fr); /* Auf dem Handy direkt 2 Spalten nebeneinander */
+            gap: 40px 16px; /* Spacing angepasst */
             padding: 60px 0;
         }
-        @media (min-width: 768px) { 
-            .footer-links-section { grid-template-columns: repeat(2, 1fr); } 
-            .footer-brand { grid-column: 1 / -1; } 
+        
+        .footer-brand {
+            grid-column: 1 / -1; /* Die Brand-Info geht auf dem Handy/Tablet über die volle Breite */
         }
+
         @media (min-width: 1024px) { 
-            .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } 
-            .footer-brand { grid-column: auto; } 
+            .footer-links-section { 
+                grid-template-columns: 2fr 1fr 1fr; /* Auf dem Desktop 3 Spalten (Brand groß, Links klein) */
+                gap: 80px; 
+            } 
+            .footer-brand { 
+                grid-column: auto; /* Auf dem Desktop teilt sie sich den Platz */
+            } 
         }
         
         .footer-brand .brand-logo {
@@ -631,6 +637,10 @@
         }
         .footer-socials-new svg { width: 16px; height: 16px; fill: currentColor; }
 
+        .footer-col {
+            text-align: left; /* Stellt sicher, dass die Menüs schön nach links ausgerichtet sind */
+        }
+        
         .footer-col h3 {
             font-size: 0.625rem;
             font-weight: 900;
@@ -1043,7 +1053,7 @@
                         
                         <div class="contact-details">
                             <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
-                            <p><span class="red-dot"></span> <a href="tel:015778778502" style="color: #ffffff !important; text-decoration: none !important; -webkit-text-fill-color: #ffffff !important;">TEL. 01577 877 8502</a></p>
+                            <p><span class="red-dot"></span> <a href="tel:015778778502">TEL. 01577 877 8502</a></p>
                             <p><span class="red-dot"></span> AM ALTEN SPORTPLATZ 37, 48477 HÖRSTEL</p>
                         </div>
                     </div>
@@ -1107,6 +1117,7 @@
                             <li><a href="#references" class="interactive">Referenzen</a></li>
                         </ul>
                     </div>
+                    
                     <div class="footer-col">
                         <h3>Rechtliches</h3>
                         <ul>
