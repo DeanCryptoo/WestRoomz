@@ -188,7 +188,7 @@
             width: 100%;
             padding: 100px 24px 120px 24px;
             margin: 0 0 80px 0; 
-            background-color: #ffffff; /* Weißer Hintergrund */
+            background-color: #ffffff; 
             border-bottom-left-radius: 60px;
             border-bottom-right-radius: 60px;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
@@ -243,7 +243,6 @@
             z-index: 20;
             max-width: 1100px;
             width: 100%;
-            /* Card bekommt einen weißen Hintergrund und weichen Schatten zur Abhebung */
             background: #ffffff; 
             border: 1px solid rgba(0,0,0,0.05);
             border-radius: 48px;
@@ -292,7 +291,7 @@
         .cta-headline {
             font-family: 'Inter', sans-serif !important;
             font-weight: 900;
-            color: #1d1d1f !important; /* HIER: Headline in Schwarz */
+            color: #1d1d1f !important; /* Schwarz */
             line-height: 1.1;
             margin-bottom: 24px;
         }
@@ -311,14 +310,14 @@
         }
 
         .cta-headline .highlight-red {
-            color: #dc2626 !important; /* HIER: Außergewöhnliches bleibt Rot */
+            color: #dc2626 !important; /* Außergewöhnliches bleibt Rot */
             font-style: italic;
         }
 
         .cta-description {
             font-family: 'Inter', sans-serif !important;
             font-size: 1.125rem !important;
-            color: #6e6e73 !important; /* Dunkelgrau, damit es auf Weiß lesbar bleibt */
+            color: #6e6e73 !important; /* Dunkelgrau */
             line-height: 1.6;
             max-width: 600px;
             margin: 0 auto 30px auto;
@@ -362,8 +361,8 @@
             align-items: center;
             height: 64px;
             padding: 0 32px;
-            background-color: #1d1d1f !important; /* HIER: Button schwarz */
-            color: #dc2626 !important; /* HIER: Text rot */
+            background-color: #1a1a1c !important; /* Edles, mattes Dunkelgrau wie die Box */
+            color: #ffffff !important; /* Schrift ist weiß */
             font-weight: 700;
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
@@ -378,7 +377,7 @@
             flex-wrap: wrap;
             gap: 24px;
             justify-content: center;
-            color: #1d1d1f !important; /* HIER: Text der Features schwarz */
+            color: #1d1d1f !important; /* Text der 3 Features ist schwarz */
             font-size: 0.875rem;
             font-family: 'Inter', sans-serif;
             font-weight: 600;
@@ -388,7 +387,7 @@
         .cta-features span { display: flex; align-items: center; gap: 8px; }
         .cta-features svg { width: 16px; height: 16px; }
         
-        /* HIER: Icons behalten ihre Farbe */
+        /* Icons behalten ihre Farbe */
         .text-emerald { color: #10b981; }
         .text-amber { color: #f59e0b; }
         .text-blue { color: #3b82f6; }
@@ -397,11 +396,11 @@
         @media (min-width: 1024px) { .cta-visual-side { display: block; } }
 
         .trust-badge-card {
-            background-color: #1d1d1f; /* Dunkler Kasten für Kontrast auf dem weißen Hintergrund */
-            border: 1px solid rgba(0,0,0,0.1);
+            background-color: #1a1a1c !important; /* Edles, mattes Dunkelgrau exakt wie der Button */
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 24px;
             padding: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); /* Leichter Schatten für Tiefenwirkung auf Weiß */
             color: white !important;
             font-family: 'Inter', sans-serif;
         }
@@ -431,7 +430,7 @@
         .tb-progress-text {
             display: flex; justify-content: space-between;
             font-size: 0.625rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1px; color: #9ca3af;
+            letter-spacing: 1px;
         }
 
         .tb-footer {
@@ -958,7 +957,8 @@
                                     <div class="tb-progress-fill"></div>
                                 </div>
                                 <div class="tb-progress-text">
-                                    <span style="color: white !important;">Erfolgsquote</span> <span style="color: white;">100% In-House</span>
+                                    <span style="color: #ffffff !important;">Erfolgsquote</span>
+                                    <span style="color: #ffffff !important;">100% In-House</span>
                                 </div>
                             </div>
 
@@ -1187,6 +1187,3 @@
     </script>
 </body>
 </html>
-
-
-
