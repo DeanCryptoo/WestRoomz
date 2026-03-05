@@ -52,7 +52,8 @@
 
         .divider-line { background-color: #1d1d1f !important; }
         .menu-toggle-btn .bar { background-color: #1d1d1f !important; }
-        .book-btn { background-color: #1d1d1f !important; color: white !important; border: none; padding: 12px 24px; text-decoration: none; display: inline-block;}
+        /* HIER: border-radius hinzugefügt, damit die Buttons rund sind */
+        .book-btn { background-color: #1d1d1f !important; color: white !important; border: none; padding: 12px 24px; text-decoration: none; display: inline-block; border-radius: 30px !important;}
         .tab-btn { color: #1d1d1f !important; border: 1px solid #d2d2d7 !important; }
         .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
 
@@ -124,10 +125,11 @@
             flex-grow: 1; 
         }
 
+        /* HIER: Desktop Glow um ca. 20% reduziert (Deckkraft und Spread angepasst) */
         @keyframes orbit-glow {
-            0% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
-            50% { transform: scale(1.02); box-shadow: 0 0 40px 10px rgba(153, 0, 0, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
+            0% { transform: scale(1); box-shadow: 0 0 20px 4px rgba(255, 0, 0, 0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 0 32px 8px rgba(153, 0, 0, 0.45); }
+            100% { transform: scale(1); box-shadow: 0 0 20px 4px rgba(255, 0, 0, 0.3); }
         }
 
         @media (max-width: 768px) {
@@ -188,7 +190,7 @@
             width: 100%;
             padding: 100px 24px 120px 24px;
             margin: 0 0 80px 0; 
-            background-color: #ffffff; /* Hier ist jetzt der weiße Hintergrund */
+            background-color: #ffffff; 
             border-bottom-left-radius: 60px;
             border-bottom-right-radius: 60px;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
@@ -243,13 +245,11 @@
             z-index: 20;
             max-width: 1100px;
             width: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.005));
-            border: 1px solid rgba(255,255,255,0.08);
+            background: #ffffff; 
+            border: 1px solid rgba(0,0,0,0.05);
             border-radius: 48px;
             padding: 60px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
             overflow: hidden;
         }
 
@@ -293,15 +293,14 @@
         .cta-headline {
             font-family: 'Inter', sans-serif !important;
             font-weight: 900;
-            color: #1d1d1f !important; /* HIER: Farbe auf schwarz gesetzt */
+            color: #1d1d1f !important; 
             line-height: 1.1;
             margin-bottom: 24px;
         }
         
-        /* FIX: Perfekt abgestimmte Größe ohne Bindestriche */
         @media (max-width: 768px) {
             .cta-headline { 
-                font-size: 1.75rem; /* Genau passend für lange deutsche Wörter */
+                font-size: 1.75rem; 
                 letter-spacing: -0.5px;
             }
         }
@@ -320,7 +319,7 @@
         .cta-description {
             font-family: 'Inter', sans-serif !important;
             font-size: 1.125rem !important;
-            color: #6e6e73 !important; /* HIER: Farbe auf dunkelgrau gesetzt für Lesbarkeit */
+            color: #6e6e73 !important; 
             line-height: 1.6;
             max-width: 600px;
             margin: 0 auto 30px auto;
@@ -364,8 +363,8 @@
             align-items: center;
             height: 64px;
             padding: 0 32px;
-            background-color: rgba(0,0,0,0.4) !important; /* HIER: Das exakte Grau aus deinem Code für den Button */
-            color: white !important; /* HIER: Schrift ist weiß */
+            background-color: rgba(0,0,0,0.4) !important; 
+            color: white !important; 
             font-weight: 700;
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
@@ -380,7 +379,7 @@
             flex-wrap: wrap;
             gap: 24px;
             justify-content: center;
-            color: #1d1d1f !important; /* HIER: Schrift der Features ist schwarz */
+            color: #1d1d1f !important; 
             font-size: 0.875rem;
             font-family: 'Inter', sans-serif;
             font-weight: 600;
@@ -397,7 +396,7 @@
         @media (min-width: 1024px) { .cta-visual-side { display: block; } }
 
         .trust-badge-card {
-            background-color: rgba(0,0,0,0.4); /* HIER: Wie im Original belassen, exakt das gleiche Grau */
+            background-color: rgba(0,0,0,0.4); 
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 24px;
             padding: 24px;
