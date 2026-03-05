@@ -285,7 +285,12 @@
             letter-spacing: -1px;
             margin-bottom: 24px;
         }
-        @media (min-width: 768px) { .cta-headline { font-size: 3.5rem; } }
+        
+        /* RESPONSIFIX: Verhindert, dass das Wort "außergewöhnlich" aus dem Bild rutscht */
+        @media (max-width: 768px) {
+            .cta-headline { font-size: 2.2rem; }
+        }
+        @media (min-width: 769px) { .cta-headline { font-size: 3.5rem; } }
 
         .cta-headline .highlight-red {
             color: #dc2626 !important;
@@ -458,7 +463,7 @@
             margin: 0 auto;
         }
         
-        /* Neuer integrierter Kontakt-Bereich */
+        /* Integrierter Kontakt-Bereich */
         .footer-contact-area {
             display: grid;
             grid-template-columns: 1fr;
@@ -471,14 +476,19 @@
         }
 
         .footer-contact-info h2 {
-            font-size: 3rem;
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 24px;
             color: #ffffff !important;
             letter-spacing: -1px;
         }
-        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 2.2rem; } }
+        
+        /* RESPONSIFIX: Verhindert Umbruchprobleme im Footer-Überschriftstext */
+        @media (max-width: 768px) {
+            .footer-contact-info h2 { font-size: 2rem; }
+        }
+        @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; } }
+
         .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; }
         
         .footer-contact-info > p {
@@ -489,16 +499,19 @@
             max-width: 480px;
         }
 
+        /* PREMIUM FINISH: "Opal-Glow" Kontaktinfos */
         .contact-details {
             font-family: 'Oswald', sans-serif;
             font-size: 1.2rem;
-            color: #ffffff;
+            color: #ffffff !important; /* Wichtig */
+            opacity: 1; /* Volle Sichtbarkeit */
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.5); /* Glasiges, glänzendes Leuchten */
             display: flex;
             flex-direction: column;
             gap: 12px;
             letter-spacing: 1px;
         }
-        .contact-details p { margin: 0; opacity: 0.9; }
+        .contact-details p { margin: 0; }
         .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; }
 
         /* Das Glassmorphism Kontaktformular */
@@ -554,7 +567,7 @@
             background-color: rgba(0,0,0,0.6) !important;
         }
 
-        .footer-input::placeholder { color: rgba(255,255,255,0.2); }
+        .footer-input::placeholder { color: rgba(255,255,255,0.4); } /* Etwas sichtbarer */
         select.footer-input option { background-color: #111; color: white; }
 
         /* Links Bereich */
