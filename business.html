@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
     <meta name="description" content="WESTROOMZ - Event Production & Marketing Agency.">
     <title>WESTROOMZ | Business. Events. Marketing.</title>
     
@@ -496,18 +497,25 @@
             max-width: 480px;
         }
 
-        /* FIX: Perfektes, strahlendes Weiß für die Kontakt-Infos passend zur Headline */
+        /* ULTIMATIVER FIX: Knallhartes, strahlendes Weiß, das JEDE globale Regel überschreibt */
         .contact-details {
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
             font-weight: 900;
-            color: #ffffff !important;
             display: flex;
             flex-direction: column;
             gap: 16px;
             letter-spacing: -0.5px;
         }
-        .contact-details p { margin: 0; }
+        
+        /* Fix für Apple und Android Auto-Links sowie globale p-Regeln */
+        .contact-details p, .contact-details a { 
+            margin: 0 !important; 
+            color: #ffffff !important; 
+            text-decoration: none !important;
+            -webkit-text-fill-color: #ffffff !important; /* Zwingt iOS das Blau zu vergessen */
+        }
+        
         .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; }
 
         .footer-form-card {
@@ -565,7 +573,7 @@
         .footer-input::placeholder { color: rgba(255,255,255,0.4); } 
         select.footer-input option { background-color: #111; color: white; }
 
-        /* FIX: Grid für den unteren Link-Bereich - Rechtliches und Navigation jetzt nebeneinander */
+        /* Links Bereich - Grid korrigiert */
         .footer-links-section {
             display: grid;
             grid-template-columns: 1fr;
@@ -574,11 +582,11 @@
         }
         @media (min-width: 768px) { 
             .footer-links-section { grid-template-columns: repeat(2, 1fr); } 
-            .footer-brand { grid-column: 1 / -1; } /* Auf dem Tablet volle Breite */
+            .footer-brand { grid-column: 1 / -1; } 
         }
         @media (min-width: 1024px) { 
             .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } 
-            .footer-brand { grid-column: auto; } /* Auf dem Desktop korrekte Spalten */
+            .footer-brand { grid-column: auto; } 
         }
         
         .footer-brand .brand-logo {
@@ -613,12 +621,12 @@
             width: 40px; height: 40px;
             border-radius: 50%;
             border: 1px solid rgba(255,255,255,0.1);
-            color: #ffffff;
+            color: #ffffff !important;
             transition: all 0.3s;
         }
         .footer-socials-new a:hover {
             background-color: rgba(255,255,255,0.05);
-            color: #dc2626;
+            color: #dc2626 !important;
             border-color: rgba(255,255,255,0.2);
         }
         .footer-socials-new svg { width: 16px; height: 16px; fill: currentColor; }
@@ -1035,7 +1043,7 @@
                         
                         <div class="contact-details">
                             <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
-                            <p><span class="red-dot"></span> TEL. 01577 877 8502</p>
+                            <p><span class="red-dot"></span> <a href="tel:015778778502" style="color: #ffffff !important; text-decoration: none !important; -webkit-text-fill-color: #ffffff !important;">TEL. 01577 877 8502</a></p>
                             <p><span class="red-dot"></span> AM ALTEN SPORTPLATZ 37, 48477 HÖRSTEL</p>
                         </div>
                     </div>
@@ -1113,7 +1121,7 @@
                     <p>&copy; 2026 WESTROOMZ. Alle Rechte vorbehalten.</p>
                     <div class="footer-badge">
                         <div class="dot"></div>
-                        <span>Made in Germany 🇩🇪</span>
+                        <span>Made in Hörstel, Germany 🇩🇪</span>
                     </div>
                 </div>
             </div>
