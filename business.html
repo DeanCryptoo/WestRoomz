@@ -31,12 +31,18 @@
             display: none !important; 
         }
 
+        /* Video Container komplett ausblenden, damit das Bild sichtbar wird */
+        .video-container {
+            display: none !important;
+        }
+
         h1, h2, h3, p, .vision-text p, .section-title, .big-lead {
             color: #1d1d1f !important;
         }
         
         .hero-sub { color: #86868b !important; }
 
+        /* Das Whiteboard-Bild als Hintergrund für den Hero-Bereich */
         .hero {
             background-image: url('WR_Whiteboard.jpg') !important;
             background-size: cover !important;
@@ -177,12 +183,12 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* === PREMIUM CTA / VISION BLOCK (DARK MODE) === */
+        /* === PREMIUM CTA / VISION BLOCK (WEISSER HINTERGRUND) === */
         .premium-cta-section {
             width: 100%;
             padding: 100px 24px 120px 24px;
             margin: 0 0 80px 0; 
-            background-color: #ffffff;
+            background-color: #ffffff; /* Hier ist jetzt der weiße Hintergrund */
             border-bottom-left-radius: 60px;
             border-bottom-right-radius: 60px;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
