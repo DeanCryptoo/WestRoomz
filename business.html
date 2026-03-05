@@ -279,18 +279,25 @@
 
         .cta-headline {
             font-family: 'Inter', sans-serif !important;
-            font-size: 2.5rem;
             font-weight: 900;
             color: white !important; 
             line-height: 1.1;
             letter-spacing: -1px;
             margin-bottom: 24px;
+            /* FIX: Erlaubt sauberen Umbruch bei überlangen Wörtern */
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+            -webkit-hyphens: auto;
         }
         
         @media (max-width: 768px) {
-            .cta-headline { font-size: 2.2rem; }
+            /* FIX: Fluid Typography - schrumpft stufenlos auf kleinen Handys mit */
+            .cta-headline { font-size: clamp(1.6rem, 8vw, 2.2rem); }
         }
-        @media (min-width: 769px) { .cta-headline { font-size: 3.5rem; } }
+        @media (min-width: 769px) { 
+            .cta-headline { font-size: 3.5rem; } 
+        }
 
         .cta-headline .highlight-red {
             color: #dc2626 !important;
@@ -480,10 +487,15 @@
             margin-bottom: 24px;
             color: #ffffff !important;
             letter-spacing: -1px;
+            /* FIX: Fluid Typography und Silbentrennung auch hier im Footer */
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+            -webkit-hyphens: auto;
         }
         
         @media (max-width: 768px) {
-            .footer-contact-info h2 { font-size: 2rem; }
+            .footer-contact-info h2 { font-size: clamp(1.8rem, 9vw, 2.5rem); }
         }
         @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; } }
 
@@ -573,25 +585,25 @@
         .footer-input::placeholder { color: rgba(255,255,255,0.4); } 
         select.footer-input option { background-color: #111; color: white; }
 
-        /* === FIX: Footer Links Grid für sauberes Side-by-Side auf dem Handy === */
+        /* === Footer Links Grid === */
         .footer-links-section {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Auf dem Handy direkt 2 Spalten nebeneinander */
-            gap: 40px 16px; /* Spacing angepasst */
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 40px 16px; 
             padding: 60px 0;
         }
         
         .footer-brand {
-            grid-column: 1 / -1; /* Die Brand-Info geht auf dem Handy/Tablet über die volle Breite */
+            grid-column: 1 / -1; 
         }
 
         @media (min-width: 1024px) { 
             .footer-links-section { 
-                grid-template-columns: 2fr 1fr 1fr; /* Auf dem Desktop 3 Spalten (Brand groß, Links klein) */
+                grid-template-columns: 2fr 1fr 1fr; 
                 gap: 80px; 
             } 
             .footer-brand { 
-                grid-column: auto; /* Auf dem Desktop teilt sie sich den Platz */
+                grid-column: auto; 
             } 
         }
         
@@ -638,7 +650,7 @@
         .footer-socials-new svg { width: 16px; height: 16px; fill: currentColor; }
 
         .footer-col {
-            text-align: left; /* Stellt sicher, dass die Menüs schön nach links ausgerichtet sind */
+            text-align: left; 
         }
         
         .footer-col h3 {
@@ -890,7 +902,7 @@
                         </div>
 
                         <h2 class="cta-headline">
-                            Bereit, etwas <span class="highlight-red">Außergewöhnliches</span> zu erschaffen?
+                            Bereit, etwas <span class="highlight-red">Außer&shy;gewöhn&shy;liches</span> zu erschaffen?
                         </h2>
 
                         <p class="cta-description">
@@ -1048,7 +1060,9 @@
                 <div class="footer-contact-area">
                     
                     <div class="footer-contact-info">
-                        <h2>Lass uns etwas <br><span class="highlight-red">Großartiges</span> erschaffen.</h2>
+                        <h2>
+                            Lass uns etwas <br><span class="highlight-red">Groß&shy;artiges</span> erschaffen.
+                        </h2>
                         <p>Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.</p>
                         
                         <div class="contact-details">
@@ -1132,7 +1146,7 @@
                     <p>&copy; 2026 WESTROOMZ. Alle Rechte vorbehalten.</p>
                     <div class="footer-badge">
                         <div class="dot"></div>
-                        <span>Made in Germany 🇩🇪</span>
+                        <span>Made in Hörstel, Germany 🇩🇪</span>
                     </div>
                 </div>
             </div>
