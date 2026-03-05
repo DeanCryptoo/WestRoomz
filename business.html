@@ -124,6 +124,443 @@
             100% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
         }
 
+        /* --- FIX 3: MOBILE OPTIMIERUNG FÜR DIE CARDS --- */
+        @media (max-width: 768px) {
+            .services-grid { 
+                display: flex; 
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: visible; 
+                scroll-snap-type: x mandatory; 
+                
+                /* FIX: Deutlich mehr Abstand zwischen den Karten! */
+                gap: 40px; 
+                
+                /* FIX: Mehr seitliches Padding, damit man merkt, dass es ein Carousel ist */
+                padding: 40px 30px 60px 30px; 
+                
+                -webkit-overflow-scrolling: touch; 
+                scrollbar-width: none; 
+            }
+            .services-grid::-webkit-scrollbar { display: none; }
+            
+            .orbit-card {
+                /* FIX: Die Karte ist jetzt 85% breit. Zusammen mit dem größeren Gap sieht das deutlich eleganter aus. */
+                flex: 0 0 85%; 
+                scroll-snap-align: center; 
+            }
+            
+            /* FIX: Wieder etwas mehr Padding oben/unten, damit die Karte länger und weniger quadratisch wirkt */
+            .orbit-card-content {
+                padding: 40px 25px !important; 
+            }
+            
+            .orbit-card h3 {
+                font-size: 1.6rem !important;
+                margin-bottom: 15px !important;
+            }
+            .orbit-card p {
+                font-size: 1rem !important;
+                margin-bottom: 25px !important;
+            }
+        }
+        /* === ENDE ORBIT CARDS === */
+
+        button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
+        input, select, textarea { border-radius: 12px !important; }
+        .gallery-item img { border-radius: 12px !important; }
+        .contact-form, .modal-content-wrapper { border-radius: 20px !important; }
+        .menu-toggle-btn { border-radius: 8px !important; }
+        
+        .ref-logo-img {
+            height: 100px !important;  
+            width: auto !important;
+            opacity: 1 !important;     
+            filter: none !important;   
+            margin: 0 40px !important; 
+            border-radius: 8px !important;
+            object-fit: contain;
+        }
+        
+        .marquee-track {
+            display: flex;
+            align-items: center; 
+            width: max-content !important; 
+            gap: 0 !important; 
+            animation: marquee-scroll 40s linear infinite !important;
+        }
+
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-wrapper {
+            overflow: hidden !important; 
+            width: 100% !important;
+            display: flex !important;
+        }
+
+        .ref-section {
+            border-radius: 40px !important;
+            margin: 0 !important; 
+            position: relative !important;
+            background: #ffffff !important; 
+            border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+            overflow: hidden !important;
+            padding: 100px 0 !important;
+        }
+
+        .ref-section::before { display: none !important; }
+        .ref-section > div, .marquee-wrapper { position: relative; z-index: 2; }
+        .gallery-section { background: transparent !important; border-top: none !important; border-bottom: none !important; }
+        .gallery-container { animation: none !important; cursor: grab !important; will-change: transform; }
+        .gallery-container:active { cursor: grabbing !important; }
+        .gallery-item img { pointer-events: none !important; user-select: none !important; -webkit-user-drag: none !important; }
+
+        /* --- TOGGLE SWITCH ZENTRIERT IM VIDEO --- */
+        .site-toggle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-family: 'Oswald', sans-serif;
+            color: #1d1d1f;
+            pointer-events: auto;
+            margin-bottom: 30px;
+        }
+
+        .toggle-label {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #86868b;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .site-toggle-container.is-creators .label-creators,
+        .site-toggle-container.is-business .label-business {
+            color: #ff0000;
+            text-shadow: none;
+        }
+
+        .ios-switch { position: relative; display: inline-block; width: 80px; height: 44px; cursor: pointer; }
+        .ios-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.1); transition: .4s; border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 32px; width: 32px; left: 4px; bottom: 4px;
+            background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: .4s;
+        }
+
+        input:checked + .slider { background-color: #990000; border-color: #ff0000; }
+        input:checked + .slider:before { transform: translateX(36px); }
+        .slider.round { border-radius: 50px; }
+        .slider.round:before { border-radius: 50%; }
+
+        @media (max-width: 768px) {
+            .site-toggle-container { gap: 12px; margin-bottom: 20px; }
+            .toggle-label { font-size: 1.1rem; }
+            .ios-switch { width: 60px; height: 34px; }
+            .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; }
+            input:checked + .slider:before { transform: translateX(26px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cinematic-bg-wrapper">
+        <div class="bg-layer active"></div>
+    </div>
+
+    <div class="page-transition-curtain"></div>
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
+    <div class="red-thread"></div>
+    <div class="cinematic-vignette"></div>
+
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <div class="side-menu">
+        <div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="menu-links">
+                <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
+                <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="impressum.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+                <a href="upcoming.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
+                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
+                <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+             <a href="impressum.html" class="interactive">IMPRESSUM</a>
+             <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+             <a href="agb.html" class="interactive">AGB</a>
+             <span>© 2026 WESTROOMZ</span>
+        </div>
+    </div>
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">GALLERY</h2>
+            <div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div>
+        </div>
+        <div class="modal-content-wrapper">
+            <div class="modal-grid" id="modalGrid"></div>
+        </div>
+    </div>
+
+    <main class="page-wrapper">
+        <header id="hero" class="hero">
+            <div class="video-container">
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="site-toggle-container is-business interactive">
+                    <span class="toggle-label label-creators">Creators</span>
+                    <label class="ios-switch">
+                        <input type="checkbox" id="businessToggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label label-business">Business</span>
+                </div>
+                <p class="hero-sub">UNERREICHTE QUALITÄT</p>
+            </div>
+        </header>
+
+        <div class="gradual-blur-bottom"></div>
+        <section id="vision" class="vision-section">
+            <div>
+                <h2 class="big-lead">VISION. MADE. REAL.</h2>
+                <div class="divider-line"></div>
+                <div class="vision-text">
+                    <p>WESTROOMZ ist eine kreative Produktionsagentur für Events und Marketing. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
+                    <p>Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 class="section-title">WAS WIR TUN</h2>
+            </div>
+            
+            <div class="services-grid">
+                
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>EVENTS</h3>
+                        <p>Struktur, Know-how und saubere Umsetzung. Von der Planung bis zum laufenden Betrieb vor Ort übernehmen wir Verantwortung.</p>
+                        <a href="service-detail.html?id=event_planning" class="book-btn interactive">DETAILS</a>
+                    </div>
+                </div>
+
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>AUDIO</h3>
+                        <p>Glasklarer Sound für jedes Setup. Wir liefern professionelle Audiotechnik und Betreuung für Live-Gigs und Produktionen.</p>
+                        <a href="#" class="book-btn interactive">DETAILS</a>
+                    </div>
+                </div>
+
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>VIDEO</h3>
+                        <p>Visuelle Präzision. Von Live-Streaming bis zur kompletten Content-Produktion setzen wir deine Marke ins richtige Licht.</p>
+                        <a href="#" class="book-btn interactive">DETAILS</a>
+                    </div>
+                </div>
+
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>MARKETING</h3>
+                        <p>Reichweite braucht Strategie. Wir verbinden kreativen Content mit performance-orientiertem Marketing für Sichtbarkeit.</p>
+                        <a href="service-detail.html?id=marketing_general" class="book-btn interactive">DETAILS</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div id="references" class="laser-border-wrapper">
+            <div class="laser-border-inner">
+                <section class="ref-section">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h2 class="section-title">REFERENZEN</h2>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
+                        <div class="vision-text" style="opacity: 1; transform: none;">
+                            <p style="opacity: 1; transform: none;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
+                        </div>
+                    </div>
+
+                    <div class="marquee-wrapper">
+                        <div class="marquee-track">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <section id="contact" class="contact-section">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2 class="section-title">KONTAKT</h2>
+                    <p style="color: #6e6e73;">Du planst eine Produktion oder suchst einen technischen Partner?</p>
+                    <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
+                        <p>INFO@WESTROOMZ.DE</p>
+                        <p>TEL. 01577 877 8502</p>
+                        <p>AM ALTEN SPORTPLATZ 37, 48477 HÖRSTEL</p>
+                    </div>
+                </div>
+                <form class="contact-form" style="background: #ffffff !important; box-shadow: 0 4px 24px rgba(0,0,0,0.06) !important; padding: 40px !important;">
+                    <label style="color: #86868b;">ABTEILUNG</label>
+                    <select id="department" class="interactive" style="background: #f5f5f7; border: 1px solid #d2d2d7; color: #1d1d1f;">
+                        <option value="General">Allgemeine Anfrage</option>
+                        <option value="Event">Eventplanung</option>
+                        <option value="Marketing">Marketing</option>
+                    </select>
+                    <label style="color: #86868b;">NAME</label>
+                    <input type="text" id="name" class="interactive" required style="background: #f5f5f7; border: 1px solid #d2d2d7; color: #1d1d1f;">
+                    <label style="color: #86868b;">PROJEKT</label>
+                    <input type="text" id="subject" class="interactive" placeholder="Projekt..." style="background: #f5f5f7; border: 1px solid #d2d2d7; color: #1d1d1f;">
+                    <label style="color: #86868b;">NACHRICHT</label>
+                    <textarea id="message" class="interactive" rows="5" style="background: #f5f5f7; border: 1px solid #d2d2d7; color: #1d1d1f;"></textarea>
+                    <button type="submit" class="submit-btn interactive" style="background: #1d1d1f; color: white;">ABSENDEN</button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-socials">
+                <a href="#" class="social-icon interactive" style="color: #1d1d1f;">INSTAGRAM</a>
+                <a href="#" class="social-icon interactive" style="color: #1d1d1f;">LINKEDIN</a>
+            </div>
+            <div class="footer-nav">
+                <a href="impressum.html" class="interactive" style="color: #1d1d1f;">IMPRESSUM</a>
+                <a href="datenschutz.html" class="interactive" style="color: #1d1d1f;">DATENSCHUTZ</a>
+                <a href="agb.html" class="interactive" style="color: #1d1d1f;">AGB</a>
+            </div>
+            <p class="copyright" style="color: #86868b;">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
+        </footer>
+    </main>
+    
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
+                
+                if(blurOverlay) {
+                    ScrollTrigger.create({
+                        trigger: "#vision",
+                        start: "top 95%", 
+                        onEnter: () => blurOverlay.style.opacity = '1',
+                        onLeaveBack: () => blurOverlay.style.opacity = '0' 
+                    });
+                    
+                    ScrollTrigger.create({
+                        trigger: "footer",
+                        start: "top 100%", 
+                        onEnter: () => blurOverlay.style.opacity = '0',
+                        onLeaveBack: () => blurOverlay.style.opacity = '1'
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>            transition: transform 0.3s ease;
+        }
+
+        @media (min-width: 769px) {
+            .orbit-card:hover {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Der animierte Hintergrund (Roter Orbit-Glow) */
+        .orbit-glow-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            border-radius: 20px;
+            animation: orbit-glow 4s ease-in-out infinite;
+            background: transparent;
+        }
+
+        /* Der weiße Content-Bereich der Karte (Desktop) */
+        .orbit-card-content {
+            position: relative;
+            z-index: 10;
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 50px 40px; 
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .orbit-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem; 
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+
+        .orbit-card p {
+            font-size: 1.05rem; 
+            color: #6e6e73;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            flex-grow: 1; 
+        }
+
+        /* Die Keyframes für das Rote Pulsieren */
+        @keyframes orbit-glow {
+            0% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 40px 10px rgba(153, 0, 0, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
+        }
+
         /* --- FIX: MOBILE OPTIMIERUNG FÜR DIE CARDS --- */
         @media (max-width: 768px) {
             .services-grid { 
