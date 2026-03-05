@@ -15,14 +15,18 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* === APPLE STYLE DESIGN === */
+        /* === APPLE STYLE OVERRIDES === */
         html, body, .page-wrapper {
             background-color: #f5f5f7 !important;
             color: #1d1d1f !important;
-            overflow-x: hidden;
         }
 
-        .cinematic-bg-wrapper, .bg-layer, .cinematic-vignette, .gradual-blur-bottom, .hero-overlay, .page-transition-curtain {
+        .cinematic-bg-wrapper, .bg-layer {
+            background-color: transparent !important;
+            background-image: none !important;
+        }
+
+        .cinematic-vignette, .gradual-blur-bottom, .hero-overlay, .page-transition-curtain {
             display: none !important; 
         }
 
@@ -31,134 +35,294 @@
         }
         
         .hero-sub { color: #86868b !important; }
+
         .divider-line { background-color: #1d1d1f !important; }
         .menu-toggle-btn .bar { background-color: #1d1d1f !important; }
-        .book-btn { 
-            background-color: #1d1d1f !important; 
-            color: white !important; 
-            border: none; 
-            padding: 14px 28px; 
-            text-decoration: none; 
-            display: inline-block;
-            font-weight: 500;
-            transition: transform 0.2s ease;
-        }
-        .book-btn:hover { transform: scale(1.05); }
+        .book-btn { background-color: #1d1d1f !important; color: white !important; border: none; padding: 12px 24px; text-decoration: none; display: inline-block;}
+        .tab-btn { color: #1d1d1f !important; border: 1px solid #d2d2d7 !important; }
+        .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
 
-        /* === ORBIT CARDS GRID === */
+        /* === NEUE ORBIT CARDS (4er Grid) === */
         
+        /* Standard Grid Layout für Desktop */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 70px; /* Noch mehr Abstand für Desktop */
-            max-width: 1700px; /* Breiter für Desktop */
+            gap: 60px; 
+            max-width: 1600px; 
             margin: 0 auto;
-            padding: 60px 40px; 
-            overflow: visible !important;
+            padding: 40px 40px; 
         }
 
-        /* Mobile Swipe-Carousel Fix */
+        @media (max-width: 1400px) {
+            .services-grid { gap: 40px; padding: 40px 30px; }
+        }
+
+        @media (max-width: 1024px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); gap: 50px; }
+        }
+
+        /* Die Orbit Card Wrapper */
+        .orbit-card {
+            position: relative;
+            border-radius: 20px;
+            padding: 8px; 
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        @media (min-width: 769px) {
+            .orbit-card:hover {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Der animierte Hintergrund (Roter Orbit-Glow) */
+        .orbit-glow-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            border-radius: 20px;
+            animation: orbit-glow 4s ease-in-out infinite;
+            background: transparent;
+        }
+
+        /* Der weiße Content-Bereich der Karte (Desktop) */
+        .orbit-card-content {
+            position: relative;
+            z-index: 10;
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 50px 40px; 
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .orbit-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem; 
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+
+        .orbit-card p {
+            font-size: 1.05rem; 
+            color: #6e6e73;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            flex-grow: 1; 
+        }
+
+        /* Die Keyframes für das Rote Pulsieren */
+        @keyframes orbit-glow {
+            0% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 40px 10px rgba(153, 0, 0, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
+        }
+
+        /* --- FIX 3: MOBILE OPTIMIERUNG FÜR DIE CARDS --- */
         @media (max-width: 768px) {
             .services-grid { 
                 display: flex; 
                 flex-wrap: nowrap;
                 overflow-x: auto;
-                overflow-y: visible !important; 
+                overflow-y: visible; 
                 scroll-snap-type: x mandatory; 
-                gap: 45px; /* Viel Platz zwischen den Karten auf Handy */
-                padding: 60px 30px 80px 30px; 
+                
+                /* FIX: Deutlich mehr Abstand zwischen den Karten! */
+                gap: 40px; 
+                
+                /* FIX: Mehr seitliches Padding, damit man merkt, dass es ein Carousel ist */
+                padding: 40px 30px 60px 30px; 
+                
                 -webkit-overflow-scrolling: touch; 
                 scrollbar-width: none; 
             }
             .services-grid::-webkit-scrollbar { display: none; }
             
             .orbit-card {
-                flex: 0 0 85%; /* Karte ist breit genug auf Handy */
+                /* FIX: Die Karte ist jetzt 85% breit. Zusammen mit dem größeren Gap sieht das deutlich eleganter aus. */
+                flex: 0 0 85%; 
                 scroll-snap-align: center; 
             }
+            
+            /* FIX: Wieder etwas mehr Padding oben/unten, damit die Karte länger und weniger quadratisch wirkt */
+            .orbit-card-content {
+                padding: 40px 25px !important; 
+            }
+            
+            .orbit-card h3 {
+                font-size: 1.6rem !important;
+                margin-bottom: 15px !important;
+            }
+            .orbit-card p {
+                font-size: 1rem !important;
+                margin-bottom: 25px !important;
+            }
         }
+        /* === ENDE ORBIT CARDS === */
 
-        /* Die Orbit Card */
-        .orbit-card {
-            position: relative;
-            z-index: 1;
-            transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
+        input, select, textarea { border-radius: 12px !important; }
+        .gallery-item img { border-radius: 12px !important; }
+        .contact-form, .modal-content-wrapper { border-radius: 20px !important; }
+        .menu-toggle-btn { border-radius: 8px !important; }
+        
+        .ref-logo-img {
+            height: 100px !important;  
+            width: auto !important;
+            opacity: 1 !important;     
+            filter: none !important;   
+            margin: 0 40px !important; 
+            border-radius: 8px !important;
+            object-fit: contain;
         }
-
-        .orbit-card:hover {
-            transform: translateY(-10px);
-        }
-
-        /* Der verbesserte Flow-Glow (Weniger Kasten, mehr Licht) */
-        .orbit-glow-bg {
-            position: absolute;
-            inset: -5px; /* Etwas größer als die Karte */
-            z-index: -1;
-            border-radius: 30px; /* Rundere Ecken für den Glow bricht die Kastenform */
-            background: radial-gradient(circle at center, rgba(255, 0, 0, 0.15) 0%, transparent 70%);
-            animation: light-flow 5s ease-in-out infinite;
-            filter: blur(15px);
-        }
-
-        /* Der weiße Content-Bereich (Wuchtiger Apple Style) */
-        .orbit-card-content {
-            position: relative;
-            z-index: 10;
-            background-color: #ffffff;
-            border-radius: 22px;
-            padding: 60px 45px; /* Mehr Padding für bessere Proportionen */
-            height: 100%;
+        
+        .marquee-track {
             display: flex;
-            flex-direction: column;
+            align-items: center; 
+            width: max-content !important; 
+            gap: 0 !important; 
+            animation: marquee-scroll 40s linear infinite !important;
+        }
+
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-wrapper {
+            overflow: hidden !important; 
+            width: 100% !important;
+            display: flex !important;
+        }
+
+        .ref-section {
+            border-radius: 40px !important;
+            margin: 0 !important; 
+            position: relative !important;
+            background: #ffffff !important; 
+            border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+            overflow: hidden !important;
+            padding: 100px 0 !important;
+        }
+
+        .ref-section::before { display: none !important; }
+        .ref-section > div, .marquee-wrapper { position: relative; z-index: 2; }
+        .gallery-section { background: transparent !important; border-top: none !important; border-bottom: none !important; }
+        .gallery-container { animation: none !important; cursor: grab !important; will-change: transform; }
+        .gallery-container:active { cursor: grabbing !important; }
+        .gallery-item img { pointer-events: none !important; user-select: none !important; -webkit-user-drag: none !important; }
+
+        /* --- TOGGLE SWITCH ZENTRIERT IM VIDEO --- */
+        .site-toggle-container {
+            display: flex;
+            justify-content: center;
             align-items: center;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0,0,0,0.02);
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-
-        .orbit-card h3 {
+            gap: 20px;
             font-family: 'Oswald', sans-serif;
-            font-size: 2rem; 
-            margin-bottom: 25px;
-            letter-spacing: 1px;
             color: #1d1d1f;
+            pointer-events: auto;
+            margin-bottom: 30px;
         }
 
-        .orbit-card p {
-            font-size: 1.1rem; 
-            color: #6e6e73;
-            margin-bottom: 35px;
-            line-height: 1.7;
-            flex-grow: 1; 
+        .toggle-label {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #86868b;
+            transition: color 0.3s, text-shadow 0.3s;
         }
 
-        /* Animation für einen weichen Licht-Flow statt hartem Kasten-Blinken */
-        @keyframes light-flow {
-            0%, 100% {
-                opacity: 0.4;
-                box-shadow: 0 0 30px 5px rgba(255, 0, 0, 0.3);
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.8;
-                box-shadow: 0 0 50px 15px rgba(255, 0, 0, 0.5);
-                transform: scale(1.03);
-            }
+        .site-toggle-container.is-creators .label-creators,
+        .site-toggle-container.is-business .label-business {
+            color: #ff0000;
+            text-shadow: none;
         }
 
-        /* Kontaktformular & Footer Anpassung */
-        .contact-form, .ref-section {
-            background: #ffffff !important;
-            border-radius: 30px !important;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.04) !important;
-            border: 1px solid rgba(0,0,0,0.05) !important;
+        .ios-switch { position: relative; display: inline-block; width: 80px; height: 44px; cursor: pointer; }
+        .ios-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.1); transition: .4s; border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 32px; width: 32px; left: 4px; bottom: 4px;
+            background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: .4s;
+        }
+
+        input:checked + .slider { background-color: #990000; border-color: #ff0000; }
+        input:checked + .slider:before { transform: translateX(36px); }
+        .slider.round { border-radius: 50px; }
+        .slider.round:before { border-radius: 50%; }
+
+        @media (max-width: 768px) {
+            .site-toggle-container { gap: 12px; margin-bottom: 20px; }
+            .toggle-label { font-size: 1.1rem; }
+            .ios-switch { width: 60px; height: 34px; }
+            .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; }
+            input:checked + .slider:before { transform: translateX(26px); }
         }
     </style>
 </head>
 <body>
 
+    <div class="cinematic-bg-wrapper">
+        <div class="bg-layer active"></div>
+    </div>
+
+    <div class="page-transition-curtain"></div>
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
+    <div class="red-thread"></div>
+    <div class="cinematic-vignette"></div>
+
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <div class="side-menu">
+        <div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="menu-links">
+                <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
+                <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="impressum.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+                <a href="upcoming.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
+                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
+                <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+             <a href="impressum.html" class="interactive">IMPRESSUM</a>
+             <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+             <a href="agb.html" class="interactive">AGB</a>
+             <span>© 2026 WESTROOMZ</span>
+        </div>
+    </div>
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">GALLERY</h2>
+            <div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div>
+        </div>
+        <div class="modal-content-wrapper">
+            <div class="modal-grid" id="modalGrid"></div>
+        </div>
+    </div>
+
     <main class="page-wrapper">
-        <header id="hero" class="hero" style="height: 60vh; display: flex; align-items: center; justify-content: center;">
+        <header id="hero" class="hero">
+            <div class="video-container">
+            </div>
+            <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="site-toggle-container is-business interactive">
                     <span class="toggle-label label-creators">Creators</span>
@@ -168,30 +332,35 @@
                     </label>
                     <span class="toggle-label label-business">Business</span>
                 </div>
-                <h1 class="big-lead" style="font-size: 4rem; text-align: center;">VISION. MADE. REAL.</h1>
+                <p class="hero-sub">UNERREICHTE QUALITÄT</p>
             </div>
         </header>
 
-        <section id="vision" class="vision-section" style="padding: 100px 20px;">
-            <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+        <div class="gradual-blur-bottom"></div>
+        <section id="vision" class="vision-section">
+            <div>
+                <h2 class="big-lead">VISION. MADE. REAL.</h2>
+                <div class="divider-line"></div>
                 <div class="vision-text">
-                    <p style="font-size: 1.4rem; line-height: 1.8;">WESTROOMZ ist eine kreative Produktionsagentur für Events und Marketing. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
+                    <p>WESTROOMZ ist eine kreative Produktionsagentur für Events und Marketing. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
+                    <p>Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
                 </div>
             </div>
         </section>
 
         <section id="services" class="services-section">
-            <div style="text-align: center; margin-bottom: 80px;">
-                <h2 class="section-title" style="font-size: 3rem; letter-spacing: 4px;">WAS WIR TUN</h2>
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 class="section-title">WAS WIR TUN</h2>
             </div>
             
             <div class="services-grid">
+                
                 <div class="orbit-card">
                     <div class="orbit-glow-bg"></div>
                     <div class="orbit-card-content">
                         <h3>EVENTS</h3>
-                        <p>Struktur, Know-how und saubere Umsetzung. Von der Planung bis zum Betrieb vor Ort übernehmen wir Verantwortung.</p>
-                        <a href="#" class="book-btn interactive">DETAILS</a>
+                        <p>Struktur, Know-how und saubere Umsetzung. Von der Planung bis zum laufenden Betrieb vor Ort übernehmen wir Verantwortung.</p>
+                        <a href="service-detail.html?id=event_planning" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
 
@@ -208,7 +377,7 @@
                     <div class="orbit-glow-bg"></div>
                     <div class="orbit-card-content">
                         <h3>VIDEO</h3>
-                        <p>Visuelle Präzision. Von Live-Streaming bis zur kompletten Content-Produktion setzen wir deine Marke ins Licht.</p>
+                        <p>Visuelle Präzision. Von Live-Streaming bis zur kompletten Content-Produktion setzen wir deine Marke ins richtige Licht.</p>
                         <a href="#" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
@@ -217,62 +386,123 @@
                     <div class="orbit-glow-bg"></div>
                     <div class="orbit-card-content">
                         <h3>MARKETING</h3>
-                        <p>Reichweite braucht Strategie. Wir verbinden kreativen Content mit performance-orientiertem Marketing.</p>
-                        <a href="#" class="book-btn interactive">DETAILS</a>
+                        <p>Reichweite braucht Strategie. Wir verbinden kreativen Content mit performance-orientiertem Marketing für Sichtbarkeit.</p>
+                        <a href="service-detail.html?id=marketing_general" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
+
             </div>
+
         </section>
 
-        <section id="references" style="padding: 120px 20px;">
-            <div class="ref-section" style="padding: 80px 0;">
-                <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">REFERENZEN</h2>
-                <div class="marquee-wrapper">
-                    <div class="marquee-track">
-                        <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                        <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                        <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                        <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                        <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
-                        <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                        <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                        <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+        <div id="references" class="laser-border-wrapper">
+            <div class="laser-border-inner">
+                <section class="ref-section">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h2 class="section-title">REFERENZEN</h2>
                     </div>
-                </div>
-            </div>
-        </section>
+                    
+                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
+                        <div class="vision-text" style="opacity: 1; transform: none;">
+                            <p style="opacity: 1; transform: none;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
+                        </div>
+                    </div>
 
-        <section id="contact" class="contact-section" style="padding-bottom: 100px;">
-            <div class="contact-grid" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 0 20px;">
+                    <div class="marquee-wrapper">
+                        <div class="marquee-track">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <section id="contact" class="contact-section">
+            <div class="contact-grid">
                 <div class="contact-info">
                     <h2 class="section-title">KONTAKT</h2>
-                    <p style="color: #6e6e73; font-size: 1.2rem;">Du planst eine Produktion oder suchst einen technischen Partner?</p>
-                    <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.4rem;">
+                    <p style="color: #6e6e73;">Du planst eine Produktion oder suchst einen technischen Partner?</p>
+                    <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
                         <p>INFO@WESTROOMZ.DE</p>
                         <p>TEL. 01577 877 8502</p>
+                        <p>AM ALTEN SPORTPLATZ 37, 48477 HÖRSTEL</p>
                     </div>
                 </div>
-                <form class="contact-form" style="padding: 40px;">
-                    <input type="text" placeholder="NAME" style="width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #d2d2d7; border-radius: 12px; background: #f5f5f7;">
-                    <textarea placeholder="NACHRICHT" rows="5" style="width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #d2d2d7; border-radius: 12px; background: #f5f5f7;"></textarea>
-                    <button type="submit" class="book-btn" style="width: 100%;">ABSENDEN</button>
+                <form class="contact-form" style="background: #ffffff !important; box-shadow: 0 4px 24px rgba(0,0,0,0.06) !important; padding: 40px !important;">
+                    <label style="color: #86868b;">ABTEILUNG</label>
+                    <select id="department" class="interactive" style="background: #f5f5f7; border: 1px solid #d2d2d7; color: #1d1d1f;">
+                        <option value="General">Allgemeine Anfrage</option>
+                        <option value="Event">Eventplanung</option>
+                        <option value="Marketing">Marketing</option>
+                    </select>
+                    <label style="color: #86868b;">NAME</label>
+                    <input type="text" id="name" class="interactive" required style="background: #f5f5f7; border: 1px solid #d2d2d7; color: #1d1d1f;">
+                    <label style="color: #86868b;">PROJEKT</label>
+                    <input type="text" id="subject" class="interactive" placeholder="Projekt..." style="background: #f5f5f7; border: 1px solid #d2d2d7; color: #1d1d1f;">
+                    <label style="color: #86868b;">NACHRICHT</label>
+                    <textarea id="message" class="interactive" rows="5" style="background: #f5f5f7; border: 1px solid #d2d2d7; color: #1d1d1f;"></textarea>
+                    <button type="submit" class="submit-btn interactive" style="background: #1d1d1f; color: white;">ABSENDEN</button>
                 </form>
             </div>
         </section>
 
-        <footer style="padding: 50px 20px; text-align: center; border-top: 1px solid #d2d2d7;">
-            <p style="color: #86868b;">© 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
+        <footer>
+            <div class="footer-socials">
+                <a href="#" class="social-icon interactive" style="color: #1d1d1f;">INSTAGRAM</a>
+                <a href="#" class="social-icon interactive" style="color: #1d1d1f;">LINKEDIN</a>
+            </div>
+            <div class="footer-nav">
+                <a href="impressum.html" class="interactive" style="color: #1d1d1f;">IMPRESSUM</a>
+                <a href="datenschutz.html" class="interactive" style="color: #1d1d1f;">DATENSCHUTZ</a>
+                <a href="agb.html" class="interactive" style="color: #1d1d1f;">AGB</a>
+            </div>
+            <p class="copyright" style="color: #86868b;">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
+    
+    <script src="js/main.js"></script>
 
     <script>
-        // Smooth Scroll mit Lenis (falls vorhanden)
-        const lenis = new Lenis();
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
+                
+                if(blurOverlay) {
+                    ScrollTrigger.create({
+                        trigger: "#vision",
+                        start: "top 95%", 
+                        onEnter: () => blurOverlay.style.opacity = '1',
+                        onLeaveBack: () => blurOverlay.style.opacity = '0' 
+                    });
+                    
+                    ScrollTrigger.create({
+                        trigger: "footer",
+                        start: "top 100%", 
+                        onEnter: () => blurOverlay.style.opacity = '0',
+                        onLeaveBack: () => blurOverlay.style.opacity = '1'
+                    });
+                }
+            }
+        });
     </script>
 </body>
 </html>
