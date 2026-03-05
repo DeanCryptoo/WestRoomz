@@ -77,7 +77,7 @@
             }
         }
 
-        /* Der animierte Hintergrund (Roter Orbit-Glow) */
+        /* Der animierte Hintergrund (Roter Orbit-Glow für Desktop) */
         .orbit-glow-bg {
             position: absolute;
             inset: 0;
@@ -87,7 +87,7 @@
             background: transparent;
         }
 
-        /* Der weiße Content-Bereich der Karte (Desktop) */
+        /* Der weiße Content-Bereich der Karte */
         .orbit-card-content {
             position: relative;
             z-index: 10;
@@ -117,14 +117,14 @@
             flex-grow: 1; 
         }
 
-        /* Die Keyframes für das Rote Pulsieren */
+        /* Die Keyframes für das Rote Pulsieren (Desktop) */
         @keyframes orbit-glow {
             0% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
             50% { transform: scale(1.02); box-shadow: 0 0 40px 10px rgba(153, 0, 0, 0.6); }
             100% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); }
         }
 
-        /* --- FIX 3: MOBILE OPTIMIERUNG FÜR DIE CARDS --- */
+        /* --- MOBILE OPTIMIERUNG FÜR DIE CARDS inkl. weichem Flow --- */
         @media (max-width: 768px) {
             .services-grid { 
                 display: flex; 
@@ -133,10 +133,7 @@
                 overflow-y: visible; 
                 scroll-snap-type: x mandatory; 
                 
-                /* FIX: Deutlich mehr Abstand zwischen den Karten! */
                 gap: 40px; 
-                
-                /* FIX: Mehr seitliches Padding, damit man merkt, dass es ein Carousel ist */
                 padding: 40px 30px 60px 30px; 
                 
                 -webkit-overflow-scrolling: touch; 
@@ -145,12 +142,10 @@
             .services-grid::-webkit-scrollbar { display: none; }
             
             .orbit-card {
-                /* FIX: Die Karte ist jetzt 85% breit. Zusammen mit dem größeren Gap sieht das deutlich eleganter aus. */
                 flex: 0 0 85%; 
                 scroll-snap-align: center; 
             }
             
-            /* FIX: Wieder etwas mehr Padding oben/unten, damit die Karte länger und weniger quadratisch wirkt */
             .orbit-card-content {
                 padding: 40px 25px !important; 
             }
@@ -163,6 +158,49 @@
                 font-size: 1rem !important;
                 margin-bottom: 25px !important;
             }
+
+            /* FIX: FLÜSSIGER, WEICHER ORBIT-GLOW FÜR MOBILE */
+            .orbit-glow-bg {
+                /* Deaktiviert das statische Pulsieren vom Desktop */
+                animation: none !important;
+                box-shadow: none !important;
+                
+                /* Hält das weiche Licht innerhalb der abgerundeten Karten-Form */
+                overflow: hidden; 
+                border-radius: 20px;
+                -webkit-mask-image: -webkit-radial-gradient(white, black);
+            }
+
+            /* Der weiche, rotierende Lichtkegel im Hintergrund */
+            .orbit-glow-bg::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                
+                /* Der Farbverlauf (mit sanfterem Übergang) */
+                background: conic-gradient(
+                    from 0deg,
+                    transparent 0%,
+                    transparent 50%,
+                    rgba(255, 0, 0, 0.3) 75%,
+                    #ff0000 100%
+                );
+                
+                /* Der Blur für den weichen Flow */
+                filter: blur(20px); 
+                
+                /* Die Drehung (etwas langsamer für einen edleren Flow) */
+                animation: spin-flow 4s linear infinite;
+            }
+        }
+
+        /* Die Animations-Regel für den rotierenden Flow auf Mobile */
+        @keyframes spin-flow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         /* === ENDE ORBIT CARDS === */
 
@@ -175,7 +213,7 @@
         .ref-logo-img {
             height: 100px !important;  
             width: auto !important;
-            opacity: 1 !important;     
+            opacity: 1 !important;    
             filter: none !important;   
             margin: 0 40px !important; 
             border-radius: 8px !important;
