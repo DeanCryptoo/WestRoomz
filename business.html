@@ -16,39 +16,127 @@
 
     <style>
         /* === APPLE STYLE OVERRIDES === */
-        
-        /* 1. Globaler Hintergrund (Apple Grau) & Text (Dunkelgrau) */
         html, body, .page-wrapper {
             background-color: #f5f5f7 !important;
             color: #1d1d1f !important;
         }
 
-        /* 2. Hintergrund der Cinematic-Ebene überschreiben */
         .cinematic-bg-wrapper, .bg-layer {
             background-color: transparent !important;
-            background-image: none !important; /* Bild definitiv entfernen */
+            background-image: none !important;
         }
 
-        /* 3. Störende dunkle Effekte ausblenden */
         .cinematic-vignette, .gradual-blur-bottom, .hero-overlay, .page-transition-curtain {
             display: none !important; 
         }
 
-        /* 4. Textfarben anpassen (damit sie auf Hellgrau lesbar sind) */
         h1, h2, h3, p, .vision-text p, .section-title, .big-lead {
             color: #1d1d1f !important;
         }
         
         .hero-sub { color: #86868b !important; }
 
-        /* 5. Linien und Buttons anpassen */
         .divider-line { background-color: #1d1d1f !important; }
         .menu-toggle-btn .bar { background-color: #1d1d1f !important; }
-        .book-btn { background-color: #1d1d1f !important; color: white !important; }
+        .book-btn { background-color: #1d1d1f !important; color: white !important; border: none; padding: 12px 24px; text-decoration: none; display: inline-block;}
         .tab-btn { color: #1d1d1f !important; border: 1px solid #d2d2d7 !important; }
         .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
 
-        /* === ENDE APPLE STYLE OVERRIDES === */
+        /* === NEUE ORBIT CARDS (4er Grid) === */
+        
+        /* Grid Layout für die 4 Karten */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .services-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Die Orbit Card Wrapper */
+        .orbit-card {
+            position: relative;
+            border-radius: 20px;
+            /* Sorgt dafür, dass der rote Glow-Rand sichtbar ist */
+            padding: 6px; 
+            z-index: 1;
+            /* Optionale Skalierung beim Hover für mehr Interaktivität */
+            transition: transform 0.3s ease;
+        }
+
+        .orbit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Der animierte Hintergrund (Roter Orbit-Glow) */
+        .orbit-glow-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            border-radius: 20px;
+            animation: orbit-glow 4s ease-in-out infinite;
+            /* Dieser Rahmen ist transparent, nur der Schatten leuchtet rot */
+            background: transparent;
+        }
+
+        /* Der weiße Content-Bereich der Karte (Apple Style) */
+        .orbit-card-content {
+            position: relative;
+            z-index: 10;
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            /* Der Apple-typische Schatten: Macht die weiße Karte auf dem hellgrauen Hintergrund plastisch */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .orbit-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1d1d1f;
+        }
+
+        .orbit-card p {
+            font-size: 1rem;
+            color: #6e6e73;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            flex-grow: 1; /* Schiebt den Button nach unten */
+        }
+
+        /* Die Keyframes für das Rote Pulsieren (Nur der Rand) */
+        @keyframes orbit-glow {
+            0% {
+                transform: scale(1);
+                /* Der rote Schatten strahlt nach außen ab */
+                box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4); 
+            }
+            50% {
+                transform: scale(1.02); 
+                /* Pulsieren: Der rote Schatten wird etwas größer und kräftiger */
+                box-shadow: 0 0 40px 10px rgba(153, 0, 0, 0.6); 
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 25px 5px rgba(255, 0, 0, 0.4);
+            }
+        }
+        /* === ENDE ORBIT CARDS === */
 
         button, .tab-btn, .submit-btn, .book-btn, .menu-link {
             border-radius: 30px !important;
@@ -62,7 +150,7 @@
             border-radius: 12px !important;
         }
 
-        .contact-form, .service-container, .modal-content-wrapper {
+        .contact-form, .modal-content-wrapper {
             border-radius: 20px !important;
         }
 
@@ -99,19 +187,18 @@
             display: flex !important;
         }
 
-        /* Die Referenzen-Sektion passen wir auch grob an das helle Theme an */
         .ref-section {
             border-radius: 40px !important;
             margin: 0 !important; 
             position: relative !important;
-            background: #ffffff !important; /* Weißer Hintergrund statt schwarz */
+            background: #ffffff !important; 
             border: 1px solid rgba(0, 0, 0, 0.05) !important;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
             overflow: hidden !important;
             padding: 100px 0 !important;
         }
 
-        .ref-section::before { display: none !important; } /* Hintergrundlogo entfernen */
+        .ref-section::before { display: none !important; }
 
         .ref-section > div, .marquee-wrapper {
             position: relative;
@@ -140,9 +227,7 @@
             -webkit-user-drag: none !important;
         }
 
-        /* ========================================================= */
         /* --- TOGGLE SWITCH ZENTRIERT IM VIDEO --- */
-        /* ========================================================= */
         .site-toggle-container {
             display: flex;
             justify-content: center;
@@ -165,7 +250,7 @@
         .site-toggle-container.is-creators .label-creators,
         .site-toggle-container.is-business .label-business {
             color: #ff0000;
-            text-shadow: none; /* Kein Glow-Effekt mehr auf hellem Hintergrund */
+            text-shadow: none;
         }
 
         .ios-switch {
@@ -212,13 +297,8 @@
             transform: translateX(36px);
         }
 
-        .slider.round {
-            border-radius: 50px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
+        .slider.round { border-radius: 50px; }
+        .slider.round:before { border-radius: 50%; }
 
         @media (max-width: 768px) {
             .site-toggle-container { gap: 12px; margin-bottom: 20px; }
@@ -280,7 +360,7 @@
     <main class="page-wrapper">
         <header id="hero" class="hero">
             <div class="video-container">
-                 </div>
+            </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="site-toggle-container is-business interactive">
@@ -308,38 +388,50 @@
         </section>
 
         <section id="services" class="services-section">
-            <div style="text-align: center; margin-bottom: 50px;">
+            <div style="text-align: center; margin-bottom: 60px;">
                 <h2 class="section-title">WAS WIR TUN</h2>
             </div>
             
-            <div class="tabs-nav">
-                <button class="tab-btn active interactive" onclick="openTab('event')">EVENTS</button>
-                <button class="tab-btn interactive" onclick="openTab('marketing')">MARKETING</button>
-            </div>
-
-             <div id="event" class="service-container active" style="background: #ffffff !important; box-shadow: 0 4px 24px rgba(0,0,0,0.06) !important; padding: 40px !important;">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
-                        Events erfordern mehr als Technik.
-                        Wir liefern Struktur, Know-how und eine saubere Umsetzung – von der Planung bis zum laufenden
-                        Betrieb vor Ort.
-                        WESTROOMZ begleitet Veranstaltungen modular oder ganzheitlich und übernimmt Verantwortung.
-                    </p>
-                    <a href="service-detail.html?id=event_planning" class="book-btn interactive">DETAILS</a>
+            <div class="services-grid">
+                
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>EVENTS</h3>
+                        <p>Struktur, Know-how und saubere Umsetzung. Von der Planung bis zum laufenden Betrieb vor Ort übernehmen wir Verantwortung.</p>
+                        <a href="service-detail.html?id=event_planning" class="book-btn interactive">DETAILS</a>
+                    </div>
                 </div>
-             </div>
 
-             <div id="marketing" class="service-container" style="background: #ffffff !important; box-shadow: 0 4px 24px rgba(0,0,0,0.06) !important; padding: 40px !important;">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
-                        Reichweite braucht Strategie. Wir analysieren Zielgruppen, definieren Botschaften und platzieren deine Marke dort, wo sie gesehen wird. 
-                        WESTROOMZ verbindet kreativen Content mit performance-orientiertem Marketing für maximale Sichtbarkeit.
-                    </p>
-                    <a href="service-detail.html?id=marketing_general" class="book-btn interactive">DETAILS</a>
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>AUDIO</h3>
+                        <p>Glasklarer Sound für jedes Setup. Wir liefern professionelle Audiotechnik und Betreuung für Live-Gigs und Produktionen.</p>
+                        <a href="#" class="book-btn interactive">DETAILS</a>
+                    </div>
                 </div>
-            </div>
 
-        </section>
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>VIDEO</h3>
+                        <p>Visuelle Präzision. Von Live-Streaming bis zur kompletten Content-Produktion setzen wir deine Marke ins richtige Licht.</p>
+                        <a href="#" class="book-btn interactive">DETAILS</a>
+                    </div>
+                </div>
+
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>MARKETING</h3>
+                        <p>Reichweite braucht Strategie. Wir verbinden kreativen Content mit performance-orientiertem Marketing für Sichtbarkeit.</p>
+                        <a href="service-detail.html?id=marketing_general" class="book-btn interactive">DETAILS</a>
+                    </div>
+                </div>
+
+            </div>
+            </section>
 
         <div id="references" class="laser-border-wrapper">
             <div class="laser-border-inner">
@@ -356,24 +448,6 @@
 
                     <div class="marquee-wrapper">
                         <div class="marquee-track">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
                             <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
                             <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
                             <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
@@ -445,17 +519,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // GSAP und Page Transition Script (Temporär deaktiviert, falls das den Blackscreen verursacht hat)
-            /*
-            const businessToggle = document.getElementById('businessToggle');
-            if (businessToggle) {
-                businessToggle.addEventListener('change', function() {
-                    const targetUrl = this.checked ? 'business.html' : 'index.html';
-                    window.location.href = targetUrl;
-                });
-            }
-            */
-
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
