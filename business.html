@@ -122,19 +122,13 @@
            ========================================= */
         .saas-dashboard-wrapper { max-width: 1200px; margin: 60px auto 120px auto; padding: 0 24px; font-family: 'Inter', sans-serif; }
         
-        .dash-header { display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px; }
-        @media (min-width: 768px) { .dash-header { flex-direction: row; justify-content: space-between; align-items: flex-end; } }
+        .dash-header { display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px; text-align: center;}
+        @media (min-width: 768px) { .dash-header { align-items: center; } }
         
-        .dash-header-left .dash-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: #1d1d1f; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-        .dash-header-left h2 { font-size: 2.5rem; font-weight: 900; color: #1d1d1f; line-height: 1.1; margin-bottom: 8px; letter-spacing: -1px; }
-        .dash-header-left p { font-size: 1.125rem; color: #6e6e73; max-width: 600px; line-height: 1.6; }
-        
-        .dash-header-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        .dash-toggle-group { display: flex; background: #ffffff; border: 1px solid #e5e5ea; border-radius: 8px; padding: 4px; }
-        .dash-toggle-btn { background: transparent; border: none; padding: 6px 12px; font-size: 0.75rem; font-weight: 600; color: #6e6e73; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-        .dash-toggle-btn.active { background: #f5f5f7; color: #1d1d1f; }
-        .dash-report-btn { background: #1d1d1f; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: background 0.2s; }
-        .dash-report-btn:hover { background: #dc2626; }
+        .dash-header-center { display: flex; flex-direction: column; align-items: center; }
+        .dash-header-center h2 { font-size: 2.5rem; font-weight: 900; color: #1d1d1f; line-height: 1.1; margin-bottom: 8px; letter-spacing: -1px; }
+        .dash-header-center p { font-size: 1.125rem; color: #6e6e73; max-width: 600px; line-height: 1.6; text-align: center; }
+        .dash-header-center .highlight-red { color: #dc2626; font-style: italic; }
 
         .dash-main-container { background: #ffffff; border: 1px solid #e5e5ea; border-radius: 24px; padding: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
         @media (max-width: 768px) { .dash-main-container { padding: 20px; border-radius: 16px; } }
@@ -153,9 +147,10 @@
         .kpi-sub { font-size: 0.625rem; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 1px; }
 
         .dash-content-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
-        @media (min-width: 1024px) { .dash-content-grid { grid-template-columns: 2fr 1fr; } }
+        @media (min-width: 1024px) { .dash-content-grid { grid-template-columns: 1.5fr 1fr; } }
 
-        .dash-chart-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; }
+        /* NEUES DIAGRAMM LINKS: Content-Halbwertszeit */
+        .dash-chart-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column;}
         .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; flex-wrap: wrap; gap: 16px;}
         .chart-title { font-size: 1.125rem; font-weight: 700; color: #1d1d1f; margin-bottom: 4px; }
         .chart-sub { font-size: 0.875rem; color: #6e6e73; }
@@ -163,32 +158,28 @@
         .legend-item { display: flex; align-items: center; gap: 6px; }
         .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
         
-        .chart-visual { position: relative; height: 250px; display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 30px; border-bottom: 1px dashed #e5e5ea; }
-        .chart-svg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
-        .chart-line-path { fill: none; stroke: #dc2626; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1000; stroke-dashoffset: 1000; }
-        .c-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; z-index: 2; }
-        .c-bar { width: 40px; background: #e5e5ea; border-radius: 6px 6px 0 0; transform-origin: bottom; transform: scaleY(0); }
-        @media (max-width: 768px) { .c-bar { width: 20px; } }
-        .c-bar-label { position: absolute; bottom: -24px; font-size: 0.75rem; font-weight: 600; color: #86868b; }
-
-        .dash-funnel-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; }
-        .funnel-step { margin-bottom: 20px; }
-        .funnel-step:last-child { margin-bottom: 0; }
-        .f-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .f-name { font-size: 0.875rem; font-weight: 600; color: #1d1d1f; }
-        .f-val { font-size: 0.875rem; font-weight: 700; font-family: 'Oswald', sans-serif; }
-        .f-track { width: 100%; height: 12px; background: #f5f5f7; border-radius: 6px; overflow: hidden; }
-        .f-fill { height: 100%; background: #1d1d1f; width: 0%; border-radius: 6px; }
+        .chart-visual-bars { display: flex; align-items: flex-end; justify-content: space-around; height: 200px; padding-bottom: 20px; border-bottom: 1px dashed #e5e5ea; flex-grow: 1;}
+        .bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; width: 100%; gap: 4px;}
+        .bars-wrapper { display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 100%; width: 100%;}
         
-        .f-s1 { background: #1d1d1f; }
-        .f-s2 { background: rgba(29, 29, 31, 0.8); }
-        .f-s3 { background: rgba(29, 29, 31, 0.5); }
-        .f-s4 { background: #dc2626; }
+        .chart-bar-gray { width: 20px; background: #e5e5ea; border-radius: 4px 4px 0 0; transform-origin: bottom; transform: scaleY(0); }
+        .chart-bar-red { width: 20px; background: #dc2626; border-radius: 4px 4px 0 0; transform-origin: bottom; transform: scaleY(0); }
+        .time-label { margin-top: 12px; font-size: 0.75rem; font-weight: 600; color: #86868b; text-transform: uppercase; }
 
-        .f-drop { text-align: center; font-size: 0.65rem; font-weight: 700; color: #86868b; margin-top: 10px; position: relative; text-transform: uppercase; letter-spacing: 1px;}
-        .f-drop::before { content: ''; position: absolute; left: 50%; top: -8px; width: 1px; height: 6px; background: #d2d2d7; }
-        .f-footer-btn { margin-top: auto; padding-top: 24px; width: 100%; background: none; border: none; border-top: 1px solid #e5e5ea; color: #1d1d1f; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px; transition: color 0.2s; }
-        .f-footer-btn:hover { color: #dc2626; }
+        @media (max-width: 768px) { .chart-bar-gray, .chart-bar-red { width: 12px; } }
+
+        /* NEUE BOX RECHTS: Der Multiplikator */
+        .dash-multiplier-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;}
+        .mult-item { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid #f5f5f7; }
+        .mult-item:last-child { border-bottom: none; }
+        .mult-item.header-row { border-bottom: 2px solid #e5e5ea; margin-bottom: 8px; padding-top: 0;}
+        .mult-title { font-size: 0.875rem; font-weight: 700; color: #1d1d1f; text-transform: uppercase; letter-spacing: 1px;}
+        .mult-name { font-size: 0.95rem; font-weight: 600; color: #1d1d1f; display: flex; align-items: center; gap: 8px;}
+        .mult-name svg { color: #86868b; }
+        .mult-val { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; color: #dc2626; }
+        
+        .m-footer-btn { margin-top: 24px; width: 100%; background: #1d1d1f; color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: background 0.2s; }
+        .m-footer-btn:hover { background: #dc2626; }
 
         /* === WEITERE STYLES (Referenzen, Switches, Footer etc.) === */
         button, .tab-btn, .menu-link { border-radius: 30px !important; }
@@ -407,69 +398,12 @@
             </div>
         </section>
 
-        <section id="services" class="services-section">
-            <div style="text-align: center; margin-bottom: 60px;">
-                <h2 class="section-title">WAS WIR TUN</h2>
-            </div>
-            
-            <div class="services-grid">
-                <div class="orbit-card">
-                    <div class="orbit-glow-bg"></div>
-                    <div class="orbit-card-content">
-                        <h3>EVENTS</h3>
-                        <p>Struktur, Know-how und saubere Umsetzung. Von der Planung bis zum laufenden Betrieb vor Ort übernehmen wir Verantwortung.</p>
-                        <a href="service-detail.html?id=event_planning" class="book-btn interactive">DETAILS</a>
-                    </div>
-                </div>
-                <div class="orbit-card">
-                    <div class="orbit-glow-bg"></div>
-                    <div class="orbit-card-content">
-                        <h3>AUDIO</h3>
-                        <p>Glasklarer Sound für jedes Setup. Wir liefern professionelle Audiotechnik und Betreuung für Live-Gigs und Produktionen.</p>
-                        <a href="#" class="book-btn interactive">DETAILS</a>
-                    </div>
-                </div>
-                <div class="orbit-card">
-                    <div class="orbit-glow-bg"></div>
-                    <div class="orbit-card-content">
-                        <h3>VIDEO</h3>
-                        <p>Visuelle Präzision. Von Live-Streaming bis zur kompletten Content-Produktion setzen wir deine Marke ins richtige Licht.</p>
-                        <a href="#" class="book-btn interactive">DETAILS</a>
-                    </div>
-                </div>
-                <div class="orbit-card">
-                    <div class="orbit-glow-bg"></div>
-                    <div class="orbit-card-content">
-                        <h3>MARKETING</h3>
-                        <p>Reichweite braucht Strategie. Wir verbinden kreativen Content mit performance-orientiertem Marketing für Sichtbarkeit.</p>
-                        <a href="service-detail.html?id=marketing_general" class="book-btn interactive">DETAILS</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="saas-dashboard-wrapper" id="market-proof">
             
             <div class="dash-header">
-                <div class="dash-header-left">
-                    <span class="dash-eyebrow">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" width="14" height="14"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                        Daten & Fakten
-                    </span>
-                    <h2>Warum sich Qualität auszahlt.</h2>
-                    <p>Der Markt verändert sich. Wer heute noch auf Standard-Inhalte setzt, wird übersehen. Die Zahlen sprechen eine klare Sprache:</p>
-                </div>
-                <div class="dash-header-right">
-                    <div class="dash-toggle-group">
-                        <button class="dash-toggle-btn active interactive">Markt-Trend</button>
-                        <button class="dash-toggle-btn interactive">Unser Einfluss</button>
-                    </div>
-                    <a href="#contact" style="text-decoration: none;">
-                        <button class="dash-report-btn interactive">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            Projekt starten
-                        </button>
-                    </a>
+                <div class="dash-header-center">
+                    <h2>Der Markt wartet nicht. <br>Nutzt ihr <span class="highlight-red">euer vollstes Potenzial?</span></h2>
+                    <p>Ein normales Event ist nach 24 Stunden vergessen. Mit der Westroomz Content-Maschine verlängern wir die Sichtbarkeit eurer Marke über Wochen und vervielfachen euren Output.</p>
                 </div>
             </div>
 
@@ -509,65 +443,133 @@
                     <div class="dash-chart-area">
                         <div class="chart-header">
                             <div>
-                                <div class="chart-title">Sichtbarkeit & Erfolg im Vergleich</div>
-                                <div class="chart-sub">Normaler Content vs. Premium Produktion</div>
+                                <div class="chart-title">Event-Sichtbarkeit im Vergleich</div>
+                                <div class="chart-sub">Wie lange bleibt euer Event relevant?</div>
                             </div>
                             <div class="chart-legend">
-                                <div class="legend-item"><div class="legend-dot" style="background:#e5e5ea"></div> Normaler Weg</div>
-                                <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Westroomz Weg</div>
+                                <div class="legend-item"><div class="legend-dot" style="background:#e5e5ea"></div> Normales Event</div>
+                                <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Mit Westroomz</div>
                             </div>
                         </div>
 
-                        <div class="chart-visual">
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="15%"></div><span class="c-bar-label">Start</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="20%"></div><span class="c-bar-label">Mitte</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="18%"></div><span class="c-bar-label">Plan</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="25%"></div><span class="c-bar-label">Event</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="20%"></div><span class="c-bar-label">Follow-up</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="22%"></div><span class="c-bar-label">Review</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="25%"></div><span class="c-bar-label">Ergebnis</span></div>
-                            
-                            <svg class="chart-svg-overlay" viewBox="0 0 700 250" preserveAspectRatio="none">
-                                <path class="chart-line-path js-c-line" d="M 50 220 C 150 200, 150 180, 250 150 C 350 250, 350 150, 450 80 C 550 60, 550 180, 650 30" />
-                            </svg>
+                        <div class="chart-visual-bars">
+                            <div class="bar-group">
+                                <div class="bars-wrapper">
+                                    <div class="chart-bar-gray js-c-bar" data-height="90%"></div>
+                                    <div class="chart-bar-red js-c-bar" data-height="95%"></div>
+                                </div>
+                                <span class="time-label">Tag 1</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars-wrapper">
+                                    <div class="chart-bar-gray js-c-bar" data-height="15%"></div>
+                                    <div class="chart-bar-red js-c-bar" data-height="85%"></div>
+                                </div>
+                                <span class="time-label">Woche 1</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars-wrapper">
+                                    <div class="chart-bar-gray js-c-bar" data-height="5%"></div>
+                                    <div class="chart-bar-red js-c-bar" data-height="70%"></div>
+                                </div>
+                                <span class="time-label">Woche 2</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars-wrapper">
+                                    <div class="chart-bar-gray js-c-bar" data-height="0%"></div>
+                                    <div class="chart-bar-red js-c-bar" data-height="55%"></div>
+                                </div>
+                                <span class="time-label">Woche 3</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bars-wrapper">
+                                    <div class="chart-bar-gray js-c-bar" data-height="0%"></div>
+                                    <div class="chart-bar-red js-c-bar" data-height="45%"></div>
+                                </div>
+                                <span class="time-label">Woche 4</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="dash-funnel-area">
-                        <div class="chart-header" style="margin-bottom: 24px;">
-                            <div>
-                                <div class="chart-title">Aus Zuschauern werden Kunden</div>
-                                <div class="chart-sub">So funktioniert unser System</div>
+                    <div class="dash-multiplier-area">
+                        <div>
+                            <div class="chart-header" style="margin-bottom: 24px;">
+                                <div>
+                                    <div class="chart-title">Der Content-Multiplikator</div>
+                                    <div class="chart-sub">Was wir aus nur <strong style="color: #1d1d1f;">1 Drehtag</strong> herausholen:</div>
+                                </div>
+                            </div>
+
+                            <div class="mult-item header-row">
+                                <span class="mult-title">Asset</span>
+                                <span class="mult-title">Anzahl</span>
+                            </div>
+                            <div class="mult-item">
+                                <span class="mult-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg> High-End Imagefilm</span>
+                                <span class="mult-val">1x</span>
+                            </div>
+                            <div class="mult-item">
+                                <span class="mult-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg> Social Media Reels</span>
+                                <span class="mult-val">15x</span>
+                            </div>
+                            <div class="mult-item">
+                                <span class="mult-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg> B2B LinkedIn Posts</span>
+                                <span class="mult-val">10x</span>
+                            </div>
+                            <div class="mult-item">
+                                <span class="mult-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg> High-Res Fotos</span>
+                                <span class="mult-val">30+</span>
                             </div>
                         </div>
 
-                        <div class="funnel-step">
-                            <div class="f-top"><span class="f-name">Reichweite (Gesehen)</span><span class="f-val">45.000</span></div>
-                            <div class="f-track"><div class="f-fill f-s1 js-f-fill" style="width:0%" data-width="100%"></div></div>
-                            <div class="f-drop">Aufmerksamkeit geweckt</div>
-                        </div>
-                        <div class="funnel-step">
-                            <div class="f-top"><span class="f-name">Klicks (Interesse)</span><span class="f-val">12.000</span></div>
-                            <div class="f-track"><div class="f-fill f-s2 js-f-fill" style="width:0%" data-width="60%"></div></div>
-                            <div class="f-drop">Klicken weiter</div>
-                        </div>
-                        <div class="funnel-step">
-                            <div class="f-top"><span class="f-name">Anfragen (Leads)</span><span class="f-val">3.000</span></div>
-                            <div class="f-track"><div class="f-fill f-s3 js-f-fill" style="width:0%" data-width="30%"></div></div>
-                            <div class="f-drop">Persönliches Gespräch</div>
-                        </div>
-                        <div class="funnel-step" style="margin-bottom: 0;">
-                            <div class="f-top"><span class="f-name">Neue Kunden</span><span class="f-val" style="color: #dc2626;">850</span></div>
-                            <div class="f-track"><div class="f-fill f-s4 js-f-fill" style="width:0%" data-width="15%"></div></div>
-                        </div>
-
                         <a href="#contact" style="text-decoration: none;">
-                            <button class="f-footer-btn interactive">
-                                Strategie besprechen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="7 17 17 7"></polyline><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            <button class="m-footer-btn interactive">
+                                Maximale Effizienz buchen
                             </button>
                         </a>
                     </div>
 
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 class="section-title">WAS WIR TUN</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>EVENTS</h3>
+                        <p>Struktur, Know-how und saubere Umsetzung. Von der Planung bis zum laufenden Betrieb vor Ort übernehmen wir Verantwortung.</p>
+                        <a href="service-detail.html?id=event_planning" class="book-btn interactive">DETAILS</a>
+                    </div>
+                </div>
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>AUDIO</h3>
+                        <p>Glasklarer Sound für jedes Setup. Wir liefern professionelle Audiotechnik und Betreuung für Live-Gigs und Produktionen.</p>
+                        <a href="#" class="book-btn interactive">DETAILS</a>
+                    </div>
+                </div>
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>VIDEO</h3>
+                        <p>Visuelle Präzision. Von Live-Streaming bis zur kompletten Content-Produktion setzen wir deine Marke ins richtige Licht.</p>
+                        <a href="#" class="book-btn interactive">DETAILS</a>
+                    </div>
+                </div>
+                <div class="orbit-card">
+                    <div class="orbit-glow-bg"></div>
+                    <div class="orbit-card-content">
+                        <h3>MARKETING</h3>
+                        <p>Reichweite braucht Strategie. Wir verbinden kreativen Content mit performance-orientiertem Marketing für Sichtbarkeit.</p>
+                        <a href="service-detail.html?id=marketing_general" class="book-btn interactive">DETAILS</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -734,7 +736,7 @@
                     trigger: ".dash-main-container",
                     start: "top 80%",
                     onEnter: () => {
-                        // 1. Dashboard KPI Zähler (Für die glatten Prozent-Zahlen)
+                        // 1. Dashboard KPI Zähler
                         const dashCounters = document.querySelectorAll('.js-dash-counter');
                         dashCounters.forEach(counter => {
                             const target = +counter.getAttribute('data-target');
@@ -742,37 +744,18 @@
                             const obj = { val: 0 };
                             gsap.to(obj, {
                                 val: target, duration: 2, ease: "power2.out",
-                                onUpdate: () => {
-                                    // Zeigt glatte Zahlen an
-                                    counter.innerText = Math.round(obj.val) + suffix;
-                                }
+                                onUpdate: () => { counter.innerText = Math.round(obj.val) + suffix; }
                             });
                         });
 
-                        // 2. Funnel Balken animieren
-                        const funnelFills = document.querySelectorAll('.js-f-fill');
-                        funnelFills.forEach((fill, idx) => {
-                            gsap.to(fill, { width: fill.getAttribute('data-width'), duration: 1.2, ease: "power3.out", delay: idx * 0.15 });
-                        });
-
-                        // 3. Chart Balken hochfahren
+                        // 2. Chart Balken hochfahren
                         const chartBars = document.querySelectorAll('.js-c-bar');
                         chartBars.forEach((bar, idx) => {
                             gsap.to(bar, { scaleY: 1, height: bar.getAttribute('data-height'), duration: 1, ease: "back.out(1.7)", delay: idx * 0.08 });
                         });
-
-                        // 4. SVG Line zeichnen
-                        const linePath = document.querySelector('.js-c-line');
-                        if(linePath) {
-                            gsap.to(linePath, { strokeDashoffset: 0, duration: 2, ease: "power2.inOut", delay: 0.5 });
-                        }
                     },
                     onLeaveBack: () => {
-                        // Reset wenn man wieder nach oben scrollt
-                        document.querySelectorAll('.js-f-fill').forEach(fill => gsap.set(fill, { width: "0%" }));
                         document.querySelectorAll('.js-c-bar').forEach(bar => gsap.set(bar, { scaleY: 0 }));
-                        const linePath = document.querySelector('.js-c-line');
-                        if(linePath) gsap.set(linePath, { strokeDashoffset: 1000 });
                     }
                 });
             }
