@@ -833,7 +833,7 @@
             input:checked + .slider:before { transform: translateX(26px); }
         }
 
-        /* === CURSOR CSS HINZUGEFÜGT (OHNE INVERSION) === */
+        /* === CURSOR CSS === */
         * { cursor: none !important; }
         
         #slice-cursor-canvas {
@@ -851,11 +851,10 @@
             pointer-events: none;
             z-index: 100000;
             border-radius: 50%;
-            background-color: #1d1d1f; /* Standard Farbe: Dunkles Anthrazit/Schwarz */
+            background-color: #1d1d1f; /* Festes Schwarz/Dunkelgrau */
             width: 12px;
             height: 12px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%); /* Kein Hover-Scale mehr */
         }
     </style>
 </head>
@@ -1221,22 +1220,20 @@
             }
         });
 
-        /* === CURSOR LOGIK HINZUGEFÜGT === */
+        /* === CURSOR LOGIK BEREINIGT === */
         document.addEventListener("DOMContentLoaded", () => {
             const canvas = document.getElementById("slice-cursor-canvas");
             const dot = document.getElementById("slice-cursor-dot");
             const ctx = canvas.getContext("2d");
 
-            // Cursor Einstellungen - Farbe an Westrooms Rot angepasst
-            const color = "#dc2626"; 
+            // Cursor Einstellungen - Alles auf Dunkelgrau/Schwarz
+            const color = "#1d1d1f"; 
             const pointsNumber = 40;
             const widthFactor = 0.3;
             const spring = 0.4;
             const friction = 0.5;
-            const hoverScale = 5;
             
             let mouseMoved = false;
-            let isHovering = false;
             const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
             // Trail Array vorbereiten
@@ -1255,11 +1252,6 @@
             const handleMouseMove = (e) => {
                 mouseMoved = true;
                 updateMousePosition(e.clientX, e.clientY);
-
-                // Check ob man über einem klickbaren Element ist (Links, Buttons, etc.)
-                const target = e.target;
-                const interactive = target.closest('a, button, input, textarea, select, .interactive, [role="button"], [tabindex]:not([tabindex="-1"])');
-                isHovering = !!interactive;
             };
 
             const handleTouchMove = (e) => {
@@ -1279,7 +1271,7 @@
             window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
             const update = (t) => {
-                // Intro Animation, wenn die Maus noch nicht bewegt wurde
+                // Intro Animation
                 if (!mouseMoved) {
                     pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * canvas.width;
                     pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * canvas.height;
@@ -1315,12 +1307,10 @@
                     ctx.stroke();
                 }
 
-                // Render den Punkt (Farbe ändert sich beim Hovern zu Rot)
+                // Render den Punkt (bleibt immer klein)
                 if (dot) {
                     dot.style.left = `${pointer.x / window.devicePixelRatio}px`;
                     dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
-                    dot.style.transform = `translate(-50%, -50%) scale(${isHovering ? hoverScale : 1})`;
-                    dot.style.backgroundColor = isHovering ? "#dc2626" : "#1d1d1f"; 
                 }
 
                 window.requestAnimationFrame(update);
