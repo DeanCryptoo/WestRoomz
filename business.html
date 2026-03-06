@@ -120,79 +120,29 @@
         /* =========================================
            NEU: SAAS DASHBOARD "MARKET INTELLIGENCE" 
            ========================================= */
-        .saas-dashboard-wrapper {
-            max-width: 1200px;
-            margin: 60px auto 120px auto;
-            padding: 0 24px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Dashboard Header */
-        .dash-header {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-        @media (min-width: 768px) {
-            .dash-header { flex-direction: row; justify-content: space-between; align-items: flex-end; }
-        }
-        .dash-header-left .dash-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #1d1d1f;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
+        .saas-dashboard-wrapper { max-width: 1200px; margin: 60px auto 120px auto; padding: 0 24px; font-family: 'Inter', sans-serif; }
+        
+        .dash-header { display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px; }
+        @media (min-width: 768px) { .dash-header { flex-direction: row; justify-content: space-between; align-items: flex-end; } }
+        
+        .dash-header-left .dash-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: #1d1d1f; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
         .dash-header-left h2 { font-size: 2.5rem; font-weight: 900; color: #1d1d1f; line-height: 1.1; margin-bottom: 8px; letter-spacing: -1px; }
-        .dash-header-left p { font-size: 1rem; color: #6e6e73; max-width: 500px; }
+        .dash-header-left p { font-size: 1.125rem; color: #6e6e73; max-width: 600px; line-height: 1.6; }
         
         .dash-header-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        .dash-toggle-group {
-            display: flex;
-            background: #ffffff;
-            border: 1px solid #e5e5ea;
-            border-radius: 8px;
-            padding: 4px;
-        }
-        .dash-toggle-btn {
-            background: transparent; border: none; padding: 6px 12px; font-size: 0.75rem; font-weight: 600; color: #6e6e73; border-radius: 6px; cursor: pointer; transition: all 0.2s;
-        }
+        .dash-toggle-group { display: flex; background: #ffffff; border: 1px solid #e5e5ea; border-radius: 8px; padding: 4px; }
+        .dash-toggle-btn { background: transparent; border: none; padding: 6px 12px; font-size: 0.75rem; font-weight: 600; color: #6e6e73; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
         .dash-toggle-btn.active { background: #f5f5f7; color: #1d1d1f; }
-        .dash-report-btn {
-            background: #1d1d1f; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: background 0.2s;
-        }
+        .dash-report-btn { background: #1d1d1f; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: background 0.2s; }
         .dash-report-btn:hover { background: #dc2626; }
 
-        /* Main Dashboard Container */
-        .dash-main-container {
-            background: #ffffff;
-            border: 1px solid #e5e5ea;
-            border-radius: 24px;
-            padding: 32px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
-        }
+        .dash-main-container { background: #ffffff; border: 1px solid #e5e5ea; border-radius: 24px; padding: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
         @media (max-width: 768px) { .dash-main-container { padding: 20px; border-radius: 16px; } }
 
-        /* Top 3 KPIs */
-        .dash-kpis {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 24px;
-            margin-bottom: 32px;
-        }
+        .dash-kpis { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; margin-bottom: 32px; }
         @media (min-width: 768px) { .dash-kpis { grid-template-columns: repeat(3, 1fr); } }
         
-        .kpi-card {
-            border: 1px solid #e5e5ea;
-            border-radius: 16px;
-            padding: 24px;
-            transition: box-shadow 0.3s;
-        }
+        .kpi-card { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; transition: box-shadow 0.3s; }
         .kpi-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.04); border-color: rgba(220, 38, 38, 0.3); }
         .kpi-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
         .kpi-icon { width: 40px; height: 40px; border-radius: 10px; background: #f5f5f7; display: flex; justify-content: center; align-items: center; color: #1d1d1f; }
@@ -202,17 +152,11 @@
         .kpi-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 500; color: #1d1d1f; line-height: 1; margin-bottom: 8px;}
         .kpi-sub { font-size: 0.625rem; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Grid for Chart & Funnel */
-        .dash-content-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 32px;
-        }
+        .dash-content-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
         @media (min-width: 1024px) { .dash-content-grid { grid-template-columns: 2fr 1fr; } }
 
-        /* Fake Bar/Line Chart Area */
-        .dash-chart-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; position: relative; }
-        .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+        .dash-chart-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; }
+        .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; flex-wrap: wrap; gap: 16px;}
         .chart-title { font-size: 1.125rem; font-weight: 700; color: #1d1d1f; margin-bottom: 4px; }
         .chart-sub { font-size: 0.875rem; color: #6e6e73; }
         .chart-legend { display: flex; gap: 16px; font-size: 0.75rem; font-weight: 600; color: #1d1d1f; }
@@ -220,39 +164,33 @@
         .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
         
         .chart-visual { position: relative; height: 250px; display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 30px; border-bottom: 1px dashed #e5e5ea; }
-        
-        /* The SVG Line that looks like Recharts */
         .chart-svg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
-        .chart-line-path { fill: none; stroke: #dc2626; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1000; stroke-dashoffset: 1000; /* For GSAP Animation */ }
-
+        .chart-line-path { fill: none; stroke: #dc2626; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1000; stroke-dashoffset: 1000; }
         .c-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; z-index: 2; }
-        .c-bar { width: 40px; background: #1d1d1f; border-radius: 6px 6px 0 0; transform-origin: bottom; transform: scaleY(0); /* For GSAP */ }
+        .c-bar { width: 40px; background: #e5e5ea; border-radius: 6px 6px 0 0; transform-origin: bottom; transform: scaleY(0); }
         @media (max-width: 768px) { .c-bar { width: 20px; } }
         .c-bar-label { position: absolute; bottom: -24px; font-size: 0.75rem; font-weight: 600; color: #86868b; }
 
-        /* Funnel Area */
         .dash-funnel-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; }
-        .funnel-step { margin-bottom: 16px; }
+        .funnel-step { margin-bottom: 20px; }
         .funnel-step:last-child { margin-bottom: 0; }
         .f-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .f-name { font-size: 0.875rem; font-weight: 600; color: #1d1d1f; }
         .f-val { font-size: 0.875rem; font-weight: 700; font-family: 'Oswald', sans-serif; }
-        
         .f-track { width: 100%; height: 12px; background: #f5f5f7; border-radius: 6px; overflow: hidden; }
-        .f-fill { height: 100%; background: #1d1d1f; width: 0%; /* GSAP target */ border-radius: 6px; }
-        /* Different opacity for funnel steps */
+        .f-fill { height: 100%; background: #1d1d1f; width: 0%; border-radius: 6px; }
+        
         .f-s1 { background: #1d1d1f; }
         .f-s2 { background: rgba(29, 29, 31, 0.8); }
         .f-s3 { background: rgba(29, 29, 31, 0.5); }
-        .f-s4 { background: #dc2626; } /* Final goal */
+        .f-s4 { background: #dc2626; }
 
-        .f-drop { text-align: center; font-size: 0.625rem; font-weight: 700; color: #86868b; margin-top: 8px; position: relative; }
-        .f-drop::before { content: ''; position: absolute; left: 50%; top: -6px; width: 1px; height: 4px; background: #d2d2d7; }
-
+        .f-drop { text-align: center; font-size: 0.65rem; font-weight: 700; color: #86868b; margin-top: 10px; position: relative; text-transform: uppercase; letter-spacing: 1px;}
+        .f-drop::before { content: ''; position: absolute; left: 50%; top: -8px; width: 1px; height: 6px; background: #d2d2d7; }
         .f-footer-btn { margin-top: auto; padding-top: 24px; width: 100%; background: none; border: none; border-top: 1px solid #e5e5ea; color: #1d1d1f; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px; transition: color 0.2s; }
         .f-footer-btn:hover { color: #dc2626; }
 
-        /* === WEITERE STYLES (Referenzen, Switches, Footer etc. - unberührt) === */
+        /* === WEITERE STYLES (Referenzen, Switches, Footer etc.) === */
         button, .tab-btn, .menu-link { border-radius: 30px !important; }
         .gallery-item img { border-radius: 12px !important; }
         .modal-content-wrapper { border-radius: 20px !important; }
@@ -516,20 +454,22 @@
                 <div class="dash-header-left">
                     <span class="dash-eyebrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" width="14" height="14"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                        Performance Insights
+                        Daten & Fakten
                     </span>
-                    <h2>Market Intelligence</h2>
-                    <p>Darum ist Premium-Content für Marken heute unverzichtbar.</p>
+                    <h2>Warum sich Qualität auszahlt.</h2>
+                    <p>Der Markt verändert sich. Wer heute noch auf Standard-Inhalte setzt, wird übersehen. Die Zahlen sprechen eine klare Sprache:</p>
                 </div>
                 <div class="dash-header-right">
                     <div class="dash-toggle-group">
-                        <button class="dash-toggle-btn active interactive">Global Market</button>
-                        <button class="dash-toggle-btn interactive">Westroomz Impact</button>
+                        <button class="dash-toggle-btn active interactive">Markt-Trend</button>
+                        <button class="dash-toggle-btn interactive">Unser Einfluss</button>
                     </div>
-                    <button class="dash-report-btn interactive">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        New Report
-                    </button>
+                    <a href="#contact" style="text-decoration: none;">
+                        <button class="dash-report-btn interactive">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            Projekt starten
+                        </button>
+                    </a>
                 </div>
             </div>
 
@@ -540,9 +480,9 @@
                             <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
                             <div class="kpi-trend positive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> +120%</div>
                         </div>
-                        <div class="kpi-title">B2B Video Demand</div>
-                        <div class="kpi-value js-dash-counter" data-target="3.24">0.00</div>
-                        <div class="kpi-sub">Wachstum vs. Vorjahr</div>
+                        <div class="kpi-title">Video-Nachfrage</div>
+                        <div class="kpi-value js-dash-counter" data-target="120" data-suffix="%">0</div>
+                        <div class="kpi-sub">Mehr Interesse von Firmen</div>
                     </div>
                     <div class="kpi-card">
                         <div class="kpi-top">
@@ -550,17 +490,17 @@
                             <div class="kpi-trend positive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> +85%</div>
                         </div>
                         <div class="kpi-title">Kaufentscheidung</div>
-                        <div class="kpi-value">4m 32s</div>
-                        <div class="kpi-sub">Avg. Engagement nach Event</div>
+                        <div class="kpi-value js-dash-counter" data-target="85" data-suffix="%">0</div>
+                        <div class="kpi-sub">Kaufen eher durch Videos</div>
                     </div>
                     <div class="kpi-card">
                         <div class="kpi-top">
                             <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
-                            <div class="kpi-trend positive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> +5.4%</div>
+                            <div class="kpi-trend positive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Top-Wert</div>
                         </div>
-                        <div class="kpi-title">Goal Completion</div>
-                        <div class="kpi-value js-dash-counter" data-target="84.2">0.0</div>
-                        <div class="kpi-sub">Live Events vs. Cold Mail</div>
+                        <div class="kpi-title">Live-Events</div>
+                        <div class="kpi-value">3x <span style="font-size: 1.2rem; color: #6e6e73;">höher</span></div>
+                        <div class="kpi-sub">Erfolg vs. reiner Text</div>
                     </div>
                 </div>
 
@@ -569,26 +509,26 @@
                     <div class="dash-chart-area">
                         <div class="chart-header">
                             <div>
-                                <div class="chart-title">Content Performance Projection</div>
-                                <div class="chart-sub">Standard In-House vs. Premium Agency</div>
+                                <div class="chart-title">Sichtbarkeit & Erfolg im Vergleich</div>
+                                <div class="chart-sub">Normaler Content vs. Premium Produktion</div>
                             </div>
                             <div class="chart-legend">
-                                <div class="legend-item"><div class="legend-dot" style="background:#1d1d1f"></div> Standard</div>
-                                <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Westroomz</div>
+                                <div class="legend-item"><div class="legend-dot" style="background:#e5e5ea"></div> Normaler Weg</div>
+                                <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Westroomz Weg</div>
                             </div>
                         </div>
 
                         <div class="chart-visual">
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="25%"></div><span class="c-bar-label">Mon</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="15%"></div><span class="c-bar-label">Tue</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="45%"></div><span class="c-bar-label">Wed</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="30%"></div><span class="c-bar-label">Thu</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="20%"></div><span class="c-bar-label">Fri</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="40%"></div><span class="c-bar-label">Sat</span></div>
-                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="85%"></div><span class="c-bar-label">Sun</span></div>
+                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="15%"></div><span class="c-bar-label">Start</span></div>
+                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="20%"></div><span class="c-bar-label">Mitte</span></div>
+                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="18%"></div><span class="c-bar-label">Plan</span></div>
+                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="25%"></div><span class="c-bar-label">Event</span></div>
+                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="20%"></div><span class="c-bar-label">Follow-up</span></div>
+                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="22%"></div><span class="c-bar-label">Review</span></div>
+                            <div class="c-bar-col"><div class="c-bar js-c-bar" data-height="25%"></div><span class="c-bar-label">Ergebnis</span></div>
                             
                             <svg class="chart-svg-overlay" viewBox="0 0 700 250" preserveAspectRatio="none">
-                                <path class="chart-line-path js-c-line" d="M 50 200 C 150 200, 150 50, 250 150 C 350 250, 350 180, 450 120 C 550 60, 550 180, 650 30" />
+                                <path class="chart-line-path js-c-line" d="M 50 220 C 150 200, 150 180, 250 150 C 350 250, 350 150, 450 80 C 550 60, 550 180, 650 30" />
                             </svg>
                         </div>
                     </div>
@@ -596,34 +536,36 @@
                     <div class="dash-funnel-area">
                         <div class="chart-header" style="margin-bottom: 24px;">
                             <div>
-                                <div class="chart-title">Conversion Funnel</div>
-                                <div class="chart-sub">User journey (Event Campaign)</div>
+                                <div class="chart-title">Aus Zuschauern werden Kunden</div>
+                                <div class="chart-sub">So funktioniert unser System</div>
                             </div>
                         </div>
 
                         <div class="funnel-step">
-                            <div class="f-top"><span class="f-name">Impressions</span><span class="f-val">45,000</span></div>
+                            <div class="f-top"><span class="f-name">Reichweite (Gesehen)</span><span class="f-val">45.000</span></div>
                             <div class="f-track"><div class="f-fill f-s1 js-f-fill" style="width:0%" data-width="100%"></div></div>
-                            <div class="f-drop">26.7% drop</div>
+                            <div class="f-drop">Aufmerksamkeit geweckt</div>
                         </div>
                         <div class="funnel-step">
-                            <div class="f-top"><span class="f-name">Clicks</span><span class="f-val">12,000</span></div>
+                            <div class="f-top"><span class="f-name">Klicks (Interesse)</span><span class="f-val">12.000</span></div>
                             <div class="f-track"><div class="f-fill f-s2 js-f-fill" style="width:0%" data-width="60%"></div></div>
-                            <div class="f-drop">25.0% drop</div>
+                            <div class="f-drop">Klicken weiter</div>
                         </div>
                         <div class="funnel-step">
-                            <div class="f-top"><span class="f-name">Signups</span><span class="f-val">3,000</span></div>
+                            <div class="f-top"><span class="f-name">Anfragen (Leads)</span><span class="f-val">3.000</span></div>
                             <div class="f-track"><div class="f-fill f-s3 js-f-fill" style="width:0%" data-width="30%"></div></div>
-                            <div class="f-drop">28.3% drop</div>
+                            <div class="f-drop">Persönliches Gespräch</div>
                         </div>
                         <div class="funnel-step" style="margin-bottom: 0;">
-                            <div class="f-top"><span class="f-name">Event Attendees</span><span class="f-val" style="color: #dc2626;">850</span></div>
+                            <div class="f-top"><span class="f-name">Neue Kunden</span><span class="f-val" style="color: #dc2626;">850</span></div>
                             <div class="f-track"><div class="f-fill f-s4 js-f-fill" style="width:0%" data-width="15%"></div></div>
                         </div>
 
-                        <button class="f-footer-btn interactive">
-                            Full Funnel Analysis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="7 17 17 7"></polyline><polyline points="7 7 17 7 17 17"></polyline></svg>
-                        </button>
+                        <a href="#contact" style="text-decoration: none;">
+                            <button class="f-footer-btn interactive">
+                                Strategie besprechen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="7 17 17 7"></polyline><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </button>
+                        </a>
                     </div>
 
                 </div>
@@ -792,14 +734,18 @@
                     trigger: ".dash-main-container",
                     start: "top 80%",
                     onEnter: () => {
-                        // 1. Dashboard KPI Zähler (Kleine Dezimal-Zahlen)
+                        // 1. Dashboard KPI Zähler (Für die glatten Prozent-Zahlen)
                         const dashCounters = document.querySelectorAll('.js-dash-counter');
                         dashCounters.forEach(counter => {
                             const target = +counter.getAttribute('data-target');
+                            const suffix = counter.getAttribute('data-suffix');
                             const obj = { val: 0 };
                             gsap.to(obj, {
                                 val: target, duration: 2, ease: "power2.out",
-                                onUpdate: () => counter.innerText = obj.val.toFixed(2) + (target > 50 ? "%" : "x")
+                                onUpdate: () => {
+                                    // Zeigt glatte Zahlen an
+                                    counter.innerText = Math.round(obj.val) + suffix;
+                                }
                             });
                         });
 
@@ -822,7 +768,7 @@
                         }
                     },
                     onLeaveBack: () => {
-                        // Reset when scrolling up
+                        // Reset wenn man wieder nach oben scrollt
                         document.querySelectorAll('.js-f-fill').forEach(fill => gsap.set(fill, { width: "0%" }));
                         document.querySelectorAll('.js-c-bar').forEach(bar => gsap.set(bar, { scaleY: 0 }));
                         const linePath = document.querySelector('.js-c-line');
