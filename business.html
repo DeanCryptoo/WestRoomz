@@ -616,8 +616,10 @@
             input:checked + .slider:before { transform: translateX(26px); }
         }
 
-        /* === CURSOR CSS === */
-        * { cursor: none !important; }
+        /* === CURSOR CSS (NUR DESKTOP) === */
+        @media (hover: hover) and (pointer: fine) {
+            * { cursor: none !important; }
+        }
         
         #slice-cursor-canvas {
             pointer-events: none;
@@ -639,6 +641,13 @@
             height: 12px;
             transition: transform 0.3s ease, background-color 0.3s ease;
             transform: translate(-50%, -50%);
+        }
+
+        /* Auf Touch-Geräten die Cursor-Elemente komplett verstecken */
+        @media (hover: none), (pointer: coarse) {
+            #slice-cursor-canvas, #slice-cursor-dot {
+                display: none !important;
+            }
         }
 
         /* === PREMIUM FOOTER INKL. KONTAKT === */
@@ -1361,8 +1370,19 @@
 
         /* === CURSOR LOGIK (LINIE ROT, PUNKT SCHWARZ) === */
         document.addEventListener("DOMContentLoaded", () => {
+            // PRÜFUNG: Ist das Gerät ein Desktop-PC mit echter Maus?
+            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+            
             const canvas = document.getElementById("slice-cursor-canvas");
             const dot = document.getElementById("slice-cursor-dot");
+
+            // Wenn es KEIN Desktop ist (also Handy/Tablet), brechen wir hier komplett ab!
+            if (!isDesktop) {
+                if (canvas) canvas.style.display = "none";
+                if (dot) dot.style.display = "none";
+                return; // Stoppt das Script - spart massiv Handy-Akku!
+            }
+
             const ctx = canvas.getContext("2d");
 
             const trailColor = "#dc2626"; 
@@ -1391,12 +1411,6 @@
                 updateMousePosition(e.clientX, e.clientY);
             };
 
-            const handleTouchMove = (e) => {
-                mouseMoved = true;
-                const touch = e.targetTouches[0];
-                updateMousePosition(touch.clientX, touch.clientY);
-            };
-
             const setupCanvas = () => {
                 canvas.width = window.innerWidth * window.devicePixelRatio;
                 canvas.height = window.innerHeight * window.devicePixelRatio;
@@ -1405,7 +1419,6 @@
             setupCanvas();
             window.addEventListener("resize", setupCanvas);
             window.addEventListener("mousemove", handleMouseMove);
-            window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
             const update = (t) => {
                 if (!mouseMoved) {
