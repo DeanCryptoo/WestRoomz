@@ -833,7 +833,7 @@
             input:checked + .slider:before { transform: translateX(26px); }
         }
 
-        /* === CURSOR CSS HINZUGEFÜGT === */
+        /* === CURSOR CSS HINZUGEFÜGT (OHNE INVERSION) === */
         * { cursor: none !important; }
         
         #slice-cursor-canvas {
@@ -851,11 +851,10 @@
             pointer-events: none;
             z-index: 100000;
             border-radius: 50%;
-            background-color: white;
-            mix-blend-mode: difference;
+            background-color: #1d1d1f; /* Standard Farbe: Dunkles Anthrazit/Schwarz */
             width: 12px;
             height: 12px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease;
             transform: translate(-50%, -50%) scale(1);
         }
     </style>
@@ -1229,7 +1228,7 @@
             const ctx = canvas.getContext("2d");
 
             // Cursor Einstellungen - Farbe an Westrooms Rot angepasst
-            const color = "#dc2626"; // Du kannst das auf "#00fffc" (Cyan) ändern wenn du magst
+            const color = "#dc2626"; 
             const pointsNumber = 40;
             const widthFactor = 0.3;
             const spring = 0.4;
@@ -1316,11 +1315,12 @@
                     ctx.stroke();
                 }
 
-                // Render den weißen Punkt
+                // Render den Punkt (Farbe ändert sich beim Hovern zu Rot)
                 if (dot) {
                     dot.style.left = `${pointer.x / window.devicePixelRatio}px`;
                     dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
                     dot.style.transform = `translate(-50%, -50%) scale(${isHovering ? hoverScale : 1})`;
+                    dot.style.backgroundColor = isHovering ? "#dc2626" : "#1d1d1f"; 
                 }
 
                 window.requestAnimationFrame(update);
