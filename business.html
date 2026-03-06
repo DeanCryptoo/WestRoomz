@@ -52,6 +52,7 @@
 
         .divider-line { background-color: #1d1d1f !important; }
         .menu-toggle-btn .bar { background-color: #1d1d1f !important; }
+        /* HIER: border-radius hinzugefügt, damit die Buttons rund sind */
         .book-btn { background-color: #1d1d1f !important; color: white !important; border: none; padding: 12px 24px; text-decoration: none; display: inline-block; border-radius: 30px !important;}
         .tab-btn { color: #1d1d1f !important; border: 1px solid #d2d2d7 !important; }
         .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
@@ -454,7 +455,7 @@
             50% { border-color: rgba(220, 38, 38, 0.6); }
         }
 
-        /* === NEU: STATS SECTION / COUNTER CSS === */
+        /* === STATS SECTION / COUNTER CSS === */
         .stats-section {
             max-width: 1400px;
             margin: 60px auto 100px auto;
@@ -1301,34 +1302,58 @@
                     });
                 }
 
-                // === NEU: GSAP ANIMATION FÜR DIE ZÄHLER ===
+                // === GSAP ANIMATION FÜR DIE ZÄHLER (REPLAY BEIM SCROLLEN) ===
                 const counters = document.querySelectorAll('.js-counter');
                 if (counters.length > 0) {
+                    
+                    // Wir hängen an jedes DOM-Element ein Objekt für GSAP, um sauber von 0 hochzuzählen
+                    counters.forEach(counter => {
+                        counter.animObj = { val: 0 };
+                    });
+
+                    // Funktion 1: Startet die Animation
+                    const startCounters = () => {
+                        counters.forEach(counter => {
+                            const target = +counter.getAttribute('data-target');
+                            const needsFormatting = counter.hasAttribute('data-format'); 
+                            
+                            // Bricht laufende Animationen ab, falls man sehr schnell scrollt
+                            gsap.killTweensOf(counter.animObj);
+                            counter.animObj.val = 0; // Wieder auf 0 setzen
+                            
+                            gsap.to(counter.animObj, {
+                                val: target,
+                                duration: 2.5, 
+                                ease: "power3.out", 
+                                onUpdate: function() {
+                                    let currentVal = Math.floor(counter.animObj.val);
+                                    if(needsFormatting) {
+                                        counter.innerText = currentVal.toLocaleString('de-DE');
+                                    } else {
+                                        counter.innerText = currentVal;
+                                    }
+                                }
+                            });
+                        });
+                    };
+
+                    // Funktion 2: Setzt die Texte optisch sofort wieder auf "0", wenn sie außer Sicht sind
+                    const resetCounters = () => {
+                        counters.forEach(counter => {
+                            gsap.killTweensOf(counter.animObj);
+                            counter.innerText = "0";
+                        });
+                    };
+
+                    // ScrollTrigger steuert jetzt das Rein- und Rausscrollen in beide Richtungen
                     ScrollTrigger.create({
                         trigger: ".stats-section",
-                        start: "top 85%", // Startet, wenn die Sektion zu 15% im Bild ist
-                        once: true, // Zählt nur einmal hoch
-                        onEnter: () => {
-                            counters.forEach(counter => {
-                                const target = +counter.getAttribute('data-target');
-                                const needsFormatting = counter.hasAttribute('data-format'); // Checkt ob ein Punkt rein muss
-                                
-                                gsap.to({ val: 0 }, {
-                                    val: target,
-                                    duration: 2.5, // Zählt 2.5 Sekunden lang hoch
-                                    ease: "power3.out", // Wird am Ende langsamer (wie beim React CountUp "easeOut")
-                                    onUpdate: function() {
-                                        let currentVal = Math.floor(this.targets()[0].val);
-                                        // Setzt den Tausender-Punkt (z.B. bei 10.000)
-                                        if(needsFormatting) {
-                                            counter.innerText = currentVal.toLocaleString('de-DE');
-                                        } else {
-                                            counter.innerText = currentVal;
-                                        }
-                                    }
-                                });
-                            });
-                        }
+                        start: "top 90%", // Startet fast ganz unten im Bildschirm
+                        end: "bottom 10%", // Endet fast ganz oben im Bildschirm
+                        onEnter: startCounters,        // Man scrollt von oben rein -> START
+                        onLeave: resetCounters,        // Man scrollt nach unten raus -> RESET auf 0
+                        onEnterBack: startCounters,    // Man scrollt von unten wieder rein -> START
+                        onLeaveBack: resetCounters     // Man scrollt nach oben raus -> RESET auf 0
                     });
                 }
             }
