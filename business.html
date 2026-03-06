@@ -851,10 +851,13 @@
             pointer-events: none;
             z-index: 100000;
             border-radius: 50%;
-            background-color: #1d1d1f; /* Festes Schwarz/Dunkelgrau */
+            /* Punkt ist jetzt standardmäßig Schwarz */
+            background-color: #1d1d1f; 
             width: 12px;
             height: 12px;
-            transform: translate(-50%, -50%); /* Kein Hover-Scale mehr */
+            /* Transition für weiche Positions- und Farbwechsel */
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
@@ -943,7 +946,7 @@
                         </h2>
 
                         <p class="cta-description">
-                            Ob Live-Event, Corporate Stream oder kreative Content-Produktion. Erlebe die Power einer professionellen Produktionsagentur – entwickelt für maximale Wirkung, klare Struktur und unvergessliche Momente.
+                            Ob Live-Event, Corporate Stream oder kreative Content-Produktion. Erlebe die Power einer professionellen Produktionsagentur – entwickelt für maximale Wirkung, klare Struktur und unvergessliche Moments.
                         </p>
 
                         <div class="cta-buttons">
@@ -1220,20 +1223,23 @@
             }
         });
 
-        /* === CURSOR LOGIK BEREINIGT === */
+        /* === CURSOR LOGIK AKTUALISIERT (LINIE ROT, PUNKT SCHWARZ, KEIN HOVER-SCALE) === */
         document.addEventListener("DOMContentLoaded", () => {
             const canvas = document.getElementById("slice-cursor-canvas");
             const dot = document.getElementById("slice-cursor-dot");
             const ctx = canvas.getContext("2d");
 
-            // Cursor Einstellungen - Alles auf Dunkelgrau/Schwarz
-            const color = "#1d1d1f"; 
+            // --- EINSTELLUNGEN ---
+            // Farbe des Schweifs (auf Canvas) -> ROT
+            const trailColor = "#dc2626"; 
+            
             const pointsNumber = 40;
             const widthFactor = 0.3;
             const spring = 0.4;
             const friction = 0.5;
             
             let mouseMoved = false;
+            // Wir tracken isHovering nicht mehr für die Größe des Punktes
             const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
             // Trail Array vorbereiten
@@ -1291,7 +1297,8 @@
                 });
 
                 ctx.lineCap = "round";
-                ctx.strokeStyle = color;
+                // Schweif-Farbe setzen -> ROT
+                ctx.strokeStyle = trailColor;
                 ctx.beginPath();
                 ctx.moveTo(trail[0].x, trail[0].y);
 
@@ -1307,7 +1314,7 @@
                     ctx.stroke();
                 }
 
-                // Render den Punkt (bleibt immer klein)
+                // Render den Punkt (Farbe ist fest via CSS auf Schwarz, kein Scale via JS)
                 if (dot) {
                     dot.style.left = `${pointer.x / window.devicePixelRatio}px`;
                     dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
