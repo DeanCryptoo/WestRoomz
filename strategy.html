@@ -18,7 +18,7 @@
         html, body, .page-wrapper { background-color: #f5f5f7 !important; color: #1d1d1f !important; }
         .menu-toggle-btn .bar { background-color: #1d1d1f !important; }
         
-        /* === BENTO GRID STYLES (Mix aus deinen Vorlagen) === */
+        /* === BENTO GRID STYLES === */
         .bento-section { padding: 120px 24px; background-color: #f5f5f7; font-family: 'Inter', sans-serif; }
         .bento-container { max-width: 1200px; margin: 0 auto; }
         
@@ -30,14 +30,14 @@
         .bento-headline .highlight { color: #dc2626; font-style: italic; text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.2); text-underline-offset: 8px; }
         .bento-sub { font-size: 1.125rem; color: #6e6e73; max-width: 600px; margin: 0 auto 60px auto; line-height: 1.6; }
 
-        /* Grid Top (Feature 06 Style) */
+        /* Grid Top */
         .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
         @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 2fr 1fr; } }
         
         .bento-card { background: #ffffff; border: 1px solid #e5e5ea; border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: center;}
         .bento-card:hover { border-color: rgba(220, 38, 38, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.06); transform: translateY(-4px); }
         
-        /* Dark Card Style (für Haupt-Feature) */
+        /* Dark Card Style */
         .bento-card.dark { background: #050505; border-color: rgba(255,255,255,0.1); color: white; }
         .bento-card.dark h3 { color: white; }
         .bento-card.dark p { color: #a3a3a3; }
@@ -51,7 +51,7 @@
         .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #1d1d1f; }
         .bento-card p { font-size: 1rem; color: #6e6e73; line-height: 1.6; }
 
-        /* Sticky Layout (Feature 03 Style) */
+        /* Sticky Layout */
         .sticky-layout { display: flex; flex-direction: column; gap: 60px; }
         @media (min-width: 1024px) { .sticky-layout { flex-direction: row; align-items: flex-start; } }
         
@@ -79,6 +79,12 @@
 
         /* JS Animation Class */
         .gsap-fade-up { opacity: 0; transform: translateY(40px); }
+
+        /* === CURSOR CSS (NUR DESKTOP) === */
+        @media (hover: hover) and (pointer: fine) { * { cursor: none !important; } }
+        #slice-cursor-canvas { pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; }
+        #slice-cursor-dot { position: fixed; pointer-events: none; z-index: 100000; border-radius: 50%; background-color: #1d1d1f; width: 12px; height: 12px; transition: transform 0.3s ease, background-color 0.3s ease; transform: translate(-50%, -50%); }
+        @media (hover: none), (pointer: coarse) { #slice-cursor-canvas, #slice-cursor-dot { display: none !important; } }
     </style>
 </head>
 <body>
@@ -91,7 +97,7 @@
         <div>
             <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
             <div class="menu-links">
-                <a href="business.html" class="menu-link interactive">ZURÜCK ZUR ÜBERSICHT</a>
+                <a href="javascript:history.back()" class="menu-link interactive">ZURÜCK ZUR ÜBERSICHT</a>
             </div>
         </div>
     </div>
@@ -100,7 +106,7 @@
     <main class="page-wrapper">
         
         <div class="subpage-header">
-            <a href="business.html" class="back-btn interactive">← ZURÜCK</a>
+            <a href="javascript:history.back()" class="back-btn interactive">← ZURÜCK</a>
             <img src="IMG_4834.png" alt="WESTROOMZ" style="height: 24px; filter: invert(1);">
         </div>
 
@@ -193,6 +199,9 @@
 
     </main>
 
+    <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
+    <div id="slice-cursor-dot" aria-hidden="true"></div>
+
     <script src="js/main.js"></script>
     <script>
         // Animations-Logik für die neuen Kacheln
@@ -200,21 +209,70 @@
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
                 
-                // Alle Elemente mit der Klasse gsap-fade-up animieren
                 const elements = document.querySelectorAll('.gsap-fade-up');
                 elements.forEach((el, index) => {
                     gsap.to(el, {
-                        scrollTrigger: {
-                            trigger: el,
-                            start: "top 85%", // Startet wenn das Element zu 85% im Bild ist
-                        },
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.8,
-                        ease: "power3.out"
+                        scrollTrigger: { trigger: el, start: "top 85%" },
+                        opacity: 1, y: 0, duration: 0.8, ease: "power3.out"
                     });
                 });
             }
+
+            // === CURSOR LOGIK ===
+            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+            const canvas = document.getElementById("slice-cursor-canvas");
+            const dot = document.getElementById("slice-cursor-dot");
+
+            if (!isDesktop) {
+                if (canvas) canvas.style.display = "none";
+                if (dot) dot.style.display = "none";
+                return; 
+            }
+
+            const ctx = canvas.getContext("2d");
+            const trailColor = "#dc2626"; 
+            const pointsNumber = 40;
+            const widthFactor = 0.3;
+            const spring = 0.4;
+            const friction = 0.5;
+            
+            let mouseMoved = false;
+            const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            const trail = new Array(pointsNumber).fill().map(() => ({ x: pointer.x, y: pointer.y, dx: 0, dy: 0 }));
+
+            const updateMousePosition = (eX, eY) => { pointer.x = eX * window.devicePixelRatio; pointer.y = eY * window.devicePixelRatio; };
+            const handleMouseMove = (e) => { mouseMoved = true; updateMousePosition(e.clientX, e.clientY); };
+            const setupCanvas = () => { canvas.width = window.innerWidth * window.devicePixelRatio; canvas.height = window.innerHeight * window.devicePixelRatio; };
+
+            setupCanvas();
+            window.addEventListener("resize", setupCanvas);
+            window.addEventListener("mousemove", handleMouseMove);
+
+            const update = (t) => {
+                if (!mouseMoved) {
+                    pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * canvas.width;
+                    pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * canvas.height;
+                }
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                trail.forEach((p, pIdx) => {
+                    const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
+                    const currentSpring = pIdx === 0 ? .4 * spring : spring;
+                    p.dx += (prev.x - p.x) * currentSpring; p.dy += (prev.y - p.y) * currentSpring;
+                    p.dx *= friction; p.dy *= friction;
+                    p.x += p.dx; p.y += p.dy;
+                });
+                ctx.lineCap = "round"; ctx.strokeStyle = trailColor; ctx.beginPath(); ctx.moveTo(trail[0].x, trail[0].y);
+                for (let i = 1; i < trail.length - 1; i++) {
+                    const xc = .5 * (trail[i].x + trail[i + 1].x); const yc = .5 * (trail[i].y + trail[i + 1].y);
+                    ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
+                    ctx.lineWidth = widthFactor * (pointsNumber - i) * window.devicePixelRatio;
+                    ctx.stroke();
+                }
+                if (trail.length > 0) { ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y); ctx.stroke(); }
+                if (dot) { dot.style.left = `${pointer.x / window.devicePixelRatio}px`; dot.style.top = `${pointer.y / window.devicePixelRatio}px`; }
+                window.requestAnimationFrame(update);
+            };
+            window.requestAnimationFrame(update);
         });
     </script>
 </body>
