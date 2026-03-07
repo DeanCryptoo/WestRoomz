@@ -72,15 +72,9 @@
             input:checked + .slider:before { transform: translateX(26px); }
         }
 
-        /* --- NEU: ZWINGT DEN DESKTOP, DAS STANDBILD ZU IGNORIEREN --- */
         @media (min-width: 769px) {
-            .hero .video-container { 
-                background-image: none !important; 
-                background-color: transparent !important; 
-            }
-            .hero-video { 
-                opacity: 0.8 !important; /* Stellt sicher, dass das Desktop-Video normal sichtbar ist */
-            }
+            .hero .video-container { background-image: none !important; background-color: transparent !important; }
+            .hero-video { opacity: 0.8 !important; }
         }
 
         /* === PREMIUM FOOTER CSS === */
@@ -150,6 +144,7 @@
     </div>
 
     <div class="page-transition-curtain"></div>
+    
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
     <div class="red-thread"></div>
@@ -260,7 +255,7 @@
                         Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes
                         Gefühl für Klang, Raum und Dynamik.
                     </p>
-                    <a href="audio.html" class="book-btn interactive">DETAILS</a>
+                    <a href="audio.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
             </div>
 
@@ -272,7 +267,7 @@
                         jeweiligen Marke, Musik oder Idee passt.
                         WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung.
                     </p>
-                    <a href="video.html" class="book-btn interactive">DETAILS</a>
+                    <a href="video.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
              </div>
 
@@ -284,7 +279,7 @@
                         Betrieb vor Ort.
                         WESTROOMZ begleitet Veranstaltungen modular oder ganzheitlich und übernimmt Verantwortung.
                     </p>
-                    <a href="2events.html" class="book-btn interactive">DETAILS</a>
+                    <a href="2events.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
              </div>
 
@@ -294,7 +289,7 @@
                         Reichweite braucht Strategie. Wir analysieren Zielgruppen, definieren Botschaften und platzieren deine Marke dort, wo sie gesehen wird. 
                         WESTROOMZ verbindet kreativen Content mit performance-orientiertem Marketing für maximale Sichtbarkeit.
                     </p>
-                    <a href="marketing.html" class="book-btn interactive">DETAILS</a>
+                    <a href="marketing.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
             </div>
 
@@ -439,11 +434,40 @@
                 }
             });
 
+            // === VORHANG LOGIK FÜR DIE "DETAILS" BUTTONS ===
+            const curtain = document.querySelector('.page-transition-curtain');
+            const transitionLinks = document.querySelectorAll('.transition-link');
+            
+            transitionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetUrl = this.getAttribute('href');
+                    
+                    if (curtain && typeof gsap !== 'undefined') {
+                        gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
+                            scaleY: 1, duration: 0.6, ease: "power4.inOut", 
+                            onComplete: () => { window.location.href = targetUrl; } 
+                        });
+                    } else {
+                        window.location.href = targetUrl;
+                    }
+                });
+            });
+
+            // === BROWSER-PFEIL CACHE FIX (BFCache) ===
+            // Wenn der Nutzer über den "Zurück"-Pfeil des Browsers auf diese Seite kommt, 
+            // wird der Vorhang sofort nach oben gezogen, damit die Seite nicht schwarz bleibt.
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted && curtain && typeof gsap !== 'undefined') {
+                    // event.persisted bedeutet: Die Seite wurde aus dem Cache geladen
+                    gsap.set(curtain, { scaleY: 0 }); // Vorhang sofort weg!
+                }
+            });
+
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
                     const targetUrl = this.checked ? 'business.html' : 'index.html';
-                    const curtain = document.querySelector('.page-transition-curtain');
                     
                     if (curtain && typeof gsap !== 'undefined') {
                         gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
