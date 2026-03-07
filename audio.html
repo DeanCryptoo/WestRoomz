@@ -28,20 +28,20 @@
 
         .bento-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; margin-bottom: 24px; }
         .bento-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #aaaaaa; }
-        .bento-headline { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; letter-spacing: -1px; }
-        @media (max-width: 768px) { .bento-headline { font-size: 2.5rem; } }
+        .bento-headline { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; letter-spacing: -1px; word-wrap: break-word; hyphens: auto; }
+        @media (max-width: 768px) { .bento-headline { font-size: 2.2rem; } } /* MOBILE FIX FÜR HAUPT-HEADLINE */
         .bento-headline .highlight { color: #dc2626; font-style: italic; text-shadow: 0 0 30px rgba(220, 38, 38, 0.4); }
         .bento-sub { font-size: 1.125rem; color: #a3a3a3; max-width: 600px; margin: 0 auto 60px auto; line-height: 1.6; }
 
         .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
-        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 1fr 1fr; } } /* 50/50 Split wegen dem großen Plugin! */
+        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 1fr 1fr; } } 
         
         .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; }
         .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px); background: rgba(255, 255, 255, 0.04); }
         
         .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: all 0.5s; border: 1px solid rgba(255, 255, 255, 0.1); }
         .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
-        .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #ffffff; }
+        .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #ffffff; word-wrap: break-word; }
         .bento-card p { font-size: 1rem; color: #a3a3a3; line-height: 1.6; }
 
         /* === KNOB PLUGIN CSS (In Kachel integriert) === */
@@ -52,13 +52,13 @@
             background-repeat: no-repeat !important;
             background-color: #08090a !important; 
             border: 1px solid rgba(255,255,255,0.08) !important;
-            padding: 0 !important; /* Kein Padding, damit das Bild füllt */
+            padding: 0 !important; 
             min-height: 600px !important; 
-            display: block; /* Überschreibt Flex aus bento-card */
+            display: block; 
         }
         @media (max-width: 768px) {
             .detail-list-wrapper {
-                background-image: url('wrsub.png') !important; 
+                background-image: url('wrplatte1.png') !important; 
                 background-position: center top !important;
             }
         }
@@ -75,15 +75,19 @@
         /* Sticky Layout */
         .sticky-layout { display: flex; flex-direction: column; gap: 60px; }
         @media (min-width: 1024px) { .sticky-layout { flex-direction: row; align-items: flex-start; } }
+        
         .sticky-sidebar { flex: 1; position: sticky; top: 120px; }
-        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; }
+        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; word-wrap: break-word; hyphens: auto; overflow-wrap: break-word; }
+        @media (max-width: 768px) { .sticky-sidebar h2 { font-size: 2.2rem; } } /* MOBILE FIX FÜR "KOMPROMISSLOS KLAR" */
+        @media (max-width: 400px) { .sticky-sidebar h2 { font-size: 1.8rem; } } /* NOCH KLEINER FÜR SEHR SCHMALE HANDYS */
+        
         .sticky-sidebar p { color: #a3a3a3; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
         .sticky-content { flex: 2; display: grid; grid-template-columns: 1fr; gap: 24px; }
         @media (min-width: 640px) { .sticky-content { grid-template-columns: repeat(2, 1fr); } }
         .small-bento { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 32px; transition: all 0.3s; backdrop-filter: blur(10px); }
         .small-bento:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(220, 38, 38, 0.3); transform: translateY(-2px); }
         .small-bento .bento-icon-wrapper { width: 48px; height: 48px; margin-bottom: 20px; background: transparent; }
-        .small-bento h4 { font-size: 1.25rem; font-weight: 900; margin-bottom: 12px; color: #ffffff; }
+        .small-bento h4 { font-size: 1.25rem; font-weight: 900; margin-bottom: 12px; color: #ffffff; word-wrap: break-word; }
         .small-bento p { font-size: 0.875rem; color: #a3a3a3; line-height: 1.5; }
 
         .btn-red { background: #dc2626; color: white; font-weight: 900; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; padding: 16px 32px; border-radius: 16px; border: none; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; box-shadow: 0 10px 20px rgba(220, 38, 38, 0.2); }
@@ -100,8 +104,8 @@
         .footer-container { max-width: 1200px; margin: 0 auto; }
         .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
-        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; }
-        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 1.85rem; letter-spacing: -0.5px; } }
+        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; word-wrap: break-word; hyphens: auto; }
+        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 2.2rem; letter-spacing: -0.5px; } } /* MOBILE FIX FÜR FOOTER */
         @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; letter-spacing: -1px; } }
         .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; text-shadow: 0 0 20px rgba(220,38,38,0.3); }
         .footer-contact-info > p { color: #a3a3a3 !important; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
