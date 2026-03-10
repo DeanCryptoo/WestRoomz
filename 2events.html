@@ -65,9 +65,10 @@
         .btn-red { background: #dc2626; color: white; font-weight: 900; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; padding: 16px 32px; border-radius: 16px; border: none; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; box-shadow: 0 10px 20px rgba(220, 38, 38, 0.2); }
         .btn-red:hover { background: #b91c1c; transform: translateY(-2px); box-shadow: 0 15px 30px rgba(220, 38, 38, 0.4); }
         
-        .subpage-header { padding: 40px 24px; display: flex; justify-content: space-between; align-items: center; position: absolute; top: 0; width: 100%; z-index: 100; }
+        .subpage-header { padding: 40px 24px 40px 96px; display: flex; justify-content: space-between; align-items: center; position: absolute; top: 0; width: 100%; z-index: 100; gap: 20px; }
         .back-btn { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; color: #ffffff; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 30px; transition: all 0.3s; background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
         .back-btn:hover { background: #ffffff; color: #000000; border-color: #ffffff; }
+        .subpage-header-logo { height: 40px; width: auto; flex-shrink: 0; }
         .gsap-fade-up { opacity: 0; transform: translateY(40px); }
 
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 10; }
@@ -92,6 +93,7 @@
         .footer-input:focus { border-color: rgba(220, 38, 38, 0.6) !important; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1); background-color: rgba(0,0,0,0.8) !important; }
         .cta-btn-primary { display: flex; align-items: center; justify-content: center; gap: 12px; background-color: #dc2626 !important; color: white !important; font-weight: 900; font-family: 'Inter', sans-serif; font-size: 1.125rem; padding: 0 40px; height: 64px; border-radius: 20px !important; border: none; cursor: pointer; transition: all 0.3s; }
         .cta-btn-primary:hover { background-color: #b91c1c !important; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(220,38,38,0.3); }
+        .cta-btn-primary svg { width: 20px; height: 20px; flex-shrink: 0; }
         .footer-links-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 16px; padding: 60px 0; }
         .footer-brand { grid-column: 1 / -1; }
         @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } .footer-brand { grid-column: auto; } }
@@ -109,6 +111,11 @@
         .footer-bottom { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1); align-items: center; }
         @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
         .footer-bottom p { color: #a3a3a3 !important; font-size: 0.875rem; font-weight: 700; margin: 0; }
+        @media (max-width: 768px) {
+            .subpage-header { padding: 20px 20px 20px 84px; align-items: flex-start; }
+            .back-btn { font-size: 0.8rem; padding: 8px 16px; }
+            .subpage-header-logo { height: 34px; }
+        }
 
         /* === CURSOR CSS === */
         @media (hover: hover) and (pointer: fine) { * { cursor: none !important; } }
@@ -137,7 +144,7 @@
         
         <div class="subpage-header">
             <a href="javascript:history.back()" class="back-btn interactive">← ZURÜCK</a>
-            <img src="IMG_4834.png" alt="WESTROOMZ" style="height: 24px;">
+            <img src="IMG_4834.png" alt="WESTROOMZ" class="subpage-header-logo">
         </div>
 
         <section class="bento-section">

@@ -1,5 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    function initHeroVideoFallback() {
+        const heroContainers = document.querySelectorAll('.video-container');
+        if (!heroContainers.length) return;
+
+        heroContainers.forEach((container) => {
+            const heroVideos = container.querySelectorAll('.hero-video');
+            if (!heroVideos.length) return;
+
+            heroVideos.forEach((video) => {
+                let hasStarted = false;
+                let failedToLoad = false;
+
+                const showFallbackOnly = () => {
+                    if (hasStarted) return;
+                    failedToLoad = true;
+                    video.classList.remove('is-playing');
+                    video.classList.add('has-error');
+                };
+
+                const revealVideo = () => {
+                    if (failedToLoad || hasStarted) return;
+                    hasStarted = true;
+                    video.classList.remove('has-error');
+                    video.classList.add('is-playing');
+                    container.classList.add('video-ready');
+                };
+
+                video.defaultMuted = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.setAttribute('muted', '');
+                video.setAttribute('playsinline', 'playsinline');
+
+                video.addEventListener('canplay', revealVideo, { once: true });
+                video.addEventListener('playing', revealVideo, { once: true });
+                video.addEventListener('loadeddata', () => {
+                    if (video.readyState >= 3) {
+                        revealVideo();
+                    }
+                }, { once: true });
+
+                video.addEventListener('error', showFallbackOnly, { once: true });
+                video.addEventListener('abort', showFallbackOnly, { once: true });
+
+                const playAttempt = video.play();
+                if (playAttempt !== undefined) {
+                    playAttempt.then(revealVideo).catch(() => {
+                        if (video.error) {
+                            showFallbackOnly();
+                        }
+                    });
+                }
+            });
+        });
+    }
+
     // --- 1. SOUND SYSTEM (STRIKT & TROCKEN) ---
     const clickSound = new Audio('click.mp3');
     clickSound.volume = 0.4; 
@@ -350,6 +406,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    initHeroVideoFallback();
 
     const videos = document.querySelectorAll('video');
     const heroText = document.querySelector(".hero-sub");
