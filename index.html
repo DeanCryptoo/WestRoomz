@@ -420,7 +420,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             
             // === VORHANG LOGIK FÜR DIE "DETAILS" BUTTONS ===
-            const curtain = document.querySelector('.page-transition-curtain');
+            const curtain = null;
             const transitionLinks = document.querySelectorAll('.transition-link');
             
             transitionLinks.forEach(link => {
@@ -429,8 +429,8 @@
                     const targetUrl = this.getAttribute('href');
                     
                     if (curtain && typeof gsap !== 'undefined') {
-                        gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
-                            scaleY: 1, duration: 0.6, ease: "power4.inOut", 
+                        gsap.fromTo(curtain, { scaleY: 0, opacity: 0, transformOrigin: "bottom" }, { 
+                            scaleY: 1, opacity: 1, duration: 0.5, ease: "sine.inOut", 
                             onComplete: () => { window.location.href = targetUrl; } 
                         });
                     } else {
@@ -445,7 +445,7 @@
             window.addEventListener('pageshow', function(event) {
                 if (event.persisted && curtain && typeof gsap !== 'undefined') {
                     // event.persisted bedeutet: Die Seite wurde aus dem Cache geladen
-                    gsap.set(curtain, { scaleY: 0 }); // Vorhang sofort weg!
+                    gsap.set(curtain, { scaleY: 0, opacity: 0 }); // Vorhang sofort weg!
                 }
             });
 
@@ -455,8 +455,8 @@
                     const targetUrl = this.checked ? 'business.html' : 'index.html';
                     
                     if (curtain && typeof gsap !== 'undefined') {
-                        gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
-                            scaleY: 1, duration: 0.6, ease: "power4.inOut", 
+                        gsap.fromTo(curtain, { scaleY: 0, opacity: 0, transformOrigin: "bottom" }, { 
+                            scaleY: 1, opacity: 1, duration: 0.5, ease: "sine.inOut", 
                             onComplete: () => { window.location.href = targetUrl; } 
                         });
                     } else {
