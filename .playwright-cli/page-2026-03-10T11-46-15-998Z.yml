@@ -1,0 +1,183 @@
+- generic [active] [ref=e1]:
+  - button "Menue oeffnen" [ref=e5] [cursor=pointer]
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - img "WESTROOMZ" [ref=e12]
+      - generic [ref=e13]:
+        - link "START" [ref=e14]:
+          - /url: "#hero"
+        - link "VISION" [ref=e15]:
+          - /url: "#vision"
+        - link "TEAM" [ref=e16]:
+          - /url: impressum.html#team
+        - link "OFFERS" [ref=e17]:
+          - /url: "#services"
+        - link "UPCOMING" [ref=e18]:
+          - /url: upcoming.html
+        - link "REFERENZEN" [ref=e19]:
+          - /url: "#references"
+        - link "KONTAKT" [ref=e20]:
+          - /url: "#contact"
+    - generic [ref=e21]:
+      - link "IMPRESSUM" [ref=e22]:
+        - /url: impressum.html
+      - link "DATENSCHUTZ" [ref=e23]:
+        - /url: datenschutz.html
+      - link "AGB" [ref=e24]:
+        - /url: agb.html
+      - generic [ref=e25]: © 2026 WESTROOMZ
+  - generic:
+    - generic:
+      - heading "GALLERY" [level=2]
+      - generic: CLOSE [X]
+  - main [ref=e26]:
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - generic [ref=e31]: Creators
+        - generic [ref=e32] [cursor=pointer]:
+          - checkbox
+        - generic [ref=e34]: Business
+      - paragraph [ref=e35]: UNERREICHTE QUALITÄT
+    - generic [ref=e37]:
+      - heading "VISION. MADE. REAL." [level=2] [ref=e38]
+      - generic [ref=e40]:
+        - paragraph [ref=e41]: WESTROOMZ ist eine kreative Produktionsagentur für Audio, Video und Events. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.
+        - paragraph [ref=e42]: Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - img "Work"
+      - generic [ref=e46]:
+        - img "Work"
+      - generic [ref=e47]:
+        - img "Work"
+      - generic [ref=e48]:
+        - img "Work"
+      - generic [ref=e49]:
+        - img "Work"
+      - generic [ref=e50]:
+        - img "Work"
+      - generic [ref=e51]:
+        - img "Work"
+      - generic [ref=e52]:
+        - img "Work"
+      - generic [ref=e53]:
+        - img "Work"
+      - generic [ref=e54]:
+        - img "Work"
+      - generic [ref=e55]:
+        - img "Work"
+      - generic [ref=e56]:
+        - img "Work"
+      - generic [ref=e57]:
+        - img "Work"
+      - generic [ref=e58]:
+        - img "Work"
+    - generic [ref=e59]:
+      - heading "WAS WIR TUN" [level=2] [ref=e61]
+      - generic [ref=e62]:
+        - button "AUDIO" [ref=e63]
+        - button "VIDEO" [ref=e64]
+        - button "EVENTS" [ref=e65]
+        - button "MARKETING" [ref=e66]
+      - generic [ref=e68]:
+        - paragraph [ref=e69]: Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess. Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik.
+        - link "DETAILS" [ref=e70]:
+          - /url: audio.html
+    - generic [ref=e73]:
+      - heading "REFERENZEN" [level=2] [ref=e75]
+      - paragraph [ref=e78]: Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.
+      - generic [ref=e80]:
+        - img "Fritz Kola" [ref=e81] [cursor=pointer]
+        - img "Heineken" [ref=e82] [cursor=pointer]
+        - img "Herb Shuttles" [ref=e83] [cursor=pointer]
+        - img "Mozilla" [ref=e84] [cursor=pointer]
+        - img "Refflexion" [ref=e85] [cursor=pointer]
+        - img "Fyal" [ref=e86] [cursor=pointer]
+        - img "Jägermeister" [ref=e87] [cursor=pointer]
+        - img "TOSBIK'S" [ref=e88] [cursor=pointer]
+        - img "Desperados" [ref=e89] [cursor=pointer]
+        - img "Fritz Kola" [ref=e90] [cursor=pointer]
+        - img "Heineken" [ref=e91] [cursor=pointer]
+        - img "Herb Shuttles" [ref=e92] [cursor=pointer]
+        - img "Mozilla" [ref=e93] [cursor=pointer]
+        - img "Refflexion" [ref=e94] [cursor=pointer]
+        - img "Fyal" [ref=e95] [cursor=pointer]
+        - img "Jägermeister" [ref=e96] [cursor=pointer]
+        - img "TOSBIK'S" [ref=e97] [cursor=pointer]
+        - img "Desperados" [ref=e98] [cursor=pointer]
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - heading "Lass uns etwas Großartiges erschaffen." [level=2] [ref=e103]:
+            - text: Lass uns etwas
+            - text: Großartiges erschaffen.
+          - paragraph [ref=e104]: Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.
+          - paragraph [ref=e106]: INFO@WESTROOMZ.DE
+        - generic [ref=e109]:
+          - generic [ref=e110]:
+            - generic [ref=e111]: ABTEILUNG
+            - combobox [ref=e112]:
+              - option "Allgemeine Anfrage" [selected]
+              - option "Audio"
+              - option "Video"
+              - option "Eventplanung"
+              - option "Marketing"
+          - generic [ref=e113]:
+            - generic [ref=e114]: NAME
+            - textbox "Dein Name" [ref=e115]
+          - generic [ref=e116]:
+            - generic [ref=e117]: PROJEKT
+            - textbox "Kurze Projektbeschreibung..." [ref=e118]
+          - generic [ref=e119]:
+            - generic [ref=e120]: NACHRICHT
+            - textbox "Wie können wir dir helfen?" [ref=e121]
+          - button "Nachricht absenden" [ref=e122]:
+            - text: Nachricht absenden
+            - img [ref=e123]
+      - generic [ref=e125]:
+        - generic [ref=e126]:
+          - link "W WESTROOMZ" [ref=e127]:
+            - /url: "#hero"
+            - generic [ref=e128]: W
+            - generic [ref=e129]: WESTROOMZ
+          - paragraph [ref=e130]: Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.
+          - generic [ref=e131]:
+            - link "Instagram" [disabled]:
+              - /url: "#"
+              - img
+            - link "LinkedIn" [disabled]:
+              - /url: "#"
+              - img
+            - link "Email" [ref=e132]:
+              - /url: mailto:info@westroomz.de
+              - img [ref=e133]
+        - generic [ref=e136]:
+          - heading "Navigation" [level=3] [ref=e137]
+          - list [ref=e138]:
+            - listitem [ref=e139]:
+              - link "Startseite" [ref=e140]:
+                - /url: "#hero"
+            - listitem [ref=e141]:
+              - link "Vision" [ref=e142]:
+                - /url: "#vision"
+            - listitem [ref=e143]:
+              - link "Was wir tun" [ref=e144]:
+                - /url: "#services"
+            - listitem [ref=e145]:
+              - link "Referenzen" [ref=e146]:
+                - /url: "#references"
+        - generic [ref=e147]:
+          - heading "Rechtliches" [level=3] [ref=e148]
+          - list [ref=e149]:
+            - listitem [ref=e150]:
+              - link "Impressum" [ref=e151]:
+                - /url: impressum.html
+            - listitem [ref=e152]:
+              - link "Datenschutz" [ref=e153]:
+                - /url: datenschutz.html
+            - listitem [ref=e154]:
+              - link "AGB" [ref=e155]:
+                - /url: agb.html
+      - generic [ref=e156]:
+        - paragraph [ref=e157]: © 2026 WESTROOMZ. Alle Rechte vorbehalten.
+        - generic [ref=e160]: Made in Germany 🇩🇪

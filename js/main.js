@@ -52,6 +52,97 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function getCurrentScene() {
+        return window.location.pathname.toLowerCase().includes('business.html') ? 'business' : 'creators';
+    }
+
+    function createSceneSwitchOverlay(targetScene, origin) {
+        const overlay = document.createElement('div');
+        overlay.className = `scene-switch-overlay theme-${targetScene}`;
+        overlay.style.setProperty('--cx', `${origin.x}px`);
+        overlay.style.setProperty('--cy', `${origin.y}px`);
+        document.body.appendChild(overlay);
+        return overlay;
+    }
+
+    function switchBusinessScene(targetUrl, triggerElement = null) {
+        const pageWrapper = document.querySelector('.page-wrapper');
+        const cinematicBg = document.querySelector('.cinematic-bg-wrapper');
+        const targetScene = targetUrl.toLowerCase().includes('business.html') ? 'business' : 'creators';
+        const triggerRect = triggerElement?.getBoundingClientRect();
+        const origin = {
+            x: triggerRect ? triggerRect.left + triggerRect.width / 2 : window.innerWidth / 2,
+            y: triggerRect ? triggerRect.top + triggerRect.height / 2 : window.innerHeight / 2
+        };
+        const overlay = createSceneSwitchOverlay(targetScene, origin);
+
+        sessionStorage.setItem('westroomz-scene-transition', JSON.stringify({
+            targetScene,
+            x: origin.x / window.innerWidth,
+            y: origin.y / window.innerHeight
+        }));
+
+        if (pageWrapper) pageWrapper.classList.add('scene-switching');
+        if (cinematicBg) cinematicBg.classList.add('scene-switching');
+
+        requestAnimationFrame(() => {
+            overlay.classList.add('is-exiting');
+        });
+
+        window.setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 760);
+    }
+
+    function initSceneSwitchEntrance() {
+        const raw = sessionStorage.getItem('westroomz-scene-transition');
+        if (!raw) return;
+
+        let transitionData;
+        try {
+            transitionData = JSON.parse(raw);
+        } catch {
+            sessionStorage.removeItem('westroomz-scene-transition');
+            return;
+        }
+
+        const currentScene = getCurrentScene();
+        if (transitionData.targetScene !== currentScene) {
+            sessionStorage.removeItem('westroomz-scene-transition');
+            return;
+        }
+
+        sessionStorage.removeItem('westroomz-scene-transition');
+
+        const origin = {
+            x: (transitionData.x || 0.5) * window.innerWidth,
+            y: (transitionData.y || 0.5) * window.innerHeight
+        };
+        const pageWrapper = document.querySelector('.page-wrapper');
+        const cinematicBg = document.querySelector('.cinematic-bg-wrapper');
+        const overlay = createSceneSwitchOverlay(currentScene, origin);
+
+        if (pageWrapper) pageWrapper.classList.add('scene-switching');
+        if (cinematicBg) cinematicBg.classList.add('scene-switching');
+        overlay.classList.add('is-entering');
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                overlay.classList.add('is-revealing');
+                if (pageWrapper) pageWrapper.classList.remove('scene-switching');
+                if (cinematicBg) cinematicBg.classList.remove('scene-switching');
+            });
+        });
+
+        window.setTimeout(() => {
+            overlay.classList.add('is-done');
+            window.setTimeout(() => overlay.remove(), 260);
+        }, 820);
+    }
+
+    window.switchBusinessScene = switchBusinessScene;
+    initSceneSwitchEntrance();
+
     function initHeroVideoFallback() {
         const heroContainers = document.querySelectorAll('.video-container');
         if (!heroContainers.length) return;
@@ -144,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (businessToggle) {
         businessToggle.addEventListener('change', function() {
             const targetUrl = this.checked ? 'business.html' : 'index.html';
-            window.location.href = targetUrl;
+            switchBusinessScene(targetUrl, this.closest('.site-toggle-container') || this.parentElement);
         });
     }
 

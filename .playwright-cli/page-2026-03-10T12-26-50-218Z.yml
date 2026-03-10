@@ -1,0 +1,296 @@
+- generic [active] [ref=e1]:
+  - button "Menue oeffnen" [ref=e5]
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - img "WESTROOMZ" [ref=e12]
+      - generic [ref=e13]:
+        - link "START" [ref=e14]:
+          - /url: "#hero"
+        - link "VISION" [ref=e15]:
+          - /url: "#vision"
+        - link "TEAM" [ref=e16]:
+          - /url: impressum.html#team
+        - link "OFFERS" [ref=e17]:
+          - /url: "#services"
+        - link "UPCOMING" [ref=e18]:
+          - /url: upcoming.html
+        - link "REFERENZEN" [ref=e19]:
+          - /url: "#references"
+        - link "KONTAKT" [ref=e20]:
+          - /url: "#contact"
+    - generic [ref=e21]:
+      - link "IMPRESSUM" [ref=e22]:
+        - /url: impressum.html
+      - link "DATENSCHUTZ" [ref=e23]:
+        - /url: datenschutz.html
+      - link "AGB" [ref=e24]:
+        - /url: agb.html
+      - generic [ref=e25]: © 2026 WESTROOMZ
+  - generic:
+    - generic:
+      - heading "GALLERY" [level=2]
+      - generic: CLOSE [X]
+  - main [ref=e26]:
+    - generic [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e30]: Creators
+        - generic [ref=e31]:
+          - checkbox [checked]
+        - generic [ref=e33]: Business
+      - paragraph [ref=e34]: UNERREICHTE QUALITÄT
+    - generic [ref=e38]:
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - img [ref=e41]
+          - text: DEINE VISION. UNSERE BÜHNE.
+        - heading "Bereit, etwas Außergewöhnliches zu erschaffen?" [level=2] [ref=e43]
+        - paragraph [ref=e44]: Westroomz Business steht für durchdachte Kampagnen und hochwertige Produktionen. Wir verbinden Strategie, Kreation und Umsetzung zu einem funktionierenden Gesamtsystem.
+        - generic [ref=e45]:
+          - link "Projekt anfragen" [ref=e46]:
+            - /url: "#contact"
+            - text: Projekt anfragen
+            - img [ref=e47]
+          - link "Unsere Leistungen" [ref=e49]:
+            - /url: "#services"
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - img [ref=e52]
+            - text: Höchste Präzision
+          - generic [ref=e55]:
+            - img [ref=e56]
+            - text: 360° Umsetzung
+          - generic [ref=e58]:
+            - img [ref=e59]
+            - text: State-of-the-Art Technik
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - img [ref=e65]
+          - generic [ref=e68]: Premium Produktion
+        - generic [ref=e78]:
+          - generic [ref=e79]: KUNDENZUFRIEDENHEIT
+          - generic [ref=e80]: 100%
+        - generic [ref=e81]:
+          - generic [ref=e82]: Erfolgreiche Projekte
+          - generic [ref=e83]: 50+
+    - generic [ref=e85]:
+      - generic [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e88]: "0"
+          - generic [ref=e89]: +
+        - generic [ref=e90]: Umgesetzte Projekte
+      - generic [ref=e91]:
+        - generic [ref=e92]:
+          - generic [ref=e93]: "0"
+          - generic [ref=e94]: M+
+        - generic [ref=e95]: Content Views
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - generic [ref=e98]: "0"
+          - generic [ref=e99]: +
+        - generic [ref=e100]: Kunden und Marken betreut
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - generic [ref=e103]: "0"
+          - generic [ref=e104]: "%"
+        - generic [ref=e105]: In-House Produktion
+    - generic [ref=e106]:
+      - heading "WAS WIR TUN" [level=2] [ref=e108]
+      - generic [ref=e109]:
+        - generic [ref=e112]:
+          - heading "STRATEGY" [level=3] [ref=e113]
+          - paragraph [ref=e114]: Wir übersetzen unternehmerische Ziele in klare Kommunikations- und Kampagnenstrategien – strukturiert gedacht, präzise geplant.
+          - link "DETAILS" [ref=e115]:
+            - /url: strategy.html
+        - generic [ref=e118]:
+          - heading "PRODUCTION" [level=3] [ref=e119]
+          - paragraph [ref=e120]: Wir realisieren Produktionen, die Marken glaubwürdig präsentieren – mit klarer Inszenierung, professioneller Umsetzung und einem hohen Qualitätsanspruch.
+          - link "DETAILS" [ref=e121]:
+            - /url: production.html
+        - generic [ref=e124]:
+          - heading "DIGITAL" [level=3] [ref=e125]
+          - paragraph [ref=e126]: Wir gestalten digitale Präsenzen, die Unternehmen über alle relevanten Kanäle hinweg professionell darstellen.
+          - link "DETAILS" [ref=e127]:
+            - /url: digital.html
+        - generic [ref=e130]:
+          - heading "PERFORMANCE" [level=3] [ref=e131]
+          - paragraph [ref=e132]: Wir verbinden Ad-Strategien, Datenanalyse und gezielte Ausspielung zu einem kontrollierten Performance-System.
+          - link "DETAILS" [ref=e133]:
+            - /url: performance.html
+    - generic [ref=e134]:
+      - generic [ref=e136]:
+        - heading "Der Markt wartet nicht. Nutzt ihr euer vollstes Potenzial?" [level=2] [ref=e137]:
+          - text: Der Markt wartet nicht.
+          - text: Nutzt ihr euer vollstes Potenzial?
+        - paragraph [ref=e138]: Ein normales Event ist nach 24 Stunden vergessen. Mit Westroomz Content verlängern wir die Sichtbarkeit eurer Marke über Wochen und vervielfachen euren Output.
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - generic [ref=e141]:
+            - generic [ref=e142]:
+              - img [ref=e144]
+              - generic [ref=e147]:
+                - img [ref=e148]
+                - text: +120%
+            - generic [ref=e151]: Video-Nachfrage
+            - generic [ref=e152]: "0"
+            - generic [ref=e153]: Mehr Interesse von Firmen
+          - generic [ref=e154]:
+            - generic [ref=e155]:
+              - img [ref=e157]
+              - generic [ref=e160]:
+                - img [ref=e161]
+                - text: +85%
+            - generic [ref=e164]: Kaufentscheidung
+            - generic [ref=e165]: "0"
+            - generic [ref=e166]: Kaufen eher durch Videos
+          - generic [ref=e167]:
+            - generic [ref=e168]:
+              - img [ref=e170]
+              - generic [ref=e174]:
+                - img [ref=e175]
+                - text: Top-Wert
+            - generic [ref=e178]: Live-Events
+            - generic [ref=e179]: 3x höher
+            - generic [ref=e180]: Erfolg vs. reiner Text
+        - generic [ref=e181]:
+          - generic [ref=e182]:
+            - generic [ref=e183]:
+              - generic [ref=e184]:
+                - generic [ref=e185]: Event-Sichtbarkeit im Vergleich
+                - generic [ref=e186]: Wie lange bleibt euer Event relevant?
+              - generic [ref=e187]:
+                - generic [ref=e188]: Normales Event
+                - generic [ref=e190]: Mit Westroomz
+            - generic [ref=e192]:
+              - generic [ref=e195]: Tag 1
+              - generic [ref=e198]: Woche 1
+              - generic [ref=e201]: Woche 2
+              - generic [ref=e204]: Woche 3
+              - generic [ref=e207]: Woche 4
+          - generic [ref=e208]:
+            - generic [ref=e209]:
+              - generic [ref=e211]:
+                - generic [ref=e212]: Der Content-Multiplikator
+                - generic [ref=e213]:
+                  - text: Was wir aus nur
+                  - strong [ref=e214]: 1 Drehtag
+                  - text: "herausholen:"
+              - generic [ref=e215]:
+                - generic [ref=e216]: Asset
+                - generic [ref=e217]: Anzahl
+              - generic [ref=e218]:
+                - generic [ref=e219]:
+                  - img [ref=e220]
+                  - text: High-End Imagefilm
+                - generic [ref=e223]: 1x
+              - generic [ref=e224]:
+                - generic [ref=e225]:
+                  - img [ref=e226]
+                  - text: Social Media Reels
+                - generic [ref=e228]: 15x
+              - generic [ref=e229]:
+                - generic [ref=e230]:
+                  - img [ref=e231]
+                  - text: B2B LinkedIn Posts
+                - generic [ref=e235]: 10x
+              - generic [ref=e236]:
+                - generic [ref=e237]:
+                  - img [ref=e238]
+                  - text: High-Res Fotos
+                - generic [ref=e242]: 30+
+            - link "Maximale Effizienz buchen" [ref=e243]:
+              - /url: "#contact"
+              - button "Maximale Effizienz buchen" [ref=e244]
+    - generic [ref=e247]:
+      - heading "REFERENZEN" [level=2] [ref=e249]
+      - paragraph [ref=e252]: Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.
+      - generic [ref=e254]:
+        - img "Fritz Kola" [ref=e255]
+        - img "Heineken" [ref=e256]
+        - img "Herb Shuttles" [ref=e257]
+        - img "Mozilla" [ref=e258]
+        - img "Refflexion" [ref=e259]
+        - img "Fyal" [ref=e260]
+        - img "Jägermeister" [ref=e261]
+        - img "TOSBIK'S" [ref=e262]
+        - img "Desperados" [ref=e263]
+        - img "Fritz Kola" [ref=e264]
+        - img "Heineken" [ref=e265]
+        - img "Herb Shuttles" [ref=e266]
+        - img "Mozilla" [ref=e267]
+        - img "Refflexion" [ref=e268]
+        - img "Fyal" [ref=e269]
+        - img "Jägermeister" [ref=e270]
+        - img "TOSBIK'S" [ref=e271]
+        - img "Desperados" [ref=e272]
+    - generic [ref=e274]:
+      - generic [ref=e275]:
+        - generic [ref=e276]:
+          - heading "Lass uns etwas Großartiges erschaffen." [level=2] [ref=e277]:
+            - text: Lass uns etwas
+            - text: Großartiges erschaffen.
+          - paragraph [ref=e278]: Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.
+          - paragraph [ref=e280]: INFO@WESTROOMZ.DE
+        - generic [ref=e283]:
+          - generic [ref=e284]:
+            - generic [ref=e285]: ABTEILUNG
+            - combobox [ref=e286]:
+              - option "Allgemeine Anfrage" [selected]
+              - option "Eventplanung"
+              - option "Marketing"
+          - generic [ref=e287]:
+            - generic [ref=e288]: NAME
+            - textbox "Dein Name" [ref=e289]
+          - generic [ref=e290]:
+            - generic [ref=e291]: PROJEKT
+            - textbox "Kurze Projektbeschreibung..." [ref=e292]
+          - generic [ref=e293]:
+            - generic [ref=e294]: NACHRICHT
+            - textbox "Wie können wir dir helfen?" [ref=e295]
+          - button "Nachricht absenden" [ref=e296]
+      - generic [ref=e297]:
+        - generic [ref=e298]:
+          - link "W WESTROOMZ" [ref=e299]:
+            - /url: "#hero"
+            - generic [ref=e300]: W
+            - generic [ref=e301]: WESTROOMZ
+          - paragraph [ref=e302]: Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.
+          - generic [ref=e303]:
+            - link "Instagram" [disabled]:
+              - /url: "#"
+              - img
+            - link "LinkedIn" [disabled]:
+              - /url: "#"
+              - img
+            - link "Email" [ref=e304]:
+              - /url: mailto:info@westroomz.de
+              - img [ref=e305]
+        - generic [ref=e308]:
+          - heading "Navigation" [level=3] [ref=e309]
+          - list [ref=e310]:
+            - listitem [ref=e311]:
+              - link "Startseite" [ref=e312]:
+                - /url: "#hero"
+            - listitem [ref=e313]:
+              - link "Vision" [ref=e314]:
+                - /url: "#vision"
+            - listitem [ref=e315]:
+              - link "Was wir tun" [ref=e316]:
+                - /url: "#services"
+            - listitem [ref=e317]:
+              - link "Referenzen" [ref=e318]:
+                - /url: "#references"
+        - generic [ref=e319]:
+          - heading "Rechtliches" [level=3] [ref=e320]
+          - list [ref=e321]:
+            - listitem [ref=e322]:
+              - link "Impressum" [ref=e323]:
+                - /url: impressum.html
+            - listitem [ref=e324]:
+              - link "Datenschutz" [ref=e325]:
+                - /url: datenschutz.html
+            - listitem [ref=e326]:
+              - link "AGB" [ref=e327]:
+                - /url: agb.html
+      - generic [ref=e328]:
+        - paragraph [ref=e329]: © 2026 WESTROOMZ. Alle Rechte vorbehalten.
+        - generic [ref=e332]: Made in Germany 🇩🇪
