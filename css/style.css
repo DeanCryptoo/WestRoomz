@@ -179,18 +179,11 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
     background-color: #000;
 }
 
+/* === HIER IST DIE ANGEPASSTE VIDEO-LOGIK === */
 .hero-video { 
     width: 100%; height: 100%; object-fit: cover; 
-    will-change: transform, opacity; 
     pointer-events: none; 
-    /* Startet unsichtbar, damit das Hintergrundbild zeigt */
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-/* Wird vom JS hinzugefügt, wenn das Video ERFOLGREICH startet */
-.hero-video.is-playing {
-    opacity: 0.8;
+    display: none; /* Versteckt das Video auf dem Handy komplett */
 }
 
 /* NUKLEAR-OPTION GEGEN DEN IOS PLAY BUTTON */
@@ -203,8 +196,6 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
     -webkit-appearance: none !important;
     opacity: 0 !important;
 }
-
-.video-mobile { display: none; }
 
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -462,10 +453,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     html, body, a, button, input, select, textarea { cursor: auto !important; }
     .cursor, .cursor-ring { display: none !important; }
     .hero { height: 75vh; min-height: 500px; }
-    .hero-video { object-fit: cover; } 
     .hero-content { bottom: 10px; }
-    .video-desktop { display: none; }
-    .video-mobile { display: block; }
     
     .vision-section { padding: 80px 5%; }
     
@@ -677,6 +665,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .detail-desc { padding-right: 40px; }
     .detail-desc h2 { font-size: 3.5rem !important; line-height: 0.95 !important; }
     .detail-desc p { font-size: 1.15rem !important; padding-left: 30px !important; }
+    .hero-video { display: block !important; opacity: 0.8 !important; } /* Sicherstellen, dass das Video auf Desktop sichtbar ist */
 }
 
 /* --- GLASS KINETIC BOX --- */
