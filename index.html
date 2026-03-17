@@ -72,15 +72,9 @@
             input:checked + .slider:before { transform: translateX(26px); }
         }
 
-        /* --- NEU: ZWINGT DEN DESKTOP, DAS STANDBILD ZU IGNORIEREN --- */
         @media (min-width: 769px) {
-            .hero .video-container { 
-                background-image: none !important; 
-                background-color: transparent !important; 
-            }
-            .hero-video { 
-                opacity: 0.8 !important; /* Stellt sicher, dass das Desktop-Video normal sichtbar ist */
-            }
+            .hero .video-container { background-image: none !important; background-color: transparent !important; }
+            .hero-video { opacity: 0.8 !important; }
         }
 
         /* === PREMIUM FOOTER CSS === */
@@ -150,6 +144,7 @@
     </div>
 
     <div class="page-transition-curtain"></div>
+    
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
     <div class="red-thread"></div>
@@ -194,8 +189,8 @@
     <main class="page-wrapper">
         <header id="hero" class="hero">
             <div class="video-container" style="background-image: url('grillzreal.png');">
-                <video class="hero-video video-desktop" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture poster="grillzreal.png"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
-                <video class="hero-video video-mobile" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture poster="grillzreal.png"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-desktop" autoplay muted loop playsinline preload="metadata" x-webkit-airplay="deny" disablePictureInPicture poster="grillzreal.png"><source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4"></video>
+                <video class="hero-video video-mobile" autoplay muted loop playsinline preload="metadata" x-webkit-airplay="deny" disablePictureInPicture poster="grillzreal.png"><source src="WEST_ROOMZ_INTRO-PHONE.mp4" type="video/mp4"></video>
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -260,7 +255,7 @@
                         Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes
                         Gefühl für Klang, Raum und Dynamik.
                     </p>
-                    <a href="service-detail.html?id=audio_music" class="book-btn interactive">DETAILS</a>
+                    <a href="audio.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
             </div>
 
@@ -272,7 +267,7 @@
                         jeweiligen Marke, Musik oder Idee passt.
                         WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung.
                     </p>
-                    <a href="service-detail.html?id=video_music" class="book-btn interactive">DETAILS</a>
+                    <a href="video.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
              </div>
 
@@ -284,7 +279,7 @@
                         Betrieb vor Ort.
                         WESTROOMZ begleitet Veranstaltungen modular oder ganzheitlich und übernimmt Verantwortung.
                     </p>
-                    <a href="service-detail.html?id=event_planning" class="book-btn interactive">DETAILS</a>
+                    <a href="2events.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
              </div>
 
@@ -294,7 +289,7 @@
                         Reichweite braucht Strategie. Wir analysieren Zielgruppen, definieren Botschaften und platzieren deine Marke dort, wo sie gesehen wird. 
                         WESTROOMZ verbindet kreativen Content mit performance-orientiertem Marketing für maximale Sichtbarkeit.
                     </p>
-                    <a href="service-detail.html?id=marketing_general" class="book-btn interactive">DETAILS</a>
+                    <a href="marketing.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
             </div>
 
@@ -424,18 +419,33 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            const videos = document.querySelectorAll('.hero-video');
-            videos.forEach(video => {
-                video.muted = true;
-                video.setAttribute('playsinline', 'playsinline');
-                
-                let playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        video.classList.add('is-playing');
-                    }).catch(error => {
-                        video.style.display = 'none';
-                    });
+            // === VORHANG LOGIK FÜR DIE "DETAILS" BUTTONS ===
+            const curtain = document.querySelector('.page-transition-curtain');
+            const transitionLinks = document.querySelectorAll('.transition-link');
+            
+            transitionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetUrl = this.getAttribute('href');
+                    
+                    if (curtain && typeof gsap !== 'undefined') {
+                        gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
+                            scaleY: 1, duration: 0.6, ease: "power4.inOut", 
+                            onComplete: () => { window.location.href = targetUrl; } 
+                        });
+                    } else {
+                        window.location.href = targetUrl;
+                    }
+                });
+            });
+
+            // === BROWSER-PFEIL CACHE FIX (BFCache) ===
+            // Wenn der Nutzer über den "Zurück"-Pfeil des Browsers auf diese Seite kommt, 
+            // wird der Vorhang sofort nach oben gezogen, damit die Seite nicht schwarz bleibt.
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted && curtain && typeof gsap !== 'undefined') {
+                    // event.persisted bedeutet: Die Seite wurde aus dem Cache geladen
+                    gsap.set(curtain, { scaleY: 0 }); // Vorhang sofort weg!
                 }
             });
 
@@ -443,7 +453,6 @@
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
                     const targetUrl = this.checked ? 'business.html' : 'index.html';
-                    const curtain = document.querySelector('.page-transition-curtain');
                     
                     if (curtain && typeof gsap !== 'undefined') {
                         gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
