@@ -19,7 +19,7 @@
         html, body, .page-wrapper { background-color: #050505 !important; color: #ffffff !important; }
         .menu-toggle-btn .bar { background-color: #ffffff !important; }
         
-        /* === CINEMATIC HERO STYLES (NEU) === */
+        /* === CINEMATIC HERO STYLES (HIGH-END POSTER LOOK) === */
         .premium-hero-wrapper {
             position: relative;
             width: 100%;
@@ -28,8 +28,9 @@
             background-color: #050505;
             overflow: hidden;
             display: flex;
-            align-items: center;
+            align-items: flex-end; /* Zieht den Text nach GANZ UNTEN */
             justify-content: center;
+            padding-bottom: 12vh; /* Lässt ihn kurz über dem Rand schweben */
             z-index: 1;
         }
 
@@ -38,12 +39,12 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 120%; /* Etwas größer für Parallax */
+            height: 120%; 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             z-index: 0;
-            transform: scale(1.1); /* Startet herangezoomt */
+            transform: scale(1.1); 
             will-change: transform;
         }
 
@@ -52,8 +53,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 50%;
-            background: linear-gradient(to bottom, rgba(5, 5, 5, 0) 0%, rgba(5, 5, 5, 0.8) 60%, #050505 100%);
+            height: 65%; /* Erhöht, damit der Text perfekt im Schwarzen sitzt */
+            background: linear-gradient(to bottom, transparent 0%, rgba(5, 5, 5, 0.8) 45%, #050505 100%);
             z-index: 1;
             pointer-events: none;
         }
@@ -64,7 +65,7 @@
             text-align: center;
             max-width: 800px;
             padding: 0 24px;
-            margin-top: 15vh; /* Schiebt Text in den unteren Fade-Bereich */
+            margin: 0 auto;
             will-change: transform, opacity;
         }
 
@@ -99,7 +100,7 @@
         .hero-highlight {
             color: #dc2626;
             font-style: italic;
-            text-shadow: 0 0 50px rgba(220, 38, 38, 0.5); /* Roter Glow */
+            text-shadow: 0 0 50px rgba(220, 38, 38, 0.5); 
         }
 
         .hero-text {
@@ -112,7 +113,6 @@
         }
 
         /* === DARK BENTO GRID STYLES === */
-        /* Padding Top reduziert, da der Hero jetzt fließend übergeht */
         .bento-section { padding: 40px 24px 120px 24px; background-color: #050505; font-family: 'Inter', sans-serif; position: relative; overflow: hidden; z-index: 2;}
         .bento-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
         
@@ -192,7 +192,7 @@
         .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
         .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; word-wrap: break-word; hyphens: auto; }
-        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 2.2rem; letter-spacing: -0.5px; } } 
+        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 2.2rem; letter-spacing: -0.5px; } }
         @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; letter-spacing: -1px; } }
         .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; text-shadow: 0 0 20px rgba(220,38,38,0.3); }
         .footer-contact-info > p { color: #a3a3a3 !important; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
@@ -264,7 +264,6 @@
 
         <div class="premium-hero-wrapper">
             <div class="premium-hero-bg" style="background-image: url('westroomz_Hp1-2.png');"></div>
-            
             <div class="premium-hero-fade"></div>
             
             <div class="premium-hero-content">
@@ -282,7 +281,6 @@
             <div class="bg-glow-2"></div>
             
             <div class="bento-container">
-                
                 <div class="bento-grid-top">
                     
                     <div class="bento-card detail-list-wrapper gsap-fade-up knob-active">
@@ -427,11 +425,10 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
-            // === NEU: CINEMATIC PARALLAX ANIMATION FÜR HERO BILD ===
+            // === CINEMATIC PARALLAX ANIMATION FÜR HERO BILD ===
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
-                // Parallax-Effekt für das Hintergrundbild (scrollt langsamer, zoomt heraus)
                 gsap.to(".premium-hero-bg", {
                     yPercent: 20, 
                     scale: 1.0,   
@@ -444,9 +441,8 @@
                     }
                 });
 
-                // Fade-Out für den Text beim Scrollen
                 gsap.to(".premium-hero-content", {
-                    y: -100,
+                    y: -150, // Fährt nach oben in die dunkle Zone, während man scrollt
                     opacity: 0,
                     ease: "none",
                     scrollTrigger: {
@@ -489,7 +485,6 @@
             const wrapper = document.querySelector('.detail-list-wrapper');
 
             if(listContainer && wrapper) {
-                // Die Daten aus deiner main.js!
                 const audioList = [
                     { name: "Recording", text: "High-End Aufnahmen in akustisch optimierten Räumen für Vocals und Instrumente." },
                     { name: "Mixing", text: "Wir bringen Balance, Tiefe und den nötigen Druck in deine Spuren." },
