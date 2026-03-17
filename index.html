@@ -77,6 +77,83 @@
             .hero-video { display: block !important; opacity: 0.8 !important; }
         }
 
+        /* === NEUES CSS FÜR DIE VISION Sektion === */
+        .vision-section {
+            text-align: center;
+        }
+        
+        .big-lead {
+            margin-bottom: 0; /* Nimmt den Abstand weg, damit die Linie direkt ansetzt */
+        }
+
+        /* Der animierte Rote Faden + Pulsierender Punkt */
+        .vision-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0 40px 0;
+        }
+
+        .v-line {
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(220,38,38,0), #dc2626);
+            margin-bottom: 4px;
+        }
+
+        .v-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #dc2626;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 10px #dc2626;
+        }
+
+        .v-dot-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background-color: rgba(220,38,38,0.4);
+            border-radius: 50%;
+            animation: vision-pulse 2s infinite ease-out;
+        }
+
+        @keyframes vision-pulse {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+
+        /* Typografische Hierarchie */
+        .vision-text {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .lead-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+            font-weight: 400;
+            color: #ffffff;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .sub-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.95rem, 1.8vw, 1.125rem);
+            font-weight: 300;
+            color: #a3a3a3;
+            line-height: 1.7;
+            margin: 0;
+        }
+
         /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
         @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
@@ -145,11 +222,6 @@
 
     <div class="page-transition-curtain"></div>
     
-    <div class="cursor"></div>
-    <div class="cursor-ring"></div>
-    <div class="red-thread"></div>
-    <div class="cinematic-vignette"></div>
-
     <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
@@ -210,10 +282,17 @@
         <section id="vision" class="vision-section">
             <div>
                 <h2 class="big-lead">VISION. MADE. REAL.</h2>
-                <div class="divider-line"></div>
+                
+                <div class="vision-indicator">
+                    <div class="v-line"></div>
+                    <div class="v-dot">
+                        <div class="v-dot-pulse"></div>
+                    </div>
+                </div>
+
                 <div class="vision-text">
-                    <p>WESTROOMZ ist eine kreative Produktionsagentur für Audio, Video und Events. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
-                    <p>Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
+                    <p class="lead-text">WESTROOMZ ist eine kreative Produktionsagentur für Audio, Video und Events. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
+                    <p class="sub-text">Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
                 </div>
             </div>
         </section>
@@ -435,7 +514,6 @@
                 }
             });
 
-            // === VORHANG LOGIK FÜR DIE "DETAILS" BUTTONS ===
             const curtain = document.querySelector('.page-transition-curtain');
             const transitionLinks = document.querySelectorAll('.transition-link');
             
@@ -455,13 +533,9 @@
                 });
             });
 
-            // === BROWSER-PFEIL CACHE FIX (BFCache) ===
-            // Wenn der Nutzer über den "Zurück"-Pfeil des Browsers auf diese Seite kommt, 
-            // wird der Vorhang sofort nach oben gezogen, damit die Seite nicht schwarz bleibt.
             window.addEventListener('pageshow', function(event) {
                 if (event.persisted && curtain && typeof gsap !== 'undefined') {
-                    // event.persisted bedeutet: Die Seite wurde aus dem Cache geladen
-                    gsap.set(curtain, { scaleY: 0 }); // Vorhang sofort weg!
+                    gsap.set(curtain, { scaleY: 0 }); 
                 }
             });
 
@@ -482,6 +556,37 @@
             }
 
             gsap.registerPlugin(ScrollTrigger);
+
+            // === BULLETPROOF GSAP ANIMATION (fromTo) ===
+            if(document.querySelector(".vision-section")) {
+                const visionTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".vision-section",
+                        start: "top 80%", 
+                        toggleActions: "play none none reverse" 
+                    }
+                });
+
+                // gsap.fromTo zwingt die Animation explizit von unsichtbar zu sichtbar. Kein Glitch mehr möglich.
+                visionTl.fromTo(".big-lead", 
+                    { y: 30, opacity: 0 }, 
+                    { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+                )
+                .fromTo(".v-line", 
+                    { scaleY: 0 }, 
+                    { scaleY: 1, transformOrigin: "top", duration: 0.6, ease: "power2.out" }, 
+                    "-=0.4"
+                )
+                .fromTo(".v-dot", 
+                    { scale: 0, opacity: 0 }, 
+                    { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }
+                )
+                .fromTo(".vision-text p", 
+                    { y: 30, opacity: 0 }, 
+                    { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, 
+                    "-=0.2"
+                );
+            }
 
             const slider = document.getElementById('draggable-slider');
             let isDown = false;
