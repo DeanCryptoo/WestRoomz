@@ -82,19 +82,22 @@
            ======================================================== */
         .vision-section { 
             display: flex; flex-direction: column; align-items: center; text-align: center; 
-            padding: 150px 5%; /* Mehr Breathing Room */
+            padding: 160px 5%; /* Mehr Breathing Room */
             position: relative;
             z-index: 10;
         }
 
-        /* Der Background-Blur bleibt, um das Bild darunter abzuheben */
+        /* Die "Aura" - Ein extrem weicher, dunkler Gradient hinter dem Text für perfekte Lesbarkeit, ohne eine Kasten-Optik zu erzeugen */
         .vision-section::before {
-            content: ''; position: absolute; top: -2px; left: 0; width: 100%; height: 35vh; 
-            background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-            pointer-events: none; z-index: -1; 
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw; 
+            height: 140%; 
+            background: radial-gradient(ellipse at center, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.5) 40%, transparent 100%);
+            z-index: -1; 
+            pointer-events: none;
         }
 
         .vision-content { 
@@ -105,18 +108,42 @@
         }
 
         .big-lead { 
-            font-family: var(--font-head); /* Oswald, wie in deinem Originalcode */
-            font-size: clamp(2.5rem, 6vw, 4.5rem); 
-            text-transform: uppercase; line-height: 1.1; margin-bottom: 0; letter-spacing: 0.05em; 
-            color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            /* GSAP Start-Status */
-            opacity: 0; transform: translateY(30px);
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(3rem, 7vw, 5.5rem); 
+            font-weight: 500; /* Etwas edler, nicht zu klobig */
+            text-transform: uppercase; 
+            line-height: 1.1; 
+            margin-bottom: 0; 
+            letter-spacing: 0.02em; 
+            color: #ffffff; 
+            text-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            /* WICHTIG: Keine opacity:0 im CSS, damit nichts glitcht. Das macht GSAP. */
+            opacity: 1; 
         }
 
         /* Der animierte Rote Faden + Pulsierender Punkt */
         .vision-indicator { display: flex; flex-direction: column; align-items: center; margin: 40px 0 50px 0; }
-        .v-line { width: 1px; height: 100px; background: linear-gradient(to bottom, rgba(220,38,38,0), #dc2626); transform-origin: top; transform: scaleY(0); }
-        .v-dot { width: 6px; height: 6px; background-color: #dc2626; border-radius: 50%; position: relative; box-shadow: 0 0 10px #dc2626; opacity: 0; transform: scale(0); }
+        
+        .v-line { 
+            width: 2px; 
+            height: 80px; 
+            background: linear-gradient(to bottom, rgba(220,38,38,0), #dc2626); 
+            /* Startwerte für saubere GSAP-Animation */
+            transform-origin: top; 
+            transform: scaleY(0); 
+        }
+        
+        .v-dot { 
+            width: 6px; 
+            height: 6px; 
+            background-color: #dc2626; 
+            border-radius: 50%; 
+            position: relative; 
+            box-shadow: 0 0 10px #dc2626; 
+            opacity: 0; 
+            transform: scale(0); 
+        }
+        
         .v-dot-pulse {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 24px; height: 24px; background-color: rgba(220,38,38,0.4); border-radius: 50%;
@@ -124,12 +151,27 @@
         }
         @keyframes vision-pulse { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
 
-        /* Typografische Hierarchie für den Text */
+        /* Typografische Hierarchie für den Text (Dein Wunsch-Design beibehalten) */
         .vision-text { display: flex; flex-direction: column; gap: 24px; max-width: 720px; margin: 0 auto; }
-        .vision-text p { margin: 0; opacity: 0; transform: translateY(20px); } /* GSAP Start-Status */
         
-        .lead-text { font-family: 'Inter', sans-serif; font-size: clamp(1.15rem, 2.5vw, 1.45rem); font-weight: 400; color: #ffffff; line-height: 1.6; }
-        .sub-text { font-family: 'Inter', sans-serif; font-size: clamp(0.95rem, 1.8vw, 1.125rem); font-weight: 300; color: #a3a3a3; line-height: 1.7; }
+        /* GSAP übernimmt das Verstecken, damit es nicht glitcht */
+        .vision-text p { margin: 0; opacity: 1; } 
+        
+        .lead-text { 
+            font-family: 'Inter', sans-serif; 
+            font-size: clamp(1.15rem, 2.5vw, 1.45rem); 
+            font-weight: 400; 
+            color: #ffffff; 
+            line-height: 1.6; 
+        }
+        
+        .sub-text { 
+            font-family: 'Inter', sans-serif; 
+            font-size: clamp(0.95rem, 1.8vw, 1.125rem); 
+            font-weight: 300; 
+            color: #a3a3a3; 
+            line-height: 1.7; 
+        }
         /* ======================================================== */
 
         /* === PREMIUM FOOTER CSS === */
@@ -543,24 +585,38 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            // === GSAP: DIE NEUE TIMELINE FÜR DIE VISION SECTION ===
+            // === HIER IST DIE NEUE, BULLETPROOF TIMELINE FÜR DIE VISION SECTION ===
             if(document.querySelector(".vision-section")) {
                 const visionTl = gsap.timeline({
                     scrollTrigger: {
                         trigger: ".vision-section",
-                        start: "top 75%", 
-                        toggleActions: "play reverse play reverse"
+                        start: "top 60%", // Startet, wenn die Sektion zu 40% im Bild ist
+                        toggleActions: "play none none reverse" // Spielt 1x ab, geht erst zurück, wenn man GANZ nach oben scrollt
                     }
                 });
 
-                // 1. Die fette Headline fadet nach oben ein
-                visionTl.to(".big-lead", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
+                // 1. Die fette Headline "wächst" aus einer unsichtbaren Maske nach oben (Clip-Path Reveal)
+                visionTl.fromTo(".big-lead", 
+                    { y: 50, opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)" }, 
+                    { y: 0, opacity: 1, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)", duration: 1.2, ease: "power4.out" }
+                )
                 // 2. Die rote Linie wächst weich nach unten
-                .to(".v-line", { scaleY: 1, duration: 0.6, ease: "power2.out" }, "-=0.4")
+                .fromTo(".v-line", 
+                    { scaleY: 0 },
+                    { scaleY: 1, duration: 0.8, ease: "power3.inOut" }, 
+                    "-=0.6" // Startet etwas früher
+                )
                 // 3. Der Punkt "ploppt" auf
-                .to(".v-dot", { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" })
+                .fromTo(".v-dot", 
+                    { scale: 0, opacity: 0 },
+                    { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" }
+                )
                 // 4. Die Texte faden weich rein (erst Lead, dann Sub)
-                .to(".vision-text p", { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.2");
+                .fromTo(".vision-text p", 
+                    { y: 30, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out" }, 
+                    "-=0.4"
+                );
             }
 
             const slider = document.getElementById('draggable-slider');
