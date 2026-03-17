@@ -77,6 +77,115 @@
             .hero-video { display: block !important; opacity: 0.8 !important; }
         }
 
+        /* ========================================================
+           === HIGH-END VISION SECTION UPDATE === 
+           ======================================================== */
+        .vision-section { 
+            display: flex; flex-direction: column; align-items: center; text-align: center; 
+            padding: 120px 5%; 
+            position: relative;
+        }
+
+        .vision-section::before {
+            content: '';
+            position: absolute;
+            top: -2px; 
+            left: 0;
+            width: 100%;
+            height: 35vh; 
+            background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+            pointer-events: none;
+            z-index: -1; 
+        }
+
+        .big-lead { 
+            font-family: var(--font-head); 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            text-transform: uppercase; 
+            line-height: 1.1; 
+            margin-bottom: 0; 
+            letter-spacing: 0.05em; 
+            color: #ffffff;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Der animierte Rote Faden + Pulsierender Punkt */
+        .vision-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0 40px 0;
+        }
+
+        .v-line {
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(220,38,38,0), #dc2626);
+            margin-bottom: 4px;
+        }
+
+        .v-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #dc2626;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 10px #dc2626;
+        }
+
+        .v-dot-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background-color: rgba(220,38,38,0.4);
+            border-radius: 50%;
+            animation: vision-pulse 2s infinite ease-out;
+        }
+
+        @keyframes vision-pulse {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+
+        /* Typografische Hierarchie für den Text */
+        .vision-text { 
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 720px; 
+            margin: 0 auto;
+        }
+        
+        .vision-text p { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            margin: 0; 
+        }
+        
+        .lead-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+            font-weight: 400;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .sub-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.95rem, 1.8vw, 1.125rem);
+            font-weight: 300;
+            color: #a3a3a3;
+            line-height: 1.7;
+        }
+        /* ======================================================== */
+
         /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
         @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
@@ -208,13 +317,22 @@
         </header>
 
         <section id="vision" class="vision-section">
-            <div>
+            <div class="vision-content">
+                
                 <h2 class="big-lead">VISION. MADE. REAL.</h2>
-                <div class="divider-line"></div>
-                <div class="vision-text">
-                    <p>WESTROOMZ ist eine kreative Produktionsagentur für Audio, Video und Events. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
-                    <p>Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
+                
+                <div class="vision-indicator">
+                    <div class="v-line"></div>
+                    <div class="v-dot">
+                        <div class="v-dot-pulse"></div>
+                    </div>
                 </div>
+                
+                <div class="vision-text">
+                    <p class="lead-text">WESTROOMZ ist eine kreative Produktionsagentur für Audio, Video und Events. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
+                    <p class="sub-text">Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
+                </div>
+
             </div>
         </section>
 
@@ -456,11 +574,8 @@
             });
 
             // === BROWSER-PFEIL CACHE FIX (BFCache) ===
-            // Wenn der Nutzer über den "Zurück"-Pfeil des Browsers auf diese Seite kommt, 
-            // wird der Vorhang sofort nach oben gezogen, damit die Seite nicht schwarz bleibt.
             window.addEventListener('pageshow', function(event) {
                 if (event.persisted && curtain && typeof gsap !== 'undefined') {
-                    // event.persisted bedeutet: Die Seite wurde aus dem Cache geladen
                     gsap.set(curtain, { scaleY: 0 }); // Vorhang sofort weg!
                 }
             });
@@ -482,6 +597,32 @@
             }
 
             gsap.registerPlugin(ScrollTrigger);
+
+            // === GSAP: VISION SECTION ANIMATION ===
+            if(document.querySelector(".big-lead")) {
+                gsap.from(".big-lead", { 
+                    scrollTrigger: { trigger: ".big-lead", start: "top 80%", toggleActions: "play reverse play reverse" }, 
+                    y: 30, opacity: 0, duration: 1, ease: "power3.out" 
+                });
+                
+                // Animiert die Linie von oben nach unten
+                gsap.from(".v-line", {
+                    scrollTrigger: { trigger: ".vision-indicator", start: "top 80%", toggleActions: "play reverse play reverse" },
+                    scaleY: 0, transformOrigin: "top", duration: 1, ease: "power2.out", delay: 0.2
+                });
+
+                // Blendet den Punkt ein
+                gsap.from(".v-dot", {
+                    scrollTrigger: { trigger: ".vision-indicator", start: "top 80%", toggleActions: "play reverse play reverse" },
+                    scale: 0, opacity: 0, duration: 0.5, ease: "back.out(2)", delay: 1
+                });
+
+                // Text staggert weich rein
+                gsap.to(".vision-text p", { 
+                    scrollTrigger: { trigger: ".vision-text", start: "top 85%", toggleActions: "play reverse play reverse" }, 
+                    y: 0, opacity: 1, stagger: 0.3, duration: 1, ease: "power2.out", delay: 0.5
+                });
+            }
 
             const slider = document.getElementById('draggable-slider');
             let isDown = false;
