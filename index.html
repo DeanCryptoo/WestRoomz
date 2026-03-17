@@ -77,82 +77,17 @@
             .hero-video { display: block !important; opacity: 0.8 !important; }
         }
 
-        /* === NEUES CSS FÜR DIE VISION Sektion === */
-        .vision-section {
-            text-align: center;
-        }
-        
-        .big-lead {
-            margin-bottom: 0; /* Nimmt den Abstand weg, damit die Linie direkt ansetzt */
-        }
-
-        /* Der animierte Rote Faden + Pulsierender Punkt */
-        .vision-indicator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px 0 40px 0;
-        }
-
-        .v-line {
-            width: 2px;
-            height: 80px;
-            background: linear-gradient(to bottom, rgba(220,38,38,0), #dc2626);
-            margin-bottom: 4px;
-        }
-
-        .v-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #dc2626;
-            border-radius: 50%;
-            position: relative;
-            box-shadow: 0 0 10px #dc2626;
-        }
-
-        .v-dot-pulse {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 24px;
-            height: 24px;
-            background-color: rgba(220,38,38,0.4);
-            border-radius: 50%;
-            animation: vision-pulse 2s infinite ease-out;
-        }
-
-        @keyframes vision-pulse {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
-        }
-
-        /* Typografische Hierarchie */
-        .vision-text {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .lead-text {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.15rem, 2.5vw, 1.4rem);
-            font-weight: 400;
-            color: #ffffff;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .sub-text {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(0.95rem, 1.8vw, 1.125rem);
-            font-weight: 300;
-            color: #a3a3a3;
-            line-height: 1.7;
-            margin: 0;
-        }
+        /* === VISION Sektion Design === */
+        .vision-section { text-align: center; }
+        .big-lead { margin-bottom: 0; }
+        .vision-indicator { display: flex; flex-direction: column; align-items: center; margin: 20px 0 40px 0; }
+        .v-line { width: 2px; height: 80px; background: linear-gradient(to bottom, rgba(220,38,38,0), #dc2626); margin-bottom: 4px; }
+        .v-dot { width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; position: relative; box-shadow: 0 0 10px #dc2626; }
+        .v-dot-pulse { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 24px; height: 24px; background-color: rgba(220,38,38,0.4); border-radius: 50%; animation: vision-pulse 2s infinite ease-out; }
+        @keyframes vision-pulse { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
+        .vision-text { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        .lead-text { font-family: 'Inter', sans-serif; font-size: clamp(1.15rem, 2.5vw, 1.4rem); font-weight: 400; color: #ffffff; line-height: 1.6; margin: 0; }
+        .sub-text { font-family: 'Inter', sans-serif; font-size: clamp(0.95rem, 1.8vw, 1.125rem); font-weight: 300; color: #a3a3a3; line-height: 1.7; margin: 0; }
 
         /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
@@ -280,7 +215,7 @@
         </header>
 
         <section id="vision" class="vision-section">
-            <div>
+            <div class="vision-content">
                 <h2 class="big-lead">VISION. MADE. REAL.</h2>
                 
                 <div class="vision-indicator">
@@ -329,8 +264,8 @@
             </div>
             
             <div id="audio" class="service-container active">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
+                <div class="vision-text-static" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    <p style="margin-bottom: 30px; color: #a3a3a3;">
                         Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.
                         Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes
                         Gefühl für Klang, Raum und Dynamik.
@@ -340,8 +275,8 @@
             </div>
 
             <div id="video" class="service-container">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
+                <div class="vision-text-static" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    <p style="margin-bottom: 30px; color: #a3a3a3;">
                         Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.
                         Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur
                         jeweiligen Marke, Musik oder Idee passt.
@@ -352,8 +287,8 @@
              </div>
 
              <div id="event" class="service-container">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
+                <div class="vision-text-static" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    <p style="margin-bottom: 30px; color: #a3a3a3;">
                         Events erfordern mehr als Technik.
                         Wir liefern Struktur, Know-how und eine saubere Umsetzung – von der Planung bis zum laufenden
                         Betrieb vor Ort.
@@ -364,8 +299,8 @@
              </div>
 
              <div id="marketing" class="service-container">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
+                <div class="vision-text-static" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    <p style="margin-bottom: 30px; color: #a3a3a3;">
                         Reichweite braucht Strategie. Wir analysieren Zielgruppen, definieren Botschaften und platzieren deine Marke dort, wo sie gesehen wird. 
                         WESTROOMZ verbindet kreativen Content mit performance-orientiertem Marketing für maximale Sichtbarkeit.
                     </p>
@@ -383,8 +318,8 @@
                     </div>
                     
                     <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
-                        <div class="vision-text" style="opacity: 1; transform: none;">
-                            <p style="opacity: 1; transform: none;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
+                        <div class="vision-text-static">
+                            <p style="color: #a3a3a3;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
                         </div>
                     </div>
 
@@ -449,7 +384,7 @@
                                 <textarea id="message" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea>
                             </div>
                             <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
-                                Nachricht absenden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                Anfrage senden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                             </button>
                         </form>
                     </div>
@@ -514,6 +449,7 @@
                 }
             });
 
+            // === VORHANG LOGIK FÜR DIE "DETAILS" BUTTONS ===
             const curtain = document.querySelector('.page-transition-curtain');
             const transitionLinks = document.querySelectorAll('.transition-link');
             
@@ -557,7 +493,7 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            // === BULLETPROOF GSAP ANIMATION (fromTo) ===
+            // === BULLETPROOF TIMELINE FÜR DIE VISION SECTION ===
             if(document.querySelector(".vision-section")) {
                 const visionTl = gsap.timeline({
                     scrollTrigger: {
@@ -567,7 +503,7 @@
                     }
                 });
 
-                // gsap.fromTo zwingt die Animation explizit von unsichtbar zu sichtbar. Kein Glitch mehr möglich.
+                // .fromTo zwingt die Animation sauber von A nach B, kein Verschwinden mehr.
                 visionTl.fromTo(".big-lead", 
                     { y: 30, opacity: 0 }, 
                     { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
