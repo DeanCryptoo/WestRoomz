@@ -147,6 +147,12 @@
             70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
+
+        /* === CURSOR CSS (GEFIXED) === */
+        @media (hover: hover) and (pointer: fine) { * { cursor: none !important; } }
+        #slice-cursor-canvas { pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; backface-visibility: hidden; }
+        #slice-cursor-dot { position: fixed; pointer-events: none; z-index: 100000; border-radius: 50%; background-color: #dc2626; width: 12px; height: 12px; transition: transform 0.3s ease; transform: translate(-50%, -50%); box-shadow: 0 0 10px #dc2626; backface-visibility: hidden; }
+        @media (hover: none), (pointer: coarse) { #slice-cursor-canvas, #slice-cursor-dot { display: none !important; } }
     </style>
 </head>
 <body>
@@ -156,7 +162,9 @@
     </div>
 
     <div class="page-transition-curtain"></div>
-    
+    <div class="red-thread"></div>
+    <div class="cinematic-vignette"></div>
+
     <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
@@ -428,7 +436,10 @@
             </div>
         </footer>
     </main>
-    
+
+    <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
+    <div id="slice-cursor-dot" aria-hidden="true"></div>
+
     <script src="js/main.js"></script>
 
     <script>
@@ -438,7 +449,6 @@
             videos.forEach(video => {
                 video.muted = true;
                 video.setAttribute('playsinline', 'playsinline');
-                
                 let playPromise = video.play();
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
@@ -449,15 +459,13 @@
                 }
             });
 
-            // === VORHANG LOGIK FÜR DIE "DETAILS" BUTTONS ===
+            // === VORHANG LOGIK ===
             const curtain = document.querySelector('.page-transition-curtain');
             const transitionLinks = document.querySelectorAll('.transition-link');
-            
             transitionLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetUrl = this.getAttribute('href');
-                    
                     if (curtain && typeof gsap !== 'undefined') {
                         gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
                             scaleY: 1, duration: 0.6, ease: "power4.inOut", 
@@ -469,17 +477,10 @@
                 });
             });
 
-            window.addEventListener('pageshow', function(event) {
-                if (event.persisted && curtain && typeof gsap !== 'undefined') {
-                    gsap.set(curtain, { scaleY: 0 }); 
-                }
-            });
-
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
                     const targetUrl = this.checked ? 'business.html' : 'index.html';
-                    
                     if (curtain && typeof gsap !== 'undefined') {
                         gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
                             scaleY: 1, duration: 0.6, ease: "power4.inOut", 
@@ -493,7 +494,7 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            // === BULLETPROOF TIMELINE FÜR DIE VISION SECTION ===
+            // === BULLETPROOF VISION ANIMATION ===
             if(document.querySelector(".vision-section")) {
                 const visionTl = gsap.timeline({
                     scrollTrigger: {
@@ -503,81 +504,71 @@
                     }
                 });
 
-                // .fromTo zwingt die Animation sauber von A nach B, kein Verschwinden mehr.
-                visionTl.fromTo(".big-lead", 
-                    { y: 30, opacity: 0 }, 
-                    { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-                )
-                .fromTo(".v-line", 
-                    { scaleY: 0 }, 
-                    { scaleY: 1, transformOrigin: "top", duration: 0.6, ease: "power2.out" }, 
-                    "-=0.4"
-                )
-                .fromTo(".v-dot", 
-                    { scale: 0, opacity: 0 }, 
-                    { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }
-                )
-                .fromTo(".vision-text p", 
-                    { y: 30, opacity: 0 }, 
-                    { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, 
-                    "-=0.2"
-                );
+                visionTl.fromTo(".big-lead", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
+                .fromTo(".v-line", { scaleY: 0 }, { scaleY: 1, transformOrigin: "top", duration: 0.6, ease: "power2.out" }, "-=0.4")
+                .fromTo(".v-dot", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" })
+                .fromTo(".vision-text p", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.2");
             }
 
+            // === CURSOR LOGIK (Liquid Trail) ===
+            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+            const canvas = document.getElementById("slice-cursor-canvas");
+            const dot = document.getElementById("slice-cursor-dot");
+
+            if (isDesktop && canvas && dot) {
+                const ctx = canvas.getContext("2d");
+                const pointsNumber = 40;
+                const trail = new Array(pointsNumber).fill().map(() => ({ x: 0, y: 0, dx: 0, dy: 0 }));
+                let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+                
+                const setupCanvas = () => { canvas.width = window.innerWidth * window.devicePixelRatio; canvas.height = window.innerHeight * window.devicePixelRatio; };
+                setupCanvas();
+                window.addEventListener("resize", setupCanvas);
+
+                window.addEventListener("mousemove", (e) => {
+                    pointer.x = e.clientX * window.devicePixelRatio;
+                    pointer.y = e.clientY * window.devicePixelRatio;
+                });
+
+                const update = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    trail.forEach((p, pIdx) => {
+                        const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
+                        p.dx += (prev.x - p.x) * 0.4; p.dy += (prev.y - p.y) * 0.4;
+                        p.dx *= 0.5; p.dy *= 0.5; p.x += p.dx; p.y += p.dy;
+                    });
+                    ctx.strokeStyle = "#dc2626"; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(trail[0].x, trail[0].y);
+                    for (let i = 1; i < trail.length - 1; i++) {
+                        const xc = .5 * (trail[i].x + trail[i + 1].x); const yc = .5 * (trail[i].y + trail[i + 1].y);
+                        ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
+                        ctx.lineWidth = 0.3 * (pointsNumber - i) * window.devicePixelRatio; ctx.stroke();
+                    }
+                    dot.style.left = `${pointer.x / window.devicePixelRatio}px`; dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
+                    requestAnimationFrame(update);
+                };
+                update();
+            }
+
+            // === DRAGGABLE SLIDER ===
             const slider = document.getElementById('draggable-slider');
-            let isDown = false;
-            let startX;
-            let currentX = 0;
-            let speed = 1.5; 
-            let halfWidth = 0;
-
-            function calculateWidth() {
-                if(slider) halfWidth = slider.scrollWidth / 2;
-            }
-            
-            setTimeout(calculateWidth, 100);
-            window.addEventListener('resize', calculateWidth);
+            let isDown = false; let startX; let currentX = 0; let speed = 1.5; let halfWidth = 0;
+            function calculateWidth() { if(slider) halfWidth = slider.scrollWidth / 2; }
+            setTimeout(calculateWidth, 100); window.addEventListener('resize', calculateWidth);
 
             function animate() {
                 if(!slider) return;
-                if (!isDown) {
-                    currentX -= speed; 
-                }
+                if (!isDown) { currentX -= speed; }
                 if (halfWidth > 0) {
-                    if (currentX <= -halfWidth) {
-                        currentX += halfWidth; 
-                    } else if (currentX > 0) {
-                        currentX -= halfWidth; 
-                    }
+                    if (currentX <= -halfWidth) { currentX += halfWidth; }
+                    else if (currentX > 0) { currentX -= halfWidth; }
                 }
                 slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
                 requestAnimationFrame(animate);
             }
-
             if(slider) {
-                slider.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    startX = e.pageX - currentX;
-                });
-
-                slider.addEventListener('mouseleave', () => { isDown = false; });
+                slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - currentX; });
                 window.addEventListener('mouseup', () => { isDown = false; });
-                slider.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault();
-                    currentX = e.pageX - startX;
-                });
-
-                slider.addEventListener('touchstart', (e) => {
-                    isDown = true;
-                    startX = e.touches[0].pageX - currentX;
-                }, { passive: true });
-                window.addEventListener('touchend', () => { isDown = false; });
-                slider.addEventListener('touchmove', (e) => {
-                    if (!isDown) return;
-                    currentX = e.touches[0].pageX - startX;
-                }, { passive: true });
-
+                slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); currentX = e.pageX - startX; });
                 requestAnimationFrame(animate);
             }
         });
