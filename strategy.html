@@ -55,8 +55,9 @@
         .sticky-layout { display: flex; flex-direction: column; gap: 60px; }
         @media (min-width: 1024px) { .sticky-layout { flex-direction: row; align-items: flex-start; } }
         
-        .sticky-sidebar { flex: 1; position: sticky; top: 120px; }
-        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #1d1d1f; }
+        /* HIER IST DER FIX: min-width: 0; schützt das Layout vor langen Wörtern */
+        .sticky-sidebar { flex: 1; min-width: 0; position: sticky; top: 120px; }
+        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #1d1d1f; word-break: break-word; }
         .sticky-sidebar p { color: #6e6e73; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
         
         .sticky-content { flex: 2; display: grid; grid-template-columns: 1fr; gap: 24px; }
@@ -160,7 +161,9 @@
                 <div class="sticky-layout">
                     <div class="sticky-sidebar gsap-fade-up">
                         <span style="font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #dc2626; display: block; margin-bottom: 16px;">Unser Ansatz</span>
-                        <h2>Strategie für nachhaltiges<br><span style="color: #dc2626; text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.2); text-underline-offset: 8px;">Unternehmenswachstum.</span></h2>
+                        
+                        <h2>Strategie für<br>nachhaltiges<br><span style="color: #dc2626; text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.2); text-underline-offset: 8px;">Unternehmens-<br>wachstum.</span></h2>
+                        
                         <p>Erfolgreiches Marketing entsteht aus klarer Analyse, präziser Positionierung und strukturierter Kampagnenplanung. Strategische Grundlagen schaffen die Basis für langfristige Sichtbarkeit, Wachstum und Marktführung.</p>
                         <a href="business.html#contact" class="btn-black interactive">Projekt anfragen</a>
                     </div>
