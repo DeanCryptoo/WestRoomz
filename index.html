@@ -77,68 +77,60 @@
             .hero-video { display: block !important; opacity: 0.8 !important; }
         }
 
-        /* ==========================================================
-           === HIER STARTET DIE NEUE, SAUBERE VISION SECTION ===
-           ========================================================== */
-        
+        /* ========================================================
+           === HIGH-END VISION SECTION === 
+           ======================================================== */
         .vision-section { 
             display: flex; flex-direction: column; align-items: center; text-align: center; 
-            padding: 120px 5%; 
+            padding: 150px 5%; /* Mehr Breathing Room */
             position: relative;
-            background: linear-gradient(to bottom, transparent 0%, #050505 15%); /* Sauberer Fade aus dem Hero */
             z-index: 10;
         }
 
-        .vision-content {
-            max-width: 900px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* Der Background-Blur bleibt, um das Bild darunter abzuheben */
+        .vision-section::before {
+            content: ''; position: absolute; top: -2px; left: 0; width: 100%; height: 35vh; 
+            background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+            pointer-events: none; z-index: -1; 
+        }
+
+        .vision-content { 
+            max-width: 900px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
         }
 
         .big-lead { 
-            font-family: 'Oswald', sans-serif; 
-            font-size: clamp(3rem, 8vw, 5.5rem); 
-            text-transform: uppercase; 
-            line-height: 1.1; 
-            letter-spacing: 2px; 
-            color: #ffffff;
-            margin-bottom: 0;
-            opacity: 0; /* Für GSAP Start */
+            font-family: var(--font-head); /* Oswald, wie in deinem Originalcode */
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            text-transform: uppercase; line-height: 1.1; margin-bottom: 0; letter-spacing: 0.05em; 
+            color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            /* GSAP Start-Status */
+            opacity: 0; transform: translateY(30px);
         }
 
-        .divider-line { 
-            width: 2px; 
-            height: 100px; 
-            background: linear-gradient(to bottom, #dc2626, transparent); 
-            margin: 40px auto; 
-            opacity: 0; /* Für GSAP Start */
+        /* Der animierte Rote Faden + Pulsierender Punkt */
+        .vision-indicator { display: flex; flex-direction: column; align-items: center; margin: 40px 0 50px 0; }
+        .v-line { width: 1px; height: 100px; background: linear-gradient(to bottom, rgba(220,38,38,0), #dc2626); transform-origin: top; transform: scaleY(0); }
+        .v-dot { width: 6px; height: 6px; background-color: #dc2626; border-radius: 50%; position: relative; box-shadow: 0 0 10px #dc2626; opacity: 0; transform: scale(0); }
+        .v-dot-pulse {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 24px; height: 24px; background-color: rgba(220,38,38,0.4); border-radius: 50%;
+            animation: vision-pulse 2.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
         }
+        @keyframes vision-pulse { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
 
-        .vision-text {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .vision-text p { margin: 0; opacity: 0; } /* Für GSAP Start */
+        /* Typografische Hierarchie für den Text */
+        .vision-text { display: flex; flex-direction: column; gap: 24px; max-width: 720px; margin: 0 auto; }
+        .vision-text p { margin: 0; opacity: 0; transform: translateY(20px); } /* GSAP Start-Status */
         
-        .vision-text .lead-text { 
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.15rem, 2.5vw, 1.4rem); 
-            font-weight: 500; 
-            color: #ffffff; 
-            line-height: 1.6; 
-        }
-
-        .vision-text .sub-text { 
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1rem, 1.5vw, 1.125rem); 
-            font-weight: 300; 
-            color: #a3a3a3; 
-            line-height: 1.7; 
-        }
-        /* ========================================================== */
+        .lead-text { font-family: 'Inter', sans-serif; font-size: clamp(1.15rem, 2.5vw, 1.45rem); font-weight: 400; color: #ffffff; line-height: 1.6; }
+        .sub-text { font-family: 'Inter', sans-serif; font-size: clamp(0.95rem, 1.8vw, 1.125rem); font-weight: 300; color: #a3a3a3; line-height: 1.7; }
+        /* ======================================================== */
 
         /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
@@ -182,452 +174,4 @@
         .footer-socials-new a:hover { background-color: rgba(255,255,255,0.05); color: #dc2626 !important; border-color: rgba(255,255,255,0.2); }
         .footer-socials-new svg { width: 16px; height: 16px; fill: currentColor; }
         .footer-col { text-align: left; }
-        .footer-col h3 { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.5) !important; margin-bottom: 24px; }
-        .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
-        .footer-col a { color: #a3a3a3 !important; font-size: 0.875rem; font-weight: 700; text-decoration: none; transition: color 0.2s; }
-        .footer-col a:hover { color: #dc2626 !important; }
-        .footer-bottom { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1); align-items: center; }
-        @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
-        .footer-bottom p { color: #a3a3a3 !important; font-size: 0.875rem; font-weight: 700; margin: 0; }
-        .footer-badge { display: flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; }
-        .footer-badge .dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; animation: pulse-green 2s infinite; }
-        .footer-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #d4d4d4; }
-        
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="cinematic-bg-wrapper">
-        <div class="bg-layer active" style="background-image: url('wr5.jpg'); opacity: 1;"></div>
-    </div>
-
-    <div class="page-transition-curtain"></div>
-    
-    <div class="cursor"></div>
-    <div class="cursor-ring"></div>
-    <div class="red-thread"></div>
-    <div class="cinematic-vignette"></div>
-
-    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
-        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-    </div>
-
-    <div class="side-menu">
-        <div>
-            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
-            <div class="menu-links">
-                <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
-                <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
-                <a href="impressum.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
-                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
-                <a href="upcoming.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
-                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
-                <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
-            </div>
-        </div>
-        <div class="sidebar-footer">
-             <a href="impressum.html" class="interactive">IMPRESSUM</a>
-             <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
-             <a href="agb.html" class="interactive">AGB</a>
-             <span>© 2026 WESTROOMZ</span>
-        </div>
-    </div>
-    <div class="menu-overlay" onclick="toggleMenu()"></div>
-
-    <div class="modal-overlay" id="galleryModal">
-        <div class="modal-header">
-            <h2 class="modal-title" id="modalTitle">GALLERY</h2>
-            <div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div>
-        </div>
-        <div class="modal-content-wrapper">
-            <div class="modal-grid" id="modalGrid"></div>
-        </div>
-    </div>
-
-    <main class="page-wrapper">
-        <header id="hero" class="hero">
-            <div class="video-container" style="background-image: url('grillzreal.png');">
-                <video class="hero-video video-desktop" autoplay muted loop playsinline x-webkit-airplay="deny" disablePictureInPicture poster="grillzreal-2.png">
-                    <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <div class="site-toggle-container is-creators interactive">
-                    <span class="toggle-label label-creators">Creators</span>
-                    <label class="ios-switch">
-                        <input type="checkbox" id="businessToggle">
-                        <span class="slider round"></span>
-                    </label>
-                    <span class="toggle-label label-business">Business</span>
-                </div>
-                <p class="hero-sub">UNERREICHTE QUALITÄT</p>
-            </div>
-        </header>
-
-        <section id="vision" class="vision-section">
-            <div class="vision-content">
-                <h2 class="big-lead">VISION. MADE. REAL.</h2>
-                <div class="divider-line"></div>
-                <div class="vision-text">
-                    <p class="lead-text">WESTROOMZ ist eine kreative Produktionsagentur für Audio, Video und Events. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
-                    <p class="sub-text">Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="gallery" class="gallery-section">
-            <div class="gallery-container interactive" id="draggable-slider">
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
-            </div>
-        </section>
-
-        <section id="services" class="services-section">
-            <div style="text-align: center; margin-bottom: 50px;">
-                <h2 class="section-title">WAS WIR TUN</h2>
-            </div>
-            
-            <div class="tabs-nav">
-                <button class="tab-btn active interactive" onclick="openTab('audio')">AUDIO</button>
-                <button class="tab-btn interactive" onclick="openTab('video')">VIDEO</button>
-                <button class="tab-btn interactive" onclick="openTab('event')">EVENTS</button>
-                <button class="tab-btn interactive" onclick="openTab('marketing')">MARKETING</button>
-            </div>
-            
-            <div id="audio" class="service-container active">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
-                        Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.
-                        Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes
-                        Gefühl für Klang, Raum und Dynamik.
-                    </p>
-                    <a href="audio.html" class="book-btn interactive transition-link">DETAILS</a>
-                </div>
-            </div>
-
-            <div id="video" class="service-container">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
-                        Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.
-                        Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur
-                        jeweiligen Marke, Musik oder Idee passt.
-                        WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung.
-                    </p>
-                    <a href="video.html" class="book-btn interactive transition-link">DETAILS</a>
-                </div>
-             </div>
-
-             <div id="event" class="service-container">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
-                        Events erfordern mehr als Technik.
-                        Wir liefern Struktur, Know-how und eine saubere Umsetzung – von der Planung bis zum laufenden
-                        Betrieb vor Ort.
-                        WESTROOMZ begleitet Veranstaltungen modular oder ganzheitlich und übernimmt Verantwortung.
-                    </p>
-                    <a href="2events.html" class="book-btn interactive transition-link">DETAILS</a>
-                </div>
-             </div>
-
-             <div id="marketing" class="service-container">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 1; transform: none;">
-                    <p style="margin-bottom: 30px; opacity: 1; transform: none;">
-                        Reichweite braucht Strategie. Wir analysieren Zielgruppen, definieren Botschaften und platzieren deine Marke dort, wo sie gesehen wird. 
-                        WESTROOMZ verbindet kreativen Content mit performance-orientiertem Marketing für maximale Sichtbarkeit.
-                    </p>
-                    <a href="marketing.html" class="book-btn interactive transition-link">DETAILS</a>
-                </div>
-            </div>
-
-        </section>
-
-        <div id="references" class="laser-border-wrapper">
-            <div class="laser-border-inner">
-                <section class="ref-section">
-                    <div style="text-align: center; margin-bottom: 20px;">
-                        <h2 class="section-title">REFERENZEN</h2>
-                    </div>
-                    
-                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
-                        <div class="vision-text" style="opacity: 1; transform: none;">
-                            <p style="opacity: 1; transform: none;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
-                        </div>
-                    </div>
-
-                    <div class="marquee-wrapper">
-                        <div class="marquee-track">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-        <footer class="premium-footer" id="contact">
-            <div class="footer-container">
-                <div class="footer-contact-area">
-                    <div class="footer-contact-info">
-                        <h2>Lass uns etwas <br><span class="highlight-red">Großartiges</span> erschaffen.</h2>
-                        <p>Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.</p>
-                        <div class="contact-details">
-                            <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
-                        </div>
-                    </div>
-                    <div class="footer-form-card">
-                        <form class="footer-form">
-                            <div class="form-group">
-                                <label>ABTEILUNG</label>
-                                <select id="department" class="interactive footer-input">
-                                    <option value="General">Allgemeine Anfrage</option>
-                                    <option value="Audio">Audio</option>
-                                    <option value="Video">Video</option>
-                                    <option value="Event">Eventplanung</option>
-                                    <option value="Marketing">Marketing</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>NAME</label>
-                                <input type="text" id="name" class="interactive footer-input" required placeholder="Dein Name">
-                            </div>
-                            <div class="form-group">
-                                <label>PROJEKT</label>
-                                <input type="text" id="subject" class="interactive footer-input" placeholder="Kurze Projektbeschreibung...">
-                            </div>
-                            <div class="form-group">
-                                <label>NACHRICHT</label>
-                                <textarea id="message" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea>
-                            </div>
-                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
-                                Nachricht absenden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="footer-links-section">
-                    <div class="footer-brand">
-                        <a href="#hero" class="brand-logo interactive">
-                            <div class="brand-icon">W</div>
-                            <span class="brand-name">WESTROOMZ</span>
-                        </a>
-                        <p>Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
-                        <div class="footer-socials-new">
-                            <a href="#" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-                            <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                            <a href="mailto:info@westroomz.de" class="interactive" aria-label="Email"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
-                        </div>
-                    </div>
-                    <div class="footer-col">
-                        <h3>Navigation</h3>
-                        <ul>
-                            <li><a href="#hero" class="interactive">Startseite</a></li>
-                            <li><a href="#vision" class="interactive">Vision</a></li>
-                            <li><a href="#services" class="interactive">Was wir tun</a></li>
-                            <li><a href="#references" class="interactive">Referenzen</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h3>Rechtliches</h3>
-                        <ul>
-                            <li><a href="impressum.html" class="interactive">Impressum</a></li>
-                            <li><a href="datenschutz.html" class="interactive">Datenschutz</a></li>
-                            <li><a href="agb.html" class="interactive">AGB</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <p>&copy; 2026 WESTROOMZ. Alle Rechte vorbehalten.</p>
-                    <div class="footer-badge"><div class="dot"></div><span>Made in Germany 🇩🇪</span></div>
-                </div>
-            </div>
-        </footer>
-    </main>
-    
-    <script src="js/main.js"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            
-            const videos = document.querySelectorAll('.hero-video');
-            videos.forEach(video => {
-                video.muted = true;
-                video.setAttribute('playsinline', 'playsinline');
-                
-                let playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        video.classList.add('is-playing');
-                    }).catch(error => {
-                        video.style.display = 'none';
-                    });
-                }
-            });
-
-            // === VORHANG LOGIK FÜR DIE "DETAILS" BUTTONS ===
-            const curtain = document.querySelector('.page-transition-curtain');
-            const transitionLinks = document.querySelectorAll('.transition-link');
-            
-            transitionLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetUrl = this.getAttribute('href');
-                    
-                    if (curtain && typeof gsap !== 'undefined') {
-                        gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
-                            scaleY: 1, duration: 0.6, ease: "power4.inOut", 
-                            onComplete: () => { window.location.href = targetUrl; } 
-                        });
-                    } else {
-                        window.location.href = targetUrl;
-                    }
-                });
-            });
-
-            window.addEventListener('pageshow', function(event) {
-                if (event.persisted && curtain && typeof gsap !== 'undefined') {
-                    gsap.set(curtain, { scaleY: 0 }); 
-                }
-            });
-
-            const businessToggle = document.getElementById('businessToggle');
-            if (businessToggle) {
-                businessToggle.addEventListener('change', function() {
-                    const targetUrl = this.checked ? 'business.html' : 'index.html';
-                    
-                    if (curtain && typeof gsap !== 'undefined') {
-                        gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
-                            scaleY: 1, duration: 0.6, ease: "power4.inOut", 
-                            onComplete: () => { window.location.href = targetUrl; } 
-                        });
-                    } else {
-                        window.location.href = targetUrl;
-                    }
-                });
-            }
-
-            gsap.registerPlugin(ScrollTrigger);
-
-            // === HIER IST DIE NEUE, SAUBERE TIMELINE FÜR DIE VISION SECTION ===
-            if(document.querySelector(".vision-section")) {
-                const visionTl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: ".vision-section",
-                        start: "top 75%", // Animation startet, wenn die Sektion zu 25% im Bild ist
-                        toggleActions: "play reverse play reverse"
-                    }
-                });
-
-                // 1. Die dicke Headline fadet nach oben ein
-                visionTl.fromTo(".big-lead", 
-                    { y: 40, opacity: 0 }, 
-                    { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-                )
-                // 2. Die Rote Linie wächst von oben nach unten (startet kurz bevor Headline fertig ist)
-                .fromTo(".divider-line", 
-                    { scaleY: 0, opacity: 1 }, 
-                    { scaleY: 1, transformOrigin: "top", duration: 0.6, ease: "power2.out" },
-                    "-=0.4"
-                )
-                // 3. Die Text-Absätze faden weich nacheinander ein (stagger)
-                .fromTo(".vision-text p", 
-                    { y: 30, opacity: 0 }, 
-                    { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" },
-                    "-=0.2"
-                );
-            }
-
-            const slider = document.getElementById('draggable-slider');
-            let isDown = false;
-            let startX;
-            let currentX = 0;
-            let speed = 1.5; 
-            let halfWidth = 0;
-
-            function calculateWidth() {
-                if(slider) halfWidth = slider.scrollWidth / 2;
-            }
-            
-            setTimeout(calculateWidth, 100);
-            window.addEventListener('resize', calculateWidth);
-
-            function animate() {
-                if(!slider) return;
-                if (!isDown) {
-                    currentX -= speed; 
-                }
-                if (halfWidth > 0) {
-                    if (currentX <= -halfWidth) {
-                        currentX += halfWidth; 
-                    } else if (currentX > 0) {
-                        currentX -= halfWidth; 
-                    }
-                }
-                slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
-                requestAnimationFrame(animate);
-            }
-
-            if(slider) {
-                slider.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    startX = e.pageX - currentX;
-                });
-
-                slider.addEventListener('mouseleave', () => { isDown = false; });
-                window.addEventListener('mouseup', () => { isDown = false; });
-                slider.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault();
-                    currentX = e.pageX - startX;
-                });
-
-                slider.addEventListener('touchstart', (e) => {
-                    isDown = true;
-                    startX = e.touches[0].pageX - currentX;
-                }, { passive: true });
-                window.addEventListener('touchend', () => { isDown = false; });
-                slider.addEventListener('touchmove', (e) => {
-                    if (!isDown) return;
-                    currentX = e.touches[0].pageX - startX;
-                }, { passive: true });
-
-                requestAnimationFrame(animate);
-            }
-        });
-    </script>
-</body>
-</html>
+        .footer-col h3 { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(25
