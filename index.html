@@ -7,7 +7,7 @@
     <title>WESTROOMZ | Audio. Video. Events.</title>
     
     <link rel="icon" type="image/jpeg" href="logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -72,15 +72,68 @@
             input:checked + .slider:before { transform: translateX(26px); }
         }
 
-        /* --- NEU: ZWINGT DEN DESKTOP, DAS STANDBILD ZU IGNORIEREN --- */
         @media (min-width: 769px) {
-            .hero .video-container { 
-                background-image: none !important; 
-                background-color: transparent !important; 
-            }
-            .hero-video { 
-                opacity: 0.8 !important; /* Stellt sicher, dass das Desktop-Video normal sichtbar ist */
-            }
+            .hero .video-container { background-image: none !important; background-color: transparent !important; }
+            .hero-video { opacity: 0.8 !important; }
+        }
+
+        /* === PREMIUM FOOTER CSS === */
+        .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
+        @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
+        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; }
+        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 1.85rem; letter-spacing: -0.5px; } }
+        @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; letter-spacing: -1px; } }
+        .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; }
+        .footer-contact-info > p { color: #a3a3a3 !important; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
+        .contact-details { font-family: 'Inter', sans-serif; font-size: 1.125rem; font-weight: 900; display: flex; flex-direction: column; gap: 16px; letter-spacing: -0.5px; }
+        .contact-details p, .contact-details a { margin: 0 !important; color: #ffffff !important; text-decoration: none !important; -webkit-text-fill-color: #ffffff !important; }
+        .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; }
+        .footer-form-card { background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+        @media (max-width: 768px) { .footer-form-card { padding: 30px 20px; border-radius: 24px; } }
+        .footer-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+        .form-group label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: #a3a3a3; text-transform: uppercase; }
+        .footer-input { background-color: rgba(0,0,0,0.4) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; padding: 16px; border-radius: 16px !important; font-family: 'Inter', sans-serif; font-size: 1rem; transition: all 0.3s ease; outline: none; width: 100%; box-sizing: border-box; }
+        .footer-input:focus { border-color: rgba(220, 38, 38, 0.6) !important; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1); background-color: rgba(0,0,0,0.6) !important; }
+        .footer-input::placeholder { color: rgba(255,255,255,0.4); } 
+        select.footer-input option { background-color: #111; color: white; }
+        
+        .cta-btn-primary { display: flex; align-items: center; justify-content: center; gap: 12px; background-color: #dc2626 !important; color: white !important; font-weight: 900; font-family: 'Inter', sans-serif; font-size: 1.125rem; padding: 0 40px; height: 64px; border-radius: 20px !important; text-decoration: none; box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3); transition: all 0.3s ease; border: none; cursor: pointer; }
+        .cta-btn-primary:hover { background-color: #b91c1c !important; transform: translateY(-2px); }
+        .cta-btn-primary svg { width: 20px; height: 20px; transition: transform 0.3s; }
+        .cta-btn-primary:hover svg { transform: translateX(5px); }
+
+        .footer-links-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 16px; padding: 60px 0; }
+        .footer-brand { grid-column: 1 / -1; }
+        @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } .footer-brand { grid-column: auto; } }
+        .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
+        .footer-brand .brand-icon { width: 32px; height: 32px; background-color: #dc2626; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; transition: transform 0.3s; }
+        .footer-brand .brand-logo:hover .brand-icon { transform: rotate(12deg); }
+        .footer-brand .brand-name { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.5px; }
+        .footer-brand p { color: #a3a3a3 !important; font-size: 0.875rem; font-style: italic; max-width: 300px; margin-bottom: 32px; line-height: 1.6; }
+        .footer-socials-new { display: flex; gap: 12px; }
+        .footer-socials-new a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); color: #ffffff !important; transition: all 0.3s; }
+        .footer-socials-new a:hover { background-color: rgba(255,255,255,0.05); color: #dc2626 !important; border-color: rgba(255,255,255,0.2); }
+        .footer-socials-new svg { width: 16px; height: 16px; fill: currentColor; }
+        .footer-col { text-align: left; }
+        .footer-col h3 { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.5) !important; margin-bottom: 24px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+        .footer-col a { color: #a3a3a3 !important; font-size: 0.875rem; font-weight: 700; text-decoration: none; transition: color 0.2s; }
+        .footer-col a:hover { color: #dc2626 !important; }
+        .footer-bottom { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1); align-items: center; }
+        @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
+        .footer-bottom p { color: #a3a3a3 !important; font-size: 0.875rem; font-weight: 700; margin: 0; }
+        .footer-badge { display: flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; }
+        .footer-badge .dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; animation: pulse-green 2s infinite; }
+        .footer-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #d4d4d4; }
+        
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
     </style>
 </head>
@@ -91,6 +144,7 @@
     </div>
 
     <div class="page-transition-curtain"></div>
+    
     <div class="cursor"></div>
     <div class="cursor-ring"></div>
     <div class="red-thread"></div>
@@ -201,7 +255,7 @@
                         Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes
                         Gefühl für Klang, Raum und Dynamik.
                     </p>
-                    <a href="service-detail.html?id=audio_music" class="book-btn interactive">DETAILS</a>
+                    <a href="audio.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
             </div>
 
@@ -213,7 +267,7 @@
                         jeweiligen Marke, Musik oder Idee passt.
                         WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung.
                     </p>
-                    <a href="service-detail.html?id=video_music" class="book-btn interactive">DETAILS</a>
+                    <a href="video.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
              </div>
 
@@ -225,7 +279,7 @@
                         Betrieb vor Ort.
                         WESTROOMZ begleitet Veranstaltungen modular oder ganzheitlich und übernimmt Verantwortung.
                     </p>
-                    <a href="service-detail.html?id=event_planning" class="book-btn interactive">DETAILS</a>
+                    <a href="2events.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
              </div>
 
@@ -235,7 +289,7 @@
                         Reichweite braucht Strategie. Wir analysieren Zielgruppen, definieren Botschaften und platzieren deine Marke dort, wo sie gesehen wird. 
                         WESTROOMZ verbindet kreativen Content mit performance-orientiertem Marketing für maximale Sichtbarkeit.
                     </p>
-                    <a href="service-detail.html?id=marketing_general" class="book-btn interactive">DETAILS</a>
+                    <a href="marketing.html" class="book-btn interactive transition-link">DETAILS</a>
                 </div>
             </div>
 
@@ -274,71 +328,89 @@
                             <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
                             <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
                             <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
                         </div>
                     </div>
                 </section>
             </div>
         </div>
-        <section id="contact" class="contact-section">
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h2 class="section-title">KONTAKT</h2>
-                    <p style="color: #888;">Du planst eine Produktion oder suchst einen technischen Partner?</p>
-                    <div style="margin-top: 40px; font-family: 'Oswald'; font-size: 1.2rem;">
-                        <p>INFO@WESTROOMZ.DE</p>
-                        <p>TEL. 01577 877 8502</p>
-                        <p>AM ALTEN SPORTPLATZ 37, 48477 HÖRSTEL</p>
+
+        <footer class="premium-footer" id="contact">
+            <div class="footer-container">
+                <div class="footer-contact-area">
+                    <div class="footer-contact-info">
+                        <h2>Lass uns etwas <br><span class="highlight-red">Großartiges</span> erschaffen.</h2>
+                        <p>Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.</p>
+                        <div class="contact-details">
+                            <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
+                        </div>
+                    </div>
+                    <div class="footer-form-card">
+                        <form class="footer-form">
+                            <div class="form-group">
+                                <label>ABTEILUNG</label>
+                                <select id="department" class="interactive footer-input">
+                                    <option value="General">Allgemeine Anfrage</option>
+                                    <option value="Audio">Audio</option>
+                                    <option value="Video">Video</option>
+                                    <option value="Event">Eventplanung</option>
+                                    <option value="Marketing">Marketing</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>NAME</label>
+                                <input type="text" id="name" class="interactive footer-input" required placeholder="Dein Name">
+                            </div>
+                            <div class="form-group">
+                                <label>PROJEKT</label>
+                                <input type="text" id="subject" class="interactive footer-input" placeholder="Kurze Projektbeschreibung...">
+                            </div>
+                            <div class="form-group">
+                                <label>NACHRICHT</label>
+                                <textarea id="message" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea>
+                            </div>
+                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
+                                Nachricht absenden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <form class="contact-form">
-                    <label>ABTEILUNG</label>
-                    <select id="department" class="interactive">
-                        <option value="General">Allgemeine Anfrage</option>
-                        <option value="Audio">Audio</option>
-                        <option value="Video">Video</option>
-                        <option value="Event">Eventplanung</option>
-                        <option value="Marketing">Marketing</option>
-                    </select>
-                    <label>NAME</label>
-                    <input type="text" id="name" class="interactive" required>
-                    <label>PROJEKT</label>
-                    <input type="text" id="subject" class="interactive" placeholder="Projekt...">
-                    <label>NACHRICHT</label>
-                    <textarea id="message" class="interactive" rows="5"></textarea>
-                    <button type="submit" class="submit-btn interactive">ABSENDEN</button>
-                </form>
-            </div>
-        </section>
 
-        <footer>
-            <div class="footer-socials">
-                <a href="#" class="social-icon interactive">INSTAGRAM</a>
-                <a href="#" class="social-icon interactive">LINKEDIN</a>
+                <div class="footer-links-section">
+                    <div class="footer-brand">
+                        <a href="#hero" class="brand-logo interactive">
+                            <div class="brand-icon">W</div>
+                            <span class="brand-name">WESTROOMZ</span>
+                        </a>
+                        <p>Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
+                        <div class="footer-socials-new">
+                            <a href="#" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                            <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                            <a href="mailto:info@westroomz.de" class="interactive" aria-label="Email"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="#hero" class="interactive">Startseite</a></li>
+                            <li><a href="#vision" class="interactive">Vision</a></li>
+                            <li><a href="#services" class="interactive">Was wir tun</a></li>
+                            <li><a href="#references" class="interactive">Referenzen</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Rechtliches</h3>
+                        <ul>
+                            <li><a href="impressum.html" class="interactive">Impressum</a></li>
+                            <li><a href="datenschutz.html" class="interactive">Datenschutz</a></li>
+                            <li><a href="agb.html" class="interactive">AGB</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 WESTROOMZ. Alle Rechte vorbehalten.</p>
+                    <div class="footer-badge"><div class="dot"></div><span>Made in Germany 🇩🇪</span></div>
+                </div>
             </div>
-            <div class="footer-nav">
-                <a href="impressum.html" class="interactive">IMPRESSUM</a>
-                <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
-                <a href="agb.html" class="interactive">AGB</a>
-            </div>
-            <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
     
@@ -362,11 +434,40 @@
                 }
             });
 
+            // === VORHANG LOGIK FÜR DIE "DETAILS" BUTTONS ===
+            const curtain = document.querySelector('.page-transition-curtain');
+            const transitionLinks = document.querySelectorAll('.transition-link');
+            
+            transitionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetUrl = this.getAttribute('href');
+                    
+                    if (curtain && typeof gsap !== 'undefined') {
+                        gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
+                            scaleY: 1, duration: 0.6, ease: "power4.inOut", 
+                            onComplete: () => { window.location.href = targetUrl; } 
+                        });
+                    } else {
+                        window.location.href = targetUrl;
+                    }
+                });
+            });
+
+            // === BROWSER-PFEIL CACHE FIX (BFCache) ===
+            // Wenn der Nutzer über den "Zurück"-Pfeil des Browsers auf diese Seite kommt, 
+            // wird der Vorhang sofort nach oben gezogen, damit die Seite nicht schwarz bleibt.
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted && curtain && typeof gsap !== 'undefined') {
+                    // event.persisted bedeutet: Die Seite wurde aus dem Cache geladen
+                    gsap.set(curtain, { scaleY: 0 }); // Vorhang sofort weg!
+                }
+            });
+
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
                     const targetUrl = this.checked ? 'business.html' : 'index.html';
-                    const curtain = document.querySelector('.page-transition-curtain');
                     
                     if (curtain && typeof gsap !== 'undefined') {
                         gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
