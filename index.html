@@ -84,9 +84,16 @@
             display: flex; flex-direction: column; align-items: center; text-align: center; 
             padding: 120px 5%; 
             position: relative;
-            /* BEHOBEN: Den blur-Layer entfernt, damit auf dem Handy nichts zerschießt */
         }
 
+        .vision-content { 
+            max-width: 900px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        /* ALLE OPACITY:0 HIER ENTFERNT - KEIN GLITCH MEHR */
         .big-lead { 
             font-family: 'Oswald', sans-serif; 
             font-size: clamp(2.5rem, 6vw, 4.5rem); 
@@ -96,9 +103,6 @@
             letter-spacing: 0.05em; 
             color: #ffffff;
             text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            /* Startzustand für GSAP: */
-            opacity: 0;
-            transform: translateY(30px);
         }
 
         /* Der animierte Rote Faden + Pulsierender Punkt */
@@ -114,9 +118,6 @@
             height: 80px;
             background: linear-gradient(to bottom, rgba(220,38,38,0), #dc2626);
             margin-bottom: 4px;
-            /* Startzustand für GSAP: */
-            transform-origin: top;
-            transform: scaleY(0);
         }
 
         .v-dot {
@@ -126,9 +127,6 @@
             border-radius: 50%;
             position: relative;
             box-shadow: 0 0 10px #dc2626;
-            /* Startzustand für GSAP: */
-            opacity: 0;
-            transform: scale(0);
         }
 
         .v-dot-pulse {
@@ -158,9 +156,6 @@
         }
         
         .vision-text p { 
-            /* Startzustand für GSAP: */
-            opacity: 0; 
-            transform: translateY(30px); 
             margin: 0; 
         }
         
@@ -313,6 +308,7 @@
 
         <section id="vision" class="vision-section">
             <div class="vision-content">
+                
                 <h2 class="big-lead">VISION. MADE. REAL.</h2>
                 
                 <div class="vision-indicator">
@@ -326,6 +322,7 @@
                     <p class="lead-text">WESTROOMZ ist eine kreative Produktionsagentur für Audio, Video und Events. Wir entwickeln Inhalte, die wirken – emotional, technisch präzise und strategisch durchdacht.</p>
                     <p class="sub-text">Unser Fokus liegt darauf, Ideen nicht nur umzusetzen, sondern sie auf ein höheres Niveau zu bringen. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
                 </div>
+
             </div>
         </section>
 
@@ -590,24 +587,21 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            // === HIER IST DIE NEUE, BULLETPROOF TIMELINE FÜR DIE VISION SECTION ===
+            // === DIE REPARIERTE, GLITCH-FREIE VISION SECTION ANIMATION ===
             if(document.querySelector(".vision-section")) {
                 const visionTl = gsap.timeline({
                     scrollTrigger: {
                         trigger: ".vision-section",
-                        start: "top 80%", // Löst aus, wenn Sektion zu 20% sichtbar ist
+                        start: "top 75%", 
                         toggleActions: "play none none reverse" 
                     }
                 });
 
-                // 1. Die fette Headline fadet weich nach oben ein
-                visionTl.to(".big-lead", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
-                // 2. Die rote Linie wächst weich nach unten
-                .to(".v-line", { scaleY: 1, duration: 0.6, ease: "power2.out" })
-                // 3. Der Punkt "ploppt" auf
-                .to(".v-dot", { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" })
-                // 4. Die Texte faden weich rein (erst Lead, dann Sub)
-                .to(".vision-text p", { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.2");
+                // gsap.from() ist bulletproof. Es nimmt den CSS Status quo und animiert DOHIN.
+                visionTl.from(".big-lead", { y: 40, opacity: 0, duration: 0.8, ease: "power3.out" })
+                .from(".v-line", { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power2.out" }, "-=0.4")
+                .from(".v-dot", { scale: 0, opacity: 0, duration: 0.4, ease: "back.out(2)" })
+                .from(".vision-text p", { y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.2");
             }
 
             const slider = document.getElementById('draggable-slider');
