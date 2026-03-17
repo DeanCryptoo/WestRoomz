@@ -19,18 +19,16 @@
         html, body, .page-wrapper { background-color: #050505 !important; color: #ffffff !important; }
         .menu-toggle-btn .bar { background-color: #ffffff !important; }
         
-        /* === CINEMATIC HERO STYLES (HIGH-END POSTER LOOK) === */
-        .premium-hero-wrapper {
+        /* === CINEMATIC HERO STYLES (NEUER ANSATZ: BILD & TEXT GETRENNT) === */
+        
+        /* 1. Der Container für das reine Bild */
+        .premium-visual-hero {
             position: relative;
             width: 100%;
-            height: 100vh;
-            min-height: 600px;
+            height: 85vh; /* Nimmt 85% der Bildschirmhöhe ein */
+            min-height: 500px;
             background-color: #050505;
             overflow: hidden;
-            display: flex;
-            align-items: flex-end; /* Zieht den Text nach GANZ UNTEN */
-            justify-content: center;
-            padding-bottom: 12vh; /* Lässt ihn kurz über dem Rand schweben */
             z-index: 1;
         }
 
@@ -39,7 +37,8 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 120%; 
+            height: 120%; /* Spielraum für Parallax */
+            background-image: url('westroomz_Hp1-2.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -48,25 +47,27 @@
             will-change: transform;
         }
 
+        /* Der Fade-Out ins Schwarze (jetzt etwas kürzer, da kein Text darüber liegt) */
         .premium-hero-fade {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 65%; /* Erhöht, damit der Text perfekt im Schwarzen sitzt */
-            background: linear-gradient(to bottom, transparent 0%, rgba(5, 5, 5, 0.8) 45%, #050505 100%);
+            height: 35%; 
+            background: linear-gradient(to bottom, transparent 0%, rgba(5, 5, 5, 0.8) 60%, #050505 100%);
             z-index: 1;
             pointer-events: none;
         }
 
-        .premium-hero-content {
+        /* 2. Der Container für den Text (sitzt jetzt im soliden Schwarz) */
+        .premium-text-hero {
             position: relative;
             z-index: 10;
             text-align: center;
             max-width: 800px;
-            padding: 0 24px;
+            padding: 40px 24px 80px 24px; /* Oben etwas Platz, unten viel Platz zur Bento-Box */
             margin: 0 auto;
-            will-change: transform, opacity;
+            background-color: #050505; /* Stellt sicher, dass der Hintergrund tiefschwarz ist */
         }
 
         .hero-badge {
@@ -83,8 +84,7 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 24px;
-            backdrop-filter: blur(10px);
-            background: rgba(0,0,0,0.4);
+            background: rgba(255,255,255,0.03); /* Leichtes Grau für Kontrast */
         }
 
         .hero-title {
@@ -100,7 +100,7 @@
         .hero-highlight {
             color: #dc2626;
             font-style: italic;
-            text-shadow: 0 0 50px rgba(220, 38, 38, 0.5); 
+            text-shadow: 0 0 50px rgba(220, 38, 38, 0.3); /* Leichter roter Glow */
         }
 
         .hero-text {
@@ -113,7 +113,8 @@
         }
 
         /* === DARK BENTO GRID STYLES === */
-        .bento-section { padding: 40px 24px 120px 24px; background-color: #050505; font-family: 'Inter', sans-serif; position: relative; overflow: hidden; z-index: 2;}
+        /* Padding Top reduziert, da der Text-Hero bereits Platz schafft */
+        .bento-section { padding: 0px 24px 120px 24px; background-color: #050505; font-family: 'Inter', sans-serif; position: relative; overflow: hidden; z-index: 2;}
         .bento-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
         
         .bg-glow-1 { position: absolute; top: 10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
@@ -192,7 +193,7 @@
         .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
         .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; word-wrap: break-word; hyphens: auto; }
-        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 2.2rem; letter-spacing: -0.5px; } }
+        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 2.2rem; letter-spacing: -0.5px; } } 
         @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; letter-spacing: -1px; } }
         .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; text-shadow: 0 0 20px rgba(220,38,38,0.3); }
         .footer-contact-info > p { color: #a3a3a3 !important; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
@@ -262,18 +263,18 @@
             <img src="IMG_4834.png" alt="WESTROOMZ" class="subpage-header-logo">
         </div>
 
-        <div class="premium-hero-wrapper">
-            <div class="premium-hero-bg" style="background-image: url('westroomz_Hp1-2.png');"></div>
+        <div class="premium-visual-hero">
+            <div class="premium-hero-bg"></div>
             <div class="premium-hero-fade"></div>
-            
-            <div class="premium-hero-content">
-                <div class="hero-badge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: middle;"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-                    STUDIO & MIX
-                </div>
-                <h1 class="hero-title">Sound, der<br><span class="hero-highlight">Gänsehaut macht.</span></h1>
-                <p class="hero-text">Audio ist kein Arbeitsschritt, sondern ein Prozess. Von der ersten Aufnahme bis zum finalen Mix geht es um Präzision, Dynamik und das richtige Gefühl für Raum.</p>
+        </div>
+
+        <div class="premium-text-hero">
+            <div class="hero-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: middle;"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                STUDIO & MIX
             </div>
+            <h1 class="hero-title gsap-fade-up">Sound, der<br><span class="hero-highlight">Gänsehaut macht.</span></h1>
+            <p class="hero-text gsap-fade-up">Audio ist kein Arbeitsschritt, sondern ein Prozess. Von der ersten Aufnahme bis zum finalen Mix geht es um Präzision, Dynamik und das richtige Gefühl für Raum.</p>
         </div>
 
         <section class="bento-section">
@@ -434,22 +435,10 @@
                     scale: 1.0,   
                     ease: "none",
                     scrollTrigger: {
-                        trigger: ".premium-hero-wrapper",
+                        trigger: ".premium-visual-hero",
                         start: "top top",
                         end: "bottom top",
                         scrub: true 
-                    }
-                });
-
-                gsap.to(".premium-hero-content", {
-                    y: -150, // Fährt nach oben in die dunkle Zone, während man scrollt
-                    opacity: 0,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: ".premium-hero-wrapper",
-                        start: "top top",
-                        end: "bottom top",
-                        scrub: true
                     }
                 });
             }
