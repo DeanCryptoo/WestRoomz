@@ -15,6 +15,31 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
+        /* Fix für den schwarzen Balken oben im Banner */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .hero {
+            position: relative !important;
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            top: 0 !important;
+            height: 100vh !important;
+        }
+        .hero .video-container {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .hero-video {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }
+
         button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
         input, select, textarea { border-radius: 12px !important; }
         .gallery-item img { border-radius: 12px !important; }
