@@ -77,7 +77,7 @@
             .hero-video { display: block !important; opacity: 0.8 !important; }
         }
 
-        /* === VISION Sektion Design === */
+        /* === VISION Sektion === */
         .vision-section { text-align: center; }
         .big-lead { margin-bottom: 0; }
         .vision-indicator { display: flex; flex-direction: column; align-items: center; margin: 20px 0 40px 0; }
@@ -148,10 +148,10 @@
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        /* === CURSOR CSS (GEFIXED) === */
+        /* === CURSOR CSS === */
         @media (hover: hover) and (pointer: fine) { * { cursor: none !important; } }
-        #slice-cursor-canvas { pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; backface-visibility: hidden; }
-        #slice-cursor-dot { position: fixed; pointer-events: none; z-index: 100000; border-radius: 50%; background-color: #dc2626; width: 12px; height: 12px; transition: transform 0.3s ease; transform: translate(-50%, -50%); box-shadow: 0 0 10px #dc2626; backface-visibility: hidden; }
+        #slice-cursor-canvas { pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; }
+        #slice-cursor-dot { position: fixed; pointer-events: none; z-index: 100000; border-radius: 50%; background-color: #dc2626; width: 12px; height: 12px; transition: transform 0.3s ease; transform: translate(-50%, -50%); box-shadow: 0 0 10px #dc2626; }
         @media (hover: none), (pointer: coarse) { #slice-cursor-canvas, #slice-cursor-dot { display: none !important; } }
     </style>
 </head>
@@ -477,6 +477,13 @@
                 });
             });
 
+            // === SAFARI BACK-BUTTON FIX ===
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted && curtain && typeof gsap !== 'undefined') {
+                    gsap.set(curtain, { scaleY: 0 }); 
+                }
+            });
+
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
@@ -494,20 +501,21 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            // === BULLETPROOF VISION ANIMATION ===
+            // === REPARIERTE BULLETPROOF VISION ANIMATION (STRIKTE TIMELINE) ===
             if(document.querySelector(".vision-section")) {
                 const visionTl = gsap.timeline({
                     scrollTrigger: {
                         trigger: ".vision-section",
-                        start: "top 80%", 
+                        start: "top 75%", 
                         toggleActions: "play none none reverse" 
                     }
                 });
 
+                // Erst Headline, dann Linie, dann Punkt, dann Texte
                 visionTl.fromTo(".big-lead", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
-                .fromTo(".v-line", { scaleY: 0 }, { scaleY: 1, transformOrigin: "top", duration: 0.6, ease: "power2.out" }, "-=0.4")
+                .fromTo(".v-line", { scaleY: 0 }, { scaleY: 1, transformOrigin: "top", duration: 0.6, ease: "power2.out" }, "-=0.2")
                 .fromTo(".v-dot", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" })
-                .fromTo(".vision-text p", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.2");
+                .fromTo(".vision-text p", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.1");
             }
 
             // === CURSOR LOGIK (Liquid Trail) ===
