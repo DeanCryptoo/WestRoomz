@@ -1,204 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    function initMenuToggleAccessibility() {
-        const toggleButtons = document.querySelectorAll('.menu-toggle-btn');
-        toggleButtons.forEach((button) => {
-            button.setAttribute('role', 'button');
-            button.setAttribute('tabindex', '0');
-            button.setAttribute('aria-label', 'Menue oeffnen');
-            button.setAttribute('aria-expanded', button.classList.contains('open') ? 'true' : 'false');
-
-            button.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    button.click();
-                }
-            });
-        });
-    }
-
-    function initPlaceholderLinks() {
-        document.querySelectorAll('a[href="#"]').forEach((link) => {
-            link.classList.add('is-placeholder');
-            link.setAttribute('aria-disabled', 'true');
-            link.setAttribute('tabindex', '-1');
-        });
-    }
-
-    function initContactForms() {
-        const forms = document.querySelectorAll('.contact-form, .footer-form');
-        forms.forEach((form) => {
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-
-                const department = form.querySelector('#department, [name="department"]')?.value || 'General';
-                const name = form.querySelector('#name, [name="name"]')?.value?.trim() || '';
-                const subject = form.querySelector('#subject, [name="subject"]')?.value?.trim() || '';
-                const message = form.querySelector('#message, [name="message"]')?.value?.trim() || '';
-
-                const projectLine = subject || 'Allgemeine Anfrage';
-                const subjectLine = `WESTROOMZ ANFRAGE: ${department} - ${projectLine}`;
-                const bodyLines = [
-                    `Name: ${name || '-'}`,
-                    `Abteilung: ${department}`,
-                    `Projekt: ${projectLine}`,
-                    '',
-                    'Nachricht:',
-                    message || '-'
-                ];
-
-                window.location.href = `mailto:INFO@WESTROOMZ.DE?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(bodyLines.join('\r\n'))}`;
-            });
-        });
-    }
-
-    function getCurrentScene() {
-        return window.location.pathname.toLowerCase().includes('business.html') ? 'business' : 'creators';
-    }
-
-    function createSceneSwitchOverlay(targetScene, origin) {
-        const overlay = document.createElement('div');
-        overlay.className = `scene-switch-overlay theme-${targetScene}`;
-        overlay.style.setProperty('--cx', `${origin.x}px`);
-        overlay.style.setProperty('--cy', `${origin.y}px`);
-        document.body.appendChild(overlay);
-        return overlay;
-    }
-
-    function switchBusinessScene(targetUrl, triggerElement = null) {
-        const pageWrapper = document.querySelector('.page-wrapper');
-        const cinematicBg = document.querySelector('.cinematic-bg-wrapper');
-        const targetScene = targetUrl.toLowerCase().includes('business.html') ? 'business' : 'creators';
-        const triggerRect = triggerElement?.getBoundingClientRect();
-        const origin = {
-            x: triggerRect ? triggerRect.left + triggerRect.width / 2 : window.innerWidth / 2,
-            y: triggerRect ? triggerRect.top + triggerRect.height / 2 : window.innerHeight / 2
-        };
-        const overlay = createSceneSwitchOverlay(targetScene, origin);
-
-        sessionStorage.setItem('westroomz-scene-transition', JSON.stringify({
-            targetScene,
-            x: origin.x / window.innerWidth,
-            y: origin.y / window.innerHeight
-        }));
-
-        if (pageWrapper) pageWrapper.classList.add('scene-switching');
-        if (cinematicBg) cinematicBg.classList.add('scene-switching');
-
-        requestAnimationFrame(() => {
-            overlay.classList.add('is-exiting');
-        });
-
-        window.setTimeout(() => {
-            window.location.href = targetUrl;
-        }, 760);
-    }
-
-    function initSceneSwitchEntrance() {
-        const raw = sessionStorage.getItem('westroomz-scene-transition');
-        if (!raw) return;
-
-        let transitionData;
-        try {
-            transitionData = JSON.parse(raw);
-        } catch {
-            sessionStorage.removeItem('westroomz-scene-transition');
-            return;
-        }
-
-        const currentScene = getCurrentScene();
-        if (transitionData.targetScene !== currentScene) {
-            sessionStorage.removeItem('westroomz-scene-transition');
-            return;
-        }
-
-        sessionStorage.removeItem('westroomz-scene-transition');
-
-        const origin = {
-            x: (transitionData.x || 0.5) * window.innerWidth,
-            y: (transitionData.y || 0.5) * window.innerHeight
-        };
-        const pageWrapper = document.querySelector('.page-wrapper');
-        const cinematicBg = document.querySelector('.cinematic-bg-wrapper');
-        const overlay = createSceneSwitchOverlay(currentScene, origin);
-
-        if (pageWrapper) pageWrapper.classList.add('scene-switching');
-        if (cinematicBg) cinematicBg.classList.add('scene-switching');
-        overlay.classList.add('is-entering');
-
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                overlay.classList.add('is-revealing');
-                if (pageWrapper) pageWrapper.classList.remove('scene-switching');
-                if (cinematicBg) cinematicBg.classList.remove('scene-switching');
-            });
-        });
-
-        window.setTimeout(() => {
-            overlay.classList.add('is-done');
-            window.setTimeout(() => overlay.remove(), 260);
-        }, 820);
-    }
-
-    window.switchBusinessScene = switchBusinessScene;
-    initSceneSwitchEntrance();
-
-    function initHeroVideoFallback() {
-        const heroContainers = document.querySelectorAll('.video-container');
-        if (!heroContainers.length) return;
-
-        heroContainers.forEach((container) => {
-            const heroVideos = container.querySelectorAll('.hero-video');
-            if (!heroVideos.length) return;
-
-            heroVideos.forEach((video) => {
-                let hasStarted = false;
-                let failedToLoad = false;
-
-                const showFallbackOnly = () => {
-                    if (hasStarted) return;
-                    failedToLoad = true;
-                    video.classList.remove('is-playing');
-                    video.classList.add('has-error');
-                };
-
-                const revealVideo = () => {
-                    if (failedToLoad || hasStarted) return;
-                    hasStarted = true;
-                    video.classList.remove('has-error');
-                    video.classList.add('is-playing');
-                    container.classList.add('video-ready');
-                };
-
-                video.defaultMuted = true;
-                video.muted = true;
-                video.playsInline = true;
-                video.setAttribute('muted', '');
-                video.setAttribute('playsinline', 'playsinline');
-
-                video.addEventListener('canplay', revealVideo, { once: true });
-                video.addEventListener('playing', revealVideo, { once: true });
-                video.addEventListener('loadeddata', () => {
-                    if (video.readyState >= 3) {
-                        revealVideo();
-                    }
-                }, { once: true });
-
-                video.addEventListener('error', showFallbackOnly, { once: true });
-                video.addEventListener('abort', showFallbackOnly, { once: true });
-
-                const playAttempt = video.play();
-                if (playAttempt !== undefined) {
-                    playAttempt.then(revealVideo).catch(() => {
-                        if (video.error) {
-                            showFallbackOnly();
-                        }
-                    });
-                }
-            });
-        });
-    }
-
     // --- 1. SOUND SYSTEM (STRIKT & TROCKEN) ---
     const clickSound = new Audio('click.mp3');
     clickSound.volume = 0.4; 
@@ -235,7 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (businessToggle) {
         businessToggle.addEventListener('change', function() {
             const targetUrl = this.checked ? 'business.html' : 'index.html';
-            switchBusinessScene(targetUrl, this.closest('.site-toggle-container') || this.parentElement);
+            const curtain = document.querySelector('.page-transition-curtain');
+            
+            if (curtain && typeof gsap !== 'undefined') {
+                gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
+                    scaleY: 1, duration: 0.6, ease: "power4.inOut", 
+                    onComplete: () => { window.location.href = targetUrl; } 
+                });
+            } else {
+                window.location.href = targetUrl;
+            }
         });
     }
 
@@ -488,6 +298,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- REST OF ORIGINAL JS ---
+    const curtain = document.querySelector('.page-transition-curtain');
+    if(curtain) {
+        gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut" });
+    }
+
     if (window.matchMedia("(min-width: 769px)").matches) {
         const cursor = document.querySelector('.cursor');
         const ring = document.querySelector('.cursor-ring');
@@ -530,14 +345,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn = document.querySelector('.menu-toggle-btn');
         if(menu && overlay && btn) {
             menu.classList.toggle('active'); overlay.classList.toggle('active'); btn.classList.toggle('open');
-            btn.setAttribute('aria-expanded', menu.classList.contains('active') ? 'true' : 'false');
             if(menu.classList.contains('active')){
                 gsap.fromTo('.menu-link', {x: -30, opacity: 0}, {x: 0, opacity: 1, stagger: 0.1, delay: 0.2});
             }
         }
     }
-
-    initHeroVideoFallback();
 
     const videos = document.querySelectorAll('video');
     const heroText = document.querySelector(".hero-sub");
@@ -607,18 +419,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if(form) {
         gsap.from(".contact-info", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: -30, opacity: 0, duration: 1 });
         gsap.from(".contact-form", { scrollTrigger: { trigger: ".contact-grid", start: "top 90%", toggleActions: "play reverse play reverse" }, x: 30, opacity: 0, duration: 1, delay: 0.2 });
+        form.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            const dept = document.getElementById('department').value; 
+            const name = document.getElementById('name').value; 
+            const project = document.getElementById('subject').value; 
+            const message = document.getElementById('message').value; 
+            const subjectLine = `WESTROOMZ ANFRAGE: ${dept} - ${project}`; 
+            const body = `Name: ${name}%0D%0AAbteilung: ${dept}%0D%0AProjekt: ${project}%0D%0A%0D%0ANachricht:%0D%0A${message}`; 
+            window.location.href = `mailto:INFO@WESTROOMZ.DE?subject=${subjectLine}&body=${body}`; 
+        });
     }
-
-    initMenuToggleAccessibility();
-    initPlaceholderLinks();
-    initContactForms();
 
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
             if (href && !href.startsWith('#') && !href.startsWith('mailto') && !href.includes('javascript')) {
                 e.preventDefault();
-                window.location.href = href;
+                if(curtain) {
+                    gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { scaleY: 1, duration: 0.6, ease: "power4.inOut", onComplete: () => { window.location.href = href; } });
+                } else {
+                    window.location.href = href;
+                }
             }
         });
     });
