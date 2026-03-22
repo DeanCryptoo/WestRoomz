@@ -1,1 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WESTROOMZ | Digital</title>
+    
+    <link rel="alternate" hreflang="de" href="https://westroomz.de/digital.html" />
+    <link rel="alternate" hreflang="en" href="https://westroomz.de/digital-en.html" />
+    <link rel="alternate" hreflang="x-default" href="https://westroomz.de/digital.html" />
+    
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
+    <style>
+        /* Basis Styles & Overrides für Business */
+        html, body, .page-wrapper { background-color: #f5f5f7 !important; color: #1d1d1f !important; }
+        .menu-toggle-btn .bar { background-color: #1d1d1f !important; }
+
+        /* === PREMIUM LANGUAGE SWITCHER === */
+        .lang-switcher { position: fixed; top: 40px; right: 40px; z-index: 999; display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease; }
+        .lang-switcher:hover { background: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+        .lang-switcher a { display: flex; align-items: center; gap: 8px; color: #a3a3a3; text-decoration: none; transition: all 0.3s ease; }
+        .lang-switcher a.active { color: #ffffff; }
+        .lang-switcher a:not(.active):hover { color: #dc2626; }
+        .lang-switcher .divider { color: rgba(255, 255, 255, 0.15); font-weight: 300; margin: 0 2px; }
+        .lang-flag { width: 16px; height: 16px; border-radius: 50%; display: block; }
+        @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
+        
+        /* === BENTO GRID STYLES === */
+        .bento-section { padding: 120px 24px; background-color: #f5f5f7; font-family: 'Inter', sans-serif; }
+        .bento-container { max-width: 1200px; margin: 0 auto; }
+        
+        /* Badge & Hero Text */
+        .bento-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: 30px; margin-bottom: 24px; }
+        .bento-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #dc2626; }
+        .bento-headline { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #1d1d1f; letter-spacing: -1px; }
+        @media (max-width: 768px) { .bento-headline { font-size: 2.5rem; } }
+        .bento-headline .highlight { color: #dc2626; font-style: italic; text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.2); text-underline-offset: 8px; }
+        .bento-sub { font-size: 1.125rem; color: #6e6e73; max-width: 600px; margin: 0 auto 60px auto; line-height: 1.6; }
+
+        /* Grid Top */
+        .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
+        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 2fr 1fr; } }
+        
+        .bento-card { background: #ffffff; border: 1px solid #e5e5ea; border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: center;}
+        .bento-card:hover { border-color: rgba(220, 38, 38, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.06); transform: translateY(-4px); }
+        
+        /* Dark Card Style */
+        .bento-card.dark { background: #050505; border-color: rgba(255,255,255,0.1); color: white; }
+        .bento-card.dark h3 { color: white; }
+        .bento-card.dark p { color: #a3a3a3; }
+        .bento-card.dark .glow { position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: rgba(220, 38, 38, 0.15); filter: blur(60px); border-radius: 50%; transition: all 0.7s; }
+        .bento-card.dark:hover .glow { background: rgba(220, 38, 38, 0.25); transform: scale(1.2); }
+        
+        .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(220, 38, 38, 0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #dc2626; transition: transform 0.5s; }
+        .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; }
+        .bento-card.dark .bento-icon-wrapper { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.1); }
+        
+        .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #1d1d1f; }
+        .bento-card p { font-size: 1rem; color: #6e6e73; line-height: 1.6; }
+
+        /* Sticky Layout */
+        .sticky-layout { display: flex; flex-direction: column; gap: 60px; }
+        @media (min-width: 1024px) { .sticky-layout { flex-direction: row; align-items: flex-start; } }
+        
+        .sticky-sidebar { flex: 1; position: sticky; top: 120px; }
+        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #1d1d1f; }
+        .sticky-sidebar p { color: #6e6e73; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
+        
+        .sticky-content { flex: 2; display: grid; grid-template-columns: 1fr; gap: 24px; }
+        @media (min-width: 640px) { .sticky-content { grid-template-columns: repeat(2, 1fr); } }
+        
+        .small-bento { background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.05); border-radius: 24px; padding: 32px; transition: all 0.3s; }
+        .small-bento:hover { background: rgba(0,0,0,0.04); border-color: rgba(220, 38, 38, 0.2); }
+        .small-bento .bento-icon-wrapper { width: 48px; height: 48px; margin-bottom: 20px; }
+        .small-bento h4 { font-size: 1.25rem; font-weight: 900; margin-bottom: 12px; color: #1d1d1f; }
+        .small-bento p { font-size: 0.875rem; color: #6e6e73; }
+
+        /* General Button */
+        .btn-black { background: #1d1d1f; color: white; font-weight: 900; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; padding: 16px 32px; border-radius: 16px; border: none; cursor: pointer; transition: background 0.3s; text-decoration: none; display: inline-block; }
+        .btn-black:hover { background: #dc2626; }
+        
+        /* Header Anpassung für Unterseiten */
+        .subpage-header { padding: 40px 24px 40px 96px; display: flex; justify-content: space-between; align-items: center; position: absolute; top: 0; width: 100%; z-index: 100; gap: 20px; }
+        .back-btn { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; color: #1d1d1f; text-decoration: none; border: 1px solid #d2d2d7; padding: 8px 20px; border-radius: 30px; transition: all 0.3s; }
+        .back-btn:hover { background: #1d1d1f; color: white; border-color: #1d1d1f; }
+        .subpage-header-logo { height: 40px; width: auto; flex-shrink: 0; }
+
+        /* JS Animation Class */
+        .gsap-fade-up { opacity: 0; transform: translateY(40px); }
+
+        /* === CURSOR CSS (NUR DESKTOP) === */
+        @media (hover: hover) and (pointer: fine) { * { cursor: none !important; } }
+        #slice-cursor-canvas { pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; }
+        #slice-cursor-dot { position: fixed; pointer-events: none; z-index: 100000; border-radius: 50%; background-color: #1d1d1f; width: 12px; height: 12px; transition: transform 0.3s ease, background-color 0.3s ease; transform: translate(-50%, -50%); }
+        @media (hover: none), (pointer: coarse) { #slice-cursor-canvas, #slice-cursor-dot { display: none !important; } }
+        @media (max-width: 768px) {
+            .subpage-header { padding: 20px 20px 20px 84px; align-items: flex-start; }
+            .back-btn { font-size: 0.8rem; padding: 8px 16px; }
+            .subpage-header-logo { height: 34px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lang-switcher">
+        <a href="digital.html" class="interactive">
+            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-de"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-de)"><rect width="512" height="170.6" fill="#000"/><rect y="170.6" width="512" height="170.6" fill="#D00"/><rect y="341.3" width="512" height="170.6" fill="#FFCE00"/></g></svg>
+            DE
+        </a>
+        <span class="divider">|</span>
+        <a href="#" class="active interactive">
+            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-en"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-en)"><rect width="512" height="512" fill="#012169"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#FFF" stroke-width="85"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#C8102E" stroke-width="50"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#FFF" stroke-width="140"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#C8102E" stroke-width="90"/></g></svg>
+            EN
+        </a>
+    </div>
+
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <div class="side-menu">
+        <div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="menu-links">
+                <a href="business-en.html" class="menu-link interactive">BACK TO OVERVIEW</a>
+            </div>
+        </div>
+    </div>
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <main class="page-wrapper">
+        
+        <div class="subpage-header">
+            <a href="business-en.html" class="back-btn interactive">← BACK</a>
+            <img src="IMG_4834.png" alt="WESTROOMZ" class="subpage-header-logo" style="filter: invert(1);">
+        </div>
+
+        <section class="bento-section">
+            <div class="bento-container">
+                
+                <div style="text-align: center; margin-top: 60px;" class="gsap-fade-up">
+                    <div class="bento-badge">
+                    </div>
+                    <h1 class="bento-headline">Digital presence that <br><span class="highlight">converts.</span></h1>
+                    <p class="bento-sub">We develop digital ecosystems that present companies highly professionally across all channels and targetedly turn visitors into customers.</p>
+                </div>
+
+                <div class="bento-grid-top">
+                    <div class="bento-card dark gsap-fade-up" style="min-height: 400px;">
+                        <div class="glow"></div>
+                        <div class="bento-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        </div>
+                        <div style="position: relative; z-index: 2;">
+                            <h3>Digital Systems for Growth</h3>
+                            <p style="max-width: 80%;">We develop digital platforms that make companies visible and turn visitors into customers. From websites to e-commerce to optimized user experiences, we create scalable systems for sustainable growth.</p>
+                        </div>
+                        <div style="position: absolute; right: -5%; bottom: -10%; font-size: 8rem; font-weight: 900; color: rgba(255,255,255,0.03); transform: rotate(-10deg); pointer-events: none;">CODE</div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div class="bento-card gsap-fade-up" style="flex: 1; padding: 32px;">
+                            <div class="bento-icon-wrapper">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                            </div>
+                            <h3>Website Development</h3>
+                            <p>Modern corporate websites that present brands professionally and guide visitors clearly through content and offers.</p>
+                        </div>
+                        <div class="bento-card gsap-fade-up" style="flex: 1; padding: 32px;">
+                            <div class="bento-icon-wrapper">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            </div>
+                            <h3>Landing Page Development</h3>
+                            <p>Conversion-optimized landing pages for campaigns, products, and services.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sticky-layout">
+                    <div class="sticky-sidebar gsap-fade-up">
+                        <span style="font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #dc2626; display: block; margin-bottom: 16px;">Our Approach</span>
+                        <h2>Digitally<br><span style="color: #dc2626; text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.2); text-underline-offset: 8px;">driven.</span></h2>
+                        <p>A strong online presence is created through structure, performance, and clear user guidance. We develop digital platforms that present brands professionally and position companies long-term in the digital space.</p>
+                        <a href="business-en.html#contact" class="btn-black interactive">Request Project</a>
+                    </div>
+
+                    <div class="sticky-content">
+                        
+                        <div class="small-bento gsap-fade-up">
+                            <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                            <h4>UI / UX Design</h4>
+                            <p>Structured user guidance and clear interfaces for an intuitive digital experience.</p>
+                        </div>
+
+                        <div class="small-bento gsap-fade-up">
+                            <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+                            <h4>E-Commerce Solutions</h4>
+                            <p>Building modern online shops with a clear customer journey and optimized purchase process.</p>
+                        </div>
+
+                        <div class="small-bento gsap-fade-up">
+                            <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                            <h4>SEO & Visibility</h4>
+                            <p>Technical and structural optimization for better discoverability on search engines.</p>
+                        </div>
+
+                        <div class="small-bento gsap-fade-up">
+                            <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+                            <h4>Web Analytics Setup</h4>
+                            <p>Integration of tracking and analysis tools to measure visitors, behavior, and conversion data.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer style="padding: 60px 24px; text-align: center; background: #050505; color: #a3a3a3; font-family: 'Inter', sans-serif;">
+            <p>© 2026 WESTROOMZ. All rights reserved.</p>
+        </footer>
+
+    </main>
+
+    <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
+    <div id="slice-cursor-dot" aria-hidden="true"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                
+                const elements = document.querySelectorAll('.gsap-fade-up');
+                elements.forEach((el, index) => {
+                    gsap.to(el, {
+                        scrollTrigger: { trigger: el, start: "top 85%" },
+                        opacity: 1, y: 0, duration: 0.8, ease: "power3.out"
+                    });
+                });
+            }
+
+            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+            const canvas = document.getElementById("slice-cursor-canvas");
+            const dot = document.getElementById("slice-cursor-dot");
+
+            if (!isDesktop) {
+                if (canvas) canvas.style.display = "none";
+                if (dot) dot.style.display = "none";
+                return; 
+            }
+
+            const ctx = canvas.getContext("2d");
+            const trailColor = "#dc2626"; 
+            const pointsNumber = 40;
+            const widthFactor = 0.3;
+            const spring = 0.4;
+            const friction = 0.5;
+            
+            let mouseMoved = false;
+            const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            const trail = new Array(pointsNumber).fill().map(() => ({ x: pointer.x, y: pointer.y, dx: 0, dy: 0 }));
+
+            const updateMousePosition = (eX, eY) => { pointer.x = eX * window.devicePixelRatio; pointer.y = eY * window.devicePixelRatio; };
+            const handleMouseMove = (e) => { mouseMoved = true; updateMousePosition(e.clientX, e.clientY); };
+            const setupCanvas = () => { canvas.width = window.innerWidth * window.devicePixelRatio; canvas.height = window.innerHeight * window.devicePixelRatio; };
+
+            setupCanvas();
+            window.addEventListener("resize", setupCanvas);
+            window.addEventListener("mousemove", handleMouseMove);
+
+            const update = (t) => {
+                if (!mouseMoved) {
+                    pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * canvas.width;
+                    pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * canvas.height;
+                }
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                trail.forEach((p, pIdx) => {
+                    const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
+                    const currentSpring = pIdx === 0 ? .4 * spring : spring;
+                    p.dx += (prev.x - p.x) * currentSpring; p.dy += (prev.y - p.y) * currentSpring;
+                    p.dx *= friction; p.dy *= friction;
+                    p.x += p.dx; p.y += p.dy;
+                });
+                ctx.lineCap = "round"; ctx.strokeStyle = trailColor; ctx.beginPath(); ctx.moveTo(trail[0].x, trail[0].y);
+                for (let i = 1; i < trail.length - 1; i++) {
+                    const xc = .5 * (trail[i].x + trail[i + 1].x); const yc = .5 * (trail[i].y + trail[i + 1].y);
+                    ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
+                    ctx.lineWidth = widthFactor * (pointsNumber - i) * window.devicePixelRatio;
+                    ctx.stroke();
+                }
+                if (trail.length > 0) { ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y); ctx.stroke(); }
+                if (dot) { dot.style.left = `${pointer.x / window.devicePixelRatio}px`; dot.style.top = `${pointer.y / window.devicePixelRatio}px`; }
+                window.requestAnimationFrame(update);
+            };
+            window.requestAnimationFrame(update);
+        });
+    </script>
+</body>
+</html>
