@@ -7,6 +7,10 @@
     <meta name="description" content="WESTROOMZ - Event Production & Marketing Agency.">
     <title>WESTROOMZ | Business. Events. Marketing.</title>
     
+    <link rel="alternate" hreflang="de" href="https://westroomz.de/business.html" />
+    <link rel="alternate" hreflang="en" href="https://westroomz.de/business-en.html" />
+    <link rel="alternate" hreflang="x-default" href="https://westroomz.de/business.html" />
+    
     <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -29,6 +33,16 @@
         .book-btn { background-color: #1d1d1f !important; color: white !important; border: none; padding: 12px 24px; text-decoration: none; display: inline-block; border-radius: 30px !important;}
         .tab-btn { color: #1d1d1f !important; border: 1px solid #d2d2d7 !important; }
         .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
+
+        /* === PREMIUM LANGUAGE SWITCHER === */
+        .lang-switcher { position: fixed; top: 40px; right: 40px; z-index: 999; display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease; }
+        .lang-switcher:hover { background: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+        .lang-switcher a { display: flex; align-items: center; gap: 8px; color: #a3a3a3; text-decoration: none; transition: all 0.3s ease; }
+        .lang-switcher a.active { color: #ffffff; }
+        .lang-switcher a:not(.active):hover { color: #dc2626; }
+        .lang-switcher .divider { color: rgba(255, 255, 255, 0.15); font-weight: 300; margin: 0 2px; }
+        .lang-flag { width: 16px; height: 16px; border-radius: 50%; display: block; }
+        @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
 
         /* === NEUE ORBIT CARDS (4er Grid) === */
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; max-width: 1600px; margin: 0 auto; padding: 40px 40px; }
@@ -311,6 +325,18 @@
     </style>
 </head>
 <body>
+
+    <div class="lang-switcher">
+        <a href="#" class="active interactive">
+            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-de"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-de)"><rect width="512" height="170.6" fill="#000"/><rect y="170.6" width="512" height="170.6" fill="#D00"/><rect y="341.3" width="512" height="170.6" fill="#FFCE00"/></g></svg>
+            DE
+        </a>
+        <span class="divider">|</span>
+        <a href="business-en.html" class="transition-link interactive">
+            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-en"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-en)"><rect width="512" height="512" fill="#012169"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#FFF" stroke-width="85"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#C8102E" stroke-width="50"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#FFF" stroke-width="140"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#C8102E" stroke-width="90"/></g></svg>
+            EN
+        </a>
+    </div>
 
     <div class="cinematic-bg-wrapper">
         <div class="bg-layer active"></div>
@@ -832,6 +858,23 @@
                     },
                     onLeaveBack: () => {
                         document.querySelectorAll('.js-c-bar').forEach(bar => gsap.set(bar, { scaleY: 0 }));
+                    }
+                });
+            }
+
+            // === TOGGLE LOGIC ===
+            const businessToggle = document.getElementById('businessToggle');
+            if (businessToggle) {
+                businessToggle.addEventListener('change', function() {
+                    const targetUrl = this.checked ? 'business.html' : 'index.html';
+                    const curtain = document.querySelector('.page-transition-curtain');
+                    if (curtain && typeof gsap !== 'undefined') {
+                        gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
+                            scaleY: 1, duration: 0.6, ease: "power4.inOut", 
+                            onComplete: () => { window.location.href = targetUrl; } 
+                        });
+                    } else {
+                        window.location.href = targetUrl;
                     }
                 });
             }
