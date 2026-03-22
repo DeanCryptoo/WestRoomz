@@ -14,49 +14,138 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
+        /* Dark Mode Basis Styles */
         html, body, .page-wrapper { background-color: #050505 !important; color: #ffffff !important; }
         .menu-toggle-btn .bar { background-color: #ffffff !important; }
         
+        /* === CINEMATIC HERO STYLES (Aus der Audio-Seite übernommen) === */
+        .premium-hero-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            background-color: #050505;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 12vh;
+            z-index: 1;
+        }
+
+        .premium-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%; 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+            transform: scale(1.1); 
+            will-change: transform;
+        }
+
+        .premium-hero-fade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 65%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(5, 5, 5, 0.8) 45%, #050505 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .premium-hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 24px;
+            margin: 0 auto;
+            will-change: transform, opacity;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #d4d4d4;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.4);
+        }
+
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+        }
+
+        .hero-highlight {
+            color: #dc2626;
+            font-style: italic;
+            text-shadow: 0 0 50px rgba(220, 38, 38, 0.5); 
+        }
+
+        .hero-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            color: #a3a3a3;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         /* === DARK BENTO GRID STYLES === */
-        .bento-section { padding: 120px 24px; background-color: #050505; font-family: 'Inter', sans-serif; position: relative; overflow: hidden; }
+        .bento-section { padding: 40px 24px 120px 24px; background-color: #050505; font-family: 'Inter', sans-serif; position: relative; overflow: hidden; z-index: 2;}
         .bento-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
         
         .bg-glow-1 { position: absolute; top: 10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
         .bg-glow-2 { position: absolute; bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
 
-        .bento-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; margin-bottom: 24px; }
-        .bento-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #aaaaaa; }
-        .bento-headline { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; letter-spacing: -1px; word-wrap: break-word; hyphens: auto; }
-        @media (max-width: 768px) { .bento-headline { font-size: 2.2rem; } }
-        .bento-headline .highlight { color: #dc2626; font-style: italic; text-shadow: 0 0 30px rgba(220, 38, 38, 0.4); }
-        .bento-sub { font-size: 1.125rem; color: #a3a3a3; max-width: 600px; margin: 0 auto 60px auto; line-height: 1.6; }
-
         .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
-        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 2fr 1fr; } }
+        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 2fr 1fr; } } 
         
         .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; }
         .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px); background: rgba(255, 255, 255, 0.04); }
         
+        /* Spezifische Video Styles für die dunkle Karte */
         .bento-card.dark { background: #0a0a0a; border-color: rgba(255,255,255,0.08); }
         .bento-card.dark .glow { position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: rgba(220, 38, 38, 0.2); filter: blur(60px); border-radius: 50%; transition: all 0.7s; }
         .bento-card.dark:hover .glow { background: rgba(220, 38, 38, 0.3); transform: scale(1.2); }
-        
+
         .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: all 0.5s; border: 1px solid rgba(255, 255, 255, 0.1); }
         .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
         .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #ffffff; word-wrap: break-word; }
         .bento-card p { font-size: 1rem; color: #a3a3a3; line-height: 1.6; }
 
+        /* Sticky Layout */
         .sticky-layout { display: flex; flex-direction: column; gap: 60px; }
         @media (min-width: 1024px) { .sticky-layout { flex-direction: row; align-items: flex-start; } }
         
         .sticky-sidebar { flex: 1; position: sticky; top: 120px; }
-        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; word-wrap: break-word; hyphens: auto; }
-        @media (max-width: 768px) { .sticky-sidebar h2 { font-size: 2.2rem; } }
-        .sticky-sidebar p { color: #a3a3a3; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
+        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; word-wrap: break-word; hyphens: auto; overflow-wrap: break-word; }
+        @media (max-width: 768px) { .sticky-sidebar h2 { font-size: 2.2rem; } } 
+        @media (max-width: 400px) { .sticky-sidebar h2 { font-size: 1.8rem; } } 
         
+        .sticky-sidebar p { color: #a3a3a3; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
         .sticky-content { flex: 2; display: grid; grid-template-columns: 1fr; gap: 24px; }
         @media (min-width: 640px) { .sticky-content { grid-template-columns: repeat(2, 1fr); } }
-        
         .small-bento { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 32px; transition: all 0.3s; backdrop-filter: blur(10px); }
         .small-bento:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(220, 38, 38, 0.3); transform: translateY(-2px); }
         .small-bento .bento-icon-wrapper { width: 48px; height: 48px; margin-bottom: 20px; background: transparent; }
@@ -72,7 +161,7 @@
         .subpage-header-logo { height: 40px; width: auto; flex-shrink: 0; }
         .gsap-fade-up { opacity: 0; transform: translateY(40px); }
 
-        /* Premium Footer CSS (wie in allen Dateien) */
+        /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 10; }
         @media (max-width: 768px) { .premium-footer { padding: 60px 16px 40px 16px; } }
         .footer-container { max-width: 1200px; margin: 0 auto; }
@@ -149,21 +238,26 @@
             <img src="IMG_4834.png" alt="WESTROOMZ" class="subpage-header-logo">
         </div>
 
+        <div class="premium-hero-wrapper">
+            <div class="premium-hero-bg" style="background-image: url('westroomz_VideoBg.jpg');"></div>
+            <div class="premium-hero-fade"></div>
+            
+            <div class="premium-hero-content">
+                <div class="hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: middle;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    Phase 02 / VIDEO & CONTENT
+                </div>
+                <h1 class="hero-title">Visuelle Inhalte, die<br><span class="hero-highlight">im Kopf bleiben.</span></h1>
+                <p class="hero-text">Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt.</p>
+            </div>
+        </div>
+
         <section class="bento-section">
             <div class="bg-glow-1"></div>
             <div class="bg-glow-2"></div>
             
             <div class="bento-container">
                 
-                <div style="text-align: center; margin-top: 60px;" class="gsap-fade-up">
-                    <div class="bento-badge">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                        <span>Phase 02</span>
-                    </div>
-                    <h1 class="bento-headline">Visuelle Inhalte, die <br><span class="highlight">im Kopf bleiben.</span></h1>
-                    <p class="bento-sub">Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt.</p>
-                </div>
-
                 <div class="bento-grid-top">
                     <div class="bento-card dark gsap-fade-up" style="min-height: 400px;">
                         <div class="glow"></div>
@@ -299,6 +393,9 @@ pushen.</p>
                         </ul>
                     </div>
                 </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 WESTROOMZ. Alle Rechte vorbehalten.</p>
+                </div>
             </div>
         </footer>
 
@@ -310,6 +407,37 @@ pushen.</p>
     <script src="js/main.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            
+            // === CINEMATIC PARALLAX ANIMATION FÜR HERO BILD ===
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                gsap.to(".premium-hero-bg", {
+                    yPercent: 20, 
+                    scale: 1.0,   
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".premium-hero-wrapper",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true 
+                    }
+                });
+
+                gsap.to(".premium-hero-content", {
+                    y: -150, // Fährt nach oben in die dunkle Zone, während man scrollt
+                    opacity: 0,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".premium-hero-wrapper",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+            }
+
+            // Scroll Animationen
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
                 const elements = document.querySelectorAll('.gsap-fade-up');
@@ -318,6 +446,7 @@ pushen.</p>
                 });
             }
 
+            // === CURSOR LOGIK ===
             const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
             const canvas = document.getElementById("slice-cursor-canvas");
             const dot = document.getElementById("slice-cursor-dot");
