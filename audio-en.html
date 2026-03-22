@@ -1,1 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WESTROOMZ | Audio Production</title>
+    
+    <link rel="alternate" hreflang="de" href="https://westroomz.de/audio.html" />
+    <link rel="alternate" hreflang="en" href="https://westroomz.de/audio-en.html" />
+    <link rel="alternate" hreflang="x-default" href="https://westroomz.de/audio.html" />
+    
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
+    <style>
+        html, body, .page-wrapper { background-color: #050505 !important; color: #ffffff !important; }
+        .menu-toggle-btn .bar { background-color: #ffffff !important; }
+        
+        /* === PREMIUM LANGUAGE SWITCHER === */
+        .lang-switcher { position: fixed; top: 40px; right: 40px; z-index: 999; display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease; }
+        .lang-switcher:hover { background: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+        .lang-switcher a { display: flex; align-items: center; gap: 8px; color: #a3a3a3; text-decoration: none; transition: all 0.3s ease; }
+        .lang-switcher a.active { color: #ffffff; }
+        .lang-switcher a:not(.active):hover { color: #dc2626; }
+        .lang-switcher .divider { color: rgba(255, 255, 255, 0.15); font-weight: 300; margin: 0 2px; }
+        .lang-flag { width: 16px; height: 16px; border-radius: 50%; display: block; }
+        @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
+
+        /* === CINEMATIC HERO STYLES === */
+        .premium-hero-wrapper { position: relative; width: 100%; height: 100vh; min-height: 600px; background-color: #050505; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 12vh; z-index: 1; }
+        .premium-hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 120%; background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 0; transform: scale(1.1); will-change: transform; }
+        .premium-hero-fade { position: absolute; bottom: 0; left: 0; width: 100%; height: 65%; background: linear-gradient(to bottom, transparent 0%, rgba(5, 5, 5, 0.8) 45%, #050505 100%); z-index: 1; pointer-events: none; }
+        .premium-hero-content { position: relative; z-index: 10; text-align: center; max-width: 800px; padding: 0 24px; margin: 0 auto; will-change: transform, opacity; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255, 255, 255, 0.15); padding: 8px 20px; border-radius: 30px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; color: #d4d4d4; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; backdrop-filter: blur(10px); background: rgba(0,0,0,0.4); }
+        .hero-title { font-family: 'Inter', sans-serif; font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 900; color: #ffffff; line-height: 1.05; letter-spacing: -2px; margin-bottom: 24px; }
+        .hero-highlight { color: #dc2626; font-style: italic; text-shadow: 0 0 50px rgba(220, 38, 38, 0.5); }
+        .hero-text { font-family: 'Inter', sans-serif; font-size: 1.125rem; color: #a3a3a3; line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+        /* === DARK BENTO GRID STYLES === */
+        .bento-section { padding: 40px 24px 120px 24px; background-color: #050505; font-family: 'Inter', sans-serif; position: relative; overflow: hidden; z-index: 2;}
+        .bento-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+        .bg-glow-1 { position: absolute; top: 10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
+        .bg-glow-2 { position: absolute; bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
+        .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
+        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 1fr 1fr; } } 
+        .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; }
+        .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px); background: rgba(255, 255, 255, 0.04); }
+        .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: all 0.5s; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
+        .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #ffffff; word-wrap: break-word; }
+        .bento-card p { font-size: 1rem; color: #a3a3a3; line-height: 1.6; }
+
+        /* === KNOB PLUGIN CSS === */
+        .detail-list-wrapper { background-image: url('WR_Plugin.jpg') !important; background-size: cover !important; background-position: center center !important; background-repeat: no-repeat !important; background-color: #08090a !important; border: 1px solid rgba(255,255,255,0.08) !important; padding: 0 !important; min-height: 600px !important; display: block; }
+        @media (max-width: 768px) { .detail-list-wrapper { background-image: url('wrplatte1.png') !important; background-position: center top !important; } }
+        .detail-list-container { margin-top: 140px !important; position: relative; z-index: 10; width: 100%; height: 100%; }
+        .detail-list-container::before { display: none !important; }
+        #detailList .knob-label.active { color: #ff0000 !important; font-weight: 700 !important; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px 0px 15px rgba(0, 0, 0, 1), 0px 0px 40px rgba(0, 0, 0, 0.9) !important; }
+        #detailList .knob-label { color: #999999 !important; text-shadow: 0px 1px 4px rgba(0,0,0,1) !important; }
+        @media (min-width: 769px) { #detailList { width: 100% !important; max-width: 1150px !important; margin-left: auto !important; margin-right: auto !important; } #detailList div { white-space: normal !important; line-height: 1.5 !important; } #detailList .knob-label { font-size: 22px !important; font-weight: 500 !important; letter-spacing: 2.5px !important; white-space: nowrap !important; } }
+
+        /* Sticky Layout */
+        .sticky-layout { display: flex; flex-direction: column; gap: 60px; }
+        @media (min-width: 1024px) { .sticky-layout { flex-direction: row; align-items: flex-start; } }
+        .sticky-sidebar { flex: 1; position: sticky; top: 120px; }
+        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; word-wrap: break-word; hyphens: auto; overflow-wrap: break-word; }
+        @media (max-width: 768px) { .sticky-sidebar h2 { font-size: 2.2rem; } } 
+        .sticky-sidebar p { color: #a3a3a3; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
+        .sticky-content { flex: 2; display: grid; grid-template-columns: 1fr; gap: 24px; }
+        @media (min-width: 640px) { .sticky-content { grid-template-columns: repeat(2, 1fr); } }
+        .small-bento { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 32px; transition: all 0.3s; backdrop-filter: blur(10px); }
+        .small-bento:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(220, 38, 38, 0.3); transform: translateY(-2px); }
+        .small-bento .bento-icon-wrapper { width: 48px; height: 48px; margin-bottom: 20px; background: transparent; }
+        .small-bento h4 { font-size: 1.25rem; font-weight: 900; margin-bottom: 12px; color: #ffffff; word-wrap: break-word; }
+        .small-bento p { font-size: 0.875rem; color: #a3a3a3; line-height: 1.5; }
+
+        .btn-red { background: #dc2626; color: white; font-weight: 900; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; padding: 16px 32px; border-radius: 16px; border: none; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; box-shadow: 0 10px 20px rgba(220, 38, 38, 0.2); }
+        .btn-red:hover { background: #b91c1c; transform: translateY(-2px); box-shadow: 0 15px 30px rgba(220, 38, 38, 0.4); }
+        
+        .subpage-header { padding: 40px 24px 40px 96px; display: flex; justify-content: space-between; align-items: center; position: absolute; top: 0; width: 100%; z-index: 100; gap: 20px; }
+        .back-btn { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; color: #ffffff; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 30px; transition: all 0.3s; background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
+        .back-btn:hover { background: #ffffff; color: #000000; border-color: #ffffff; }
+        .subpage-header-logo { height: 40px; width: auto; flex-shrink: 0; }
+        .gsap-fade-up { opacity: 0; transform: translateY(40px); }
+
+        /* === PREMIUM FOOTER CSS === */
+        .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 10; }
+        @media (max-width: 768px) { .premium-footer { padding: 60px 16px 40px 16px; } }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
+        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; }
+        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 2.2rem; letter-spacing: -0.5px; } }
+        @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; letter-spacing: -1px; } }
+        .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; text-shadow: 0 0 20px rgba(220,38,38,0.3); }
+        .footer-contact-info > p { color: #a3a3a3 !important; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
+        .contact-details { font-family: 'Inter', sans-serif; font-size: 1.125rem; font-weight: 900; display: flex; flex-direction: column; gap: 16px; letter-spacing: -0.5px; }
+        .contact-details p, .contact-details a { margin: 0 !important; color: #ffffff !important; text-decoration: none !important; }
+        .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; box-shadow: 0 0 10px #dc2626; }
+        .footer-form-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 32px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); backdrop-filter: blur(24px); }
+        @media (max-width: 768px) { .footer-form-card { padding: 30px 20px; border-radius: 24px; } }
+        .footer-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+        .form-group label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: #a3a3a3; text-transform: uppercase; }
+        .footer-input { background-color: rgba(0,0,0,0.5) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; padding: 16px; border-radius: 16px !important; font-family: 'Inter', sans-serif; font-size: 1rem; transition: all 0.3s ease; outline: none; width: 100%; box-sizing: border-box; }
+        .footer-input:focus { border-color: rgba(220, 38, 38, 0.6) !important; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1); background-color: rgba(0,0,0,0.8) !important; }
+        .cta-btn-primary { display: flex; align-items: center; justify-content: center; gap: 12px; background-color: #dc2626 !important; color: white !important; font-weight: 900; font-family: 'Inter', sans-serif; font-size: 1.125rem; padding: 0 40px; height: 64px; border-radius: 20px !important; border: none; cursor: pointer; transition: all 0.3s; }
+        .cta-btn-primary:hover { background-color: #b91c1c !important; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(220,38,38,0.3); }
+        .cta-btn-primary svg { width: 20px; height: 20px; flex-shrink: 0; }
+        .footer-links-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 16px; padding: 60px 0; }
+        .footer-brand { grid-column: 1 / -1; }
+        @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } .footer-brand { grid-column: auto; } }
+        .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
+        .footer-brand .brand-icon { width: 32px; height: 32px; background-color: #dc2626; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; }
+        .footer-brand .brand-name { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.5px; }
+        .footer-socials-new { display: flex; gap: 12px; margin-top: 20px; }
+        .footer-socials-new a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); color: #ffffff !important; transition: all 0.3s; }
+        .footer-socials-new a:hover { background-color: rgba(255,255,255,0.05); color: #dc2626 !important; border-color: rgba(255,255,255,0.2); }
+        .footer-socials-new svg { width: 16px; height: 16px; fill: currentColor; }
+        .footer-col h3 { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.5) !important; margin-bottom: 24px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+        .footer-col a { color: #a3a3a3 !important; font-size: 0.875rem; font-weight: 700; text-decoration: none; transition: color 0.2s; }
+        .footer-col a:hover { color: #dc2626 !important; }
+        .footer-bottom { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1); align-items: center; }
+        @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
+        .footer-bottom p { color: #a3a3a3 !important; font-size: 0.875rem; font-weight: 700; margin: 0; }
+        @media (max-width: 768px) {
+            .subpage-header { padding: 20px 20px 20px 84px; align-items: flex-start; }
+            .back-btn { font-size: 0.8rem; padding: 8px 16px; }
+            .subpage-header-logo { height: 34px; }
+        }
+
+        /* === CURSOR CSS === */
+        @media (hover: hover) and (pointer: fine) { * { cursor: none !important; } }
+        #slice-cursor-canvas { pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; }
+        #slice-cursor-dot { position: fixed; pointer-events: none; z-index: 100000; border-radius: 50%; background-color: #dc2626; width: 12px; height: 12px; transition: transform 0.3s ease; transform: translate(-50%, -50%); box-shadow: 0 0 10px #dc2626; }
+        @media (hover: none), (pointer: coarse) { #slice-cursor-canvas, #slice-cursor-dot { display: none !important; } }
+    </style>
+</head>
+<body>
+
+    <div class="lang-switcher">
+        <a href="audio.html" class="interactive">
+            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-de"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-de)"><rect width="512" height="170.6" fill="#000"/><rect y="170.6" width="512" height="170.6" fill="#D00"/><rect y="341.3" width="512" height="170.6" fill="#FFCE00"/></g></svg>
+            DE
+        </a>
+        <span class="divider">|</span>
+        <a href="#" class="active interactive">
+            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-en"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-en)"><rect width="512" height="512" fill="#012169"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#FFF" stroke-width="85"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#C8102E" stroke-width="50"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#FFF" stroke-width="140"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#C8102E" stroke-width="90"/></g></svg>
+            EN
+        </a>
+    </div>
+
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <div class="side-menu">
+        <div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="menu-links">
+                <a href="index-en.html" class="menu-link interactive">BACK TO HOME</a>
+            </div>
+        </div>
+    </div>
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <main class="page-wrapper">
+        
+        <div class="subpage-header">
+            <a href="index-en.html" class="back-btn interactive">← BACK</a>
+            <img src="IMG_4834.png" alt="WESTROOMZ" class="subpage-header-logo">
+        </div>
+
+        <div class="premium-hero-wrapper">
+            <div class="premium-hero-bg" style="background-image: url('westroomz_Hp1-2.png');"></div>
+            <div class="premium-hero-fade"></div>
+            
+            <div class="premium-hero-content">
+                <div class="hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: middle;"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                    STUDIO & MIX
+                </div>
+                <h1 class="hero-title">Sound that gives you<br><span class="hero-highlight">goosebumps.</span></h1>
+                <p class="hero-text">Audio isn't just a step, it's a process. From the first recording to the final mix, it's all about precision, dynamics, and the right feel for the space.</p>
+            </div>
+        </div>
+
+        <section class="bento-section">
+            <div class="bg-glow-1"></div>
+            <div class="bg-glow-2"></div>
+            
+            <div class="bento-container">
+                <div class="bento-grid-top">
+                    
+                    <div class="bento-card detail-list-wrapper gsap-fade-up knob-active">
+                        <div id="detailList" class="detail-list-container"></div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div class="bento-card gsap-fade-up" style="flex: 1; padding: 32px;">
+                            <div class="bento-icon-wrapper">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            </div>
+                            <h3>Beat & Instrumental</h3>
+                            <p>Custom instrumentals. Your vibe, your vision, our sound.</p>
+                        </div>
+                        <div class="bento-card gsap-fade-up" style="flex: 1; padding: 32px;">
+                            <div class="bento-icon-wrapper">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                            </div>
+                            <h3>Mixing & Mastering</h3>
+                            <p>We make your track loud, wide, and club-ready. Competitive on all platforms.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sticky-layout">
+                    <div class="sticky-sidebar gsap-fade-up">
+                        <span style="font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #dc2626; display: block; margin-bottom: 16px;">Workflow</span>
+                        <h2>Uncompromisingly <br><span style="color: #dc2626; text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.4); text-underline-offset: 8px;">Clear.</span></h2>
+                        <p>A good track needs more than just equipment. It needs vibe, trust, and someone at the controls who understands exactly where you want to go.</p>
+                        <a href="#contact" class="btn-red interactive">Request Session</a>
+                    </div>
+
+                    <div class="sticky-content">
+                        <div class="small-bento gsap-fade-up">
+                            <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+                            <h4>Flexible Sessions</h4>
+                            <p>Creativity knows no schedule. We go with your flow and take the time the song needs.</p>
+                        </div>
+                        <div class="small-bento gsap-fade-up">
+                            <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20v-8"/><path d="M6 20V10"/><path d="M18 20V4"/></svg></div>
+                            <h4>Hardware & Software</h4>
+                            <p>Analog warmth meets digital precision. We use the best of both worlds for the perfect mix.</p>
+                        </div>
+                        <div class="small-bento gsap-fade-up">
+                            <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg></div>
+                            <h4>Podcast Production</h4>
+                            <p>Crystal-clear voices, clean editing, and direct video recording for Spotify and YouTube upon request.</p>
+                        </div>
+                        <div class="small-bento gsap-fade-up">
+                            <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                            <h4>Artist Consulting</h4>
+                            <p>Honest feedback. We advise you on arrangement, performance, and help you find your own sound.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="premium-footer" id="contact">
+            <div class="footer-container">
+                <div class="footer-contact-area">
+                    <div class="footer-contact-info">
+                        <h2>Ready for the <br><span class="highlight-red">next step?</span></h2>
+                        <p>Whether you want to hit the studio, need a music video, or are planning a massive show. Let's talk.</p>
+                        <div class="contact-details">
+                            <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
+                        </div>
+                    </div>
+                    <div class="footer-form-card">
+                        <form class="footer-form">
+                            <div class="form-group">
+                                <label>DEPARTMENT</label>
+                                <select id="department" class="interactive footer-input">
+                                    <option value="Audio">Audio / Studio Session</option>
+                                    <option value="Video">Music Video / Visuals</option>
+                                    <option value="Event">Event / Live</option>
+                                    <option value="Marketing">Release Marketing</option>
+                                    <option value="General">General Inquiry</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>YOUR NAME / ARTIST NAME</label>
+                                <input type="text" id="name" class="interactive footer-input" required placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label>PROJECT</label>
+                                <input type="text" id="subject" class="interactive footer-input" placeholder="Brief project description...">
+                            </div>
+                            <div class="form-group">
+                                <label>MESSAGE</label>
+                                <textarea id="message" class="interactive footer-input" rows="4" placeholder="Your vision..."></textarea>
+                            </div>
+                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
+                                Send Request <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="footer-links-section">
+                    <div class="footer-brand">
+                        <a href="index-en.html" class="brand-logo interactive">
+                            <div class="brand-icon">W</div>
+                            <span class="brand-name">WESTROOMZ</span>
+                        </a>
+                        <p>Audio. Video. Events. We elevate your vision to a new level.</p>
+                        <div class="footer-socials-new">
+                            <a href="#" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                            <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index-en.html#hero" class="interactive">Home</a></li>
+                            <li><a href="index-en.html#services" class="interactive">Services</a></li>
+                            <li><a href="index-en.html#references" class="interactive">References</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="impressum.html" class="interactive">Imprint</a></li>
+                            <li><a href="datenschutz.html" class="interactive">Privacy Policy</a></li>
+                            <li><a href="agb.html" class="interactive">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 WESTROOMZ. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
+    <div id="slice-cursor-dot" aria-hidden="true"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // === CINEMATIC PARALLAX ANIMATION FÜR HERO BILD ===
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                gsap.to(".premium-hero-bg", {
+                    yPercent: 20, 
+                    scale: 1.0,   
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".premium-hero-wrapper",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true 
+                    }
+                });
+
+                gsap.to(".premium-hero-content", {
+                    y: -150,
+                    opacity: 0,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".premium-hero-wrapper",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+            }
+
+            // === SOUND SYSTEM ===
+            const clickSound = new Audio('click.mp3');
+            clickSound.volume = 0.4; 
+            clickSound.load();
+
+            let audioUnlocked = false;
+            function unlockAudio() {
+                if (!audioUnlocked) {
+                    clickSound.play().then(() => {
+                        clickSound.pause();
+                        clickSound.currentTime = 0;
+                    }).catch((e) => {});
+                    audioUnlocked = true;
+                    document.removeEventListener('touchstart', unlockAudio);
+                    document.removeEventListener('click', unlockAudio);
+                }
+            }
+            document.addEventListener('touchstart', unlockAudio, {passive: true});
+            document.addEventListener('click', unlockAudio, {passive: true});
+
+            function playKnobClick() {
+                if (navigator.vibrate) navigator.vibrate(15);
+                clickSound.currentTime = 0;
+                clickSound.play().catch(() => {});
+            }
+
+            // === KNOB LOGIK (TRANSLATED TO ENGLISH) ===
+            const listContainer = document.getElementById('detailList');
+            const wrapper = document.querySelector('.detail-list-wrapper');
+
+            if(listContainer && wrapper) {
+                const audioList = [
+                    { name: "Recording", text: "High-end recordings in acoustically optimized rooms for vocals and instruments." },
+                    { name: "Mixing", text: "We bring balance, depth, and the necessary punch to your tracks." },
+                    { name: "Mastering", text: "The final touch for loudness and consistency across all streaming platforms." },
+                    { name: "Sound Design", text: "Creative sound design for films, games, and brand identities." },
+                    { name: "Live Audio", text: "Crystal-clear sound for events, concerts, and live broadcasts." },
+                    { name: "Set Audio", text: "Professional boom operation and recording directly on the film set." }
+                ];
+
+                const interfaceDiv = document.createElement('div');
+                interfaceDiv.className = 'knob-interface';
+                const knob = document.createElement('div');
+                knob.className = 'knob-control';
+                knob.innerHTML = '<img src="knob.png" class="knob-img" alt="Control Knob" draggable="false" ondragstart="return false;">';
+                interfaceDiv.appendChild(knob);
+
+                const displayDiv = document.createElement('div');
+                displayDiv.className = 'knob-display-area';
+                const displayTitle = document.createElement('div');
+                displayTitle.className = 'knob-display-title';
+                displayTitle.innerText = audioList[0].name;
+                const displayDesc = document.createElement('div');
+                displayDesc.className = 'knob-display-desc';
+                displayDesc.innerText = audioList[0].text; 
+                displayDiv.appendChild(displayTitle);
+                displayDiv.appendChild(displayDesc);
+
+                listContainer.appendChild(interfaceDiv);
+                listContainer.appendChild(displayDiv);
+
+                const totalArc = 260; 
+                const startAngle = -130; 
+                const step = totalArc / (audioList.length - 1); 
+                const labelElements = [];
+                
+                let currentIndex = 0; 
+                let isDragging = false;
+                let lastMouseAngle = 0;
+                let dragAccumulator = 0; 
+
+                audioList.forEach((item, index) => {
+                    const label = document.createElement('div');
+                    label.className = 'knob-label';
+                    if(index === 0) label.classList.add('active');
+                    label.innerText = item.name;
+                    
+                    const degree = startAngle + (index * step);
+                    const rad = (degree - 90) * (Math.PI / 180);
+                    const x = 50 + (Math.cos(rad) * 42); 
+                    const y = 50 + (Math.sin(rad) * 42);
+                    label.style.left = `${x}%`;
+                    label.style.top = `${y}%`;
+                    
+                    label.onclick = (e) => { 
+                        e.stopPropagation(); 
+                        snapKnobTo(index, true); 
+                    };
+                    interfaceDiv.appendChild(label);
+                    labelElements.push({ el: label, angle: degree });
+                });
+
+                gsap.set(knob, { rotation: startAngle });
+
+                function snapKnobTo(index, playSound = false) {
+                    if (index < 0) index = 0;
+                    if (index >= audioList.length) index = audioList.length - 1;
+                    
+                    if(playSound && currentIndex !== index) { 
+                       playKnobClick(); 
+                    }
+                    currentIndex = index;
+                    
+                    labelElements.forEach(l => l.el.classList.remove('active'));
+                    labelElements[index].el.classList.add('active');
+                    
+                    gsap.to(knob, { rotation: labelElements[index].angle, duration: 0.35, ease: "back.out(2.5)", overwrite: true });
+                    gsap.to([displayTitle, displayDesc], { 
+                        opacity: 0, y: 5, duration: 0.1, 
+                        onComplete: () => {
+                            displayTitle.innerText = audioList[index].name;
+                            displayDesc.innerText = audioList[index].text; 
+                            gsap.to([displayTitle, displayDesc], { opacity: 1, y: 0, duration: 0.2 });
+                        }
+                    });
+                }
+
+                function getMouseAngle(e) {
+                    const rect = interfaceDiv.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    const rad = Math.atan2(clientY - centerY, clientX - centerX);
+                    return (rad * (180 / Math.PI)) + 90;
+                }
+
+                function onDown(e) {
+                    isDragging = true;
+                    lastMouseAngle = getMouseAngle(e);
+                    dragAccumulator = 0; 
+                    gsap.to(knob, { scale: 0.96, duration: 0.1 });
+                }
+
+                function onMove(e) {
+                    if(!isDragging) return;
+                    e.preventDefault();
+                    const currentMouseAngle = getMouseAngle(e);
+                    let delta = currentMouseAngle - lastMouseAngle;
+                    if (delta > 180) delta -= 360;
+                    if (delta < -180) delta += 360;
+                    
+                    dragAccumulator += delta;
+                    lastMouseAngle = currentMouseAngle;
+
+                    const stepThreshold = 25; 
+
+                    if (dragAccumulator > stepThreshold) {
+                        if (currentIndex < audioList.length - 1) {
+                            snapKnobTo(currentIndex + 1, true);
+                            dragAccumulator = 0; 
+                        }
+                    } else if (dragAccumulator < -stepThreshold) {
+                        if (currentIndex > 0) {
+                            snapKnobTo(currentIndex - 1, true);
+                            dragAccumulator = 0; 
+                        }
+                    }
+                    const baseAngle = labelElements[currentIndex].angle;
+                    const tension = dragAccumulator * 0.4; 
+                    gsap.set(knob, { rotation: baseAngle + tension });
+                }
+
+                function onEnd(e) {
+                    if(!isDragging) return;
+                    isDragging = false;
+                    gsap.to(knob, { scale: 1, duration: 0.15 });
+                    snapKnobTo(currentIndex, false); 
+                }
+
+                knob.addEventListener('mousedown', onDown);
+                window.addEventListener('mousemove', onMove);
+                window.addEventListener('mouseup', onEnd);
+                knob.addEventListener('touchstart', onDown, {passive: false});
+                window.addEventListener('touchmove', onMove, {passive: false});
+                window.addEventListener('touchend', onEnd);
+            }
+
+            // Scroll Animationen
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                const elements = document.querySelectorAll('.gsap-fade-up');
+                elements.forEach((el) => {
+                    gsap.to(el, { scrollTrigger: { trigger: el, start: "top 85%" }, opacity: 1, y: 0, duration: 0.8, ease: "power3.out" });
+                });
+            }
+
+            // === CURSOR LOGIK ===
+            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+            const canvas = document.getElementById("slice-cursor-canvas");
+            const dot = document.getElementById("slice-cursor-dot");
+
+            if (!isDesktop) {
+                if (canvas) canvas.style.display = "none";
+                if (dot) dot.style.display = "none";
+                return; 
+            }
+
+            const ctx = canvas.getContext("2d");
+            const trailColor = "#dc2626"; 
+            const pointsNumber = 40;
+            const widthFactor = 0.3;
+            const spring = 0.4;
+            const friction = 0.5;
+            
+            let mouseMoved = false;
+            const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            const trail = new Array(pointsNumber).fill().map(() => ({ x: pointer.x, y: pointer.y, dx: 0, dy: 0 }));
+
+            const updateMousePosition = (eX, eY) => { pointer.x = eX * window.devicePixelRatio; pointer.y = eY * window.devicePixelRatio; };
+            const handleMouseMove = (e) => { mouseMoved = true; updateMousePosition(e.clientX, e.clientY); };
+            const setupCanvas = () => { canvas.width = window.innerWidth * window.devicePixelRatio; canvas.height = window.innerHeight * window.devicePixelRatio; };
+
+            setupCanvas();
+            window.addEventListener("resize", setupCanvas);
+            window.addEventListener("mousemove", handleMouseMove);
+
+            const update = (t) => {
+                if (!mouseMoved) {
+                    pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * canvas.width;
+                    pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * canvas.height;
+                }
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                trail.forEach((p, pIdx) => {
+                    const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
+                    const currentSpring = pIdx === 0 ? .4 * spring : spring;
+                    p.dx += (prev.x - p.x) * currentSpring; p.dy += (prev.y - p.y) * currentSpring;
+                    p.dx *= friction; p.dy *= friction;
+                    p.x += p.dx; p.y += p.dy;
+                });
+                ctx.lineCap = "round"; ctx.strokeStyle = trailColor; ctx.beginPath(); ctx.moveTo(trail[0].x, trail[0].y);
+                for (let i = 1; i < trail.length - 1; i++) {
+                    const xc = .5 * (trail[i].x + trail[i + 1].x); const yc = .5 * (trail[i].y + trail[i + 1].y);
+                    ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
+                    ctx.lineWidth = widthFactor * (pointsNumber - i) * window.devicePixelRatio;
+                    ctx.stroke();
+                }
+                if (trail.length > 0) { ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y); ctx.stroke(); }
+                if (dot) { dot.style.left = `${pointer.x / window.devicePixelRatio}px`; dot.style.top = `${pointer.y / window.devicePixelRatio}px`; }
+                window.requestAnimationFrame(update);
+            };
+            window.requestAnimationFrame(update);
+        });
+    </script>
+</body>
+</html>
