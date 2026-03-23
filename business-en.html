@@ -223,6 +223,12 @@
         .m-footer-btn { width: 100%; background: #1d1d1f; color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: background 0.2s; }
         .m-footer-btn:hover { background: #dc2626; }
 
+        @media (max-width: 768px) {
+            .mult-val { font-size: 1.1rem; }
+            .mult-name { font-size: 0.75rem; }
+            .dash-multiplier-area { padding: 20px 16px; }
+        }
+
         /* === WEITERE STYLES (Referenzen, Switches, Footer etc.) === */
         button, .tab-btn, .menu-link { border-radius: 30px !important; }
         .gallery-item img { border-radius: 12px !important; }
@@ -253,7 +259,6 @@
         input:checked + .slider:before { transform: translateX(36px); }
         .slider.round { border-radius: 50px; }
         .slider.round:before { border-radius: 50%; }
-        
         @media (max-width: 768px) {
             .site-toggle-container { gap: 12px; margin-bottom: 20px; }
             .toggle-label { font-size: 1.1rem; }
@@ -263,9 +268,6 @@
             .hero::before { background: #f5f5f7 !important; }
             .hero::after { background: linear-gradient(to bottom, transparent 0%, rgba(245, 245, 247, 0.56) 18%, rgba(245, 245, 247, 0.9) 36%, #f5f5f7 50%, #f5f5f7 70%, rgba(245, 245, 247, 0.56) 86%, transparent 100%) !important; }
             .vision-section::before { background: linear-gradient(to bottom, rgba(245, 245, 247, 0.82) 0%, rgba(245, 245, 247, 0.42) 44%, rgba(245, 245, 247, 0.12) 76%, transparent 100%) !important; }
-            .mult-val { font-size: 1.1rem; }
-            .mult-name { font-size: 0.75rem; }
-            .dash-multiplier-area { padding: 20px 16px; }
         }
 
         /* === CURSOR CSS (NUR DESKTOP) === */
@@ -325,7 +327,7 @@
 <body>
 
     <div class="lang-switcher">
-        <a href="business.html" class="interactive">
+        <a href="business.html" class="transition-link interactive">
             <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-de"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-de)"><rect width="512" height="170.6" fill="#000"/><rect y="170.6" width="512" height="170.6" fill="#D00"/><rect y="341.3" width="512" height="170.6" fill="#FFCE00"/></g></svg>
             DE
         </a>
@@ -726,10 +728,14 @@
                         </div>
                     </div>
                     <div class="footer-form-card">
-                        <form class="footer-form">
+                        <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
+                            <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
+                            <input type="hidden" name="_next" value="https://westroomz.de/business-en.html">
+                            <input type="hidden" name="_captcha" value="false">
+
                             <div class="form-group">
                                 <label>DEPARTMENT</label>
-                                <select id="department" class="interactive footer-input">
+                                <select id="department" name="abteilung" class="interactive footer-input">
                                     <option value="General">General Inquiry</option>
                                     <option value="Event">Event Planning</option>
                                     <option value="Marketing">Marketing</option>
@@ -737,19 +743,23 @@
                             </div>
                             <div class="form-group">
                                 <label>NAME</label>
-                                <input type="text" id="name" class="interactive footer-input" required placeholder="Your Name">
+                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Your Name">
+                            </div>
+                            <div class="form-group">
+                                <label>E-MAIL</label>
+                                <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="your@email.com">
                             </div>
                             <div class="form-group">
                                 <label>PROJECT</label>
-                                <input type="text" id="subject" class="interactive footer-input" placeholder="Brief project description...">
+                                <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Brief project description...">
                             </div>
                             <div class="form-group">
                                 <label>MESSAGE</label>
-                                <textarea id="message" class="interactive footer-input" rows="4" placeholder="How can we help you?"></textarea>
+                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="How can we help you?"></textarea>
                             </div>
                             <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">Send Message</button>
                         </form>
-                    </div>
+                        </div>
                 </div>
 
                 <div class="footer-links-section">
