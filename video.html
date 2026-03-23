@@ -217,18 +217,6 @@
 </head>
 <body>
 
-    <div class="lang-switcher">
-        <a href="#" class="active interactive">
-            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-de"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-de)"><rect width="512" height="170.6" fill="#000"/><rect y="170.6" width="512" height="170.6" fill="#D00"/><rect y="341.3" width="512" height="170.6" fill="#FFCE00"/></g></svg>
-            DE
-        </a>
-        <span class="divider">|</span>
-        <a href="video-en.html" class="transition-link interactive">
-            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-en"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-en)"><rect width="512" height="512" fill="#012169"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#FFF" stroke-width="85"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#C8102E" stroke-width="50"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#FFF" stroke-width="140"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#C8102E" stroke-width="90"/></g></svg>
-            EN
-        </a>
-    </div>
-
     <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
@@ -350,14 +338,10 @@ pushen.</p>
                         </div>
                     </div>
                     <div class="footer-form-card">
-                        <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
-                            <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
-                            <input type="hidden" name="_next" value="https://westroomz.de/video.html">
-                            <input type="hidden" name="_captcha" value="false">
-
+                        <form class="footer-form">
                             <div class="form-group">
                                 <label>WORUM GEHTS?</label>
-                                <select id="department" name="abteilung" class="interactive footer-input">
+                                <select id="department" class="interactive footer-input">
                                     <option value="Video">Musikvideo / Visuals</option>
                                     <option value="Audio">Audio / Studio Session</option>
                                     <option value="Event">Event / Live</option>
@@ -367,19 +351,11 @@ pushen.</p>
                             </div>
                             <div class="form-group">
                                 <label>DEIN NAME / ARTIST NAME</label>
-                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Name eingeben">
-                            </div>
-                            <div class="form-group">
-                                <label>E-MAIL</label>
-                                <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="deine@email.de">
-                            </div>
-                            <div class="form-group">
-                                <label>PROJEKT</label>
-                                <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Kurze Projektbeschreibung...">
+                                <input type="text" id="name" class="interactive footer-input" required placeholder="Name eingeben">
                             </div>
                             <div class="form-group">
                                 <label>NACHRICHT</label>
-                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Deine Vision..."></textarea>
+                                <textarea id="message" class="interactive footer-input" rows="4" placeholder="Deine Vision..."></textarea>
                             </div>
                             <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
                                 Anfrage senden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -432,7 +408,7 @@ pushen.</p>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // === CINEMATIC PARALLAX ANIMATION ===
+            // === CINEMATIC PARALLAX ANIMATION FÜR HERO BILD ===
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
@@ -449,7 +425,7 @@ pushen.</p>
                 });
 
                 gsap.to(".premium-hero-content", {
-                    y: -150, 
+                    y: -150, // Fährt nach oben in die dunkle Zone, während man scrollt
                     opacity: 0,
                     ease: "none",
                     scrollTrigger: {
@@ -461,6 +437,7 @@ pushen.</p>
                 });
             }
 
+            // Scroll Animationen
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
                 const elements = document.querySelectorAll('.gsap-fade-up');
@@ -469,6 +446,7 @@ pushen.</p>
                 });
             }
 
+            // === CURSOR LOGIK ===
             const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
             const canvas = document.getElementById("slice-cursor-canvas");
             const dot = document.getElementById("slice-cursor-dot");
