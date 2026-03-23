@@ -332,29 +332,43 @@ deines Events.</p>
                         </div>
                     </div>
                     <div class="footer-form-card">
-                        <form class="footer-form">
-                            <div class="form-group">
-                                <label>WORUM GEHTS?</label>
-                                <select id="department" class="interactive footer-input">
-                                    <option value="Event">Event / Live</option>
-                                    <option value="Video">Musikvideo / Visuals</option>
-                                    <option value="Audio">Audio / Studio Session</option>
-                                    <option value="Marketing">Release Marketing</option>
-                                    <option value="General">Allgemeine Anfrage</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>DEIN NAME / ARTIST NAME</label>
-                                <input type="text" id="name" class="interactive footer-input" required placeholder="Name eingeben">
-                            </div>
-                            <div class="form-group">
-                                <label>NACHRICHT</label>
-                                <textarea id="message" class="interactive footer-input" rows="4" placeholder="Deine Vision..."></textarea>
-                            </div>
-                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
-                                Anfrage senden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                            </button>
-                        </form>
+                        <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
+    <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
+    
+    <input type="hidden" name="_next" value="https://westroomz.de/HIER_DATEINAME_EINTRAGEN.html">
+    
+    <input type="hidden" name="_captcha" value="false">
+
+    <div class="form-group">
+        <label>ABTEILUNG</label>
+        <select id="department" name="abteilung" class="interactive footer-input">
+            <option value="General">Allgemeine Anfrage</option>
+            <option value="Audio">Audio / Studio Session</option>
+            <option value="Video">Musikvideo / Visuals</option>
+            <option value="Event">Event / Live</option>
+            <option value="Marketing">Release Marketing</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>DEIN NAME / ARTIST NAME</label>
+        <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Name eingeben">
+    </div>
+    <div class="form-group">
+        <label>E-MAIL</label>
+        <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="deine@email.de">
+    </div>
+    <div class="form-group">
+        <label>PROJEKT</label>
+        <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Kurze Projektbeschreibung...">
+    </div>
+    <div class="form-group">
+        <label>NACHRICHT</label>
+        <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Deine Vision..."></textarea>
+    </div>
+    <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">
+        Anfrage senden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+</form>
                     </div>
                 </div>
 
