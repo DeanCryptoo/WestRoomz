@@ -95,7 +95,7 @@
         .footer-container { max-width: 1200px; margin: 0 auto; }
         .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
-        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; }
+        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; word-wrap: break-word; hyphens: auto; }
         @media (max-width: 768px) { .footer-contact-info h2 { font-size: 2.2rem; letter-spacing: -0.5px; } }
         @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; letter-spacing: -1px; } }
         .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; text-shadow: 0 0 20px rgba(220,38,38,0.3); }
@@ -267,10 +267,14 @@
                         </div>
                     </div>
                     <div class="footer-form-card">
-                        <form class="footer-form">
+                        <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
+                            <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
+                            <input type="hidden" name="_next" value="https://westroomz.de/audio-en.html">
+                            <input type="hidden" name="_captcha" value="false">
+
                             <div class="form-group">
                                 <label>DEPARTMENT</label>
-                                <select id="department" class="interactive footer-input">
+                                <select id="department" name="abteilung" class="interactive footer-input">
                                     <option value="Audio">Audio / Studio Session</option>
                                     <option value="Video">Music Video / Visuals</option>
                                     <option value="Event">Event / Live</option>
@@ -280,15 +284,19 @@
                             </div>
                             <div class="form-group">
                                 <label>YOUR NAME / ARTIST NAME</label>
-                                <input type="text" id="name" class="interactive footer-input" required placeholder="Enter your name">
+                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label>E-MAIL</label>
+                                <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="your@email.com">
                             </div>
                             <div class="form-group">
                                 <label>PROJECT</label>
-                                <input type="text" id="subject" class="interactive footer-input" placeholder="Brief project description...">
+                                <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Brief project description...">
                             </div>
                             <div class="form-group">
                                 <label>MESSAGE</label>
-                                <textarea id="message" class="interactive footer-input" rows="4" placeholder="Your vision..."></textarea>
+                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Your vision..."></textarea>
                             </div>
                             <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
                                 Send Request <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -358,7 +366,7 @@
                 });
 
                 gsap.to(".premium-hero-content", {
-                    y: -150,
+                    y: -150, 
                     opacity: 0,
                     ease: "none",
                     scrollTrigger: {
