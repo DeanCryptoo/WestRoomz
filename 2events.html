@@ -16,100 +16,27 @@
     <style>
         html, body, .page-wrapper { background-color: #050505 !important; color: #ffffff !important; }
         .menu-toggle-btn .bar { background-color: #ffffff !important; }
+        
+        /* === PREMIUM LANGUAGE SWITCHER === */
+        .lang-switcher { position: fixed; top: 40px; right: 40px; z-index: 999; display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease; }
+        .lang-switcher:hover { background: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+        .lang-switcher a { display: flex; align-items: center; gap: 8px; color: #a3a3a3; text-decoration: none; transition: all 0.3s ease; }
+        .lang-switcher a.active { color: #ffffff; }
+        .lang-switcher a:not(.active):hover { color: #dc2626; }
+        .lang-switcher .divider { color: rgba(255, 255, 255, 0.15); font-weight: 300; margin: 0 2px; }
+        .lang-flag { width: 16px; height: 16px; border-radius: 50%; display: block; }
+        @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
 
         /* === CINEMATIC HERO STYLES === */
-        .premium-hero-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            min-height: 600px;
-            background-color: #050505;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 12vh;
-            z-index: 1;
-        }
+        .premium-hero-wrapper { position: relative; width: 100%; height: 100vh; min-height: 600px; background-color: #050505; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 12vh; z-index: 1; }
+        .premium-hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 120%; background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 0; transform: scale(1.1); will-change: transform; }
+        .premium-hero-fade { position: absolute; bottom: 0; left: 0; width: 100%; height: 65%; background: linear-gradient(to bottom, transparent 0%, rgba(5, 5, 5, 0.8) 45%, #050505 100%); z-index: 1; pointer-events: none; }
+        .premium-hero-content { position: relative; z-index: 10; text-align: center; max-width: 800px; padding: 0 24px; margin: 0 auto; will-change: transform, opacity; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255, 255, 255, 0.15); padding: 8px 20px; border-radius: 30px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; color: #d4d4d4; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; backdrop-filter: blur(10px); background: rgba(0,0,0,0.4); }
+        .hero-title { font-family: 'Inter', sans-serif; font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 900; color: #ffffff; line-height: 1.05; letter-spacing: -2px; margin-bottom: 24px; }
+        .hero-highlight { color: #dc2626; font-style: italic; text-shadow: 0 0 50px rgba(220, 38, 38, 0.5); }
+        .hero-text { font-family: 'Inter', sans-serif; font-size: 1.125rem; color: #a3a3a3; line-height: 1.6; max-width: 600px; margin: 0 auto; }
 
-        .premium-hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120%; 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: 0;
-            transform: scale(1.1); 
-            will-change: transform;
-        }
-
-        .premium-hero-fade {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 65%;
-            background: linear-gradient(to bottom, transparent 0%, rgba(5, 5, 5, 0.8) 45%, #050505 100%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .premium-hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 800px;
-            padding: 0 24px;
-            margin: 0 auto;
-            will-change: transform, opacity;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #d4d4d4;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-            backdrop-filter: blur(10px);
-            background: rgba(0,0,0,0.4);
-        }
-
-        .hero-title {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(3.5rem, 7vw, 6rem);
-            font-weight: 900;
-            color: #ffffff;
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 24px;
-        }
-
-        .hero-highlight {
-            color: #dc2626;
-            font-style: italic;
-            text-shadow: 0 0 50px rgba(220, 38, 38, 0.5); 
-        }
-
-        .hero-text {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.125rem;
-            color: #a3a3a3;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
         /* === DARK BENTO GRID STYLES === */
         .bento-section { padding: 40px 24px 120px 24px; background-color: #050505; font-family: 'Inter', sans-serif; position: relative; overflow: hidden; z-index: 2;}
         .bento-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
@@ -118,7 +45,7 @@
         .bg-glow-2 { position: absolute; bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
 
         .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
-        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 2fr 1fr; } }
+        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 2fr 1fr; } } 
         
         .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; }
         .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px); background: rgba(255, 255, 255, 0.04); }
@@ -126,23 +53,24 @@
         .bento-card.dark { background: #0a0a0a; border-color: rgba(255,255,255,0.08); }
         .bento-card.dark .glow { position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: rgba(220, 38, 38, 0.2); filter: blur(60px); border-radius: 50%; transition: all 0.7s; }
         .bento-card.dark:hover .glow { background: rgba(220, 38, 38, 0.3); transform: scale(1.2); }
-        
+
         .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: all 0.5s; border: 1px solid rgba(255, 255, 255, 0.1); }
         .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
         .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #ffffff; word-wrap: break-word; }
         .bento-card p { font-size: 1rem; color: #a3a3a3; line-height: 1.6; }
 
+        /* Sticky Layout */
         .sticky-layout { display: flex; flex-direction: column; gap: 60px; }
         @media (min-width: 1024px) { .sticky-layout { flex-direction: row; align-items: flex-start; } }
         
         .sticky-sidebar { flex: 1; position: sticky; top: 120px; }
-        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; word-wrap: break-word; hyphens: auto; }
-        @media (max-width: 768px) { .sticky-sidebar h2 { font-size: 2.2rem; } }
-        .sticky-sidebar p { color: #a3a3a3; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
+        .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; word-wrap: break-word; hyphens: auto; overflow-wrap: break-word; }
+        @media (max-width: 768px) { .sticky-sidebar h2 { font-size: 2.2rem; } } 
+        @media (max-width: 400px) { .sticky-sidebar h2 { font-size: 1.8rem; } } 
         
+        .sticky-sidebar p { color: #a3a3a3; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
         .sticky-content { flex: 2; display: grid; grid-template-columns: 1fr; gap: 24px; }
         @media (min-width: 640px) { .sticky-content { grid-template-columns: repeat(2, 1fr); } }
-        
         .small-bento { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 32px; transition: all 0.3s; backdrop-filter: blur(10px); }
         .small-bento:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(220, 38, 38, 0.3); transform: translateY(-2px); }
         .small-bento .bento-icon-wrapper { width: 48px; height: 48px; margin-bottom: 20px; background: transparent; }
@@ -158,39 +86,48 @@
         .subpage-header-logo { height: 40px; width: auto; flex-shrink: 0; }
         .gsap-fade-up { opacity: 0; transform: translateY(40px); }
 
-        .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 10; }
-        @media (max-width: 768px) { .premium-footer { padding: 60px 16px 40px 16px; } }
+        /* === HIER STARTET DAS KORREKTE FOOTER CSS AUS DER INDEX SEITE === */
+        .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
+        @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
         .footer-container { max-width: 1200px; margin: 0 auto; }
         .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
-        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; word-wrap: break-word; hyphens: auto; }
-        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 2.2rem; letter-spacing: -0.5px; } }
+        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; }
+        @media (max-width: 768px) { .footer-contact-info h2 { font-size: 1.85rem; letter-spacing: -0.5px; } }
         @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; letter-spacing: -1px; } }
-        .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; text-shadow: 0 0 20px rgba(220,38,38,0.3); }
+        .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; }
         .footer-contact-info > p { color: #a3a3a3 !important; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
         .contact-details { font-family: 'Inter', sans-serif; font-size: 1.125rem; font-weight: 900; display: flex; flex-direction: column; gap: 16px; letter-spacing: -0.5px; }
-        .contact-details p, .contact-details a { margin: 0 !important; color: #ffffff !important; text-decoration: none !important; }
-        .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; box-shadow: 0 0 10px #dc2626; }
-        .footer-form-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 32px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); backdrop-filter: blur(24px); }
+        .contact-details p, .contact-details a { margin: 0 !important; color: #ffffff !important; text-decoration: none !important; -webkit-text-fill-color: #ffffff !important; }
+        .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; }
+        .footer-form-card { background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
         @media (max-width: 768px) { .footer-form-card { padding: 30px 20px; border-radius: 24px; } }
         .footer-form { display: flex; flex-direction: column; gap: 20px; }
         .form-group { display: flex; flex-direction: column; gap: 8px; text-align: left; }
         .form-group label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: #a3a3a3; text-transform: uppercase; }
-        .footer-input { background-color: rgba(0,0,0,0.5) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; padding: 16px; border-radius: 16px !important; font-family: 'Inter', sans-serif; font-size: 1rem; transition: all 0.3s ease; outline: none; width: 100%; box-sizing: border-box; }
-        .footer-input:focus { border-color: rgba(220, 38, 38, 0.6) !important; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1); background-color: rgba(0,0,0,0.8) !important; }
-        .cta-btn-primary { display: flex; align-items: center; justify-content: center; gap: 12px; background-color: #dc2626 !important; color: white !important; font-weight: 900; font-family: 'Inter', sans-serif; font-size: 1.125rem; padding: 0 40px; height: 64px; border-radius: 20px !important; border: none; cursor: pointer; transition: all 0.3s; }
-        .cta-btn-primary:hover { background-color: #b91c1c !important; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(220,38,38,0.3); }
-        .cta-btn-primary svg { width: 20px; height: 20px; flex-shrink: 0; }
+        .footer-input { background-color: rgba(0,0,0,0.4) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; padding: 16px; border-radius: 16px !important; font-family: 'Inter', sans-serif; font-size: 1rem; transition: all 0.3s ease; outline: none; width: 100%; box-sizing: border-box; }
+        .footer-input:focus { border-color: rgba(220, 38, 38, 0.6) !important; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1); background-color: rgba(0,0,0,0.6) !important; }
+        .footer-input::placeholder { color: rgba(255,255,255,0.4); } 
+        select.footer-input option { background-color: #111; color: white; }
+        
+        .cta-btn-primary { display: flex; align-items: center; justify-content: center; gap: 12px; background-color: #dc2626 !important; color: white !important; font-weight: 900; font-family: 'Inter', sans-serif; font-size: 1.125rem; padding: 0 40px; height: 64px; border-radius: 20px !important; text-decoration: none; box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3); transition: all 0.3s ease; border: none; cursor: pointer; }
+        .cta-btn-primary:hover { background-color: #b91c1c !important; transform: translateY(-2px); }
+        .cta-btn-primary svg { width: 20px; height: 20px; transition: transform 0.3s; }
+        .cta-btn-primary:hover svg { transform: translateX(5px); }
+
         .footer-links-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 16px; padding: 60px 0; }
         .footer-brand { grid-column: 1 / -1; }
         @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } .footer-brand { grid-column: auto; } }
         .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
-        .footer-brand .brand-icon { width: 32px; height: 32px; background-color: #dc2626; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; }
+        .footer-brand .brand-icon { width: 32px; height: 32px; background-color: #dc2626; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; transition: transform 0.3s; }
+        .footer-brand .brand-logo:hover .brand-icon { transform: rotate(12deg); }
         .footer-brand .brand-name { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.5px; }
-        .footer-socials-new { display: flex; gap: 12px; margin-top: 20px; }
+        .footer-brand p { color: #a3a3a3 !important; font-size: 0.875rem; font-style: italic; max-width: 300px; margin-bottom: 32px; line-height: 1.6; }
+        .footer-socials-new { display: flex; gap: 12px; }
         .footer-socials-new a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); color: #ffffff !important; transition: all 0.3s; }
         .footer-socials-new a:hover { background-color: rgba(255,255,255,0.05); color: #dc2626 !important; border-color: rgba(255,255,255,0.2); }
         .footer-socials-new svg { width: 16px; height: 16px; fill: currentColor; }
+        .footer-col { text-align: left; }
         .footer-col h3 { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.5) !important; margin-bottom: 24px; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
         .footer-col a { color: #a3a3a3 !important; font-size: 0.875rem; font-weight: 700; text-decoration: none; transition: color 0.2s; }
@@ -198,10 +135,14 @@
         .footer-bottom { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1); align-items: center; }
         @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
         .footer-bottom p { color: #a3a3a3 !important; font-size: 0.875rem; font-weight: 700; margin: 0; }
-        @media (max-width: 768px) {
-            .subpage-header { padding: 20px 20px 20px 84px; align-items: flex-start; }
-            .back-btn { font-size: 0.8rem; padding: 8px 16px; }
-            .subpage-header-logo { height: 34px; }
+        .footer-badge { display: flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; }
+        .footer-badge .dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; animation: pulse-green 2s infinite; }
+        .footer-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #d4d4d4; }
+        
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
         /* === CURSOR CSS === */
@@ -213,6 +154,18 @@
 </head>
 <body>
 
+    <div class="lang-switcher">
+        <a href="#" class="active interactive">
+            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-de"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-de)"><rect width="512" height="170.6" fill="#000"/><rect y="170.6" width="512" height="170.6" fill="#D00"/><rect y="341.3" width="512" height="170.6" fill="#FFCE00"/></g></svg>
+            DE
+        </a>
+        <span class="divider">|</span>
+        <a href="events-en.html" class="transition-link interactive">
+            <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-en"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-en)"><rect width="512" height="512" fill="#012169"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#FFF" stroke-width="85"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#C8102E" stroke-width="50"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#FFF" stroke-width="140"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#C8102E" stroke-width="90"/></g></svg>
+            EN
+        </a>
+    </div>
+
     <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
@@ -221,7 +174,7 @@
         <div>
             <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
             <div class="menu-links">
-                <a href="javascript:history.back()" class="menu-link interactive">ZURÜCK ZUR ÜBERSICHT</a>
+                <a href="index.html" class="menu-link interactive">ZURÜCK ZUR ÜBERSICHT</a>
             </div>
         </div>
     </div>
@@ -230,7 +183,7 @@
     <main class="page-wrapper">
         
         <div class="subpage-header">
-            <a href="javascript:history.back()" class="back-btn interactive">← ZURÜCK</a>
+            <a href="index.html" class="back-btn interactive">← ZURÜCK</a>
             <img src="IMG_4834.png" alt="WESTROOMZ" class="subpage-header-logo">
         </div>
 
@@ -325,50 +278,48 @@ deines Events.</p>
             <div class="footer-container">
                 <div class="footer-contact-area">
                     <div class="footer-contact-info">
-                        <h2>Ready für den <br><span class="highlight-red">nächsten Step?</span></h2>
-                        <p>Egal ob du ins Studio willst, ein Musikvideo brauchst oder eine fette Show planst. Lass uns reden.</p>
+                        <h2>Lass uns etwas <br><span class="highlight-red">Großartiges</span> erschaffen.</h2>
+                        <p>Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.</p>
                         <div class="contact-details">
                             <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
                         </div>
                     </div>
                     <div class="footer-form-card">
                         <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
-    <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
-    
-    <input type="hidden" name="_next" value="https://westroomz.de/HIER_DATEINAME_EINTRAGEN.html">
-    
-    <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
+                            <input type="hidden" name="_next" value="https://westroomz.de/events.html">
+                            <input type="hidden" name="_captcha" value="false">
 
-    <div class="form-group">
-        <label>ABTEILUNG</label>
-        <select id="department" name="abteilung" class="interactive footer-input">
-            <option value="General">Allgemeine Anfrage</option>
-            <option value="Audio">Audio / Studio Session</option>
-            <option value="Video">Musikvideo / Visuals</option>
-            <option value="Event">Event / Live</option>
-            <option value="Marketing">Release Marketing</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>DEIN NAME / ARTIST NAME</label>
-        <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Name eingeben">
-    </div>
-    <div class="form-group">
-        <label>E-MAIL</label>
-        <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="deine@email.de">
-    </div>
-    <div class="form-group">
-        <label>PROJEKT</label>
-        <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Kurze Projektbeschreibung...">
-    </div>
-    <div class="form-group">
-        <label>NACHRICHT</label>
-        <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Deine Vision..."></textarea>
-    </div>
-    <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">
-        Anfrage senden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </button>
-</form>
+                            <div class="form-group">
+                                <label>ABTEILUNG</label>
+                                <select id="department" name="abteilung" class="interactive footer-input">
+                                    <option value="General">Allgemeine Anfrage</option>
+                                    <option value="Audio">Audio / Studio Session</option>
+                                    <option value="Video">Musikvideo / Visuals</option>
+                                    <option value="Event" selected>Event / Live</option>
+                                    <option value="Marketing">Release Marketing</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>NAME</label>
+                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Dein Name">
+                            </div>
+                            <div class="form-group">
+                                <label>E-MAIL</label>
+                                <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="deine@email.de">
+                            </div>
+                            <div class="form-group">
+                                <label>PROJEKT</label>
+                                <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Kurze Projektbeschreibung...">
+                            </div>
+                            <div class="form-group">
+                                <label>NACHRICHT</label>
+                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea>
+                            </div>
+                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">
+                                Anfrage senden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
 
@@ -378,16 +329,18 @@ deines Events.</p>
                             <div class="brand-icon">W</div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
-                        <p>Audio. Video. Events. Wir bringen deine Vision auf ein neues Level.</p>
+                        <p>Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
                         <div class="footer-socials-new">
                             <a href="#" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
                             <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                            <a href="mailto:info@westroomz.de" class="interactive" aria-label="Email"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
                         </div>
                     </div>
                     <div class="footer-col">
                         <h3>Navigation</h3>
                         <ul>
                             <li><a href="index.html#hero" class="interactive">Startseite</a></li>
+                            <li><a href="index.html#vision" class="interactive">Vision</a></li>
                             <li><a href="index.html#services" class="interactive">Was wir tun</a></li>
                             <li><a href="index.html#references" class="interactive">Referenzen</a></li>
                         </ul>
@@ -403,6 +356,7 @@ deines Events.</p>
                 </div>
                 <div class="footer-bottom">
                     <p>&copy; 2026 WESTROOMZ. Alle Rechte vorbehalten.</p>
+                    <div class="footer-badge"><div class="dot"></div><span>Made in Germany 🇩🇪</span></div>
                 </div>
             </div>
         </footer>
