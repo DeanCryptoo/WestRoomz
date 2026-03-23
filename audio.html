@@ -47,11 +47,12 @@
         .bg-glow-2 { position: absolute; bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
 
         .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
+        /* HIER IST DAS COOLE 50/50 LAYOUT */
         @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 1fr 1fr; } } 
         
         .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; }
         .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px); background: rgba(255, 255, 255, 0.04); }
-        
+
         .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: all 0.5s; border: 1px solid rgba(255, 255, 255, 0.1); }
         .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
         .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #ffffff; word-wrap: break-word; }
@@ -93,7 +94,7 @@
         .subpage-header-logo { height: 40px; width: auto; flex-shrink: 0; }
         .gsap-fade-up { opacity: 0; transform: translateY(40px); }
 
-        /* === HIER STARTET DAS KORREKTE FOOTER CSS AUS DER INDEX SEITE === */
+        /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
         @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
         .footer-container { max-width: 1200px; margin: 0 auto; }
@@ -292,15 +293,15 @@
                                 <label>ABTEILUNG</label>
                                 <select id="department" name="abteilung" class="interactive footer-input">
                                     <option value="General">Allgemeine Anfrage</option>
-                                    <option value="Audio">Audio / Studio Session</option>
+                                    <option value="Audio" selected>Audio / Studio Session</option>
                                     <option value="Video">Musikvideo / Visuals</option>
                                     <option value="Event">Event / Live</option>
                                     <option value="Marketing">Release Marketing</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>DEIN NAME / ARTIST NAME</label>
-                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Name eingeben">
+                                <label>NAME</label>
+                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Dein Name">
                             </div>
                             <div class="form-group">
                                 <label>E-MAIL</label>
@@ -312,7 +313,7 @@
                             </div>
                             <div class="form-group">
                                 <label>NACHRICHT</label>
-                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Deine Vision..."></textarea>
+                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea>
                             </div>
                             <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
                                 Anfrage senden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -385,7 +386,7 @@
                 });
 
                 gsap.to(".premium-hero-content", {
-                    y: -150, 
+                    y: -150, // Fährt nach oben in die dunkle Zone, während man scrollt
                     opacity: 0,
                     ease: "none",
                     scrollTrigger: {
@@ -397,7 +398,7 @@
                 });
             }
 
-            // === SOUND SYSTEM ===
+            // === SOUND SYSTEM (TROCKENER KLICK FÜR DEN KNOB) ===
             const clickSound = new Audio('click.mp3');
             clickSound.volume = 0.4; 
             clickSound.load();
