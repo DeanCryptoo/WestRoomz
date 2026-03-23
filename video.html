@@ -46,7 +46,8 @@
         .bg-glow-2 { position: absolute; bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
 
         .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
-        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 2fr 1fr; } } 
+        /* HIER IST DIE MAGIE: 1fr 1fr MACHT DAS MARKETING-LAYOUT! */
+        @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 1fr 1fr; } } 
         
         .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; }
         .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px); background: rgba(255, 255, 255, 0.04); }
@@ -234,8 +235,7 @@
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
                             </div>
                             <h3>Social-Media-Content</h3>
-                            <p>Wir planen, produzieren und denken Content strategisch – für Reichweite, Wachstum und klare
-Positionierung auf TikTok, Reels & Shorts.</p>
+                            <p>Wir planen, produzieren und denken Content strategisch – für Reichweite, Wachstum und klare Positionierung auf TikTok, Reels & Shorts.</p>
                         </div>
                     </div>
                 </div>
@@ -372,8 +372,8 @@ pushen.</p>
     <script src="js/main.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            
-            // === CINEMATIC PARALLAX ANIMATION ===
+
+            // === CINEMATIC PARALLAX ANIMATION FÜR HERO BILD ===
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
@@ -410,6 +410,7 @@ pushen.</p>
                 });
             }
 
+            // === CURSOR LOGIK ===
             const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
             const canvas = document.getElementById("slice-cursor-canvas");
             const dot = document.getElementById("slice-cursor-dot");
