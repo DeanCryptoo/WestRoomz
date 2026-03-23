@@ -728,10 +728,14 @@
                         </div>
                     </div>
                     <div class="footer-form-card">
-                        <form class="footer-form">
+                        <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
+                            <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
+                            <input type="hidden" name="_next" value="https://westroomz.de/business.html">
+                            <input type="hidden" name="_captcha" value="false">
+
                             <div class="form-group">
                                 <label>ABTEILUNG</label>
-                                <select id="department" class="interactive footer-input">
+                                <select id="department" name="abteilung" class="interactive footer-input">
                                     <option value="General">Allgemeine Anfrage</option>
                                     <option value="Event">Eventplanung</option>
                                     <option value="Marketing">Marketing</option>
@@ -739,19 +743,23 @@
                             </div>
                             <div class="form-group">
                                 <label>NAME</label>
-                                <input type="text" id="name" class="interactive footer-input" required placeholder="Dein Name">
+                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Dein Name">
+                            </div>
+                            <div class="form-group">
+                                <label>E-MAIL</label>
+                                <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="deine@email.de">
                             </div>
                             <div class="form-group">
                                 <label>PROJEKT</label>
-                                <input type="text" id="subject" class="interactive footer-input" placeholder="Kurze Projektbeschreibung...">
+                                <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Kurze Projektbeschreibung...">
                             </div>
                             <div class="form-group">
                                 <label>NACHRICHT</label>
-                                <textarea id="message" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea>
+                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea>
                             </div>
                             <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">Nachricht absenden</button>
                         </form>
-                    </div>
+                        </div>
                 </div>
 
                 <div class="footer-links-section">
