@@ -214,7 +214,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 }
 
 /* ========================================================= */
-/* --- 50k PREMIUM VISION (OHNE OVERLAY) --- */
+/* --- 50k PREMIUM VISION (OHNE MATSCHIGE SCHATTEN) --- */
 /* ========================================================= */
 .premium-vision-integrated {
     position: relative;
@@ -226,7 +226,17 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     z-index: 10;
 }
 
-/* OVERLAYS WURDEN KOMPLETT GELÖSCHT FÜR 100% KLARES BILD */
+/* * 1. Der Übergang vom Hero-Video bleibt (damit es keinen harten Cut gibt).
+ * 2. Es gibt KEIN zweites dunkles Overlay mehr, das das Stoppschild verdeckt!
+ */
+.premium-vision-integrated::before {
+    content: ''; position: absolute; top: -2px; left: 0; width: 100%; height: 35vh; 
+    background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    pointer-events: none; z-index: -1; 
+}
 
 .vision-content {
     max-width: 1000px;
@@ -256,21 +266,23 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     position: relative;
 }
 
-/* Extrem starke Schatten, da das Bild jetzt ungeschützt im Hintergrund liegt */
+/* Klares, helles Weiß/Silber. Keine matschigen schwarzen Schatten mehr. */
 .text-titanium {
-    background: linear-gradient(to bottom, #ffffff 0%, #999999 100%);
+    color: #ffffff;
+    background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 5px 40px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8);
+    text-shadow: 0 5px 20px rgba(0,0,0,0.5); 
 }
 
+/* Knackiges, vibrierendes Rot. Kein verschmutzendes Schwarz dahinter. */
 .text-liquid-red {
-    background: linear-gradient(135deg, #ff1a1a 0%, #990000 100%);
+    background: linear-gradient(135deg, #ff1a1a 0%, #cc0000 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-style: italic;
     padding-right: 15px;
-    text-shadow: 0 4px 15px rgba(220, 38, 38, 0.6), 0 2px 5px rgba(0,0,0,0.9);
+    text-shadow: 0 4px 15px rgba(0,0,0,0.6), 0 0 15px rgba(255, 0, 0, 0.3);
 }
 
 .vision-text-integrated {
@@ -286,30 +298,30 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     font-family: 'Inter', sans-serif;
     font-size: clamp(1.3rem, 3.5vw, 1.85rem);
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.85); 
+    color: rgba(255, 255, 255, 0.95); 
     line-height: 1.4;
     margin: 0;
     letter-spacing: -0.5px;
-    text-shadow: 0 2px 15px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9); /* Knackiger Lesbarkeits-Schatten */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
 }
 
 .lead-text-integrated .highlight-ruby {
-    color: #ff2a2a;
+    color: #ff3333;
     font-weight: 500; 
-    text-shadow: 0 0 15px rgba(255, 42, 42, 0.5), 0 1px 3px rgba(0,0,0,0.9);
+    text-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
 }
 
 .sub-text-integrated {
     font-family: 'Inter', sans-serif;
     font-size: clamp(1rem, 1.5vw, 1.15rem);
     font-weight: 400;
-    color: #e0e0e0; /* Etwas heller gemacht für den rohen Hintergrund */
+    color: #e0e0e0; 
     line-height: 1.6;
     margin: 0;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    text-shadow: 0 2px 15px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 /* --- DIE 50k UI GLASS-BAR (Mehr Glass-Effekt) --- */
@@ -320,11 +332,11 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     gap: 40px;
     padding: 16px 48px;
     border-radius: 100px;
-    background: rgba(255, 255, 255, 0.03); 
+    background: rgba(255, 255, 255, 0.05); 
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
     margin-top: 10px;
 }
 
@@ -432,7 +444,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     height: 50vh; /* Massiv reduziert für den Cinematic-Look */
     min-height: 400px; /* Reduziert */
     width: 100%;
-    max-width: 1300px; /* Kompakter in der Mitte des Screens */
+    max-width: 1300px; /* Kompakter in der Mitte Screens */
     margin: 0 auto;
     gap: 10px; /* Bisschen mehr Luft zwischen den Säulen */
     padding: 0 10px;
