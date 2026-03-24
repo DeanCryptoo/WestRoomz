@@ -1201,3 +1201,33 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
+/* ===================================================================== */
+/* 50k EDITORIAL VIEW: 75% Zoom System (NUR DESKTOP)                     */
+/* ===================================================================== */
+@media (min-width: 1025px) {
+    body {
+        zoom: 0.75;
+        overflow-x: hidden;
+    }
+    
+    /* Vollbild-Hintergründe für 75% anpassen */
+    .cinematic-bg-wrapper, 
+    .page-transition-curtain,
+    .cinematic-vignette {
+        width: 133.33vw !important; 
+        height: 133.33vh !important;
+        left: -16.66vw !important;
+        top: -16.66vh !important;
+    }
+    
+    /* HERO-BANNER AUSNAHME: Zurück auf 100% skalieren */
+    .hero {
+        zoom: 1.33333333 !important;
+        height: 100vh !important; 
+        width: 100% !important;
+    }
+    
+    /* UI-Korrekturen für den geschrumpften Body */
+    .side-menu { height: 133.33vh !important; }
+    .red-thread { height: 133.33vh !important; }
+}
