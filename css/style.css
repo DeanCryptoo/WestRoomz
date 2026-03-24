@@ -540,8 +540,10 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
         border-color: var(--accent) !important; 
     }
 
-    .service-pillar.is-expanded .pillar-bg { 
-        filter: grayscale(20%) brightness(0.4) !important; 
+    /* HIER IST DIE ANGEPASSTE ÄNDERUNG FÜR DIE VOLLE FARBE UND HELLIGKEIT */
+    .service-pillar.is-expanded .pillar-bg,
+    .service-pillar.is-expanded .pillar-bg-video { 
+        filter: grayscale(0%) brightness(0.8) !important; 
         transform: scale(1.05) !important; 
     }
 
