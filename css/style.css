@@ -509,9 +509,9 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 /* ========================================= */
 /* --- BOMBENSICHERES MOBILE TAP-ACCORDION --- */
 /* ========================================= */
-.service-pillar.is-expanded .pillar-bg-video { 
-        filter: grayscale(0%) brightness(0.6) !important; 
-        transform: scale(1.05) !important; 
+@media (max-width: 1024px) {
+    .premium-services-wrapper { 
+        padding: 40px 0 !important; 
     }
     
     .immersive-accordion { 
