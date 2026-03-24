@@ -444,7 +444,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     height: 50vh; /* Massiv reduziert für den Cinematic-Look */
     min-height: 400px; /* Reduziert */
     width: 100%;
-    max-width: 1300px; /* Kompakter in der Mitte Screens */
+    max-width: 1300px; /* Kompakter in der Mitte des Screens */
     margin: 0 auto;
     gap: 10px; /* Bisschen mehr Luft zwischen den Säulen */
     padding: 0 10px;
