@@ -168,25 +168,19 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
 .video-container { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; 
     pointer-events: none; 
-    /* HIER IST DER FADE: Perfekter weicher Übergang unten (spart GPU Leistung!) */
     -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-    
-    /* FALLBACK: Wird direkt als Bild geladen, damit es auch schön ausfadet */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #000;
 }
 
-/* === HIER IST DIE ANGEPASSTE VIDEO-LOGIK === */
 .hero-video { 
     width: 100%; height: 100%; object-fit: cover; 
-    pointer-events: none; 
-    display: none; /* Versteckt das Video auf dem Handy komplett */
+    pointer-events: none; display: none;
 }
 
-/* NUKLEAR-OPTION GEGEN DEN IOS PLAY BUTTON */
 .hero-video::-webkit-media-controls,
 .hero-video::-webkit-media-controls-enclosure,
 .hero-video::-webkit-media-controls-panel,
@@ -219,27 +213,19 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 10px var(--accent);
 }
 
-/* VISION SECTION & DER PERFEKTE ÜBERGANGS-FIX */
+/* VISION SECTION */
 .vision-section { 
     display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; 
-    padding: 150px 10%; 
-    position: relative;
+    padding: 150px 10%; position: relative;
 }
 
 .vision-section::before {
-    content: '';
-    position: absolute;
-    top: -2px; 
-    left: 0;
-    width: 100%;
-    height: 35vh; 
+    content: ''; position: absolute; top: -2px; left: 0; width: 100%; height: 35vh; 
     background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
     mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-    pointer-events: none;
-    z-index: -1; 
+    pointer-events: none; z-index: -1; 
 }
 
 .big-lead { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; letter-spacing: 2px; }
@@ -268,22 +254,6 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 }
 .gallery-item:hover img { transform: scale(1.05); }
 
-/* NETWORK */
-.network-section {
-    background: transparent; border: none;
-    display: grid; grid-template-columns: 1fr 0.8fr; gap: 40px; align-items: center;
-    padding: 150px 5%; max-width: 1100px; margin: 0 auto;
-}
-.network-text { text-align: left; }
-.network-text h3 { font-family: var(--font-head); font-size: 2rem; margin-bottom: 20px; color: white; margin-top: 30px; }
-.mini-divider { width: 40px; height: 2px; background: var(--primary); margin: 30px 0; }
-.network-text p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; }
-.network-text > * { opacity: 0; transform: translateY(30px); }
-.network-logo-container {
-    display: flex; justify-content: center; align-items: center;
-    opacity: 0; transform: translateY(30px); background: transparent; padding: 0;
-}
-.network-logo-container img { width: 100%; max-width: 450px; display: block; opacity: 0.9; mix-blend-mode: screen; }
 
 /* ========================================= */
 /* --- PREMIUM SERVICES SECTION (NEU) --- */
@@ -362,7 +332,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     justify-content: flex-end;
 }
 
-/* Vertikaler Titel, der verschwindet, wenn aktiv */
+/* Vertikaler Titel */
 .pillar-title-vertical {
     position: absolute;
     top: 50%;
@@ -377,7 +347,6 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     white-space: nowrap;
 }
 
-/* Die Details, die reinknallen */
 .pillar-details {
     opacity: 0;
     transform: translateY(40px);
@@ -406,7 +375,6 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     margin-bottom: 30px;
 }
 
-/* Der Button */
 .premium-pillar-btn {
     display: inline-flex;
     align-items: center;
@@ -429,7 +397,6 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .premium-pillar-btn:hover { background: var(--accent); border-color: var(--accent); box-shadow: 0 10px 20px rgba(220, 38, 38, 0.3); }
 .premium-pillar-btn:hover svg { transform: translateX(5px); }
 
-/* --- HOVER EFFEKTE (DESKTOP MAGIE) --- */
 @media (min-width: 1025px) {
     .service-pillar:hover { flex: 3; }
     .service-pillar:hover .pillar-bg { filter: grayscale(0%) brightness(0.6); transform: scale(1.05); }
@@ -437,82 +404,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     .service-pillar:hover .pillar-details { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
 }
 
-/* ========================================= */
-/* --- MOBILE TAP-ACCORDION (PREMIUM OVERVIEW) --- */
-/* ========================================= */
-@media (max-width: 1024px) {
-    .premium-services-wrapper { padding: 40px 0; }
-    .services-header-container { margin-bottom: 30px; }
-    
-    .immersive-accordion {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        height: auto;
-        min-height: auto;
-        padding: 0 16px;
-    }
 
-    .service-pillar {
-        height: 80px; /* Die schmale, geschlossene Ansicht */
-        width: 100%;
-        border-radius: 16px;
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.05);
-        transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
-        cursor: pointer;
-    }
-
-    .service-pillar.is-expanded {
-        height: 480px; /* Die geöffnete Ansicht */
-        border-color: rgba(220, 38, 38, 0.4);
-    }
-
-    .pillar-bg { filter: grayscale(80%) brightness(0.2); }
-    .service-pillar.is-expanded .pillar-bg { filter: grayscale(20%) brightness(0.4); transform: scale(1.05); }
-
-    /* Der Titel ist auf Mobile horizontal und immer zu sehen! */
-    .pillar-title-vertical {
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 30px;
-        transform: translateY(-50%) rotate(0deg); /* Nicht mehr gedreht! */
-        font-size: 1.5rem;
-        letter-spacing: 2px;
-        color: #fff;
-        -webkit-text-stroke: 0;
-        opacity: 1;
-        transition: opacity 0.3s ease;
-    }
-
-    /* Wenn geöffnet, verschwindet der kleine Titel */
-    .service-pillar.is-expanded .pillar-title-vertical { opacity: 0; }
-    
-    .pillar-content { 
-        padding: 30px 20px; 
-        pointer-events: none; /* Verhindert Klicks im geschlossenen Zustand */
-    }
-    .service-pillar.is-expanded .pillar-content { pointer-events: auto; }
-    
-    .pillar-details {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.4s ease;
-        max-width: 100%;
-    }
-
-    .service-pillar.is-expanded .pillar-details {
-        opacity: 1;
-        transform: translateY(0);
-        transition-delay: 0.2s; /* Kommt leicht verzögert rein */
-    }
-
-    .pillar-punchline { font-size: 2.2rem; }
-    .pillar-details p { font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
-    .premium-pillar-btn { width: 100%; justify-content: center; font-size: 0.85rem; padding: 15px 20px; }
-}
 /* VISUAL BREAK */
 .expand-gallery {
     height: 80vh; width: 100%; display: flex; overflow: hidden;
@@ -636,8 +528,6 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 /* RESPONSIVE */
 @media (max-width: 768px) {
     body { background-attachment: scroll; }
-    .service-card, .tab-btn { backdrop-filter: none; background: rgba(20, 20, 20, 0.95); }
-    .service-grid:hover .service-card:not(:hover) { opacity: 1; filter: none; transform: none; }
     html, body, a, button, input, select, textarea { cursor: auto !important; }
     .cursor, .cursor-ring { display: none !important; }
     .hero { height: 75vh; min-height: 500px; }
@@ -671,9 +561,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .section-title { font-size: 3rem; }
     .section-title::after { right: -10px; }
     .hero-sub { font-size: 1rem; letter-spacing: 3px; }
-    .tab-btn { padding: 10px 20px; font-size: 1.1rem; flex: 1 1 auto; text-align: center; }
-    .service-grid { grid-template-columns: 1fr; }
-    .service-card { padding: 30px; }
+    
     .red-thread { display: none; }
     .side-menu { width: 100%; padding: 100px 20px 40px; }
     .back-home-wrapper { top: 20px; right: 20px; }
@@ -684,6 +572,82 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 
     .expand-gallery { display: none !important; }
 }
+
+/* ========================================= */
+/* --- MOBILE TAP-ACCORDION (PREMIUM OVERVIEW) --- */
+/* ========================================= */
+@media (max-width: 1024px) {
+    .premium-services-wrapper { padding: 40px 0; }
+    .services-header-container { margin-bottom: 30px; }
+    
+    .immersive-accordion {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        height: auto;
+        min-height: auto;
+        padding: 0 16px;
+    }
+
+    .service-pillar {
+        height: 80px; /* Die schmale, geschlossene Ansicht */
+        width: 100%;
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
+        cursor: pointer;
+    }
+
+    .service-pillar.is-expanded {
+        height: 480px; /* Die geöffnete Ansicht */
+        border-color: rgba(220, 38, 38, 0.4);
+    }
+
+    .pillar-bg { filter: grayscale(80%) brightness(0.2); }
+    .service-pillar.is-expanded .pillar-bg { filter: grayscale(20%) brightness(0.4); transform: scale(1.05); }
+
+    .pillar-title-vertical {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        transform: translateY(-50%) rotate(0deg); 
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        color: #fff;
+        -webkit-text-stroke: 0;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .service-pillar.is-expanded .pillar-title-vertical { opacity: 0; }
+    
+    .pillar-content { 
+        padding: 30px 20px; 
+        pointer-events: none; 
+    }
+    .service-pillar.is-expanded .pillar-content { pointer-events: auto; }
+    
+    .pillar-details {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+        max-width: 100%;
+    }
+
+    .service-pillar.is-expanded .pillar-details {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.2s;
+    }
+
+    .pillar-punchline { font-size: 2.2rem; }
+    .pillar-details p { font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
+    .premium-pillar-btn { width: 100%; justify-content: center; font-size: 0.85rem; padding: 15px 20px; }
+}
+
 
 /* ========================================================= */
 /* --- KNOB SYSTEM (NUR AKTIV WENN KLASSE DA IST) --- */
@@ -853,7 +817,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .detail-desc { padding-right: 40px; }
     .detail-desc h2 { font-size: 3.5rem !important; line-height: 0.95 !important; }
     .detail-desc p { font-size: 1.15rem !important; padding-left: 30px !important; }
-    .hero-video { display: block !important; opacity: 0.8 !important; } /* Sicherstellen, dass das Video auf Desktop sichtbar ist */
+    .hero-video { display: block !important; opacity: 0.8 !important; } 
 }
 
 /* --- GLASS KINETIC BOX --- */
