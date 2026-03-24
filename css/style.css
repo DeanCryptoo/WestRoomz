@@ -540,11 +540,21 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
         border-color: var(--accent) !important; 
     }
 
-    /* HIER IST DIE ANGEPASSTE ÄNDERUNG FÜR DIE VOLLE FARBE UND HELLIGKEIT */
     .service-pillar.is-expanded .pillar-bg,
     .service-pillar.is-expanded .pillar-bg-video { 
         filter: grayscale(0%) brightness(0.8) !important; 
         transform: scale(1.05) !important; 
+    }
+
+    /* NEU HINZUGEFÜGT: VERSTECKT DEN PLAY-BUTTON AUF MOBILE */
+    .service-pillar video::-webkit-media-controls,
+    .service-pillar video::-webkit-media-controls-enclosure,
+    .service-pillar video::-webkit-media-controls-panel,
+    .service-pillar video::-webkit-media-controls-start-playback-button,
+    .service-pillar video::-webkit-media-controls-play-button {
+        display: none !important;
+        -webkit-appearance: none !important;
+        opacity: 0 !important;
     }
 
     .pillar-title-vertical { 
