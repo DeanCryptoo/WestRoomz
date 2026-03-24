@@ -438,44 +438,80 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 }
 
 /* ========================================= */
-/* --- MOBILE CINEMATIC SCROLL STACK --- */
+/* --- MOBILE TAP-ACCORDION (PREMIUM OVERVIEW) --- */
 /* ========================================= */
 @media (max-width: 1024px) {
-    .premium-services-wrapper { padding: 0; }
-    .services-header-container { padding-top: 50px; margin-bottom: 20px; }
+    .premium-services-wrapper { padding: 40px 0; }
+    .services-header-container { margin-bottom: 30px; }
     
     .immersive-accordion {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
         height: auto;
-        padding: 0;
-        gap: 0;
+        min-height: auto;
+        padding: 0 16px;
     }
 
     .service-pillar {
-        height: 100vh; /* Fullscreen Cards */
+        height: 80px; /* Die schmale, geschlossene Ansicht */
         width: 100%;
-        border-radius: 0;
-        position: sticky; /* HIER PASSIERT DIE STACK-MAGIE */
-        top: 0;
+        border-radius: 16px;
+        position: relative;
         overflow: hidden;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        will-change: transform, opacity, filter;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
+        cursor: pointer;
     }
 
-    .pillar-bg { filter: grayscale(30%) brightness(0.4); }
-    .pillar-title-vertical { display: none; /* Auf dem Handy weg damit */ }
+    .service-pillar.is-expanded {
+        height: 480px; /* Die geöffnete Ansicht */
+        border-color: rgba(220, 38, 38, 0.4);
+    }
+
+    .pillar-bg { filter: grayscale(80%) brightness(0.2); }
+    .service-pillar.is-expanded .pillar-bg { filter: grayscale(20%) brightness(0.4); transform: scale(1.05); }
+
+    /* Der Titel ist auf Mobile horizontal und immer zu sehen! */
+    .pillar-title-vertical {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        transform: translateY(-50%) rotate(0deg); /* Nicht mehr gedreht! */
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        color: #fff;
+        -webkit-text-stroke: 0;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Wenn geöffnet, verschwindet der kleine Titel */
+    .service-pillar.is-expanded .pillar-title-vertical { opacity: 0; }
     
-    .pillar-content { padding: 40px 20px 80px 20px; }
+    .pillar-content { 
+        padding: 30px 20px; 
+        pointer-events: none; /* Verhindert Klicks im geschlossenen Zustand */
+    }
+    .service-pillar.is-expanded .pillar-content { pointer-events: auto; }
     
     .pillar-details {
-        opacity: 1; /* Immer sichtbar auf Mobile */
-        transform: translateY(0);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
         max-width: 100%;
     }
 
-    .pillar-punchline { font-size: 2.8rem; }
-    .pillar-details p { font-size: 1rem; margin-bottom: 25px; }
-    .premium-pillar-btn { width: 100%; justify-content: center; }
+    .service-pillar.is-expanded .pillar-details {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.2s; /* Kommt leicht verzögert rein */
+    }
+
+    .pillar-punchline { font-size: 2.2rem; }
+    .pillar-details p { font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
+    .premium-pillar-btn { width: 100%; justify-content: center; font-size: 0.85rem; padding: 15px 20px; }
 }
 /* VISUAL BREAK */
 .expand-gallery {
