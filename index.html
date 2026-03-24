@@ -98,136 +98,6 @@
             .hero-video { display: block !important; opacity: 0.8 !important; }
         }
 
-        /* === PREMIUM VISION (INTEGRIERT MIT HINTERGRUND) === */
-        .premium-vision-integrated {
-            position: relative;
-            padding: 150px 24px;
-            text-align: center;
-            background-color: transparent !important;
-            border-top: none !important;
-            border-bottom: none !important;
-            z-index: 10;
-        }
-        
-        .premium-vision-integrated::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .vision-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .massive-metal-headline {
-            font-family: 'Oswald', sans-serif;
-            font-size: clamp(3.5rem, 8vw, 7rem);
-            font-weight: 600;
-            line-height: 1.05;
-            color: #ffffff;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 50%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 0 2px #fff;
-            position: relative;
-        }
-
-        .text-metal-red {
-            background: linear-gradient(to right, #ffffff, #dc2626);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-style: italic;
-            padding-right: 10px;
-            text-shadow: 0 0 15px rgba(220, 38, 38, 0.6), 0 0 2px #dc2626;
-        }
-
-        .vision-text-integrated {
-            max-width: 700px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin: 60px 0;
-            text-align: center;
-        }
-
-        .lead-text-integrated {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.25rem, 3vw, 1.75rem);
-            font-weight: 300;
-            color: #d4d4d4;
-            line-height: 1.5;
-            margin: 0;
-            letter-spacing: -0.5px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .lead-text-integrated .highlight-red {
-            color: #dc2626;
-            font-weight: 500;
-        }
-
-        .sub-text-integrated {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1rem, 1.5vw, 1.125rem);
-            font-weight: 400;
-            color: #a3a3a3;
-            line-height: 1.6;
-            margin: 0;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .vision-mantra-badges {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .mantra-badge {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            color: #ffffff;
-            background-color: rgba(220, 38, 38, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 10px 24px;
-            border-radius: 50px;
-            text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .mantra-badge:hover {
-            transform: translateY(-3px);
-            border-color: #dc2626;
-        }
-
-        .mantra-badge.highlight-red {
-            background-color: rgba(220, 38, 38, 0.15);
-            border-color: rgba(220, 38, 38, 0.4);
-            color: #dc2626;
-        }
-
-        @media (max-width: 768px) {
-            .premium-vision-integrated { padding: 100px 20px; }
-            .vision-text-integrated { margin: 40px 0; }
-            .vision-mantra-badges { flex-direction: column; gap: 10px; }
-        }
-
         /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
         @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
@@ -657,11 +527,21 @@
             gsap.registerPlugin(ScrollTrigger);
 
             if(document.querySelector(".premium-vision-integrated")) {
-                const visionTl = gsap.timeline({ scrollTrigger: { trigger: ".premium-vision-integrated", start: "top 80%", toggleActions: "play none none none" } });
-                visionTl.fromTo(".massive-metal-headline", { y: 40, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 1, ease: "expo.out" })
-                .fromTo(".lead-text-integrated", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.2")
-                .fromTo(".sub-text-integrated", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6")
-                .fromTo(".mantra-badge", { y: 30, opacity: 0, scale: 0.8 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.15, ease: "back.out(1.5)" }, "-=0.4");
+                const visionTl = gsap.timeline({ 
+                    scrollTrigger: { 
+                        trigger: ".premium-vision-integrated", 
+                        start: "top 75%", 
+                        toggleActions: "play none none none" 
+                    } 
+                });
+                
+                visionTl.fromTo(".vision-anchor-line", { scaleY: 0, transformOrigin: "top" }, { scaleY: 1, duration: 1, ease: "power3.inOut" })
+                .fromTo(".text-titanium", { y: 30, opacity: 0, rotationX: -20 }, { y: 0, opacity: 1, rotationX: 0, duration: 1.2, ease: "expo.out" }, "-=0.5")
+                .fromTo(".text-liquid-red", { y: 30, opacity: 0, rotationX: -20 }, { y: 0, opacity: 1, rotationX: 0, duration: 1.2, ease: "expo.out" }, "-=1.0")
+                .fromTo(".lead-text-integrated", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.6")
+                .fromTo(".sub-text-integrated", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.8")
+                .fromTo(".vision-mantra-glassbar", { y: 40, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "expo.out" }, "-=0.6")
+                .fromTo(".mantra-item", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.8, stagger: 0.15, ease: "power2.out" }, "-=0.8");
             }
 
             // === MOBILE ACCORDION LOGIC ===
