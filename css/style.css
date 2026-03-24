@@ -546,15 +546,20 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
         transform: scale(1.05) !important; 
     }
 
-    /* NEU HINZUGEFÜGT: VERSTECKT DEN PLAY-BUTTON AUF MOBILE */
-    .service-pillar video::-webkit-media-controls,
-    .service-pillar video::-webkit-media-controls-enclosure,
-    .service-pillar video::-webkit-media-controls-panel,
-    .service-pillar video::-webkit-media-controls-start-playback-button,
-    .service-pillar video::-webkit-media-controls-play-button {
+    /* NUKLEAR-OPTION: LÖSCHT DEN IOS PLAY-BUTTON UND GEISTER-VIDEOS AUF MOBILE */
+    .service-pillar video,
+    .pillar-bg-video video {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+    
+    .service-pillar *::-webkit-media-controls-panel,
+    .service-pillar *::-webkit-media-controls-play-button,
+    .service-pillar *::-webkit-media-controls-start-playback-button {
         display: none !important;
         -webkit-appearance: none !important;
-        opacity: 0 !important;
     }
 
     .pillar-title-vertical { 
