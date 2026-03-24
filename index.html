@@ -558,29 +558,33 @@ sondern auf ein neues Level bringen wollen.</p>
                 .fromTo(".vision-text p", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.1");
             }
 
-            // === NEU: GSAP LOGIK FÜR DEN MOBILE SCROLL STACK ===
+            // === MOBILE ACCORDION LOGIK ===
             let mm = gsap.matchMedia();
             mm.add("(max-width: 1024px)", () => {
-                const pillars = gsap.utils.toArray('.service-pillar');
+                const pillars = document.querySelectorAll('.service-pillar');
                 
-                pillars.forEach((pillar, i) => {
-                    // Die letzte Karte muss nicht mehr schrumpfen
-                    if (i === pillars.length - 1) return;
-                    
-                    gsap.to(pillar, {
-                        scale: 0.92,
-                        opacity: 0.4,
-                        filter: "blur(4px)",
-                        scrollTrigger: {
-                            trigger: pillars[i + 1], // Wenn die NÄCHSTE Karte reinscrollt...
-                            start: "top bottom",     // ...und den unteren Bildschirmrand berührt
-                            end: "top top",          // ...bis sie ganz oben anstößt
-                            scrub: true,             // Animation an Scroll-Position binden
-                        }
+                // Öffne standardmäßig das erste Element (optional, kannst du auch weglassen)
+                if(pillars.length > 0) pillars[0].classList.add('is-expanded');
+
+                pillars.forEach(pillar => {
+                    pillar.addEventListener('click', function(e) {
+                        // Wenn auf den Button geklickt wird, lass den Link funktionieren!
+                        if(e.target.closest('.premium-pillar-btn')) return;
+
+                        // Schließe alle anderen
+                        pillars.forEach(p => {
+                            if(p !== this) p.classList.remove('is-expanded');
+                        });
+                        
+                        // Toggle das aktuelle
+                        this.classList.toggle('is-expanded');
                     });
                 });
             });
-
+            // Desktopp-Logik: Falls jemand vom Handy auf Desktop resizet, Klassen resetten
+            mm.add("(min-width: 1025px)", () => {
+                document.querySelectorAll('.service-pillar').forEach(p => p.classList.remove('is-expanded'));
+            });
             // === CURSOR LOGIK (Liquid Trail) ===
             const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
             const canvas = document.getElementById("slice-cursor-canvas");
