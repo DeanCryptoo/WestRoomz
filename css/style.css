@@ -213,7 +213,20 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 10px var(--accent);
 }
 
-/* VISION SECTION & DER PERFEKTE ÜBERGANGS-FIX */
+/* ========================================================= */
+/* --- 50k PREMIUM VISION (INTEGRIERT MIT HINTERGRUND) --- */
+/* ========================================================= */
+.premium-vision-integrated {
+    position: relative;
+    padding: 160px 24px 180px 24px;
+    text-align: center;
+    background-color: transparent !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    z-index: 10;
+}
+
+/* Der perfekte Übergangs-Fix aus dem Video in die Vision-Section UND der sanftere Background-Fade */
 .premium-vision-integrated::before {
     content: ''; position: absolute; top: -2px; left: 0; width: 100%; height: 35vh; 
     background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
@@ -222,6 +235,155 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
     pointer-events: none; z-index: -1; 
 }
+
+.premium-vision-integrated::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.85) 100%);
+    z-index: -2;
+    pointer-events: none;
+}
+
+.vision-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vision-anchor-line {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.3));
+    margin-bottom: 40px;
+}
+
+.massive-metal-headline {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(3.8rem, 9vw, 8.5rem); 
+    font-weight: 500;
+    line-height: 0.95;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -3px;
+    position: relative;
+}
+
+.text-titanium {
+    background: linear-gradient(to bottom, #ffffff 0%, #999999 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+}
+
+.text-liquid-red {
+    background: linear-gradient(135deg, #ff4d4d 0%, #990000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    padding-right: 15px;
+    text-shadow: 0 10px 40px rgba(220, 38, 38, 0.3), 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.vision-text-integrated {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 60px 0;
+    text-align: center;
+}
+
+.lead-text-integrated {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.3rem, 3.5vw, 1.85rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.85); 
+    line-height: 1.4;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.lead-text-integrated .highlight-ruby {
+    color: #ff3333;
+    font-weight: 400;
+    text-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
+}
+
+.sub-text-integrated {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-weight: 400;
+    color: #888888;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.vision-mantra-glassbar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 16px 48px;
+    border-radius: 100px;
+    background: rgba(20, 20, 20, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+    margin-top: 10px;
+}
+
+.mantra-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #888888;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: color 0.3s ease;
+}
+
+.mantra-item.highlight-item {
+    color: #ffffff;
+}
+
+.mantra-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #555555;
+}
+
+.mantra-dot.dot-red {
+    background-color: #ff3333;
+    box-shadow: 0 0 12px 2px rgba(255, 51, 51, 0.8);
+}
+
+@media (max-width: 768px) {
+    .premium-vision-integrated { padding: 120px 20px 140px 20px; }
+    .vision-anchor-line { height: 50px; margin-bottom: 30px; }
+    .vision-text-integrated { margin: 40px 0; gap: 16px; }
+    
+    .vision-mantra-glassbar {
+        flex-direction: column;
+        gap: 20px;
+        padding: 30px 40px;
+        border-radius: 30px;
+        width: 100%;
+        max-width: 320px;
+    }
+    .mantra-item { width: 100%; justify-content: flex-start; font-size: 0.75rem; }
+}
+
 
 /* GALLERY SLIDER */
 .gallery-section { padding: 0; background: #080808; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
