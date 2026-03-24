@@ -285,46 +285,198 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 }
 .network-logo-container img { width: 100%; max-width: 450px; display: block; opacity: 0.9; mix-blend-mode: screen; }
 
-/* SERVICES */
-.tabs-nav { display: flex; justify-content: center; gap: 20px; margin-bottom: 60px; flex-wrap: wrap; }
-.tab-btn {
-    background: rgba(20, 20, 20, 0.5); border: 1px solid var(--border); color: var(--text-muted);
-    padding: 15px 40px; font-family: var(--font-head); font-size: 1.5rem; transition: 0.3s;
-    text-transform: uppercase; backdrop-filter: blur(5px);
+/* ========================================= */
+/* --- PREMIUM SERVICES SECTION (NEU) --- */
+/* ========================================= */
+.premium-services-wrapper {
+    padding: 100px 0;
+    position: relative;
+    z-index: 5;
+    background: transparent;
 }
-.tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); transform: skew(-10deg); box-shadow: 0 0 20px rgba(153, 0, 0, 0.4); }
-.tab-btn:hover { border-color: var(--accent); color: white; }
-.service-container { display: none; }
-.service-container.active { display: block; }
-.service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-.service-grid:hover .service-card:not(:hover) { opacity: 0.4; filter: blur(2px) grayscale(0.8); transform: scale(0.98); }
-.service-card {
-    background: var(--surface); padding: 40px; border: 1px solid var(--border); border-left: 3px solid transparent;
-    position: relative; overflow: hidden; will-change: transform, opacity; backdrop-filter: blur(10px);
-    transition: transform 0.3s, border-color 0.3s, background-color 0.3s, box-shadow 0.3s, opacity 0.3s, filter 0.3s;
-    cursor: pointer;
-}
-.service-card:hover {
-    border-color: rgba(255, 0, 0, 0.3); border-left-color: var(--accent);
-    transform: translateY(-5px); background: rgba(40, 40, 40, 0.8); box-shadow: 0 10px 40px rgba(150, 0, 0, 0.1);
-    opacity: 1; filter: none;
-}
-.service-card h3 { font-size: 2rem; margin-bottom: 30px; color: #fff; }
-.service-list { list-style: none; }
-.service-list li {
-    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-muted);
-    font-size: 1.1rem; display: flex; align-items: center; justify-content: space-between; overflow: hidden; 
-}
-.rolling-number { display: inline-block; position: relative; height: 1.2em; width: 1.5em; overflow: hidden; color: var(--primary); font-weight: bold; font-family: var(--font-head); text-align: right; }
-.rolling-number span { display: block; transition: transform 0.4s cubic-bezier(0.5, 0, 0, 1); }
-.service-list li:hover .rolling-number span { transform: translateY(-100%); color: white; }
-.rolling-number span:nth-child(2) { position: absolute; top: 100%; left: 0; width: 100%; color: var(--accent); }
-.book-btn {
-    margin-top: 30px; display: inline-block; padding: 12px 30px; background: transparent; border: 1px solid rgba(255,255,255,0.3);
-    color: white; text-decoration: none; font-family: var(--font-head); letter-spacing: 1px; transition: 0.3s;
-}
-.book-btn:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); }
 
+.services-header-container {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 10;
+}
+
+/* DESKTOP HOVER ACCORDION */
+.immersive-accordion {
+    display: flex;
+    height: 75vh;
+    min-height: 600px;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    gap: 4px;
+    padding: 0 10px;
+    background: transparent;
+}
+
+.service-pillar {
+    flex: 1;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+    background: #000;
+}
+
+.pillar-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) brightness(0.3);
+    transition: filter 0.7s ease, transform 1s ease;
+    z-index: 0;
+}
+
+.pillar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+}
+
+.pillar-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* Vertikaler Titel, der verschwindet, wenn aktiv */
+.pillar-title-vertical {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    font-family: var(--font-head);
+    font-size: 3rem;
+    color: rgba(255,255,255,0.2);
+    -webkit-text-stroke: 1px rgba(255,255,255,0.4);
+    letter-spacing: 4px;
+    transition: all 0.5s ease;
+    white-space: nowrap;
+}
+
+/* Die Details, die reinknallen */
+.pillar-details {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transition-delay: 0s;
+    max-width: 600px;
+}
+
+.pillar-punchline {
+    font-family: var(--font-head);
+    font-size: 3.5rem;
+    line-height: 1;
+    color: white;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.pillar-punchline .highlight-red { color: var(--accent); }
+
+.pillar-details p {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Der Button */
+.premium-pillar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    color: white;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding: 15px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.premium-pillar-btn svg { width: 18px; height: 18px; transition: transform 0.3s ease; }
+.premium-pillar-btn:hover { background: var(--accent); border-color: var(--accent); box-shadow: 0 10px 20px rgba(220, 38, 38, 0.3); }
+.premium-pillar-btn:hover svg { transform: translateX(5px); }
+
+/* --- HOVER EFFEKTE (DESKTOP MAGIE) --- */
+@media (min-width: 1025px) {
+    .service-pillar:hover { flex: 3; }
+    .service-pillar:hover .pillar-bg { filter: grayscale(0%) brightness(0.6); transform: scale(1.05); }
+    .service-pillar:hover .pillar-title-vertical { opacity: 0; transform: translate(-50%, -50%) rotate(-90deg) scale(0.8); }
+    .service-pillar:hover .pillar-details { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+}
+
+/* ========================================= */
+/* --- MOBILE CINEMATIC SCROLL STACK --- */
+/* ========================================= */
+@media (max-width: 1024px) {
+    .premium-services-wrapper { padding: 0; }
+    .services-header-container { padding-top: 50px; margin-bottom: 20px; }
+    
+    .immersive-accordion {
+        display: block;
+        height: auto;
+        padding: 0;
+        gap: 0;
+    }
+
+    .service-pillar {
+        height: 100vh; /* Fullscreen Cards */
+        width: 100%;
+        border-radius: 0;
+        position: sticky; /* HIER PASSIERT DIE STACK-MAGIE */
+        top: 0;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        will-change: transform, opacity, filter;
+    }
+
+    .pillar-bg { filter: grayscale(30%) brightness(0.4); }
+    .pillar-title-vertical { display: none; /* Auf dem Handy weg damit */ }
+    
+    .pillar-content { padding: 40px 20px 80px 20px; }
+    
+    .pillar-details {
+        opacity: 1; /* Immer sichtbar auf Mobile */
+        transform: translateY(0);
+        max-width: 100%;
+    }
+
+    .pillar-punchline { font-size: 2.8rem; }
+    .pillar-details p { font-size: 1rem; margin-bottom: 25px; }
+    .premium-pillar-btn { width: 100%; justify-content: center; }
+}
 /* VISUAL BREAK */
 .expand-gallery {
     height: 80vh; width: 100%; display: flex; overflow: hidden;
