@@ -19,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
+        /* Deine bisherigen internen Styles bleiben unberührt */
         button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
         input, select, textarea { border-radius: 12px !important; }
         .gallery-item img { border-radius: 12px !important; }
@@ -53,68 +54,23 @@
 
         /* === PREMIUM LANGUAGE SWITCHER === */
         .lang-switcher {
-            position: fixed;
-            top: 40px;
-            right: 40px;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 8px 16px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
+            position: fixed; top: 40px; right: 40px; z-index: 999; display: flex; align-items: center; gap: 12px;
+            background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px; font-family: 'Inter', sans-serif;
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease;
         }
-        .lang-switcher:hover {
-            background: rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        .lang-switcher a {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #a3a3a3;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .lang-switcher a.active {
-            color: #ffffff;
-        }
-        .lang-switcher a:not(.active):hover {
-            color: #dc2626;
-        }
-        .lang-switcher .divider {
-            color: rgba(255, 255, 255, 0.15);
-            font-weight: 300;
-            margin: 0 2px;
-        }
-        .lang-flag {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: block;
-        }
-        @media (max-width: 768px) {
-            .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; }
-            .lang-flag { width: 14px; height: 14px; }
-        }
+        .lang-switcher:hover { background: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+        .lang-switcher a { display: flex; align-items: center; gap: 8px; color: #a3a3a3; text-decoration: none; transition: all 0.3s ease; }
+        .lang-switcher a.active { color: #ffffff; }
+        .lang-switcher a:not(.active):hover { color: #dc2626; }
+        .lang-switcher .divider { color: rgba(255, 255, 255, 0.15); font-weight: 300; margin: 0 2px; }
+        .lang-flag { width: 16px; height: 16px; border-radius: 50%; display: block; }
+        @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
 
         /* === HERO TOGGLE & ANDERE STYLES === */
-        .site-toggle-container {
-            display: flex; justify-content: center; align-items: center; gap: 20px;
-            font-family: 'Oswald', sans-serif; color: #fff; pointer-events: auto; margin-bottom: 30px;
-        }
+        .site-toggle-container { display: flex; justify-content: center; align-items: center; gap: 20px; font-family: 'Oswald', sans-serif; color: #fff; pointer-events: auto; margin-bottom: 30px; }
         .toggle-label { font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; color: #aaaaaa; transition: color 0.3s, text-shadow 0.3s; }
-        .site-toggle-container.is-creators .label-creators,
-        .site-toggle-container.is-business .label-business { color: #ff0000; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+        .site-toggle-container.is-creators .label-creators, .site-toggle-container.is-business .label-business { color: #ff0000; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
 
         .ios-switch { position: relative; display: inline-block; width: 80px; height: 44px; cursor: pointer; }
         .ios-switch input { opacity: 0; width: 0; height: 0; }
@@ -125,18 +81,8 @@
         .slider.round { border-radius: 50px; }
         .slider.round:before { border-radius: 50%; }
 
-        @media (max-width: 768px) {
-            .site-toggle-container { gap: 12px; margin-bottom: 20px; }
-            .toggle-label { font-size: 1.1rem; }
-            .ios-switch { width: 60px; height: 34px; }
-            .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; }
-            input:checked + .slider:before { transform: translateX(26px); }
-        }
-
-        @media (min-width: 769px) {
-            .hero .video-container { background-image: none !important; background-color: transparent !important; }
-            .hero-video { display: block !important; opacity: 0.8 !important; }
-        }
+        @media (max-width: 768px) { .site-toggle-container { gap: 12px; margin-bottom: 20px; } .toggle-label { font-size: 1.1rem; } .ios-switch { width: 60px; height: 34px; } .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; } input:checked + .slider:before { transform: translateX(26px); } }
+        @media (min-width: 769px) { .hero .video-container { background-image: none !important; background-color: transparent !important; } .hero-video { display: block !important; opacity: 0.8 !important; } }
 
         /* === VISION Sektion === */
         .vision-section { text-align: center; }
@@ -336,75 +282,77 @@ sondern auf ein neues Level bringen wollen.</p>
             </div>
         </section>
 
-        <section id="services" class="services-section">
-            <div style="text-align: center; margin-bottom: 50px;">
+        <section id="services" class="premium-services-wrapper">
+            <div class="services-header-container">
                 <h2 class="section-title">WAS WIR TUN</h2>
             </div>
             
-            <div class="tabs-nav">
-                <button class="tab-btn active interactive" onclick="openTab('audio')">AUDIO</button>
-                <button class="tab-btn interactive" onclick="openTab('video')">VIDEO</button>
-                <button class="tab-btn interactive" onclick="openTab('event')">EVENTS</button>
-                <button class="tab-btn interactive" onclick="openTab('marketing')">MARKETING</button>
+            <div class="immersive-accordion">
+                <article class="service-pillar interactive" style="--bg-image: url('wr5.jpg');" onclick="window.location.href='audio.html'">
+                    <div class="pillar-bg"></div>
+                    <div class="pillar-overlay"></div>
+                    <div class="pillar-content">
+                        <div class="pillar-title-vertical">AUDIO</div>
+                        <div class="pillar-details">
+                            <h3 class="pillar-punchline">DEIN SOUND.<br><span class="highlight-red">DEINE WAFFE.</span></h3>
+                            <p>Ein starker Sound entscheidet, ob du ignoriert oder gefeiert wirst. Wir liefern Druck, Klarheit und Aufnahmen, die sich in den Kopf brennen.</p>
+                            <a href="audio.html" class="premium-pillar-btn transition-link">
+                                PORTFOLIO ENTDECKEN 
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="service-pillar interactive" style="--bg-image: url('grillzreal.png');" onclick="window.location.href='video.html'">
+                    <div class="pillar-bg"></div>
+                    <div class="pillar-overlay"></div>
+                    <div class="pillar-content">
+                        <div class="pillar-title-vertical">VIDEO</div>
+                        <div class="pillar-details">
+                            <h3 class="pillar-punchline">DEIN LOOK<br><span class="highlight-red">ENTSCHEIDET.</span></h3>
+                            <p>Man hat nur Sekundenbruchteile. Wir produzieren Videos und Content, die Aufmerksamkeit ziehen, festhalten und nicht mehr loslassen.</p>
+                            <a href="video.html" class="premium-pillar-btn transition-link">
+                                SHOWREEL ANSEHEN
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="service-pillar interactive" style="--bg-image: url('1.jpeg');" onclick="window.location.href='2events.html'">
+                    <div class="pillar-bg"></div>
+                    <div class="pillar-overlay"></div>
+                    <div class="pillar-content">
+                        <div class="pillar-title-vertical">EVENTS</div>
+                        <div class="pillar-details">
+                            <h3 class="pillar-punchline">KONTROLLE<br><span class="highlight-red">STATT CHAOS.</span></h3>
+                            <p>Dein Event ist nur so gut wie seine Umsetzung. Wir liefern den Sound, das Licht und die Struktur, damit alles exakt so läuft, wie geplant.</p>
+                            <a href="2events.html" class="premium-pillar-btn transition-link">
+                                CASE STUDYS ÖFFNEN
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="service-pillar interactive" style="--bg-image: url('8.jpeg');" onclick="window.location.href='marketing.html'">
+                    <div class="pillar-bg"></div>
+                    <div class="pillar-overlay"></div>
+                    <div class="pillar-content">
+                        <div class="pillar-title-vertical">MARKETING</div>
+                        <div class="pillar-details">
+                            <h3 class="pillar-punchline">SICHTBARKEIT<br><span class="highlight-red">IST KEIN ZUFALL.</span></h3>
+                            <p>Guter Content bringt nichts, wenn ihn niemand sieht. Wir verbinden Kreation mit gnadenloser Strategie, damit du nicht nur gesehen wirst, sondern dominierst.</p>
+                            <a href="marketing.html" class="premium-pillar-btn transition-link">
+                                ZUR STRATEGIE
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
             </div>
-            
-            <div id="audio" class="service-container active">
-                <div class="vision-text-static" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                    <p style="margin-bottom: 30px; color: #a3a3a3;">
-                        Audio ist die Grundlage von allem.
-Ein starker Sound entscheidet,
-wie du wahrgenommen wirst.
-Wir sorgen dafür, dass deine Aufnahmen nicht nur sauber klingen,
-sondern Druck haben, klar wirken und im Kopf bleiben.
-                    </p>
-                    <a href="audio.html" class="book-btn interactive transition-link">DETAILS</a>
-                </div>
-            </div>
-
-            <div id="video" class="service-container">
-                <div class="vision-text-static" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                    <p style="margin-bottom: 30px; color: #a3a3a3;">
-                       Dein Look entscheidet,
-ob man stehen bleibt.
-Wir produzieren Videos und Content,
-die Aufmerksamkeit ziehen
-und im Kopf bleiben.
-                    </p>
-                    <a href="video.html" class="book-btn interactive transition-link">DETAILS</a>
-                </div>
-             </div>
-
-             <div id="event" class="service-container">
-                <div class="vision-text-static" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                    <p style="margin-bottom: 30px; color: #a3a3a3;">
-Dein Event ist nur so gut wie seine Umsetzung.
-Wir liefern den Sound, die Struktur und die Kontrolle,
-damit alles genau so läuft, wie es soll.
-Kein Chaos. Keine Unsicherheit.
-Sondern ein Event, das funktioniert –
-und Eindruck hinterlässt.
-                    </p>
-                    <a href="2events.html" class="book-btn interactive transition-link">DETAILS</a>
-                </div>
-             </div>
-
-             <div id="marketing" class="service-container">
-                <div class="vision-text-static" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                    <p style="margin-bottom: 30px; color: #a3a3a3;">
-                        Sichtbarkeit ist kein Zufall.
-Wir verbinden Content mit Strategie,
-damit du nicht nur gesehen wirst –
-sondern wächst.
-Wir verbinden Content mit Strategie,
-damit du nicht nur gesehen wirst –
-sondern wächst.
-                    </p>
-                    <a href="marketing.html" class="book-btn interactive transition-link">DETAILS</a>
-                </div>
-            </div>
-
         </section>
-
         <div id="references" class="laser-border-wrapper">
             <div class="laser-border-inner">
                 <section class="ref-section">
@@ -572,7 +520,6 @@ sondern wächst.
                 });
             });
 
-            // === SAFARI BACK-BUTTON FIX ===
             window.addEventListener('pageshow', function(event) {
                 if (event.persisted && curtain && typeof gsap !== 'undefined') {
                     gsap.set(curtain, { scaleY: 0 }); 
@@ -596,7 +543,6 @@ sondern wächst.
 
             gsap.registerPlugin(ScrollTrigger);
 
-            // === REPARIERTE BULLETPROOF VISION ANIMATION (STRIKTE TIMELINE) ===
             if(document.querySelector(".vision-section")) {
                 const visionTl = gsap.timeline({
                     scrollTrigger: {
@@ -606,12 +552,34 @@ sondern wächst.
                     }
                 });
 
-                // Erst Headline, dann Linie, dann Punkt, dann Texte
                 visionTl.fromTo(".big-lead", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
                 .fromTo(".v-line", { scaleY: 0 }, { scaleY: 1, transformOrigin: "top", duration: 0.6, ease: "power2.out" }, "-=0.2")
                 .fromTo(".v-dot", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" })
                 .fromTo(".vision-text p", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.1");
             }
+
+            // === NEU: GSAP LOGIK FÜR DEN MOBILE SCROLL STACK ===
+            let mm = gsap.matchMedia();
+            mm.add("(max-width: 1024px)", () => {
+                const pillars = gsap.utils.toArray('.service-pillar');
+                
+                pillars.forEach((pillar, i) => {
+                    // Die letzte Karte muss nicht mehr schrumpfen
+                    if (i === pillars.length - 1) return;
+                    
+                    gsap.to(pillar, {
+                        scale: 0.92,
+                        opacity: 0.4,
+                        filter: "blur(4px)",
+                        scrollTrigger: {
+                            trigger: pillars[i + 1], // Wenn die NÄCHSTE Karte reinscrollt...
+                            start: "top bottom",     // ...und den unteren Bildschirmrand berührt
+                            end: "top top",          // ...bis sie ganz oben anstößt
+                            scrub: true,             // Animation an Scroll-Position binden
+                        }
+                    });
+                });
+            });
 
             // === CURSOR LOGIK (Liquid Trail) ===
             const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
