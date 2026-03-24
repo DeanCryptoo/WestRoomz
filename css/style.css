@@ -178,7 +178,7 @@ body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--acce
 
 .hero-video { 
     width: 100%; height: 100%; object-fit: cover; 
-    pointer-events: none; display: none;
+    pointer-events: none; display: none; 
 }
 
 .hero-video::-webkit-media-controls,
@@ -213,7 +213,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     width: 10px; height: 10px; background: var(--accent); box-shadow: 0 0 10px var(--accent);
 }
 
-/* VISION SECTION */
+/* VISION SECTION & DER PERFEKTE ÜBERGANGS-FIX */
 .vision-section { 
     display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; 
     padding: 150px 10%; position: relative;
@@ -253,6 +253,19 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     -webkit-user-drag: none; user-drag: none; pointer-events: none; will-change: transform;
 }
 .gallery-item:hover img { transform: scale(1.05); }
+
+/* NETWORK */
+.network-section {
+    background: transparent; border: none; display: grid; grid-template-columns: 1fr 0.8fr; gap: 40px; align-items: center;
+    padding: 150px 5%; max-width: 1100px; margin: 0 auto;
+}
+.network-text { text-align: left; }
+.network-text h3 { font-family: var(--font-head); font-size: 2rem; margin-bottom: 20px; color: white; margin-top: 30px; }
+.mini-divider { width: 40px; height: 2px; background: var(--primary); margin: 30px 0; }
+.network-text p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; }
+.network-text > * { opacity: 0; transform: translateY(30px); }
+.network-logo-container { display: flex; justify-content: center; align-items: center; opacity: 0; transform: translateY(30px); background: transparent; padding: 0; }
+.network-logo-container img { width: 100%; max-width: 450px; display: block; opacity: 0.9; mix-blend-mode: screen; }
 
 
 /* ========================================= */
@@ -332,7 +345,6 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     justify-content: flex-end;
 }
 
-/* Vertikaler Titel */
 .pillar-title-vertical {
     position: absolute;
     top: 50%;
@@ -403,6 +415,97 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     .service-pillar:hover .pillar-title-vertical { opacity: 0; transform: translate(-50%, -50%) rotate(-90deg) scale(0.8); }
     .service-pillar:hover .pillar-details { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
 }
+
+/* ========================================= */
+/* --- BOMBENSICHERES MOBILE TAP-ACCORDION --- */
+/* ========================================= */
+@media (max-width: 1024px) {
+    .premium-services-wrapper { 
+        padding: 40px 0 !important; 
+    }
+    
+    .immersive-accordion { 
+        display: flex !important; 
+        flex-direction: column !important; 
+        height: auto !important; 
+        min-height: auto !important;
+        gap: 15px !important; 
+        padding: 0 5% !important; 
+    }
+
+    .service-pillar { 
+        flex: none !important;
+        width: 100% !important;
+        height: 85px !important; 
+        min-height: 85px !important; 
+        border-radius: 16px !important;
+        border: 1px solid rgba(255,255,255,0.2) !important; 
+        transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s !important; 
+        cursor: pointer !important;
+    }
+
+    .service-pillar.is-expanded { 
+        height: 480px !important; 
+        min-height: 480px !important;
+        border-color: var(--accent) !important; 
+    }
+
+    .service-pillar.is-expanded .pillar-bg { 
+        filter: grayscale(20%) brightness(0.4) !important; 
+        transform: scale(1.05) !important; 
+    }
+
+    .pillar-title-vertical { 
+        display: block !important;
+        position: absolute !important;
+        top: 50% !important; 
+        left: 30px !important; 
+        transform: translateY(-50%) rotate(0deg) !important; 
+        font-size: 1.5rem !important; 
+        letter-spacing: 2px !important;
+        color: #fff !important; 
+        -webkit-text-stroke: 0 !important; 
+        opacity: 1 !important; 
+        transition: opacity 0.3s ease !important;
+    }
+
+    .service-pillar.is-expanded .pillar-title-vertical { 
+        opacity: 0 !important; 
+    }
+    
+    .pillar-content { 
+        padding: 30px 20px !important; 
+        pointer-events: none !important; 
+    }
+    .service-pillar.is-expanded .pillar-content { 
+        pointer-events: auto !important; 
+    }
+    
+    .pillar-details { 
+        opacity: 0 !important; 
+        transform: translateY(20px) !important; 
+        transition: all 0.4s ease !important; 
+    }
+
+    .service-pillar.is-expanded .pillar-details { 
+        opacity: 1 !important; 
+        transform: translateY(0) !important; 
+        transition-delay: 0.2s !important; 
+    }
+
+    .pillar-punchline { font-size: 2.2rem !important; }
+    .pillar-details p { font-size: 0.95rem !important; margin-bottom: 25px !important; line-height: 1.5 !important; }
+    
+    .premium-pillar-btn { 
+        width: 100% !important; 
+        justify-content: center !important; 
+        font-size: 0.85rem !important; 
+        padding: 15px 20px !important; 
+    }
+}
+/* ========================================= */
+/* --- ENDE SERVICES SECTION --- */
+/* ========================================= */
 
 
 /* VISUAL BREAK */
@@ -517,13 +620,6 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 .detail-hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
 .detail-hero h1 { position: relative; z-index: 2; font-family: var(--font-head); font-size: 4rem; text-transform: uppercase; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
 .detail-content { padding: 100px 10%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; background: #050505; }
-.detail-desc h2 { font-family: var(--font-head); font-size: 2rem; margin-bottom: 30px; color: var(--accent); }
-.detail-desc p { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 20px; }
-.detail-list-wrapper { background: var(--surface); padding: 40px; border: 1px solid var(--border); }
-.detail-list-wrapper h3 { font-family: var(--font-head); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-.detail-list { list-style: none; }
-.detail-list li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: white; font-size: 1.1rem; display: flex; justify-content: space-between; }
-.detail-list span { color: var(--accent); font-family: var(--font-head); }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
@@ -556,12 +652,11 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .modal-grid { grid-template-columns: 1fr; gap: 30px; }
     .modal-img { width: 100%; height: auto; min-height: 250px; aspect-ratio: 3/2; }
     .modal-title { font-size: 1.5rem; }
-    .services-section, .contact-section { padding: 50px 5%; }
+    .contact-section { padding: 50px 5%; }
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     .section-title { font-size: 3rem; }
     .section-title::after { right: -10px; }
     .hero-sub { font-size: 1rem; letter-spacing: 3px; }
-    
     .red-thread { display: none; }
     .side-menu { width: 100%; padding: 100px 20px 40px; }
     .back-home-wrapper { top: 20px; right: 20px; }
@@ -573,98 +668,6 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .expand-gallery { display: none !important; }
 }
 
-/* ========================================= */
-/* --- BOMBENSICHERES MOBILE TAP-ACCORDION --- */
-/* ========================================= */
-@media (max-width: 1024px) {
-    .premium-services-wrapper { 
-        padding: 40px 0 !important; 
-    }
-    
-    .immersive-accordion { 
-        display: flex !important; 
-        flex-direction: column !important; 
-        height: auto !important; 
-        min-height: auto !important;
-        gap: 15px !important; 
-        padding: 0 5% !important; 
-    }
-
-    .service-pillar { 
-        flex: none !important;
-        width: 100% !important;
-        height: 85px !important; /* Zwingt die Box, 85px hoch zu sein */
-        min-height: 85px !important; 
-        border-radius: 16px !important;
-        border: 1px solid rgba(255,255,255,0.2) !important; 
-        transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s !important; 
-        cursor: pointer !important;
-    }
-
-    /* Das passiert, wenn man drauf tippt (JavaScript setzt diese Klasse) */
-    .service-pillar.is-expanded { 
-        height: 480px !important; 
-        min-height: 480px !important;
-        border-color: var(--accent) !important; 
-    }
-
-    .service-pillar.is-expanded .pillar-bg { 
-        filter: grayscale(20%) brightness(0.4) !important; 
-        transform: scale(1.05) !important; 
-    }
-
-    /* Der Titel "AUDIO", "VIDEO" etc. im geschlossenen Zustand */
-    .pillar-title-vertical { 
-        display: block !important;
-        position: absolute !important;
-        top: 50% !important; 
-        left: 30px !important; 
-        transform: translateY(-50%) rotate(0deg) !important; /* Wieder waagerecht! */
-        font-size: 1.5rem !important; 
-        letter-spacing: 2px !important;
-        color: #fff !important; 
-        -webkit-text-stroke: 0 !important; 
-        opacity: 1 !important; 
-        transition: opacity 0.3s ease !important;
-    }
-
-    /* Titel ausblenden, wenn die Box offen ist */
-    .service-pillar.is-expanded .pillar-title-vertical { 
-        opacity: 0 !important; 
-    }
-    
-    .pillar-content { 
-        padding: 30px 20px !important; 
-        pointer-events: none !important; 
-    }
-    .service-pillar.is-expanded .pillar-content { 
-        pointer-events: auto !important; 
-    }
-    
-    /* Die Details (Text und Button) im geschlossenen Zustand verstecken */
-    .pillar-details { 
-        opacity: 0 !important; 
-        transform: translateY(20px) !important; 
-        transition: all 0.4s ease !important; 
-    }
-
-    /* Die Details einblenden, wenn offen */
-    .service-pillar.is-expanded .pillar-details { 
-        opacity: 1 !important; 
-        transform: translateY(0) !important; 
-        transition-delay: 0.2s !important; 
-    }
-
-    .pillar-punchline { font-size: 2.2rem !important; }
-    .pillar-details p { font-size: 0.95rem !important; margin-bottom: 25px !important; line-height: 1.5 !important; }
-    
-    .premium-pillar-btn { 
-        width: 100% !important; 
-        justify-content: center !important; 
-        font-size: 0.85rem !important; 
-        padding: 15px 20px !important; 
-    }
-}
 /* ========================================================= */
 /* --- KNOB SYSTEM (NUR AKTIV WENN KLASSE DA IST) --- */
 /* ========================================================= */
