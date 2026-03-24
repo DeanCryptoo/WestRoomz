@@ -19,7 +19,6 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* Deine bisherigen internen Styles bleiben unberührt */
         button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
         input, select, textarea { border-radius: 12px !important; }
         .gallery-item img { border-radius: 12px !important; }
@@ -56,8 +55,9 @@
         .lang-switcher {
             position: fixed; top: 40px; right: 40px; z-index: 999; display: flex; align-items: center; gap: 12px;
             background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px; font-family: 'Inter', sans-serif;
-            font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px;
+            font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease;
         }
         .lang-switcher:hover { background: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
         .lang-switcher a { display: flex; align-items: center; gap: 8px; color: #a3a3a3; text-decoration: none; transition: all 0.3s ease; }
@@ -68,9 +68,13 @@
         @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
 
         /* === HERO TOGGLE & ANDERE STYLES === */
-        .site-toggle-container { display: flex; justify-content: center; align-items: center; gap: 20px; font-family: 'Oswald', sans-serif; color: #fff; pointer-events: auto; margin-bottom: 30px; }
+        .site-toggle-container {
+            display: flex; justify-content: center; align-items: center; gap: 20px;
+            font-family: 'Oswald', sans-serif; color: #fff; pointer-events: auto; margin-bottom: 30px;
+        }
         .toggle-label { font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; color: #aaaaaa; transition: color 0.3s, text-shadow 0.3s; }
-        .site-toggle-container.is-creators .label-creators, .site-toggle-container.is-business .label-business { color: #ff0000; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+        .site-toggle-container.is-creators .label-creators,
+        .site-toggle-container.is-business .label-business { color: #ff0000; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
 
         .ios-switch { position: relative; display: inline-block; width: 80px; height: 44px; cursor: pointer; }
         .ios-switch input { opacity: 0; width: 0; height: 0; }
@@ -81,8 +85,18 @@
         .slider.round { border-radius: 50px; }
         .slider.round:before { border-radius: 50%; }
 
-        @media (max-width: 768px) { .site-toggle-container { gap: 12px; margin-bottom: 20px; } .toggle-label { font-size: 1.1rem; } .ios-switch { width: 60px; height: 34px; } .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; } input:checked + .slider:before { transform: translateX(26px); } }
-        @media (min-width: 769px) { .hero .video-container { background-image: none !important; background-color: transparent !important; } .hero-video { display: block !important; opacity: 0.8 !important; } }
+        @media (max-width: 768px) {
+            .site-toggle-container { gap: 12px; margin-bottom: 20px; }
+            .toggle-label { font-size: 1.1rem; }
+            .ios-switch { width: 60px; height: 34px; }
+            .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; }
+            input:checked + .slider:before { transform: translateX(26px); }
+        }
+
+        @media (min-width: 769px) {
+            .hero .video-container { background-image: none !important; background-color: transparent !important; }
+            .hero-video { display: block !important; opacity: 0.8 !important; }
+        }
 
         /* === VISION Sektion === */
         .vision-section { text-align: center; }
@@ -288,70 +302,70 @@ sondern auf ein neues Level bringen wollen.</p>
             </div>
             
             <div class="immersive-accordion">
-    <article class="service-pillar interactive" style="--bg-image: url('wr5.jpg');">
-        <div class="pillar-bg"></div>
-        <div class="pillar-overlay"></div>
-        <div class="pillar-content">
-            <div class="pillar-title-vertical">AUDIO</div>
-            <div class="pillar-details">
-                <h3 class="pillar-punchline">DEIN SOUND.<br><span class="highlight-red">DEINE WAFFE.</span></h3>
-                <p>Ein starker Sound entscheidet, ob du ignoriert oder gefeiert wirst. Wir liefern Druck, Klarheit und Aufnahmen, die sich in den Kopf brennen.</p>
-                <a href="audio.html" class="premium-pillar-btn transition-link">
-                    PORTFOLIO ENTDECKEN 
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-        </div>
-    </article>
+                <article class="service-pillar interactive" style="--bg-image: url('wr5.jpg');">
+                    <div class="pillar-bg"></div>
+                    <div class="pillar-overlay"></div>
+                    <div class="pillar-content">
+                        <div class="pillar-title-vertical">AUDIO</div>
+                        <div class="pillar-details">
+                            <h3 class="pillar-punchline">DEIN SOUND.<br><span class="highlight-red">DEINE WAFFE.</span></h3>
+                            <p>Ein starker Sound entscheidet, ob du ignoriert oder gefeiert wirst. Wir liefern Druck, Klarheit und Aufnahmen, die sich in den Kopf brennen.</p>
+                            <a href="audio.html" class="premium-pillar-btn transition-link">
+                                PORTFOLIO ENTDECKEN 
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
 
-    <article class="service-pillar interactive" style="--bg-image: url('grillzreal.png');">
-        <div class="pillar-bg"></div>
-        <div class="pillar-overlay"></div>
-        <div class="pillar-content">
-            <div class="pillar-title-vertical">VIDEO</div>
-            <div class="pillar-details">
-                <h3 class="pillar-punchline">DEIN LOOK<br><span class="highlight-red">ENTSCHEIDET.</span></h3>
-                <p>Man hat nur Sekundenbruchteile. Wir produzieren Videos und Content, die Aufmerksamkeit ziehen, festhalten und nicht mehr loslassen.</p>
-                <a href="video.html" class="premium-pillar-btn transition-link">
-                    SHOWREEL ANSEHEN
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-        </div>
-    </article>
+                <article class="service-pillar interactive" style="--bg-image: url('grillzreal.png');">
+                    <div class="pillar-bg"></div>
+                    <div class="pillar-overlay"></div>
+                    <div class="pillar-content">
+                        <div class="pillar-title-vertical">VIDEO</div>
+                        <div class="pillar-details">
+                            <h3 class="pillar-punchline">DEIN LOOK<br><span class="highlight-red">ENTSCHEIDET.</span></h3>
+                            <p>Man hat nur Sekundenbruchteile. Wir produzieren Videos und Content, die Aufmerksamkeit ziehen, festhalten und nicht mehr loslassen.</p>
+                            <a href="video.html" class="premium-pillar-btn transition-link">
+                                SHOWREEL ANSEHEN
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
 
-    <article class="service-pillar interactive" style="--bg-image: url('1.jpeg');">
-        <div class="pillar-bg"></div>
-        <div class="pillar-overlay"></div>
-        <div class="pillar-content">
-            <div class="pillar-title-vertical">EVENTS</div>
-            <div class="pillar-details">
-                <h3 class="pillar-punchline">KONTROLLE<br><span class="highlight-red">STATT CHAOS.</span></h3>
-                <p>Dein Event ist nur so gut wie seine Umsetzung. Wir liefern den Sound, das Licht und die Struktur, damit alles exakt so läuft, wie geplant.</p>
-                <a href="2events.html" class="premium-pillar-btn transition-link">
-                    CASE STUDYS ÖFFNEN
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-        </div>
-    </article>
+                <article class="service-pillar interactive" style="--bg-image: url('1.jpeg');">
+                    <div class="pillar-bg"></div>
+                    <div class="pillar-overlay"></div>
+                    <div class="pillar-content">
+                        <div class="pillar-title-vertical">EVENTS</div>
+                        <div class="pillar-details">
+                            <h3 class="pillar-punchline">KONTROLLE<br><span class="highlight-red">STATT CHAOS.</span></h3>
+                            <p>Dein Event ist nur so gut wie seine Umsetzung. Wir liefern den Sound, das Licht und die Struktur, damit alles exakt so läuft, wie geplant.</p>
+                            <a href="2events.html" class="premium-pillar-btn transition-link">
+                                CASE STUDYS ÖFFNEN
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
 
-    <article class="service-pillar interactive" style="--bg-image: url('8.jpeg');">
-        <div class="pillar-bg"></div>
-        <div class="pillar-overlay"></div>
-        <div class="pillar-content">
-            <div class="pillar-title-vertical">MARKETING</div>
-            <div class="pillar-details">
-                <h3 class="pillar-punchline">SICHTBARKEIT<br><span class="highlight-red">IST KEIN ZUFALL.</span></h3>
-                <p>Guter Content bringt nichts, wenn ihn niemand sieht. Wir verbinden Kreation mit gnadenloser Strategie, damit du nicht nur gesehen wirst, sondern dominierst.</p>
-                <a href="marketing.html" class="premium-pillar-btn transition-link">
-                    ZUR STRATEGIE
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+                <article class="service-pillar interactive" style="--bg-image: url('8.jpeg');">
+                    <div class="pillar-bg"></div>
+                    <div class="pillar-overlay"></div>
+                    <div class="pillar-content">
+                        <div class="pillar-title-vertical">MARKETING</div>
+                        <div class="pillar-details">
+                            <h3 class="pillar-punchline">SICHTBARKEIT<br><span class="highlight-red">IST KEIN ZUFALL.</span></h3>
+                            <p>Guter Content bringt nichts, wenn ihn niemand sieht. Wir verbinden Kreation mit gnadenloser Strategie, damit du nicht nur gesehen wirst, sondern dominierst.</p>
+                            <a href="marketing.html" class="premium-pillar-btn transition-link">
+                                ZUR STRATEGIE
+                                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
             </div>
-        </div>
-    </article>
-</div>
         </section>
         <div id="references" class="laser-border-wrapper">
             <div class="laser-border-inner">
@@ -520,6 +534,7 @@ sondern auf ein neues Level bringen wollen.</p>
                 });
             });
 
+            // === SAFARI BACK-BUTTON FIX ===
             window.addEventListener('pageshow', function(event) {
                 if (event.persisted && curtain && typeof gsap !== 'undefined') {
                     gsap.set(curtain, { scaleY: 0 }); 
@@ -543,6 +558,7 @@ sondern auf ein neues Level bringen wollen.</p>
 
             gsap.registerPlugin(ScrollTrigger);
 
+            // === VISION ANIMATION ===
             if(document.querySelector(".vision-section")) {
                 const visionTl = gsap.timeline({
                     scrollTrigger: {
@@ -558,33 +574,35 @@ sondern auf ein neues Level bringen wollen.</p>
                 .fromTo(".vision-text p", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.1");
             }
 
-            // === MOBILE ACCORDION LOGIK ===
+            // === NEU: MOBILE ACCORDION LOGIK ===
             let mm = gsap.matchMedia();
             mm.add("(max-width: 1024px)", () => {
                 const pillars = document.querySelectorAll('.service-pillar');
                 
-                // Öffne standardmäßig das erste Element (optional, kannst du auch weglassen)
+                // Öffne standardmäßig das erste Element (AUDIO)
                 if(pillars.length > 0) pillars[0].classList.add('is-expanded');
 
                 pillars.forEach(pillar => {
                     pillar.addEventListener('click', function(e) {
-                        // Wenn auf den Button geklickt wird, lass den Link funktionieren!
+                        // Wenn auf den Button (z.B. "SHOWREEL ANSEHEN") geklickt wird, leite weiter!
                         if(e.target.closest('.premium-pillar-btn')) return;
 
-                        // Schließe alle anderen
+                        // Schließe alle anderen Balken
                         pillars.forEach(p => {
                             if(p !== this) p.classList.remove('is-expanded');
                         });
                         
-                        // Toggle das aktuelle
+                        // Öffne/Schließe den angetippten Balken
                         this.classList.toggle('is-expanded');
                     });
                 });
             });
-            // Desktopp-Logik: Falls jemand vom Handy auf Desktop resizet, Klassen resetten
+            
+            // Desktop-Logik: Falls jemand sein Tablet dreht oder Fenster vergrößert -> Reset
             mm.add("(min-width: 1025px)", () => {
                 document.querySelectorAll('.service-pillar').forEach(p => p.classList.remove('is-expanded'));
             });
+
             // === CURSOR LOGIK (Liquid Trail) ===
             const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
             const canvas = document.getElementById("slice-cursor-canvas");
