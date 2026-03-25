@@ -52,11 +52,16 @@
         .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
         @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 1fr 1fr; } } 
         
-        .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; }
-        .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px); background: rgba(255, 255, 255, 0.04); }
+        /* HIER IST DER FIX FÜR MOBILE PERFORMANCE UND VIBRATIONEN */
+        .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; }
+        
+        .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: transform 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease; border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        @media (hover: hover) {
+            .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px) translateZ(0); background: rgba(255, 255, 255, 0.04); }
+            .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
+        }
 
-        .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: all 0.5s; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
         .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #ffffff; word-wrap: break-word; }
         .bento-card p { font-size: 1rem; color: #a3a3a3; line-height: 1.6; }
 
@@ -81,8 +86,13 @@
         .sticky-sidebar p { color: #a3a3a3; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
         .sticky-content { flex: 2; display: grid; grid-template-columns: 1fr; gap: 24px; }
         @media (min-width: 640px) { .sticky-content { grid-template-columns: repeat(2, 1fr); } }
-        .small-bento { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 32px; transition: all 0.3s; backdrop-filter: blur(10px); }
-        .small-bento:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(220, 38, 38, 0.3); transform: translateY(-2px); }
+        
+        /* FIX FÜR DIE KLEINEN KARTEN */
+        .small-bento { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 32px; transition: border-color 0.3s ease, transform 0.3s ease, background-color 0.3s ease; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; }
+        @media (hover: hover) {
+            .small-bento:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(220, 38, 38, 0.3); transform: translateY(-2px) translateZ(0); }
+        }
+
         .small-bento .bento-icon-wrapper { width: 48px; height: 48px; margin-bottom: 20px; background: transparent; }
         .small-bento h4 { font-size: 1.25rem; font-weight: 900; margin-bottom: 12px; color: #ffffff; word-wrap: break-word; }
         .small-bento p { font-size: 0.875rem; color: #a3a3a3; line-height: 1.5; }
@@ -94,9 +104,11 @@
         .back-btn { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; color: #ffffff; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 30px; transition: all 0.3s; background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
         .back-btn:hover { background: #ffffff; color: #000000; border-color: #ffffff; }
         .subpage-header-logo { height: 40px; width: auto; flex-shrink: 0; }
-        .gsap-fade-up { opacity: 0; transform: translateY(40px); }
+        
+        /* FIX FÜR DIE GSAP ANIMATIONEN (Verhindert Flackern) */
+        .gsap-fade-up { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
 
-        /* === NEUER PREMIUM FOOTER CSS === */
+        /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
         @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
         .footer-container { max-width: 1200px; margin: 0 auto; }
@@ -129,21 +141,15 @@
         .footer-brand { grid-column: 1 / -1; }
         @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } .footer-brand { grid-column: auto; } }
         .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
-        
-        /* LOGO FIX IM FOOTER */
         .footer-brand .brand-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; transition: transform 0.3s; background-color: transparent; }
         .footer-brand .brand-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-        
         .footer-brand .brand-logo:hover .brand-icon { transform: rotate(12deg); }
         .footer-brand .brand-name { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.5px; }
         .footer-brand p { color: #a3a3a3 !important; font-size: 0.875rem; font-style: italic; max-width: 300px; margin-bottom: 32px; line-height: 1.6; }
         .footer-socials-new { display: flex; gap: 12px; }
         .footer-socials-new a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); color: #ffffff !important; transition: all 0.3s; }
         .footer-socials-new a:hover { background-color: rgba(255,255,255,0.05); color: #dc2626 !important; border-color: rgba(255,255,255,0.2); }
-        
-        /* ICONS FIX: fill: none; stroke: currentColor */
         .footer-socials-new svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
-        
         .footer-col { text-align: left; }
         .footer-col h3 { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.5) !important; margin-bottom: 24px; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
@@ -155,12 +161,12 @@
         .footer-badge { display: flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; }
         .footer-badge .dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; animation: pulse-green 2s infinite; }
         .footer-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #d4d4d4; }
-
-        /* === CURSOR CSS === */
-        @media (hover: hover) and (pointer: fine) { * { cursor: none !important; } }
-        #slice-cursor-canvas { pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; }
-        #slice-cursor-dot { position: fixed; pointer-events: none; z-index: 100000; border-radius: 50%; background-color: #dc2626; width: 12px; height: 12px; transition: transform 0.3s ease; transform: translate(-50%, -50%); box-shadow: 0 0 10px #dc2626; }
-        @media (hover: none), (pointer: coarse) { #slice-cursor-canvas, #slice-cursor-dot { display: none !important; } }
+        
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
     </style>
 </head>
 <body>
@@ -363,9 +369,6 @@
             </div>
         </footer>
         </main>
-
-    <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
-    <div id="slice-cursor-dot" aria-hidden="true"></div>
 
     <script src="js/main.js"></script>
     <script>
@@ -578,7 +581,7 @@
                 window.addEventListener('touchend', onEnd);
             }
 
-            // Scroll Animationen
+            // Scroll Animationen (Flackern gefixt durch CSS will-change)
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
                 const elements = document.querySelectorAll('.gsap-fade-up');
@@ -586,62 +589,6 @@
                     gsap.to(el, { scrollTrigger: { trigger: el, start: "top 85%" }, opacity: 1, y: 0, duration: 0.8, ease: "power3.out" });
                 });
             }
-
-            // === CURSOR LOGIK ===
-            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-            const canvas = document.getElementById("slice-cursor-canvas");
-            const dot = document.getElementById("slice-cursor-dot");
-
-            if (!isDesktop) {
-                if (canvas) canvas.style.display = "none";
-                if (dot) dot.style.display = "none";
-                return; 
-            }
-
-            const ctx = canvas.getContext("2d");
-            const trailColor = "#dc2626"; 
-            const pointsNumber = 40;
-            const widthFactor = 0.3;
-            const spring = 0.4;
-            const friction = 0.5;
-            
-            let mouseMoved = false;
-            const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-            const trail = new Array(pointsNumber).fill().map(() => ({ x: pointer.x, y: pointer.y, dx: 0, dy: 0 }));
-
-            const updateMousePosition = (eX, eY) => { pointer.x = eX * window.devicePixelRatio; pointer.y = eY * window.devicePixelRatio; };
-            const handleMouseMove = (e) => { mouseMoved = true; updateMousePosition(e.clientX, e.clientY); };
-            const setupCanvas = () => { canvas.width = window.innerWidth * window.devicePixelRatio; canvas.height = window.innerHeight * window.devicePixelRatio; };
-
-            setupCanvas();
-            window.addEventListener("resize", setupCanvas);
-            window.addEventListener("mousemove", handleMouseMove);
-
-            const update = (t) => {
-                if (!mouseMoved) {
-                    pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * canvas.width;
-                    pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * canvas.height;
-                }
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                trail.forEach((p, pIdx) => {
-                    const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
-                    const currentSpring = pIdx === 0 ? .4 * spring : spring;
-                    p.dx += (prev.x - p.x) * currentSpring; p.dy += (prev.y - p.y) * currentSpring;
-                    p.dx *= friction; p.dy *= friction;
-                    p.x += p.dx; p.y += p.dy;
-                });
-                ctx.lineCap = "round"; ctx.strokeStyle = trailColor; ctx.beginPath(); ctx.moveTo(trail[0].x, trail[0].y);
-                for (let i = 1; i < trail.length - 1; i++) {
-                    const xc = .5 * (trail[i].x + trail[i + 1].x); const yc = .5 * (trail[i].y + trail[i + 1].y);
-                    ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
-                    ctx.lineWidth = widthFactor * (pointsNumber - i) * window.devicePixelRatio;
-                    ctx.stroke();
-                }
-                if (trail.length > 0) { ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y); ctx.stroke(); }
-                if (dot) { dot.style.left = `${pointer.x / window.devicePixelRatio}px`; dot.style.top = `${pointer.y / window.devicePixelRatio}px`; }
-                window.requestAnimationFrame(update);
-            };
-            window.requestAnimationFrame(update);
         });
     </script>
 </body>
