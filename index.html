@@ -93,6 +93,10 @@
             input:checked + .slider:before { transform: translateX(26px); }
         }
 
+        @media (min-width: 769px) {
+            .hero .video-container { background-color: transparent !important; }
+        }
+
         /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
         @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
@@ -151,12 +155,6 @@
             70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
-
-        /* === CURSOR CSS === */
-        @media (hover: hover) and (pointer: fine) { * { cursor: none !important; } }
-        #slice-cursor-canvas { pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; }
-        #slice-cursor-dot { position: fixed; pointer-events: none; z-index: 100000; border-radius: 50%; background-color: #dc2626; width: 12px; height: 12px; transition: transform 0.3s ease; transform: translate(-50%, -50%); box-shadow: 0 0 10px #dc2626; }
-        @media (hover: none), (pointer: coarse) { #slice-cursor-canvas, #slice-cursor-dot { display: none !important; } }
     </style>
 </head>
 <body>
@@ -482,9 +480,6 @@
         </footer>
     </main>
 
-    <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
-    <div id="slice-cursor-dot" aria-hidden="true"></div>
-
     <script src="js/main.js"></script>
 
     <script>
@@ -559,48 +554,6 @@
             mm.add("(min-width: 1025px)", () => {
                 document.querySelectorAll('.service-pillar').forEach(p => p.classList.remove('is-expanded'));
             });
-
-            // === LIQUID CURSOR ===
-            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-            if (isDesktop) {
-                const canvas = document.getElementById("slice-cursor-canvas");
-                const dot = document.getElementById("slice-cursor-dot");
-                const ctx = canvas.getContext("2d");
-                const pointsNumber = 40;
-                const trail = new Array(pointsNumber).fill().map(() => ({ x: 0, y: 0, dx: 0, dy: 0 }));
-                let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-                
-                const setupCanvas = () => { 
-                    canvas.width = window.innerWidth * window.devicePixelRatio; 
-                    canvas.height = window.innerHeight * window.devicePixelRatio; 
-                };
-                setupCanvas();
-                window.addEventListener("resize", setupCanvas);
-                
-                window.addEventListener("mousemove", (e) => { 
-                    pointer.x = e.clientX * window.devicePixelRatio; 
-                    pointer.y = e.clientY * window.devicePixelRatio; 
-                });
-                
-                const update = () => {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    trail.forEach((p, pIdx) => {
-                        const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
-                        p.dx += (prev.x - p.x) * 0.4; p.dy += (prev.y - p.y) * 0.4;
-                        p.dx *= 0.5; p.dy *= 0.5; p.x += p.dx; p.y += p.dy;
-                    });
-                    ctx.strokeStyle = "#dc2626"; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(trail[0].x, trail[0].y);
-                    for (let i = 1; i < trail.length - 1; i++) {
-                        const xc = .5 * (trail[i].x + trail[i + 1].x); const yc = .5 * (trail[i].y + trail[i + 1].y);
-                        ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
-                        ctx.lineWidth = 0.3 * (40 - i) * window.devicePixelRatio; ctx.stroke();
-                    }
-                    dot.style.left = `${pointer.x / window.devicePixelRatio}px`; 
-                    dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
-                    requestAnimationFrame(update);
-                };
-                update();
-            }
 
             // === DRAGGABLE SLIDER LOGIK ===
             const slider = document.getElementById('draggable-slider');
