@@ -16,7 +16,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.gh/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
         button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
@@ -561,7 +561,7 @@
                 document.querySelectorAll('.service-pillar').forEach(p => p.classList.remove('is-expanded'));
             });
 
-            // === LIQUID CURSOR (ANGEPASST FÜR 75% ZOOM) ===
+            // === LIQUID CURSOR ===
             const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
             if (isDesktop) {
                 const canvas = document.getElementById("slice-cursor-canvas");
@@ -571,20 +571,10 @@
                 const trail = new Array(pointsNumber).fill().map(() => ({ x: 0, y: 0, dx: 0, dy: 0 }));
                 let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
                 
-                const setupCanvas = () => { 
-                    const zoomFactor = window.innerWidth > 1024 ? 0.75 : 1;
-                    canvas.width = (window.innerWidth / zoomFactor) * window.devicePixelRatio; 
-                    canvas.height = (window.innerHeight / zoomFactor) * window.devicePixelRatio; 
-                };
+                const setupCanvas = () => { canvas.width = window.innerWidth * window.devicePixelRatio; canvas.height = window.innerHeight * window.devicePixelRatio; };
                 setupCanvas();
                 window.addEventListener("resize", setupCanvas);
-                
-                window.addEventListener("mousemove", (e) => { 
-                    const zoomFactor = window.innerWidth > 1024 ? 0.75 : 1;
-                    pointer.x = (e.clientX / zoomFactor) * window.devicePixelRatio; 
-                    pointer.y = (e.clientY / zoomFactor) * window.devicePixelRatio; 
-                });
-                
+                window.addEventListener("mousemove", (e) => { pointer.x = e.clientX * window.devicePixelRatio; pointer.y = e.clientY * window.devicePixelRatio; });
                 const update = () => {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     trail.forEach((p, pIdx) => {
@@ -598,8 +588,7 @@
                         ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
                         ctx.lineWidth = 0.3 * (40 - i) * window.devicePixelRatio; ctx.stroke();
                     }
-                    dot.style.left = `${pointer.x / window.devicePixelRatio}px`; 
-                    dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
+                    dot.style.left = `${pointer.x / window.devicePixelRatio}px`; dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
                     requestAnimationFrame(update);
                 };
                 update();
