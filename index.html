@@ -530,18 +530,16 @@
                 const visionTl = gsap.timeline({ 
                     scrollTrigger: { 
                         trigger: ".premium-vision-integrated", 
-                        start: "top 75%", 
+                        start: "top 95%", 
                         toggleActions: "play none none none" 
                     } 
                 });
                 
-                visionTl.fromTo(".vision-anchor-line", { scaleY: 0, transformOrigin: "top" }, { scaleY: 1, duration: 1, ease: "power3.inOut" })
-                .fromTo(".text-titanium", { y: 30, opacity: 0, rotationX: -20 }, { y: 0, opacity: 1, rotationX: 0, duration: 1.2, ease: "expo.out" }, "-=0.5")
-                .fromTo(".text-liquid-red", { y: 30, opacity: 0, rotationX: -20 }, { y: 0, opacity: 1, rotationX: 0, duration: 1.2, ease: "expo.out" }, "-=1.0")
-                .fromTo(".lead-text-integrated", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.6")
-                .fromTo(".sub-text-integrated", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.8")
-                .fromTo(".vision-mantra-glassbar", { y: 40, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "expo.out" }, "-=0.6")
-                .fromTo(".mantra-item", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.8, stagger: 0.15, ease: "power2.out" }, "-=0.8");
+                visionTl.fromTo(".vision-anchor-line", { scaleY: 0, transformOrigin: "top" }, { scaleY: 1, duration: 0.3, ease: "power2.out" })
+                .fromTo([".text-titanium", ".text-liquid-red"], { y: 20, opacity: 0, rotationX: -10 }, { y: 0, opacity: 1, rotationX: 0, duration: 0.4, stagger: 0.1, ease: "power3.out" }, "-=0.2")
+                .fromTo([".lead-text-integrated", ".sub-text-integrated"], { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: "power3.out" }, "-=0.3")
+                .fromTo(".vision-mantra-glassbar", { y: 15, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, "-=0.3")
+                .fromTo(".mantra-item", { opacity: 0, x: -5 }, { opacity: 1, x: 0, duration: 0.2, stagger: 0.05, ease: "power2.out" }, "-=0.2");
             }
 
             // === MOBILE ACCORDION LOGIC ===
@@ -571,10 +569,18 @@
                 const trail = new Array(pointsNumber).fill().map(() => ({ x: 0, y: 0, dx: 0, dy: 0 }));
                 let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
                 
-                const setupCanvas = () => { canvas.width = window.innerWidth * window.devicePixelRatio; canvas.height = window.innerHeight * window.devicePixelRatio; };
+                const setupCanvas = () => { 
+                    canvas.width = window.innerWidth * window.devicePixelRatio; 
+                    canvas.height = window.innerHeight * window.devicePixelRatio; 
+                };
                 setupCanvas();
                 window.addEventListener("resize", setupCanvas);
-                window.addEventListener("mousemove", (e) => { pointer.x = e.clientX * window.devicePixelRatio; pointer.y = e.clientY * window.devicePixelRatio; });
+                
+                window.addEventListener("mousemove", (e) => { 
+                    pointer.x = e.clientX * window.devicePixelRatio; 
+                    pointer.y = e.clientY * window.devicePixelRatio; 
+                });
+                
                 const update = () => {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     trail.forEach((p, pIdx) => {
@@ -588,7 +594,8 @@
                         ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
                         ctx.lineWidth = 0.3 * (40 - i) * window.devicePixelRatio; ctx.stroke();
                     }
-                    dot.style.left = `${pointer.x / window.devicePixelRatio}px`; dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
+                    dot.style.left = `${pointer.x / window.devicePixelRatio}px`; 
+                    dot.style.top = `${pointer.y / window.devicePixelRatio}px`;
                     requestAnimationFrame(update);
                 };
                 update();
