@@ -303,6 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut" });
     }
 
+    // === HIER WURDE DER LIQUID CURSOR FÜR DEN 75% ZOOM ANGEPASST ===
     if (window.matchMedia("(min-width: 769px)").matches) {
         const cursor = document.querySelector('.cursor');
         const ring = document.querySelector('.cursor-ring');
@@ -310,7 +311,12 @@ document.addEventListener('DOMContentLoaded', () => {
             cursor.style.display = 'block'; ring.style.display = 'block';
             let mouseX = 0, mouseY = 0, isMoving = false;
             document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX; mouseY = e.clientY;
+                
+                // ZOOM-BERECHNUNG FÜR DESKTOP
+                const zoomFactor = window.innerWidth > 1024 ? 0.75 : 1;
+                mouseX = e.clientX / zoomFactor; 
+                mouseY = e.clientY / zoomFactor;
+                
                 if (!isMoving) {
                     isMoving = true;
                     requestAnimationFrame(() => {
@@ -326,6 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+    // ===============================================================
 
     if(typeof Lenis !== 'undefined') {
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: false });
@@ -368,9 +375,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
-    // ACHTUNG: Der alte, fehlerhafte Slider-Code wurde hier entfernt! 
-    // Der korrekte Slider-Code liegt bereits in deiner index.html
 
     const modal = document.getElementById('galleryModal');
     if(modal) {
@@ -445,4 +449,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
