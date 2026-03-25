@@ -165,7 +165,7 @@
         .dash-content-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
         @media (min-width: 1024px) { .dash-content-grid { grid-template-columns: 1.2fr 1fr; } }
 
-        /* DIAGRAMM LINKS */
+        /* DIAGRAMM LINKS: Überarbeitetes, edleres Design (Abgerundet & 3D Gradient) */
         .dash-chart-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column;}
         .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;}
         .chart-title { font-size: 1.125rem; font-weight: 700; color: #1d1d1f; margin-bottom: 4px; }
@@ -174,13 +174,24 @@
         .chart-wrapper { display: flex; flex-direction: column; width: 100%; height: 280px; position: relative; margin-bottom: 20px; }
         .chart-y-axis { position: absolute; left: 0; top: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 20px; font-size: 0.65rem; color: #86868b; font-weight: 600; width: 30px; }
         
+        /* Grid-Linien für professionellen Analytics-Look im Hintergrund */
         .chart-visual-bars { display: flex; align-items: flex-end; justify-content: space-between; height: 100%; margin-left: 30px; padding-bottom: 20px; border-bottom: 2px solid #e5e5ea; border-left: 2px solid #e5e5ea; padding-left: 10px; padding-right: 10px; position: relative; }
         .chart-grid-lines { position: absolute; top: 0; left: 0; right: 0; bottom: 20px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; z-index: 0; }
         .chart-grid-line { width: 100%; height: 1px; background-color: rgba(0,0,0,0.04); }
 
         .bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; width: 14%; position: relative; }
         
-        .chart-bar-blue { width: 100%; background: linear-gradient(to top, #990000, #ef4444); border-radius: 6px 6px 0 0; transform-origin: bottom; transform: scaleY(0); position: relative; z-index: 1; transition: filter 0.3s ease; }
+        /* Neue, abgerundete Balken mit Farbverlauf und Hover-Effekt */
+        .chart-bar-blue { 
+            width: 100%; 
+            background: linear-gradient(to top, #990000, #ef4444); 
+            border-radius: 6px 6px 0 0; 
+            transform-origin: bottom; 
+            transform: scaleY(0); 
+            position: relative; 
+            z-index: 1; 
+            transition: filter 0.3s ease; 
+        }
         .chart-bar-blue:hover { filter: brightness(1.15); cursor: pointer; }
         .time-label { position: absolute; bottom: -20px; font-size: 0.65rem; font-weight: 600; color: #86868b; white-space: nowrap; }
 
@@ -191,9 +202,13 @@
         .chart-arg-text h5 { font-size: 0.85rem; font-weight: 700; color: #1d1d1f; margin: 0 0 2px 0; }
         .chart-arg-text p { font-size: 0.75rem; color: #6e6e73; margin: 0; line-height: 1.4; }
 
-        /* BOX RECHTS */
+        /* BOX RECHTS: Der Multiplikator (Lücke geschlossen durch Flex-Verteilung) */
         .dash-multiplier-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: #fafafa;}
+        
+        /* Der Wrapper für die Liste sorgt für dynamische, gleichmäßige Verteilung des Abstands */
         .mult-list-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; margin-bottom: 20px; }
+        
+        /* HIER IST DER FIX FÜR DEN UMBRUCH AUF HANDYS */
         .mult-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #e5e5ea; transition: background 0.3s ease, padding-left 0.3s ease; gap: 12px; }
         .mult-item:not(.header-row):hover { background: rgba(0,0,0,0.02); padding-left: 6px; border-radius: 8px; border-bottom-color: transparent;}
         .mult-item:last-child { border-bottom: none; }
@@ -201,11 +216,49 @@
         .mult-title { font-size: 0.75rem; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 1px;}
         .mult-name { font-size: 0.85rem; font-weight: 600; color: #1d1d1f; display: flex; align-items: center; gap: 8px; flex: 1; line-height: 1.3;}
         .mult-name svg { color: #86868b; flex-shrink: 0;}
+        
+        /* white-space: nowrap und flex-shrink: 0 verhindern das Umbrechen der Zahlen! */
         .mult-val { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 700; color: #dc2626; white-space: nowrap; flex-shrink: 0; text-align: right; }
         
         .m-footer-btn { width: 100%; background: #1d1d1f; color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: background 0.2s; }
         .m-footer-btn:hover { background: #dc2626; }
 
+        @media (max-width: 768px) {
+            .mult-val { font-size: 1.1rem; }
+            .mult-name { font-size: 0.75rem; }
+            .dash-multiplier-area { padding: 20px 16px; }
+        }
+
+        /* === WEITERE STYLES (Referenzen, Switches, Footer etc.) === */
+        button, .tab-btn, .menu-link { border-radius: 30px !important; }
+        .gallery-item img { border-radius: 12px !important; }
+        .modal-content-wrapper { border-radius: 20px !important; }
+        .menu-toggle-btn { border-radius: 8px !important; }
+        .ref-logo-img { height: 100px !important; width: auto !important; opacity: 1 !important; filter: none !important; margin: 0 40px !important; border-radius: 8px !important; object-fit: contain; }
+        .marquee-track { display: flex; align-items: center; width: max-content !important; gap: 0 !important; animation: marquee-scroll 40s linear infinite !important; }
+        @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee-wrapper { overflow: hidden !important; width: 100% !important; display: flex !important; }
+        .ref-section { border-radius: 40px !important; margin: 0 !important; position: relative !important; background: #ffffff !important; border: 1px solid rgba(0, 0, 0, 0.05) !important; box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important; overflow: hidden !important; padding: 100px 0 !important; }
+        .ref-section::before { display: none !important; }
+        .ref-section > div, .marquee-wrapper { position: relative; z-index: 2; }
+        .gallery-section { background: transparent !important; border-top: none !important; border-bottom: none !important; }
+        .gallery-container { animation: none !important; cursor: grab !important; will-change: transform; }
+        .gallery-container:active { cursor: grabbing !important; }
+        .gallery-item img { pointer-events: none !important; user-select: none !important; -webkit-user-drag: none !important; }
+        
+        .site-toggle-container { display: flex; justify-content: center; align-items: center; gap: 20px; font-family: 'Oswald', sans-serif; color: #1d1d1f; pointer-events: auto; margin-bottom: 30px; }
+        .toggle-label { font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; color: #86868b; transition: color 0.35s ease, text-shadow 0.35s ease, opacity 0.35s ease; }
+        .site-toggle-container.is-creators .label-creators, .site-toggle-container.is-business .label-business { color: #ff0000; text-shadow: none; opacity: 1; }
+        .site-toggle-container.is-creators .label-business, .site-toggle-container.is-business .label-creators { opacity: 0.68; }
+        .ios-switch { position: relative; display: inline-block; width: 80px; height: 44px; cursor: pointer; }
+        .ios-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.08); transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; border: 2px solid rgba(0, 0, 0, 0.1); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2); }
+        .slider:before { position: absolute; content: ""; height: 32px; width: 32px; left: 4px; bottom: 4px; background: linear-gradient(180deg, #ffffff 0%, #ededed 100%); box-shadow: 0 6px 14px rgba(0,0,0,0.18); transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease; }
+        input:checked + .slider { background-color: rgba(153, 0, 0, 0.14); border-color: rgba(220, 38, 38, 0.45); box-shadow: 0 0 16px rgba(220, 38, 38, 0.12); }
+        input:checked + .slider:before { background: linear-gradient(180deg, #ffffff 0%, #f3d7d7 100%); }
+        input:checked + .slider:before { transform: translateX(36px); }
+        .slider.round { border-radius: 50px; }
+        .slider.round:before { border-radius: 50%; }
         @media (max-width: 768px) {
             .site-toggle-container { gap: 12px; margin-bottom: 20px; }
             .toggle-label { font-size: 1.1rem; }
@@ -215,13 +268,10 @@
             .hero::before { background: #f5f5f7 !important; }
             .hero::after { background: linear-gradient(to bottom, transparent 0%, rgba(245, 245, 247, 0.56) 18%, rgba(245, 245, 247, 0.9) 36%, #f5f5f7 50%, #f5f5f7 70%, rgba(245, 245, 247, 0.56) 86%, transparent 100%) !important; }
             .vision-section::before { background: linear-gradient(to bottom, rgba(245, 245, 247, 0.82) 0%, rgba(245, 245, 247, 0.42) 44%, rgba(245, 245, 247, 0.12) 76%, transparent 100%) !important; }
-            .mult-val { font-size: 1.1rem; }
-            .mult-name { font-size: 0.75rem; }
-            .dash-multiplier-area { padding: 20px 16px; }
         }
 
-        /* === PREMIUM FOOTER CSS === */
-        .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.05); position: relative; z-index: 10; }
+        /* === PREMIUM FOOTER === */
+        .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.05); }
         @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
         .footer-container { max-width: 1200px; margin: 0 auto; }
         .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
@@ -243,17 +293,11 @@
         .footer-input:focus { border-color: rgba(220, 38, 38, 0.6) !important; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1); background-color: rgba(0,0,0,0.6) !important; }
         .footer-input::placeholder { color: rgba(255,255,255,0.4); } 
         select.footer-input option { background-color: #111; color: white; }
-        
-        .cta-btn-primary { display: flex; align-items: center; justify-content: center; gap: 12px; background-color: #dc2626 !important; color: white !important; font-weight: 900; font-family: 'Inter', sans-serif; font-size: 1.125rem; padding: 0 40px; height: 64px; border-radius: 20px !important; text-decoration: none; box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3); transition: all 0.3s ease; border: none; cursor: pointer; }
-        .cta-btn-primary:hover { background-color: #b91c1c !important; transform: translateY(-2px); }
-        .cta-btn-primary svg { width: 20px; height: 20px; transition: transform 0.3s; }
-        .cta-btn-primary:hover svg { transform: translateX(5px); }
-
         .footer-links-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 16px; padding: 60px 0; }
         .footer-brand { grid-column: 1 / -1; }
         @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } .footer-brand { grid-column: auto; } }
         .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
-        .footer-brand .brand-icon { width: 32px; height: 32px; background-color: transparent; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; transition: transform 0.3s; }
+        .footer-brand .brand-icon { width: 32px; height: 32px; background-color: #dc2626; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; transition: transform 0.3s; }
         .footer-brand .brand-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
         .footer-brand .brand-logo:hover .brand-icon { transform: rotate(12deg); }
         .footer-brand .brand-name { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.5px; }
@@ -273,17 +317,23 @@
         .footer-badge { display: flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; }
         .footer-badge .dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; animation: pulse-green 2s infinite; }
         .footer-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #d4d4d4; }
+        
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
     </style>
 </head>
 <body>
 
     <div class="lang-switcher">
-        <a href="business.html" class="transition-link interactive">
+        <a href="#" class="active interactive">
             <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-de"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-de)"><rect width="512" height="170.6" fill="#000"/><rect y="170.6" width="512" height="170.6" fill="#D00"/><rect y="341.3" width="512" height="170.6" fill="#FFCE00"/></g></svg>
             DE
         </a>
         <span class="divider">|</span>
-        <a href="#" class="active interactive">
+        <a href="business-en.html" class="transition-link interactive">
             <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-en"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-en)"><rect width="512" height="512" fill="#012169"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#FFF" stroke-width="85"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#C8102E" stroke-width="50"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#FFF" stroke-width="140"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#C8102E" stroke-width="90"/></g></svg>
             EN
         </a>
@@ -292,8 +342,6 @@
     <div class="cinematic-bg-wrapper">
         <div class="bg-layer active"></div>
     </div>
-
-    <div class="page-transition-curtain"></div>
 
     <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -305,21 +353,31 @@
             <div class="menu-links">
                 <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
                 <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
-                <a href="impressum-en.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
-                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">SERVICES</a>
-                <a href="upcoming-en.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
-                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">CLIENTS</a>
+                <a href="impressum.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+                <a href="upcoming.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
+                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENCES</a>
                 <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">CONTACT</a>
             </div>
         </div>
         <div class="sidebar-footer">
-             <a href="impressum-en.html" class="interactive">IMPRINT</a>
-             <a href="datenschutz-en.html" class="interactive">PRIVACY POLICY</a>
-             <a href="agb-en.html" class="interactive">TERMS & CONDITIONS</a>
+             <a href="impressum.html" class="interactive">IMPRINT</a>
+             <a href="datenschutz.html" class="interactive">PRIVACY POLICY</a>
+             <a href="agb.html" class="interactive">TERMS & CONDITIONS</a>
              <span>© 2026 WESTROOMZ</span>
         </div>
     </div>
     <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">GALLERY</h2>
+            <div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div>
+        </div>
+        <div class="modal-content-wrapper">
+            <div class="modal-grid" id="modalGrid"></div>
+        </div>
+    </div>
 
     <main class="page-wrapper">
         <header id="hero" class="hero">
@@ -351,18 +409,18 @@
                             <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2l.5-.5m-3-3l3 3M10 14.5L19 5.5a2.12 2.12 0 0 0-3-3L7 11.5M10 14.5l-3-3m3 3l3 3m-3-3l-3-3m3 3l3 3"/></svg>
                             YOUR VISION. OUR STAGE.
                         </div>
-                        <h2 class="cta-headline">Ready to build something <span class="highlight-red">extraordinary?</span></h2>
-                        <p class="cta-description">Westroomz Business stands for well-thought-out campaigns and high-quality productions. We connect strategy, creation, and execution into a functioning overall system.</p>
+                        <h2 class="cta-headline">Ready to create something <span class="highlight-red">extraordinary</span>?</h2>
+                        <p class="cta-description">Westroomz Business stands for well-thought-out campaigns and high-quality productions. We combine strategy, creation, and execution into a functioning overall system.</p>
                         <div class="cta-buttons">
                             <a href="#contact" class="cta-btn-primary interactive">
-                                Request Project <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                Request a project <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                             </a>
-                            <a href="#services" class="cta-btn-secondary interactive">Our Services</a>
+                            <a href="#services" class="cta-btn-secondary interactive">Our services</a>
                         </div>
                         <div class="cta-features">
-                            <span><svg class="text-emerald" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Highest Precision</span>
-                            <span><svg class="text-amber" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 360° Execution</span>
-                            <span><svg class="text-blue" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> State-of-the-Art Technology</span>
+                            <span><svg class="text-emerald" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Highest precision</span>
+                            <span><svg class="text-amber" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 360° execution</span>
+                            <span><svg class="text-blue" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> State-of-the-art technology</span>
                         </div>
                     </div>
 
@@ -398,7 +456,7 @@
                 </div>
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="50" data-format="true">0</span><span class="stat-accent">+</span></div>
-                    <div class="stat-label">Clients & Brands Served</div>
+                    <div class="stat-label">Clients and brands served</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="100" data-format="true">0</span><span class="stat-accent">%</span></div>
@@ -417,16 +475,16 @@
                     <div class="orbit-glow-bg"></div>
                     <div class="orbit-card-content">
                         <h3>STRATEGY</h3>
-                        <p>We translate business goals into clear communication and campaign strategies – structured thinking, precise planning.</p>
-                        <a href="strategy-en.html" class="book-btn interactive">DETAILS</a>
+                        <p>We translate corporate goals into clear communication and campaign strategies – structurally thought out, precisely planned.</p>
+                        <a href="strategy.html" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
                 <div class="orbit-card">
                     <div class="orbit-glow-bg"></div>
                     <div class="orbit-card-content">
                         <h3>PRODUCTION</h3>
-                        <p>We realize productions that present brands credibly – with clear staging, professional execution, and an uncompromising demand for quality.</p>
-                        <a href="production-en.html" class="book-btn interactive">DETAILS</a>
+                        <p>We realize productions that present brands authentically – with clear staging, professional execution, and high quality standards.</p>
+                        <a href="production.html" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
                 <div class="orbit-card">
@@ -434,7 +492,7 @@
                     <div class="orbit-card-content">
                         <h3>DIGITAL</h3>
                         <p>We design digital presences that present companies professionally across all relevant channels.</p>
-                        <a href="digital-en.html" class="book-btn interactive">DETAILS</a>
+                        <a href="digital.html" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
                 <div class="orbit-card">
@@ -442,7 +500,7 @@
                     <div class="orbit-card-content">
                         <h3>PERFORMANCE</h3>
                         <p>We combine ad strategies, data analysis, and targeted delivery into a controlled performance system.</p>
-                        <a href="performance-en.html" class="book-btn interactive">DETAILS</a>
+                        <a href="performance.html" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
             </div>
@@ -466,7 +524,7 @@
                         </div>
                         <div class="kpi-title">Video Content Demand</div>
                         <div class="kpi-value js-dash-counter" data-target="120" data-suffix="%">0</div>
-                        <div class="kpi-sub">More demand for video content from companies compared to text-only content.</div>
+                        <div class="kpi-sub">More demand for video content from companies compared to pure text content.</div>
                         <span class="kpi-source">(Source: HubSpot Marketing Report)</span>
                     </div>
                     <div class="kpi-card">
@@ -474,7 +532,7 @@
                             <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
                             <div class="kpi-trend positive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> +85%</div>
                         </div>
-                        <div class="kpi-title">Purchase Decisions</div>
+                        <div class="kpi-title">Purchasing Decisions</div>
                         <div class="kpi-value js-dash-counter" data-target="85" data-suffix="%">0</div>
                         <div class="kpi-sub">of customers state that video content directly influences their purchasing decision.</div>
                         <span class="kpi-source">(Source: Wyzowl Video Marketing Statistics)</span>
@@ -547,14 +605,14 @@
                                 <div class="chart-arg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
                                 <div class="chart-arg-text">
                                     <h5>More Reach</h5>
-                                    <p>Content and campaigns reach exactly the target groups that are relevant to your business.</p>
+                                    <p>Content and campaigns reach exactly the target groups that are relevant to your company.</p>
                                 </div>
                             </div>
                             <div class="chart-arg-item">
                                 <div class="chart-arg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                                 <div class="chart-arg-text">
                                     <h5>More Trust</h5>
-                                    <p>Professional content strengthens brand perception and increases the likelihood of a purchase decision.</p>
+                                    <p>Professional content strengthens brand perception and increases the likelihood of a purchasing decision.</p>
                                 </div>
                             </div>
                             <div class="chart-arg-item">
@@ -578,7 +636,7 @@
                         <div class="mult-list-wrapper">
                             <div class="mult-item header-row">
                                 <span class="mult-title">Asset</span>
-                                <span class="mult-title">Amount</span>
+                                <span class="mult-title">Quantity</span>
                             </div>
                             <div class="mult-item">
                                 <span class="mult-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg> High-End Brand Video</span>
@@ -620,12 +678,12 @@
             <div class="laser-border-inner">
                 <section class="ref-section">
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <h2 class="section-title">CLIENTS</h2>
+                        <h2 class="section-title">REFERENCES</h2>
                     </div>
                     
                     <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
                         <div class="vision-text" style="opacity: 1; transform: none;">
-                            <p style="opacity: 1; transform: none;">These brands have chosen to collaborate with WESTROOMZ.</p>
+                            <p style="opacity: 1; transform: none;">These companies have chosen to collaborate with WESTROOMZ.</p>
                         </div>
                     </div>
 
@@ -659,8 +717,8 @@
             <div class="footer-container">
                 <div class="footer-contact-area">
                     <div class="footer-contact-info">
-                        <h2>Let's build something <br><span class="highlight-red">extraordinary.</span></h2>
-                        <p>Planning a production or looking for a technical partner? Drop us a line – we'll get back to you immediately.</p>
+                        <h2>Let's create something <br><span class="highlight-red">great</span>.</h2>
+                        <p>Are you planning a production or looking for a technical partner? Write to us – we will get back to you shortly.</p>
                         <div class="contact-details">
                             <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
                         </div>
@@ -668,7 +726,7 @@
                     <div class="footer-form-card">
                         <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
                             <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
-                            <input type="hidden" name="_next" value="https://westroomz.de/business-en.html">
+                            <input type="hidden" name="_next" value="https://westroomz.de/business.html">
                             <input type="hidden" name="_captcha" value="false">
 
                             <div class="form-group">
@@ -684,7 +742,7 @@
                                 <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Your Name">
                             </div>
                             <div class="form-group">
-                                <label>EMAIL</label>
+                                <label>E-MAIL</label>
                                 <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="your@email.com">
                             </div>
                             <div class="form-group">
@@ -695,16 +753,14 @@
                                 <label>MESSAGE</label>
                                 <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="How can we help you?"></textarea>
                             </div>
-                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">
-                                Send Request <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                            </button>
+                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">Send Message</button>
                         </form>
                     </div>
                 </div>
 
                 <div class="footer-links-section">
                     <div class="footer-brand">
-                        <a href="index-en.html" class="brand-logo interactive">
+                        <a href="#hero" class="brand-logo interactive">
                             <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
@@ -718,18 +774,18 @@
                     <div class="footer-col">
                         <h3>Navigation</h3>
                         <ul>
-                            <li><a href="business-en.html#hero" class="interactive">Home</a></li>
-                            <li><a href="business-en.html#vision" class="interactive">Vision</a></li>
-                            <li><a href="business-en.html#services" class="interactive">What we do</a></li>
-                            <li><a href="business-en.html#references" class="interactive">Clients</a></li>
+                            <li><a href="#hero" class="interactive">Home</a></li>
+                            <li><a href="#vision" class="interactive">Vision</a></li>
+                            <li><a href="#services" class="interactive">What we do</a></li>
+                            <li><a href="#references" class="interactive">References</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
                         <h3>Legal</h3>
                         <ul>
-                            <li><a href="impressum-en.html" class="interactive">Imprint</a></li>
-                            <li><a href="datenschutz-en.html" class="interactive">Privacy Policy</a></li>
-                            <li><a href="agb-en.html" class="interactive">Terms & Conditions</a></li>
+                            <li><a href="impressum.html" class="interactive">Imprint</a></li>
+                            <li><a href="datenschutz.html" class="interactive">Privacy Policy</a></li>
+                            <li><a href="agb.html" class="interactive">Terms & Conditions</a></li>
                         </ul>
                     </div>
                 </div>
@@ -777,13 +833,41 @@
                     const resetCounters = () => { counters.forEach(counter => { gsap.killTweensOf(counter.animObj); counter.innerText = "0"; }); };
                     ScrollTrigger.create({ trigger: ".stats-section", start: "top 90%", end: "bottom 10%", onEnter: startCounters, onLeave: resetCounters, onEnterBack: startCounters, onLeaveBack: resetCounters });
                 }
+
+                // === GSAP: DASHBOARD ANIMATIONEN ===
+                ScrollTrigger.create({
+                    trigger: ".dash-main-container",
+                    start: "top 80%",
+                    onEnter: () => {
+                        // 1. Dashboard KPI Zähler
+                        const dashCounters = document.querySelectorAll('.js-dash-counter');
+                        dashCounters.forEach(counter => {
+                            const target = +counter.getAttribute('data-target');
+                            const suffix = counter.getAttribute('data-suffix');
+                            const obj = { val: 0 };
+                            gsap.to(obj, {
+                                val: target, duration: 2, ease: "power2.out",
+                                onUpdate: () => { counter.innerText = Math.round(obj.val) + suffix; }
+                            });
+                        });
+
+                        // 2. Chart Balken hochfahren
+                        const chartBars = document.querySelectorAll('.js-c-bar');
+                        chartBars.forEach((bar, idx) => {
+                            gsap.to(bar, { scaleY: 1, height: bar.getAttribute('data-height'), duration: 1, ease: "back.out(1.7)", delay: idx * 0.08 });
+                        });
+                    },
+                    onLeaveBack: () => {
+                        document.querySelectorAll('.js-c-bar').forEach(bar => gsap.set(bar, { scaleY: 0 }));
+                    }
+                });
             }
 
             // === TOGGLE LOGIC ===
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
-                    const targetUrl = this.checked ? 'business-en.html' : 'index-en.html';
+                    const targetUrl = this.checked ? 'business.html' : 'index.html';
                     const curtain = document.querySelector('.page-transition-curtain');
                     if (curtain && typeof gsap !== 'undefined') {
                         gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
