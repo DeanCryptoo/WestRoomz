@@ -78,8 +78,9 @@ body {
 
 /* UI ELEMENTS */
 .cinematic-vignette {
-    /* WICHTIG: Komplett deaktiviert, um den iOS-Scroll-Bug und Grauschleier zu beheben */
-    display: none !important;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 80; 
+    background: linear-gradient(to bottom, rgba(5,5,5,1) 0%, rgba(5,5,5,0) 15%, rgba(5,5,5,0) 85%, rgba(5,5,5,1) 100%);
 }
 
 .red-thread {
@@ -153,6 +154,21 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-color: #000;
+}
+
+.hero-video { 
+    width: 100%; height: 100%; object-fit: cover; 
+    pointer-events: none; display: none; 
+}
+
+.hero-video::-webkit-media-controls,
+.hero-video::-webkit-media-controls-enclosure,
+.hero-video::-webkit-media-controls-panel,
+.hero-video::-webkit-media-controls-start-playback-button,
+.hero-video::-webkit-media-controls-play-button {
+    display: none !important;
+    -webkit-appearance: none !important;
+    opacity: 0 !important;
 }
 
 .hero-overlay {
