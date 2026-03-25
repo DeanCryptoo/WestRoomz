@@ -246,14 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (dragAccumulator > stepThreshold) {
                         if (currentIndex < items.length - 1) {
-                            // HIER: Sound JA (true)
                             snapKnobTo(currentIndex + 1, true);
                             dragAccumulator = 0; 
                         }
                     } 
                     else if (dragAccumulator < -stepThreshold) {
                         if (currentIndex > 0) {
-                            // HIER: Sound JA (true)
                             snapKnobTo(currentIndex - 1, true);
                             dragAccumulator = 0; 
                         }
@@ -269,8 +267,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if(!isDragging) return;
                     isDragging = false;
                     gsap.to(knob, { scale: 1, duration: 0.15 });
-                    
-                    // HIER: Sound NEIN (false oder weglassen)
                     snapKnobTo(currentIndex, false); 
                 }
 
@@ -303,33 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut" });
     }
 
-    if (window.matchMedia("(min-width: 769px)").matches) {
-        const cursor = document.querySelector('.cursor');
-        const ring = document.querySelector('.cursor-ring');
-        if(cursor && ring) {
-            cursor.style.display = 'block'; ring.style.display = 'block';
-            let mouseX = 0, mouseY = 0, isMoving = false;
-            document.addEventListener('mousemove', (e) => {
-                
-                mouseX = e.clientX; 
-                mouseY = e.clientY;
-                
-                if (!isMoving) {
-                    isMoving = true;
-                    requestAnimationFrame(() => {
-                        cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px';
-                        ring.style.left = mouseX + 'px'; ring.style.top = mouseY + 'px';
-                        isMoving = false;
-                    });
-                }
-            });
-            document.querySelectorAll('.interactive').forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-            });
-        }
-    }
-
     if(typeof Lenis !== 'undefined') {
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: false });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
@@ -352,24 +321,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 gsap.fromTo('.menu-link', {x: -30, opacity: 0}, {x: 0, opacity: 1, stagger: 0.1, delay: 0.2});
             }
         }
-    }
-
-    const videos = document.querySelectorAll('video');
-    const heroText = document.querySelector(".hero-sub");
-    if(videos.length > 0) {
-        if(heroText) gsap.set(heroText, { opacity: 0, y: 20 });
-        videos.forEach(video => {
-            video.defaultMuted = true; 
-            video.muted = true; 
-            video.play().catch(() => {});
-            video.addEventListener('timeupdate', () => {
-                if (heroText && video.currentTime >= 4.5 && gsap.getProperty(heroText, "opacity") === 0) {
-                    gsap.to(heroText, { opacity: 1, y: 0, duration: 0.5 });
-                } else if (heroText && video.currentTime < 0.5) {
-                    gsap.set(heroText, { opacity: 0, y: 20 });
-                }
-            });
-        });
     }
 
     const modal = document.getElementById('galleryModal');
@@ -410,6 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.utils.toArray('.section-title').forEach(title => {
         gsap.from(title, { scrollTrigger: { trigger: title, start: "top 90%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, duration: 1 });
     });
+    
     if(document.querySelector(".big-lead")) {
         gsap.from(".big-lead", { scrollTrigger: { trigger: ".big-lead", start: "top 80%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, scale: 0.9, duration: 1.2, ease: "power3.out" });
         gsap.to(".vision-text p", { scrollTrigger: { trigger: ".vision-text", start: "top 80%", toggleActions: "play reverse play reverse" }, y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.out" });
