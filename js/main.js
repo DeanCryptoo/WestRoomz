@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     clickSound.volume = 0.4; 
     clickSound.load();
 
-    // iOS Audio-Unlocker
     let audioUnlocked = false;
     function unlockAudio() {
         if (!audioUnlocked) {
@@ -21,17 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('touchstart', unlockAudio, {passive: true});
     document.addEventListener('click', unlockAudio, {passive: true});
 
-    // Feedback Funktion
     function playClick() {
-        // VIBRATION (Android)
         if (navigator.vibrate) navigator.vibrate(15);
-
-        // SOUND (Reset & Play für trockenen Klick)
         clickSound.currentTime = 0;
         clickSound.play().catch(() => {});
     }
 
-    // --- NEU: TOGGLE SWITCH LOGIC (CREATORS / BUSINESS) ---
+    // --- TOGGLE SWITCH LOGIC (CREATORS / BUSINESS) ---
     const businessToggle = document.getElementById('businessToggle');
     if (businessToggle) {
         businessToggle.addEventListener('change', function() {
@@ -49,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. DATABASE: SERVICE CONTENT ---
+    // --- DATABASE: SERVICE CONTENT ---
     const serviceData = {
         "audio_music": {
             title: "AUDIO PRODUKTION",
@@ -85,12 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
             intro: "Sichtbarkeit ist kein Zufall, sondern das Ergebnis präziser Planung.",
             desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien, die deine Brand, deinen Sound oder dein Event nachhaltig positionieren. Wir nutzen datengetriebene Ansätze auf Social Media und verbinden diese mit hochwertigem Content, um echte Fans und Kunden zu erreichen. Von der CI-Entwicklung bis zur Kampagnen-Ausspielung.",
             list: ["Social Media Strategy", "Performance Marketing", "Branding & CI", "Kampagnen-Management", "Content Distribution", "Zielgruppen-Analyse"]
-        },
-        "audio_commercial": { title: "COMMERCIAL", image: "2.jpeg", intro: "...", desc: "...", list: [] },
-        "audio_podcast": { title: "PODCASTS", image: "3.jpeg", intro: "...", desc: "...", list: [] }
+        }
     };
 
-    // --- 3. DYNAMIC PAGE LOADER ---
     if(window.location.pathname.includes('service-detail.html')) {
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
@@ -98,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(id && serviceData[id]) {
             const data = serviceData[id];
             
-            // Set Texts
             const titleEl = document.getElementById('detailTitle');
             if(titleEl) titleEl.innerText = data.title;
             const bgEl = document.getElementById('detailBg');
@@ -114,13 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const listContainer = document.getElementById('detailList');
             const wrapper = document.querySelector('.detail-list-wrapper');
 
-            // --- KNOB LOGIC START ---
             if(id === 'audio_music' && listContainer) {
-                
                 wrapper.classList.add('knob-active');
                 listContainer.innerHTML = '';
                 
-                // UI
                 const interfaceDiv = document.createElement('div');
                 interfaceDiv.className = 'knob-interface';
                 const knob = document.createElement('div');
@@ -142,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 listContainer.appendChild(interfaceDiv);
                 listContainer.appendChild(displayDiv);
 
-                // Setup
                 const items = data.list;
                 const totalArc = 260; 
                 const startAngle = -130; 
@@ -154,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 let lastMouseAngle = 0;
                 let dragAccumulator = 0; 
 
-                // Create Labels
                 items.forEach((item, index) => {
                     const label = document.createElement('div');
                     label.className = 'knob-label';
@@ -168,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     label.style.left = `${x}%`;
                     label.style.top = `${y}%`;
                     
-                    // Bei Klick: Sound JA (true)
                     label.onclick = (e) => { 
                         e.stopPropagation(); 
                         snapKnobTo(index, true); 
@@ -179,12 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 gsap.set(knob, { rotation: startAngle });
 
-                // --- CORE FUNCTION: SNAP ---
                 function snapKnobTo(index, playSound = false) {
                     if (index < 0) index = 0;
                     if (index >= items.length) index = items.length - 1;
                     
-                    // Sound abspielen?
                     if(playSound && currentIndex !== index) { 
                        playClick(); 
                     }
@@ -221,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return (rad * (180 / Math.PI)) + 90;
                 }
 
-                // DRAG START
                 function onDown(e) {
                     isDragging = true;
                     lastMouseAngle = getMouseAngle(e);
@@ -229,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     gsap.to(knob, { scale: 0.96, duration: 0.1 });
                 }
 
-                // DRAG MOVE
                 function onMove(e) {
                     if(!isDragging) return;
                     e.preventDefault();
@@ -262,7 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     gsap.set(knob, { rotation: baseAngle + tension });
                 }
 
-                // DRAG END
                 function onEnd(e) {
                     if(!isDragging) return;
                     isDragging = false;
@@ -279,7 +259,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.addEventListener('touchend', onEnd);
 
             } else if (listContainer) {
-                // >>>>> STANDARD LISTE <<<<<
                 wrapper.classList.remove('knob-active');
                 listContainer.innerHTML = ''; 
                 listContainer.className = 'detail-list';
@@ -293,7 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- REST OF ORIGINAL JS ---
     const curtain = document.querySelector('.page-transition-curtain');
     if(curtain) {
         gsap.to(curtain, { scaleY: 0, transformOrigin: "top", duration: 0.6, ease: "power4.inOut" });
