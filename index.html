@@ -447,7 +447,7 @@
                             <div class="brand-icon">W</div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
-                        <p>Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in Wirkung, sauber im Detail.</p>
+                        <p>Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
                         <div class="footer-socials-new">
                             <a href="#" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
                             <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
@@ -510,7 +510,7 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            /* === HIER IST DER TURBO FÜR DIE VISION ANIMATION === */
+            /* === HIER IST DER TURBO FÜR DIE VISION ANIMATION (MOBILE FIX) === */
             if(document.querySelector(".premium-vision-integrated")) {
                 const visionTl = gsap.timeline({ 
                     scrollTrigger: { 
@@ -565,6 +565,12 @@
                 window.addEventListener('mouseup', () => { isDown = false; });
                 slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); currentX = e.pageX - startX; });
                 requestAnimationFrame(animate);
+            }
+            
+            // Hero Text Einblenden (Ohne Video)
+            const heroText = document.querySelector(".hero-sub");
+            if(heroText) {
+                gsap.fromTo(heroText, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power2.out" });
             }
         });
     </script>
