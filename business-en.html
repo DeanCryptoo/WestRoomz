@@ -20,6 +20,20 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
+        /* === APPLE STYLE OVERRIDES === */
+        html, body, .page-wrapper { background-color: #f5f5f7 !important; color: #1d1d1f !important; }
+        .cinematic-bg-wrapper, .bg-layer { background-color: transparent !important; background-image: none !important; }
+        .cinematic-vignette, .gradual-blur-bottom, .hero-overlay, .page-transition-curtain { display: none !important; }
+        .video-container { display: none !important; }
+        h1, h2, h3, p, .vision-text p, .section-title, .big-lead { color: #1d1d1f !important; text-wrap: balance; }
+        .hero-sub { color: #86868b !important; }
+        .hero { background-image: url('WR_Whiteboard.jpg') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
+        .divider-line { background-color: #1d1d1f !important; }
+        .menu-toggle-btn .bar { background-color: #1d1d1f !important; }
+        .book-btn { background-color: #1d1d1f !important; color: white !important; border: none; padding: 12px 24px; text-decoration: none; display: inline-block; border-radius: 30px !important;}
+        .tab-btn { color: #1d1d1f !important; border: 1px solid #d2d2d7 !important; }
+        .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
+
         /* === PREMIUM LANGUAGE SWITCHER === */
         .lang-switcher { position: fixed; top: 40px; right: 40px; z-index: 999; display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease; }
         .lang-switcher:hover { background: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
@@ -29,20 +43,6 @@
         .lang-switcher .divider { color: rgba(255, 255, 255, 0.15); font-weight: 300; margin: 0 2px; }
         .lang-flag { width: 16px; height: 16px; border-radius: 50%; display: block; }
         @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
-
-        /* === APPLE STYLE OVERRIDES === */
-        html, body, .page-wrapper { background-color: #f5f5f7 !important; color: #1d1d1f !important; }
-        .cinematic-bg-wrapper, .bg-layer { background-color: transparent !important; background-image: none !important; }
-        .cinematic-vignette, .gradual-blur-bottom, .hero-overlay, .page-transition-curtain { display: none !important; }
-        .video-container { display: none !important; }
-        h1, h2, h3, p, .vision-text p, .section-title, .big-lead { color: #1d1d1f !important; }
-        .hero-sub { color: #86868b !important; }
-        .hero { background-image: url('WR_Whiteboard.jpg') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
-        .divider-line { background-color: #1d1d1f !important; }
-        .menu-toggle-btn .bar { background-color: #1d1d1f !important; }
-        .book-btn { background-color: #1d1d1f !important; color: white !important; border: none; padding: 12px 24px; text-decoration: none; display: inline-block; border-radius: 30px !important;}
-        .tab-btn { color: #1d1d1f !important; border: 1px solid #d2d2d7 !important; }
-        .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
 
         /* === NEUE ORBIT CARDS (4er Grid) === */
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; max-width: 1600px; margin: 0 auto; padding: 40px 40px; }
@@ -165,7 +165,7 @@
         .dash-content-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
         @media (min-width: 1024px) { .dash-content-grid { grid-template-columns: 1.2fr 1fr; } }
 
-        /* DIAGRAMM LINKS: Überarbeitetes, edleres Design (Abgerundet & 3D Gradient) */
+        /* DIAGRAMM LINKS */
         .dash-chart-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column;}
         .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;}
         .chart-title { font-size: 1.125rem; font-weight: 700; color: #1d1d1f; margin-bottom: 4px; }
@@ -174,14 +174,12 @@
         .chart-wrapper { display: flex; flex-direction: column; width: 100%; height: 280px; position: relative; margin-bottom: 20px; }
         .chart-y-axis { position: absolute; left: 0; top: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 20px; font-size: 0.65rem; color: #86868b; font-weight: 600; width: 30px; }
         
-        /* Grid-Linien für professionellen Analytics-Look im Hintergrund */
         .chart-visual-bars { display: flex; align-items: flex-end; justify-content: space-between; height: 100%; margin-left: 30px; padding-bottom: 20px; border-bottom: 2px solid #e5e5ea; border-left: 2px solid #e5e5ea; padding-left: 10px; padding-right: 10px; position: relative; }
         .chart-grid-lines { position: absolute; top: 0; left: 0; right: 0; bottom: 20px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; z-index: 0; }
         .chart-grid-line { width: 100%; height: 1px; background-color: rgba(0,0,0,0.04); }
 
         .bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; width: 14%; position: relative; }
         
-        /* Neue, abgerundete Balken mit Farbverlauf und Hover-Effekt */
         .chart-bar-blue { 
             width: 100%; 
             background: linear-gradient(to top, #990000, #ef4444); 
@@ -202,13 +200,9 @@
         .chart-arg-text h5 { font-size: 0.85rem; font-weight: 700; color: #1d1d1f; margin: 0 0 2px 0; }
         .chart-arg-text p { font-size: 0.75rem; color: #6e6e73; margin: 0; line-height: 1.4; }
 
-        /* BOX RECHTS: Der Multiplikator (Lücke geschlossen durch Flex-Verteilung) */
+        /* BOX RECHTS */
         .dash-multiplier-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: #fafafa;}
-        
-        /* Der Wrapper für die Liste sorgt für dynamische, gleichmäßige Verteilung des Abstands */
         .mult-list-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; margin-bottom: 20px; }
-        
-        /* HIER IST DER FIX FÜR DEN UMBRUCH AUF HANDYS */
         .mult-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #e5e5ea; transition: background 0.3s ease, padding-left 0.3s ease; gap: 12px; }
         .mult-item:not(.header-row):hover { background: rgba(0,0,0,0.02); padding-left: 6px; border-radius: 8px; border-bottom-color: transparent;}
         .mult-item:last-child { border-bottom: none; }
@@ -216,8 +210,6 @@
         .mult-title { font-size: 0.75rem; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 1px;}
         .mult-name { font-size: 0.85rem; font-weight: 600; color: #1d1d1f; display: flex; align-items: center; gap: 8px; flex: 1; line-height: 1.3;}
         .mult-name svg { color: #86868b; flex-shrink: 0;}
-        
-        /* white-space: nowrap und flex-shrink: 0 verhindern das Umbrechen der Zahlen! */
         .mult-val { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 700; color: #dc2626; white-space: nowrap; flex-shrink: 0; text-align: right; }
         
         .m-footer-btn { width: 100%; background: #1d1d1f; color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: background 0.2s; }
@@ -229,7 +221,7 @@
             .dash-multiplier-area { padding: 20px 16px; }
         }
 
-        /* === WEITERE STYLES (Referenzen, Switches, Footer etc.) === */
+        /* === WEITERE STYLES === */
         button, .tab-btn, .menu-link { border-radius: 30px !important; }
         .gallery-item img { border-radius: 12px !important; }
         .modal-content-wrapper { border-radius: 20px !important; }
@@ -304,6 +296,7 @@
         @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } .footer-brand { grid-column: auto; } }
         .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
         .footer-brand .brand-icon { width: 32px; height: 32px; background-color: #dc2626; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; transition: transform 0.3s; }
+        .footer-brand .brand-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
         .footer-brand .brand-logo:hover .brand-icon { transform: rotate(12deg); }
         .footer-brand .brand-name { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.5px; }
         .footer-brand p { color: #a3a3a3 !important; font-size: 0.875rem; font-style: italic; max-width: 300px; margin-bottom: 32px; line-height: 1.6; }
@@ -343,8 +336,6 @@
     </div>
 
     <div class="page-transition-curtain"></div>
-    <div class="red-thread"></div>
-    <div class="cinematic-vignette"></div>
 
     <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -356,17 +347,17 @@
             <div class="menu-links">
                 <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
                 <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
-                <a href="impressum.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="impressum-en.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
                 <a href="#services" class="menu-link interactive" onclick="toggleMenu()">SERVICES</a>
-                <a href="upcoming.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
-                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENCES</a>
+                <a href="upcoming-en.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
+                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">CLIENTS</a>
                 <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">CONTACT</a>
             </div>
         </div>
         <div class="sidebar-footer">
-             <a href="impressum.html" class="interactive">IMPRINT</a>
-             <a href="datenschutz.html" class="interactive">PRIVACY POLICY</a>
-             <a href="agb.html" class="interactive">TERMS & CONDITIONS</a>
+             <a href="impressum-en.html" class="interactive">IMPRINT</a>
+             <a href="datenschutz-en.html" class="interactive">PRIVACY POLICY</a>
+             <a href="agb-en.html" class="interactive">TERMS & CONDITIONS</a>
              <span>© 2026 WESTROOMZ</span>
         </div>
     </div>
@@ -384,7 +375,6 @@
 
     <main class="page-wrapper">
         <header id="hero" class="hero">
-            <div class="video-container"></div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="site-toggle-container is-business interactive">
@@ -413,8 +403,8 @@
                             <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2l.5-.5m-3-3l3 3M10 14.5L19 5.5a2.12 2.12 0 0 0-3-3L7 11.5M10 14.5l-3-3m3 3l3 3m-3-3l-3-3m3 3l3 3"/></svg>
                             YOUR VISION. OUR STAGE.
                         </div>
-                        <h2 class="cta-headline">Ready to create something <span class="highlight-red">extraordinary?</span></h2>
-                        <p class="cta-description">Westroomz Business stands for well-thought-out campaigns and high-quality productions. We connect strategy, creation, and execution into a functioning ecosystem.</p>
+                        <h2 class="cta-headline">Ready to build something <span class="highlight-red">extraordinary?</span></h2>
+                        <p class="cta-description">Westroomz Business stands for well-thought-out campaigns and high-quality productions. We connect strategy, creation, and execution into a functioning overall system.</p>
                         <div class="cta-buttons">
                             <a href="#contact" class="cta-btn-primary interactive">
                                 Request Project <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -479,7 +469,7 @@
                     <div class="orbit-glow-bg"></div>
                     <div class="orbit-card-content">
                         <h3>STRATEGY</h3>
-                        <p>We translate business goals into clear communication and campaign strategies – structured thinking, precisely planned.</p>
+                        <p>We translate business goals into clear communication and campaign strategies – structured thinking, precise planning.</p>
                         <a href="strategy-en.html" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
@@ -487,7 +477,7 @@
                     <div class="orbit-glow-bg"></div>
                     <div class="orbit-card-content">
                         <h3>PRODUCTION</h3>
-                        <p>We execute productions that present brands credibly – with clear staging, professional execution, and high quality standards.</p>
+                        <p>We realize productions that present brands credibly – with clear staging, professional execution, and an uncompromising demand for quality.</p>
                         <a href="production-en.html" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
@@ -503,7 +493,7 @@
                     <div class="orbit-glow-bg"></div>
                     <div class="orbit-card-content">
                         <h3>PERFORMANCE</h3>
-                        <p>We combine ad strategies, data analysis, and targeted distribution into a controlled performance system.</p>
+                        <p>We combine ad strategies, data analysis, and targeted delivery into a controlled performance system.</p>
                         <a href="performance-en.html" class="book-btn interactive">DETAILS</a>
                     </div>
                 </div>
@@ -515,7 +505,7 @@
             <div class="dash-header">
                 <div class="dash-header-center">
                     <h2>The market doesn't wait. <br>Are you using <span class="highlight-red">your full potential?</span></h2>
-                    <p>Companies that consistently invest in content, digital systems, and performance marketing grow significantly faster than their competition. With Westroomz, strategies and content are created that increase reach, build trust, and measurably generate more customers.</p>
+                    <p>Companies that consistently invest in content, digital systems, and performance marketing grow significantly faster than their competitors. With Westroomz, strategies and content are created that increase reach, build trust, and measurably generate more customers.</p>
                 </div>
             </div>
 
@@ -538,7 +528,7 @@
                         </div>
                         <div class="kpi-title">Purchase Decisions</div>
                         <div class="kpi-value js-dash-counter" data-target="85" data-suffix="%">0</div>
-                        <div class="kpi-sub">of customers state that video content directly influences their purchase decision.</div>
+                        <div class="kpi-sub">of customers state that video content directly influences their purchasing decision.</div>
                         <span class="kpi-source">(Source: Wyzowl Video Marketing Statistics)</span>
                     </div>
                     <div class="kpi-card">
@@ -559,7 +549,7 @@
                         <div class="chart-header">
                             <div>
                                 <div class="chart-title">Marketing Performance Over Time</div>
-                                <div class="chart-sub">Companies combining content, video, and data-driven advertising continuously increase their reach and conversion rates.</div>
+                                <div class="chart-sub">Companies that combine content, video, and data-driven advertising continuously increase their reach and conversion rates.</div>
                             </div>
                         </div>
 
@@ -609,7 +599,7 @@
                                 <div class="chart-arg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
                                 <div class="chart-arg-text">
                                     <h5>More Reach</h5>
-                                    <p>Content and campaigns reach exactly the target groups relevant to your business.</p>
+                                    <p>Content and campaigns reach exactly the target groups that are relevant to your business.</p>
                                 </div>
                             </div>
                             <div class="chart-arg-item">
@@ -623,7 +613,7 @@
                                 <div class="chart-arg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                                 <div class="chart-arg-text">
                                     <h5>More Customers</h5>
-                                    <p>Data-driven optimization creates marketing systems that generate new leads and sales long-term.</p>
+                                    <p>Data-driven optimization creates marketing systems that generate new leads and sales in the long term.</p>
                                 </div>
                             </div>
                         </div>
@@ -655,7 +645,7 @@
                                 <span class="mult-val">5–10x</span>
                             </div>
                             <div class="mult-item">
-                                <span class="mult-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Web / Landing Page Content</span>
+                                <span class="mult-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Web / Landingpage Content</span>
                                 <span class="mult-val">3–5x</span>
                             </div>
                             <div class="mult-item">
@@ -682,12 +672,12 @@
             <div class="laser-border-inner">
                 <section class="ref-section">
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <h2 class="section-title">REFERENCES</h2>
+                        <h2 class="section-title">CLIENTS</h2>
                     </div>
                     
                     <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
                         <div class="vision-text" style="opacity: 1; transform: none;">
-                            <p style="opacity: 1; transform: none;">These companies chose to collaborate with WESTROOMZ.</p>
+                            <p style="opacity: 1; transform: none;">These brands have chosen to collaborate with WESTROOMZ.</p>
                         </div>
                     </div>
 
@@ -721,8 +711,8 @@
             <div class="footer-container">
                 <div class="footer-contact-area">
                     <div class="footer-contact-info">
-                        <h2>Let's create something <br><span class="highlight-red">great.</span></h2>
-                        <p>Planning a production or looking for a technical partner? Drop us a message – we'll get back to you immediately.</p>
+                        <h2>Let's build something <br><span class="highlight-red">extraordinary.</span></h2>
+                        <p>Planning a production or looking for a technical partner? Drop us a line – we'll get back to you immediately.</p>
                         <div class="contact-details">
                             <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
                         </div>
@@ -746,7 +736,7 @@
                                 <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Your Name">
                             </div>
                             <div class="form-group">
-                                <label>E-MAIL</label>
+                                <label>EMAIL</label>
                                 <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="your@email.com">
                             </div>
                             <div class="form-group">
@@ -757,20 +747,22 @@
                                 <label>MESSAGE</label>
                                 <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="How can we help you?"></textarea>
                             </div>
-                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">Send Message</button>
+                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">
+                                Send Request <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
                         </form>
-                        </div>
+                    </div>
                 </div>
 
                 <div class="footer-links-section">
                     <div class="footer-brand">
                         <a href="#hero" class="brand-logo interactive">
-                            <div class="brand-icon">W</div>
+                            <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
-                        <p>The creative production agency for events and marketing. Clear in execution, strong in impact, flawless in detail.</p>
+                        <p>The creative production agency for events and marketing. Clear in execution, strong in impact, clean in detail.</p>
                         <div class="footer-socials-new">
-                            <a href="#" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                            <a href="https://www.instagram.com/westroomz_business/" target="_blank" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
                             <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
                             <a href="mailto:info@westroomz.de" class="interactive" aria-label="Email"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
                         </div>
@@ -780,16 +772,16 @@
                         <ul>
                             <li><a href="#hero" class="interactive">Home</a></li>
                             <li><a href="#vision" class="interactive">Vision</a></li>
-                            <li><a href="#services" class="interactive">Services</a></li>
-                            <li><a href="#references" class="interactive">References</a></li>
+                            <li><a href="#services" class="interactive">What we do</a></li>
+                            <li><a href="#references" class="interactive">Clients</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
                         <h3>Legal</h3>
                         <ul>
-                            <li><a href="impressum.html" class="interactive">Imprint</a></li>
-                            <li><a href="datenschutz.html" class="interactive">Privacy Policy</a></li>
-                            <li><a href="agb.html" class="interactive">Terms & Conditions</a></li>
+                            <li><a href="impressum-en.html" class="interactive">Imprint</a></li>
+                            <li><a href="datenschutz-en.html" class="interactive">Privacy Policy</a></li>
+                            <li><a href="agb-en.html" class="interactive">Terms & Conditions</a></li>
                         </ul>
                     </div>
                 </div>
@@ -800,9 +792,6 @@
             </div>
         </footer>
     </main>
-    
-    <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
-    <div id="slice-cursor-dot" aria-hidden="true"></div>
 
     <script src="js/main.js"></script>
 
@@ -886,64 +875,6 @@
                     }
                 });
             }
-        });
-
-        /* === CURSOR LOGIK === */
-        document.addEventListener("DOMContentLoaded", () => {
-            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-            const canvas = document.getElementById("slice-cursor-canvas");
-            const dot = document.getElementById("slice-cursor-dot");
-
-            if (!isDesktop) {
-                if (canvas) canvas.style.display = "none";
-                if (dot) dot.style.display = "none";
-                return; 
-            }
-
-            const ctx = canvas.getContext("2d");
-            const trailColor = "#dc2626"; 
-            const pointsNumber = 40;
-            const widthFactor = 0.3;
-            const spring = 0.4;
-            const friction = 0.5;
-            
-            let mouseMoved = false;
-            const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-            const trail = new Array(pointsNumber).fill().map(() => ({ x: pointer.x, y: pointer.y, dx: 0, dy: 0 }));
-
-            const updateMousePosition = (eX, eY) => { pointer.x = eX * window.devicePixelRatio; pointer.y = eY * window.devicePixelRatio; };
-            const handleMouseMove = (e) => { mouseMoved = true; updateMousePosition(e.clientX, e.clientY); };
-            const setupCanvas = () => { canvas.width = window.innerWidth * window.devicePixelRatio; canvas.height = window.innerHeight * window.devicePixelRatio; };
-
-            setupCanvas();
-            window.addEventListener("resize", setupCanvas);
-            window.addEventListener("mousemove", handleMouseMove);
-
-            const update = (t) => {
-                if (!mouseMoved) {
-                    pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * canvas.width;
-                    pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * canvas.height;
-                }
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                trail.forEach((p, pIdx) => {
-                    const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
-                    const currentSpring = pIdx === 0 ? .4 * spring : spring;
-                    p.dx += (prev.x - p.x) * currentSpring; p.dy += (prev.y - p.y) * currentSpring;
-                    p.dx *= friction; p.dy *= friction;
-                    p.x += p.dx; p.y += p.dy;
-                });
-                ctx.lineCap = "round"; ctx.strokeStyle = trailColor; ctx.beginPath(); ctx.moveTo(trail[0].x, trail[0].y);
-                for (let i = 1; i < trail.length - 1; i++) {
-                    const xc = .5 * (trail[i].x + trail[i + 1].x); const yc = .5 * (trail[i].y + trail[i + 1].y);
-                    ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
-                    ctx.lineWidth = widthFactor * (pointsNumber - i) * window.devicePixelRatio;
-                    ctx.stroke();
-                }
-                if (trail.length > 0) { ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y); ctx.stroke(); }
-                if (dot) { dot.style.left = `${pointer.x / window.devicePixelRatio}px`; dot.style.top = `${pointer.y / window.devicePixelRatio}px`; }
-                window.requestAnimationFrame(update);
-            };
-            window.requestAnimationFrame(update);
         });
     </script>
 </body>
