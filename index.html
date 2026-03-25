@@ -16,7 +16,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.gh/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
         button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
@@ -526,21 +526,21 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            /* === HIER IST DER TURBO FÜR DIE VISION ANIMATION (START BEI 80%) === */
+            /* === HIER IST DER TURBO FÜR DIE VISION ANIMATION (MOBILE FIX) === */
             if(document.querySelector(".premium-vision-integrated")) {
                 const visionTl = gsap.timeline({ 
                     scrollTrigger: { 
-                        trigger: ".premium-vision-integrated", 
-                        start: "top 80%", 
+                        trigger: ".massive-metal-headline", 
+                        start: "top 75%", 
                         toggleActions: "play none none none" 
                     } 
                 });
                 
                 visionTl.fromTo(".vision-anchor-line", { scaleY: 0, transformOrigin: "top" }, { scaleY: 1, duration: 0.3, ease: "power2.out" })
-                .fromTo([".text-titanium", ".text-liquid-red"], { y: 20, opacity: 0, rotationX: -10 }, { y: 0, opacity: 1, rotationX: 0, duration: 0.4, stagger: 0.1, ease: "power3.out" }, "-=0.2")
-                .fromTo([".lead-text-integrated", ".sub-text-integrated"], { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: "power3.out" }, "-=0.3")
-                .fromTo(".vision-mantra-glassbar", { y: 15, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, "-=0.3")
-                .fromTo(".mantra-item", { opacity: 0, x: -5 }, { opacity: 1, x: 0, duration: 0.2, stagger: 0.05, ease: "power2.out" }, "-=0.2");
+                .fromTo([".text-titanium", ".text-liquid-red"], { y: 30, opacity: 0, rotationX: -15 }, { y: 0, opacity: 1, rotationX: 0, duration: 0.4, stagger: 0.1, ease: "power3.out" }, "-=0.1")
+                .fromTo([".lead-text-integrated", ".sub-text-integrated"], { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: "power3.out" }, "-=0.3")
+                .fromTo(".vision-mantra-glassbar", { y: 20, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, "-=0.3")
+                .fromTo(".mantra-item", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.2, stagger: 0.05, ease: "power2.out" }, "-=0.2");
             }
 
             // === MOBILE ACCORDION LOGIC ===
