@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>WESTROOMZ | Audio Production</title>
     
-    <link rel="alternate" hreflang="de" href="https://westroomz.de/audio.html" />
-    <link rel="alternate" hreflang="en" href="https://westroomz.de/audio-en.html" />
-    <link rel="alternate" hreflang="x-default" href="https://westroomz.de/audio.html" />
-    
     <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -19,8 +15,12 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
+        /* Dark Mode Basis Styles */
         html, body, .page-wrapper { background-color: #050505 !important; color: #ffffff !important; }
         .menu-toggle-btn .bar { background-color: #ffffff !important; }
+        
+        /* Mobile Performance & Text Wrap Optimierung */
+        h1, h2, h3, h4, p { text-wrap: balance; }
         
         /* === PREMIUM LANGUAGE SWITCHER === */
         .lang-switcher { position: fixed; top: 40px; right: 40px; z-index: 999; display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease; }
@@ -45,16 +45,23 @@
         /* === DARK BENTO GRID STYLES === */
         .bento-section { padding: 40px 24px 120px 24px; background-color: #050505; font-family: 'Inter', sans-serif; position: relative; overflow: hidden; z-index: 2;}
         .bento-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+        
         .bg-glow-1 { position: absolute; top: 10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
         .bg-glow-2 { position: absolute; bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
-        
+
         .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
         @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 1fr 1fr; } } 
         
-        .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; }
-        .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px); background: rgba(255, 255, 255, 0.04); }
-        .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: all 0.5s; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
+        /* FIX: CSS Transitions von Transform getrennt, um GSAP Konflikte auf Mobile zu stoppen */
+        .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; }
+        .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: transform 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease; border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        @media (hover: hover) {
+            .bento-card { transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease; }
+            .bento-card:hover { border-color: rgba(220, 38, 38, 0.4); box-shadow: 0 20px 50px rgba(220, 38, 38, 0.1); transform: translateY(-4px) translateZ(0); background: rgba(255, 255, 255, 0.04); }
+            .bento-card:hover .bento-icon-wrapper { transform: scale(1.1) rotate(3deg); background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
+        }
+
         .bento-card h3 { font-size: 1.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; color: #ffffff; word-wrap: break-word; }
         .bento-card p { font-size: 1rem; color: #a3a3a3; line-height: 1.6; }
 
@@ -70,14 +77,23 @@
         /* Sticky Layout */
         .sticky-layout { display: flex; flex-direction: column; gap: 60px; }
         @media (min-width: 1024px) { .sticky-layout { flex-direction: row; align-items: flex-start; } }
+        
         .sticky-sidebar { flex: 1; position: sticky; top: 120px; }
         .sticky-sidebar h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff; word-wrap: break-word; hyphens: auto; overflow-wrap: break-word; }
         @media (max-width: 768px) { .sticky-sidebar h2 { font-size: 2.2rem; } } 
+        @media (max-width: 400px) { .sticky-sidebar h2 { font-size: 1.8rem; } } 
+        
         .sticky-sidebar p { color: #a3a3a3; font-size: 1rem; line-height: 1.6; max-width: 320px; margin-bottom: 40px; }
         .sticky-content { flex: 2; display: grid; grid-template-columns: 1fr; gap: 24px; }
         @media (min-width: 640px) { .sticky-content { grid-template-columns: repeat(2, 1fr); } }
-        .small-bento { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 32px; transition: all 0.3s; backdrop-filter: blur(10px); }
-        .small-bento:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(220, 38, 38, 0.3); transform: translateY(-2px); }
+        
+        /* FIX FÜR DIE KLEINEN KARTEN */
+        .small-bento { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 32px; transition: border-color 0.3s ease, background-color 0.3s ease; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; }
+        @media (hover: hover) {
+            .small-bento { transition: border-color 0.3s ease, transform 0.3s ease, background-color 0.3s ease; }
+            .small-bento:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(220, 38, 38, 0.3); transform: translateY(-2px) translateZ(0); }
+        }
+
         .small-bento .bento-icon-wrapper { width: 48px; height: 48px; margin-bottom: 20px; background: transparent; }
         .small-bento h4 { font-size: 1.25rem; font-weight: 900; margin-bottom: 12px; color: #ffffff; word-wrap: break-word; }
         .small-bento p { font-size: 0.875rem; color: #a3a3a3; line-height: 1.5; }
@@ -89,7 +105,9 @@
         .back-btn { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; color: #ffffff; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 30px; transition: all 0.3s; background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
         .back-btn:hover { background: #ffffff; color: #000000; border-color: #ffffff; }
         .subpage-header-logo { height: 40px; width: auto; flex-shrink: 0; }
-        .gsap-fade-up { opacity: 0; transform: translateY(40px); }
+        
+        /* FIX FÜR DIE GSAP ANIMATIONEN (Verhindert Flackern) */
+        .gsap-fade-up { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
 
         /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
@@ -124,14 +142,21 @@
         .footer-brand { grid-column: 1 / -1; }
         @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } .footer-brand { grid-column: auto; } }
         .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
-        .footer-brand .brand-icon { width: 32px; height: 32px; background-color: #dc2626; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; transition: transform 0.3s; }
+        
+        /* LOGO FIX IM FOOTER */
+        .footer-brand .brand-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; transition: transform 0.3s; background-color: transparent; }
+        .footer-brand .brand-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+        
         .footer-brand .brand-logo:hover .brand-icon { transform: rotate(12deg); }
         .footer-brand .brand-name { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.5px; }
         .footer-brand p { color: #a3a3a3 !important; font-size: 0.875rem; font-style: italic; max-width: 300px; margin-bottom: 32px; line-height: 1.6; }
         .footer-socials-new { display: flex; gap: 12px; }
         .footer-socials-new a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); color: #ffffff !important; transition: all 0.3s; }
         .footer-socials-new a:hover { background-color: rgba(255,255,255,0.05); color: #dc2626 !important; border-color: rgba(255,255,255,0.2); }
-        .footer-socials-new svg { width: 16px; height: 16px; fill: currentColor; }
+        
+        /* ICONS FIX: fill: none; stroke: currentColor */
+        .footer-socials-new svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+        
         .footer-col { text-align: left; }
         .footer-col h3 { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.5) !important; margin-bottom: 24px; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
@@ -160,7 +185,7 @@
 <body>
 
     <div class="lang-switcher">
-        <a href="audio.html" class="interactive">
+        <a href="audio.html" class="transition-link interactive">
             <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-de"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-de)"><rect width="512" height="170.6" fill="#000"/><rect y="170.6" width="512" height="170.6" fill="#D00"/><rect y="341.3" width="512" height="170.6" fill="#FFCE00"/></g></svg>
             DE
         </a>
@@ -179,7 +204,7 @@
         <div>
             <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
             <div class="menu-links">
-                <a href="index-en.html" class="menu-link interactive">BACK TO HOME</a>
+                <a href="index-en.html" class="menu-link interactive">BACK TO OVERVIEW</a>
             </div>
         </div>
     </div>
@@ -201,8 +226,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: middle;"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
                     STUDIO & MIX
                 </div>
-                <h1 class="hero-title">Sound that gives you<br><span class="hero-highlight">goosebumps.</span></h1>
-                <p class="hero-text">Audio isn't just a step, it's a process. From the first recording to the final mix, it's all about precision, dynamics, and the right feel for the space.</p>
+                <h1 class="hero-title">Sound that<br><span class="hero-highlight">gives goosebumps.</span></h1>
+                <p class="hero-text">Audio isn't just a step, it's a process. From the first recording to the final mix, it's about precision, dynamics, and the right feel for space.</p>
             </div>
         </div>
 
@@ -223,7 +248,7 @@
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                             </div>
                             <h3>Beat & Instrumental</h3>
-                            <p>Custom instrumentals. Your vibe, your vision, our sound.</p>
+                            <p>Custom-made instrumentals. Your vibe, your vision, our sound.</p>
                         </div>
                         <div class="bento-card gsap-fade-up" style="flex: 1; padding: 32px;">
                             <div class="bento-icon-wrapper">
@@ -240,14 +265,14 @@
                         <span style="font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #dc2626; display: block; margin-bottom: 16px;">Workflow</span>
                         <h2>Uncompromisingly <br><span style="color: #dc2626; text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.4); text-underline-offset: 8px;">Clear.</span></h2>
                         <p>A good track needs more than just equipment. It needs vibe, trust, and someone at the controls who understands exactly where you want to go.</p>
-                        <a href="#contact" class="btn-red interactive">Request Session</a>
+                        <a href="#contact" class="btn-red interactive">Request a Session</a>
                     </div>
 
                     <div class="sticky-content">
                         <div class="small-bento gsap-fade-up">
                             <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
                             <h4>Flexible Sessions</h4>
-                            <p>Creativity knows no schedule. We go with your flow and take the time the song needs.</p>
+                            <p>Creativity knows no schedule. We follow your flow and take the time the song needs.</p>
                         </div>
                         <div class="small-bento gsap-fade-up">
                             <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20v-8"/><path d="M6 20V10"/><path d="M18 20V4"/></svg></div>
@@ -257,12 +282,12 @@
                         <div class="small-bento gsap-fade-up">
                             <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg></div>
                             <h4>Podcast Production</h4>
-                            <p>Crystal-clear voices, clean editing, and direct video recording for Spotify and YouTube upon request.</p>
+                            <p>Crystal-clear voices, clean editing, and optional direct video recording for Spotify and YouTube.</p>
                         </div>
                         <div class="small-bento gsap-fade-up">
                             <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
                             <h4>Artist Consulting</h4>
-                            <p>Honest feedback. We advise you on arrangement, performance, and help you find your own sound.</p>
+                            <p>Honest feedback. We advise you on arrangement, performance, and help you find your unique sound.</p>
                         </div>
                     </div>
                 </div>
@@ -274,8 +299,8 @@
             <div class="footer-container">
                 <div class="footer-contact-area">
                     <div class="footer-contact-info">
-                        <h2>Let's create something <br><span class="highlight-red">great.</span></h2>
-                        <p>Planning a production or looking for a technical partner? Drop us a message – we'll get back to you immediately.</p>
+                        <h2>Let's build something <br><span class="highlight-red">extraordinary.</span></h2>
+                        <p>Planning a production or looking for a technical partner? Drop us a line – we'll get back to you immediately.</p>
                         <div class="contact-details">
                             <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
                         </div>
@@ -297,11 +322,11 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>YOUR NAME / ARTIST NAME</label>
-                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Enter your name">
+                                <label>NAME</label>
+                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Your Name">
                             </div>
                             <div class="form-group">
-                                <label>E-MAIL</label>
+                                <label>EMAIL</label>
                                 <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="your@email.com">
                             </div>
                             <div class="form-group">
@@ -310,7 +335,7 @@
                             </div>
                             <div class="form-group">
                                 <label>MESSAGE</label>
-                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Your vision..."></textarea>
+                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="How can we help you?"></textarea>
                             </div>
                             <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
                                 Send Request <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -322,12 +347,12 @@
                 <div class="footer-links-section">
                     <div class="footer-brand">
                         <a href="index-en.html" class="brand-logo interactive">
-                            <div class="brand-icon">W</div>
+                            <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
-                        <p>The creative production agency for events and marketing. Clear in execution, strong in impact, flawless in detail.</p>
+                        <p>The creative production agency for events and marketing. Clear in execution, strong in impact, clean in detail.</p>
                         <div class="footer-socials-new">
-                            <a href="#" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                            <a href="https://www.instagram.com/westroomz_studio/" target="_blank" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
                             <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
                             <a href="mailto:info@westroomz.de" class="interactive" aria-label="Email"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
                         </div>
@@ -337,16 +362,16 @@
                         <ul>
                             <li><a href="index-en.html#hero" class="interactive">Home</a></li>
                             <li><a href="index-en.html#vision" class="interactive">Vision</a></li>
-                            <li><a href="index-en.html#services" class="interactive">Services</a></li>
-                            <li><a href="index-en.html#references" class="interactive">References</a></li>
+                            <li><a href="index-en.html#services" class="interactive">What we do</a></li>
+                            <li><a href="index-en.html#references" class="interactive">Clients</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
                         <h3>Legal</h3>
                         <ul>
-                            <li><a href="impressum.html" class="interactive">Imprint</a></li>
-                            <li><a href="datenschutz.html" class="interactive">Privacy Policy</a></li>
-                            <li><a href="agb.html" class="interactive">Terms & Conditions</a></li>
+                            <li><a href="impressum-en.html" class="interactive">Imprint</a></li>
+                            <li><a href="datenschutz-en.html" class="interactive">Privacy Policy</a></li>
+                            <li><a href="agb-en.html" class="interactive">Terms & Conditions</a></li>
                         </ul>
                     </div>
                 </div>
@@ -356,8 +381,7 @@
                 </div>
             </div>
         </footer>
-
-    </main>
+        </main>
 
     <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
     <div id="slice-cursor-dot" aria-hidden="true"></div>
@@ -365,8 +389,8 @@
     <script src="js/main.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            
-            // === CINEMATIC PARALLAX ANIMATION ===
+
+            // === CINEMATIC PARALLAX ANIMATION FÜR HERO BILD ===
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
@@ -395,7 +419,7 @@
                 });
             }
 
-            // === SOUND SYSTEM ===
+            // === SOUND SYSTEM (TROCKENER KLICK FÜR DEN KNOB) ===
             const clickSound = new Audio('click.mp3');
             clickSound.volume = 0.4; 
             clickSound.load();
@@ -427,12 +451,12 @@
 
             if(listContainer && wrapper) {
                 const audioList = [
-                    { name: "Recording", text: "High-end recordings in acoustically optimized rooms for vocals and instruments." },
+                    { name: "Recording", text: "High-End recordings in acoustically optimized rooms for vocals and instruments." },
                     { name: "Mixing", text: "We bring balance, depth, and the necessary punch to your tracks." },
-                    { name: "Mastering", text: "The final touch for loudness and consistency across all streaming platforms." },
-                    { name: "Sound Design", text: "Creative sound design for films, games, and brand identities." },
-                    { name: "Live Audio", text: "Crystal-clear sound for events, concerts, and live broadcasts." },
-                    { name: "Set Audio", text: "Professional boom operation and recording directly on the film set." }
+                    { name: "Mastering", text: "The final polish for loudness and consistency across all streaming platforms." },
+                    { name: "Sounddesign", text: "Creative sound design for films, games, and brand identities." },
+                    { name: "Live-Audio", text: "Crystal-clear sound for events, concerts, and live broadcasts." },
+                    { name: "Set-Ton", text: "Professional boom operation and recording directly on film sets." }
                 ];
 
                 const interfaceDiv = document.createElement('div');
@@ -573,7 +597,7 @@
                 window.addEventListener('touchend', onEnd);
             }
 
-            // Scroll Animationen
+            // Scroll Animationen (Flackern gefixt durch CSS will-change)
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
                 const elements = document.querySelectorAll('.gsap-fade-up');
@@ -581,62 +605,6 @@
                     gsap.to(el, { scrollTrigger: { trigger: el, start: "top 85%" }, opacity: 1, y: 0, duration: 0.8, ease: "power3.out" });
                 });
             }
-
-            // === CURSOR LOGIK ===
-            const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-            const canvas = document.getElementById("slice-cursor-canvas");
-            const dot = document.getElementById("slice-cursor-dot");
-
-            if (!isDesktop) {
-                if (canvas) canvas.style.display = "none";
-                if (dot) dot.style.display = "none";
-                return; 
-            }
-
-            const ctx = canvas.getContext("2d");
-            const trailColor = "#dc2626"; 
-            const pointsNumber = 40;
-            const widthFactor = 0.3;
-            const spring = 0.4;
-            const friction = 0.5;
-            
-            let mouseMoved = false;
-            const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-            const trail = new Array(pointsNumber).fill().map(() => ({ x: pointer.x, y: pointer.y, dx: 0, dy: 0 }));
-
-            const updateMousePosition = (eX, eY) => { pointer.x = eX * window.devicePixelRatio; pointer.y = eY * window.devicePixelRatio; };
-            const handleMouseMove = (e) => { mouseMoved = true; updateMousePosition(e.clientX, e.clientY); };
-            const setupCanvas = () => { canvas.width = window.innerWidth * window.devicePixelRatio; canvas.height = window.innerHeight * window.devicePixelRatio; };
-
-            setupCanvas();
-            window.addEventListener("resize", setupCanvas);
-            window.addEventListener("mousemove", handleMouseMove);
-
-            const update = (t) => {
-                if (!mouseMoved) {
-                    pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * canvas.width;
-                    pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * canvas.height;
-                }
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                trail.forEach((p, pIdx) => {
-                    const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
-                    const currentSpring = pIdx === 0 ? .4 * spring : spring;
-                    p.dx += (prev.x - p.x) * currentSpring; p.dy += (prev.y - p.y) * currentSpring;
-                    p.dx *= friction; p.dy *= friction;
-                    p.x += p.dx; p.y += p.dy;
-                });
-                ctx.lineCap = "round"; ctx.strokeStyle = trailColor; ctx.beginPath(); ctx.moveTo(trail[0].x, trail[0].y);
-                for (let i = 1; i < trail.length - 1; i++) {
-                    const xc = .5 * (trail[i].x + trail[i + 1].x); const yc = .5 * (trail[i].y + trail[i + 1].y);
-                    ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
-                    ctx.lineWidth = widthFactor * (pointsNumber - i) * window.devicePixelRatio;
-                    ctx.stroke();
-                }
-                if (trail.length > 0) { ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y); ctx.stroke(); }
-                if (dot) { dot.style.left = `${pointer.x / window.devicePixelRatio}px`; dot.style.top = `${pointer.y / window.devicePixelRatio}px`; }
-                window.requestAnimationFrame(update);
-            };
-            window.requestAnimationFrame(update);
         });
     </script>
 </body>
