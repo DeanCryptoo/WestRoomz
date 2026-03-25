@@ -374,4 +374,44 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // === HIER IST DIE NEUE BESSERE SLIDER LOGIK INKLUSIVE TOUCH ===
+    const slider = document.getElementById('draggable-slider');
+    let isDown = false; let startX; let currentX = 0; 
+    let speed = window.innerWidth < 768 ? 2.5 : 1.5; // Auf dem Handy spürbar schneller
+    let halfWidth = 0;
+
+    function calculateWidth() { 
+        if(slider) { 
+            halfWidth = slider.scrollWidth / 2; 
+            speed = window.innerWidth < 768 ? 2.5 : 1.5; 
+        } 
+    }
+    setTimeout(calculateWidth, 100); 
+    window.addEventListener('resize', calculateWidth);
+
+    function animate() {
+        if(!slider) return;
+        if (!isDown) { currentX -= speed; }
+        if (halfWidth > 0) {
+            if (currentX <= -halfWidth) { currentX += halfWidth; }
+            else if (currentX > 0) { currentX -= halfWidth; }
+        }
+        slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        requestAnimationFrame(animate);
+    }
+
+    if(slider) {
+        // Desktop Maus-Steuerung
+        slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - currentX; });
+        window.addEventListener('mouseup', () => { isDown = false; });
+        slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); currentX = e.pageX - startX; });
+        
+        // NEU: Touch-Steuerung fürs Handy
+        slider.addEventListener('touchstart', (e) => { isDown = true; startX = e.touches[0].pageX - currentX; }, {passive: true});
+        window.addEventListener('touchend', () => { isDown = false; });
+        slider.addEventListener('touchmove', (e) => { if (!isDown) return; currentX = e.touches[0].pageX - startX; }, {passive: true});
+        
+        requestAnimationFrame(animate);
+    }
 });
