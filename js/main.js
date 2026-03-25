@@ -361,9 +361,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- HIER IST DER FIX: ---
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
+            const target = link.getAttribute('target');
+
+            // Wenn der Link explizit in einem neuen Tab geöffnet werden soll (_blank),
+            // dann brechen wir hier ab und lassen den Browser seinen Job machen!
+            if (target === '_blank') {
+                return;
+            }
+
             if (href && !href.startsWith('#') && !href.startsWith('mailto') && !href.includes('javascript')) {
                 e.preventDefault();
                 if(curtain) {
@@ -375,10 +384,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // === HIER IST DIE NEUE BESSERE SLIDER LOGIK INKLUSIVE TOUCH ===
+    // --- SLIDER LOGIK INKLUSIVE TOUCH ---
     const slider = document.getElementById('draggable-slider');
     let isDown = false; let startX; let currentX = 0; 
-    let speed = window.innerWidth < 768 ? 2.5 : 1.5; // Auf dem Handy spürbar schneller
+    let speed = window.innerWidth < 768 ? 2.5 : 1.5; 
     let halfWidth = 0;
 
     function calculateWidth() { 
@@ -402,12 +411,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if(slider) {
-        // Desktop Maus-Steuerung
         slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - currentX; });
         window.addEventListener('mouseup', () => { isDown = false; });
         slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); currentX = e.pageX - startX; });
         
-        // NEU: Touch-Steuerung fürs Handy
         slider.addEventListener('touchstart', (e) => { isDown = true; startX = e.touches[0].pageX - currentX; }, {passive: true});
         window.addEventListener('touchend', () => { isDown = false; });
         slider.addEventListener('touchmove', (e) => { if (!isDown) return; currentX = e.touches[0].pageX - startX; }, {passive: true});
