@@ -526,11 +526,12 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
+            /* === HIER IST DER TURBO FÜR DIE VISION ANIMATION (START BEI 80%) === */
             if(document.querySelector(".premium-vision-integrated")) {
                 const visionTl = gsap.timeline({ 
                     scrollTrigger: { 
                         trigger: ".premium-vision-integrated", 
-                        start: "top 95%", 
+                        start: "top 80%", 
                         toggleActions: "play none none none" 
                     } 
                 });
