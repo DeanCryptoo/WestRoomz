@@ -310,11 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cursor.style.display = 'block'; ring.style.display = 'block';
             let mouseX = 0, mouseY = 0, isMoving = false;
             document.addEventListener('mousemove', (e) => {
-                // --- ANGEPASST FÜR 75% ZOOM ---
-                const zoomFactor = window.innerWidth > 1024 ? 0.75 : 1;
-                mouseX = e.clientX / zoomFactor; 
-                mouseY = e.clientY / zoomFactor;
-                
+                mouseX = e.clientX; mouseY = e.clientY;
                 if (!isMoving) {
                     isMoving = true;
                     requestAnimationFrame(() => {
@@ -372,6 +368,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // ACHTUNG: Der alte, fehlerhafte Slider-Code wurde hier entfernt! 
+    // Der korrekte Slider-Code liegt bereits in deiner index.html
 
     const modal = document.getElementById('galleryModal');
     if(modal) {
@@ -446,3 +445,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
