@@ -93,11 +93,6 @@
             input:checked + .slider:before { transform: translateX(26px); }
         }
 
-        @media (min-width: 769px) {
-            .hero .video-container { background-image: none !important; background-color: transparent !important; }
-            .hero-video { display: block !important; opacity: 0.8 !important; }
-        }
-
         /* === PREMIUM FOOTER CSS === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
         @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
@@ -214,10 +209,7 @@
 
     <main class="page-wrapper">
         <header id="hero" class="hero">
-            <div class="video-container" style="background-image: url('grillzreal.png');">
-                <video class="hero-video video-desktop" autoplay muted loop playsinline poster="grillzreal-2.jpg">
-                    <source src="WEST_ROOMZ_INTRO.mp4" type="video/mp4">
-                </video>
+            <div class="video-container" style="background-image: url('grillzreal-2.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -499,7 +491,15 @@
         document.addEventListener("DOMContentLoaded", function() {
             
             const videos = document.querySelectorAll('video');
-            videos.forEach(v => { v.muted = true; v.play().catch(e => console.log(e)); });
+            if(videos.length > 0) {
+                videos.forEach(v => { v.muted = true; v.play().catch(e => console.log(e)); });
+            }
+
+            // Der Hero-Text fadet jetzt von alleine ein, da kein Video mehr läuft
+            const heroText = document.querySelector(".hero-sub");
+            if(heroText) {
+                gsap.fromTo(heroText, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power2.out" });
+            }
 
             const curtain = document.querySelector('.page-transition-curtain');
             const transitionLinks = document.querySelectorAll('.transition-link');
@@ -526,7 +526,7 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            /* === HIER IST DER TURBO FÜR DIE VISION ANIMATION (MOBILE FIX) === */
+            /* === HIER IST DER TURBO FÜR DIE VISION ANIMATION === */
             if(document.querySelector(".premium-vision-integrated")) {
                 const visionTl = gsap.timeline({ 
                     scrollTrigger: { 
