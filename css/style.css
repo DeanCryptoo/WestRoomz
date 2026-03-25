@@ -16,10 +16,6 @@
 ::-webkit-scrollbar { display: none; }
 * { -ms-overflow-style: none; scrollbar-width: none; }
 
-@media (min-width: 769px) {
-    html, body, a, button, input, select, textarea { cursor: none !important; }
-}
-
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
@@ -91,22 +87,6 @@ body {
     background: linear-gradient(to bottom, transparent, var(--primary), transparent);
     opacity: 0.3; z-index: -1; transform: translateX(-50%);
 }
-
-.cursor {
-    width: 12px; height: 12px; background: var(--accent); border-radius: 50%;
-    position: fixed; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px var(--accent);
-    transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s; will-change: transform;
-    display: none; 
-}
-.cursor-ring {
-    width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%;
-    position: fixed; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s, border-color 0.3s; will-change: transform;
-    display: none; 
-}
-body.hovering .cursor { width: 4px; height: 4px; background: white; }
-body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--accent); background: rgba(255, 0, 0, 0.05); box-shadow: 0 0 20px rgba(255, 0, 0, 0.2); }
 
 /* NAVIGATION */
 .menu-toggle-btn {
@@ -225,9 +205,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     z-index: 10;
 }
 
-/* * 1. Der Übergang vom Hero-Video bleibt (damit es keinen harten Cut gibt).
- * 2. Es gibt KEIN zweites dunkles Overlay mehr, das das Stoppschild verdeckt!
- */
+/* Der perfekte Übergangs-Fix aus dem Video in die Vision-Section */
 .premium-vision-integrated::before {
     content: ''; position: absolute; top: -2px; left: 0; width: 100%; height: 35vh; 
     background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
@@ -235,6 +213,20 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
     pointer-events: none; z-index: -1; 
+    transform: translateZ(0); /* iOS Performance Fix */
+}
+
+/* Das schwarze Radial-Overlay mit weichem Auslauf nach unten (iOS Lücken Fix) */
+.premium-vision-integrated::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    z-index: -2;
+    pointer-events: none;
+    transform: translateZ(0); /* Zwingt iOS zum flüssigen Rendering */
 }
 
 .vision-content {
@@ -281,7 +273,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     -webkit-text-fill-color: transparent;
     font-style: italic;
     padding-right: 15px;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.6), 0 0 15px rgba(255, 0, 0, 0.3);
+    text-shadow: 0 4px 15px rgba(0,0,0,0.6), 0 2px 5px rgba(0,0,0,0.9);
 }
 
 .vision-text-integrated {
@@ -331,7 +323,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     gap: 40px;
     padding: 16px 48px;
     border-radius: 100px;
-    background: rgba(255, 255, 255, 0.05); 
+    background: rgba(255, 255, 255, 0.03); 
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -353,7 +345,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 }
 
 .mantra-item.highlight-item {
-    color: #ffffff; /* Jetzt sind alle aktiviert */
+    color: #ffffff;
 }
 
 .mantra-dot {
@@ -878,8 +870,6 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 /* RESPONSIVE */
 @media (max-width: 768px) {
     body { background-attachment: scroll; }
-    html, body, a, button, input, select, textarea { cursor: auto !important; }
-    .cursor, .cursor-ring { display: none !important; }
     .hero { height: 75vh; min-height: 500px; }
     .hero-content { bottom: 10px; }
     
@@ -1087,7 +1077,6 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     .detail-desc { padding-right: 40px; }
     .detail-desc h2 { font-size: 3.5rem !important; line-height: 0.95 !important; }
     .detail-desc p { font-size: 1.15rem !important; padding-left: 30px !important; }
-    .hero-video { display: block !important; opacity: 0.8 !important; } 
 }
 
 /* --- GLASS KINETIC BOX --- */
