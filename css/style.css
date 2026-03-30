@@ -1197,7 +1197,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
                 border-radius: 32px !important; 
             } 
         }
-/* === MOBILE OVERRIDE FÜR DIE VISION MANTRA GLASSBAR (EINE ZEILE ERZWUNGEN) === */
+/* === FIX: VISION MANTRA MOBILE (EINE ZEILE ERZWUNGEN) === */
         @media (max-width: 768px) {
             .vision-mantra-glassbar {
                 display: inline-flex !important;
@@ -1205,7 +1205,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
                 flex-wrap: nowrap !important; /* Absolutes Umbruch-Verbot! */
                 justify-content: center !important;
                 align-items: center !important;
-                gap: 12px !important; /* Abstand zwischen den Wörtern */
+                gap: 12px !important; /* Minimaler Abstand zwischen den Wörtern */
                 background: rgba(255, 255, 255, 0.08) !important; /* Helles Premium-Milchglas */
                 backdrop-filter: blur(12px) !important;
                 -webkit-backdrop-filter: blur(12px) !important;
@@ -1220,14 +1220,14 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
                 display: flex !important;
                 align-items: center !important;
                 gap: 5px !important;
-                font-size: 0.65rem !important; /* Perfekte Größe, damit alle drei passen */
+                font-size: 0.65rem !important; /* Perfekte Größe für Handyscreens */
                 font-weight: 700 !important;
                 letter-spacing: 1.5px !important;
                 color: #ffffff !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 text-transform: uppercase !important;
-                white-space: nowrap !important; /* Verhindert, dass das Wort selbst umbricht */
+                white-space: nowrap !important; /* Wort-Umbruch verboten */
             }
             .vision-mantra-glassbar .mantra-dot {
                 width: 5px !important;
