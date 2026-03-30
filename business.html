@@ -30,7 +30,6 @@
         .hero { background-image: url('WR_Whiteboard.jpg') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
         .divider-line { background-color: #1d1d1f !important; }
         .menu-toggle-btn .bar { background-color: #1d1d1f !important; }
-        .book-btn { background-color: #1d1d1f !important; color: white !important; border: none; padding: 12px 24px; text-decoration: none; display: inline-block; border-radius: 30px !important;}
         .tab-btn { color: #1d1d1f !important; border: 1px solid #d2d2d7 !important; }
         .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
 
@@ -44,28 +43,74 @@
         .lang-flag { width: 16px; height: 16px; border-radius: 50%; display: block; }
         @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
 
-        /* === NEUE ORBIT CARDS (4er Grid) === */
-        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; max-width: 1600px; margin: 0 auto; padding: 40px 40px; }
-        @media (max-width: 1400px) { .services-grid { gap: 40px; padding: 40px 30px; } }
-        @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); gap: 50px; } }
-        .orbit-card { position: relative; border-radius: 20px; padding: 8px; z-index: 1; transition: transform 0.3s ease; }
-        @media (min-width: 769px) { .orbit-card:hover { transform: translateY(-5px); } }
-        .orbit-glow-bg { position: absolute; inset: 0; z-index: -1; border-radius: 20px; animation: orbit-glow 4s ease-in-out infinite; background: transparent; }
-        .orbit-card-content { position: relative; z-index: 10; background-color: #ffffff; border-radius: 16px; padding: 50px 40px; height: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.03); }
-        .orbit-card h3 { font-family: 'Oswald', sans-serif; font-size: 1.8rem; margin-bottom: 20px; color: #1d1d1f !important; }
-        .orbit-card p { font-size: 1.05rem; color: #6e6e73 !important; margin-bottom: 30px; line-height: 1.6; flex-grow: 1; }
-        @keyframes orbit-glow { 0% { transform: scale(1); box-shadow: 0 0 20px 4px rgba(255, 0, 0, 0.3); } 50% { transform: scale(1.02); box-shadow: 0 0 32px 8px rgba(153, 0, 0, 0.45); } 100% { transform: scale(1); box-shadow: 0 0 20px 4px rgba(255, 0, 0, 0.3); } }
-        @media (max-width: 768px) {
-            .services-grid { display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; gap: 40px; padding: 40px 30px 60px 30px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-            .services-grid::-webkit-scrollbar { display: none; }
-            .orbit-card { flex: 0 0 85%; scroll-snap-align: center; }
-            .orbit-card-content { padding: 40px 25px !important; }
-            .orbit-card h3 { font-size: 1.6rem !important; margin-bottom: 15px !important; }
-            .orbit-card p { font-size: 1rem !important; margin-bottom: 25px !important; }
-            .orbit-glow-bg { animation: none !important; box-shadow: none !important; overflow: hidden; border-radius: 20px; -webkit-mask-image: -webkit-radial-gradient(white, black); }
-            .orbit-glow-bg::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent 0%, transparent 50%, rgba(255, 0, 0, 0.3) 75%, #ff0000 100%); filter: blur(20px); animation: spin-flow 4s linear infinite; }
+        /* =========================================
+           DIE 100K€ MONOLITHISCHE INTERAKTIONS-MATRIX 
+           ========================================= */
+        .monolith-section { width: 100%; max-width: 1600px; margin: 80px auto 120px auto; padding: 0 40px; }
+        @media (max-width: 768px) { .monolith-section { padding: 0 20px; margin: 60px auto 80px auto; } }
+        
+        .monolith-header-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; padding-bottom: 20px; border-bottom: 2px solid #1d1d1f; }
+        .monolith-header-top h2 { font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0; color: #1d1d1f !important; }
+        .monolith-header-top span { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; color: #dc2626; letter-spacing: 2px; text-transform: uppercase; }
+        @media (max-width: 768px) { .monolith-header-top { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 40px; border-bottom: 1px solid #d2d2d7; } }
+
+        .m-list { display: flex; flex-direction: column; }
+        .m-row { position: relative; border-bottom: 1px solid #d2d2d7; cursor: pointer; text-decoration: none; overflow: hidden; transition: border-color 0.4s ease; display: block; }
+        
+        /* Der animierte Hintergrund */
+        .m-row-bg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: #1d1d1f; transform: scaleY(0); transform-origin: bottom; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1; pointer-events: none; }
+        
+        /* Desktop Hover: Expand BG */
+        @media (min-width: 1025px) {
+            .m-row:hover .m-row-bg { transform: scaleY(1); }
+            .m-row:hover { border-bottom-color: transparent; }
         }
-        @keyframes spin-flow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Mobile Active: Expand BG */
+        .m-row.is-active .m-row-bg { transform: scaleY(1); }
+
+        .m-row-visible { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 50px 0; transition: padding 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        @media (max-width: 768px) { .m-row-visible { padding: 30px 0; } }
+        
+        .m-left { display: flex; align-items: flex-start; gap: 40px; }
+        @media (max-width: 768px) { .m-left { gap: 20px; } }
+        
+        .m-num { font-family: 'Inter', sans-serif; font-size: 1.125rem; font-weight: 700; color: #86868b; transition: color 0.4s ease; margin-top: 15px; }
+        .m-title { font-family: 'Oswald', sans-serif; font-size: clamp(3rem, 7vw, 7rem); font-weight: 500; letter-spacing: -2px; line-height: 0.9; color: #1d1d1f !important; margin: 0; transition: color 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        .m-right { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; border: 1px solid #d2d2d7; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); flex-shrink: 0; }
+        .m-right svg { width: 24px; height: 24px; stroke: #1d1d1f; transition: stroke 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        @media (max-width: 768px) { .m-right { width: 40px; height: 40px; } .m-right svg { width: 18px; height: 18px; } }
+
+        /* Versteckter Content-Bereich (CSS Grid für weiche Height-Animation) */
+        .m-row-hidden { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.6s cubic-bezier(0.16, 1, 0.3, 1); position: relative; z-index: 2; }
+        .m-row-content { overflow: hidden; }
+        .m-row-content-inner { padding: 0 0 50px 0; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+        @media (max-width: 1024px) { .m-row-content-inner { flex-direction: column; align-items: flex-start; gap: 30px; padding: 0 0 40px 0; } }
+        
+        .m-desc { font-family: 'Inter', sans-serif; font-size: clamp(1.125rem, 1.5vw, 1.5rem); font-weight: 400; color: rgba(255,255,255,0.7) !important; max-width: 700px; line-height: 1.5; margin: 0; margin-left: calc(40px + 1.125rem); }
+        @media (max-width: 768px) { .m-desc { font-size: 1rem; margin-left: 0; } }
+
+        .m-action-btn { display: inline-flex; align-items: center; gap: 12px; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #ffffff !important; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; border-bottom: 2px solid #dc2626; padding-bottom: 8px; transition: color 0.3s, border-color 0.3s; position: relative; z-index: 10;}
+        .m-action-btn svg { width: 20px; height: 20px; transition: transform 0.3s; }
+        .m-action-btn:hover { color: #dc2626 !important; }
+        .m-action-btn:hover svg { transform: translateX(5px); }
+
+        /* Farb- & Transformations-Wechsel bei Hover / Active */
+        @media (min-width: 1025px) {
+            .m-row:hover .m-row-hidden { grid-template-rows: 1fr; }
+            .m-row:hover .m-row-visible { padding: 60px 0 20px 0; }
+            .m-row:hover .m-title { color: #ffffff !important; transform: translateX(20px); }
+            .m-row:hover .m-num { color: #dc2626; }
+            .m-row:hover .m-right { background-color: #dc2626; border-color: #dc2626; transform: rotate(45deg); }
+            .m-row:hover .m-right svg { stroke: #ffffff; }
+        }
+        
+        .m-row.is-active .m-row-hidden { grid-template-rows: 1fr; }
+        .m-row.is-active .m-row-visible { padding: 40px 0 20px 0; }
+        .m-row.is-active .m-title { color: #ffffff !important; transform: translateX(10px); }
+        .m-row.is-active .m-num { color: #dc2626; }
+        .m-row.is-active .m-right { background-color: #dc2626; border-color: #dc2626; transform: rotate(45deg); }
+        .m-row.is-active .m-right svg { stroke: #ffffff; }
 
         /* === PREMIUM CTA / VISION BLOCK === */
         .premium-cta-section { width: 100%; padding: 100px 24px 80px 24px; margin: 0; background-color: #ffffff; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; z-index: 10; }
@@ -165,7 +210,7 @@
         .dash-content-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
         @media (min-width: 1024px) { .dash-content-grid { grid-template-columns: 1.2fr 1fr; } }
 
-        /* DIAGRAMM LINKS: Überarbeitetes, edleres Design (Abgerundet & 3D Gradient) */
+        /* DIAGRAMM LINKS */
         .dash-chart-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column;}
         .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;}
         .chart-title { font-size: 1.125rem; font-weight: 700; color: #1d1d1f; margin-bottom: 4px; }
@@ -174,14 +219,12 @@
         .chart-wrapper { display: flex; flex-direction: column; width: 100%; height: 280px; position: relative; margin-bottom: 20px; }
         .chart-y-axis { position: absolute; left: 0; top: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 20px; font-size: 0.65rem; color: #86868b; font-weight: 600; width: 30px; }
         
-        /* Grid-Linien für professionellen Analytics-Look im Hintergrund */
         .chart-visual-bars { display: flex; align-items: flex-end; justify-content: space-between; height: 100%; margin-left: 30px; padding-bottom: 20px; border-bottom: 2px solid #e5e5ea; border-left: 2px solid #e5e5ea; padding-left: 10px; padding-right: 10px; position: relative; }
         .chart-grid-lines { position: absolute; top: 0; left: 0; right: 0; bottom: 20px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; z-index: 0; }
         .chart-grid-line { width: 100%; height: 1px; background-color: rgba(0,0,0,0.04); }
 
         .bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; width: 14%; position: relative; }
         
-        /* Neue, abgerundete Balken mit Farbverlauf und Hover-Effekt */
         .chart-bar-blue { 
             width: 100%; 
             background: linear-gradient(to top, #990000, #ef4444); 
@@ -195,20 +238,16 @@
         .chart-bar-blue:hover { filter: brightness(1.15); cursor: pointer; }
         .time-label { position: absolute; bottom: -20px; font-size: 0.65rem; font-weight: 600; color: #86868b; white-space: nowrap; }
 
-        /* Argumente unter Chart */
         .chart-arguments { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; border-top: 1px solid #f5f5f7; padding-top: 20px; }
         .chart-arg-item { display: flex; align-items: flex-start; gap: 12px; }
         .chart-arg-icon { color: #dc2626; flex-shrink: 0; margin-top: 2px; }
         .chart-arg-text h5 { font-size: 0.85rem; font-weight: 700; color: #1d1d1f; margin: 0 0 2px 0; }
         .chart-arg-text p { font-size: 0.75rem; color: #6e6e73; margin: 0; line-height: 1.4; }
 
-        /* BOX RECHTS: Der Multiplikator (Lücke geschlossen durch Flex-Verteilung) */
+        /* BOX RECHTS */
         .dash-multiplier-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: #fafafa;}
-        
-        /* Der Wrapper für die Liste sorgt für dynamische, gleichmäßige Verteilung des Abstands */
         .mult-list-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; margin-bottom: 20px; }
         
-        /* HIER IST DER FIX FÜR DEN UMBRUCH AUF HANDYS */
         .mult-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #e5e5ea; transition: background 0.3s ease, padding-left 0.3s ease; gap: 12px; }
         .mult-item:not(.header-row):hover { background: rgba(0,0,0,0.02); padding-left: 6px; border-radius: 8px; border-bottom-color: transparent;}
         .mult-item:last-child { border-bottom: none; }
@@ -216,8 +255,6 @@
         .mult-title { font-size: 0.75rem; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 1px;}
         .mult-name { font-size: 0.85rem; font-weight: 600; color: #1d1d1f; display: flex; align-items: center; gap: 8px; flex: 1; line-height: 1.3;}
         .mult-name svg { color: #86868b; flex-shrink: 0;}
-        
-        /* white-space: nowrap und flex-shrink: 0 verhindern das Umbrechen der Zahlen! */
         .mult-val { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 700; color: #dc2626; white-space: nowrap; flex-shrink: 0; text-align: right; }
         
         .m-footer-btn { width: 100%; background: #1d1d1f; color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: background 0.2s; }
@@ -229,7 +266,7 @@
             .dash-multiplier-area { padding: 20px 16px; }
         }
 
-        /* === WEITERE STYLES (Referenzen, Switches, Footer etc.) === */
+        /* === WEITERE STYLES === */
         button, .tab-btn, .menu-link { border-radius: 30px !important; }
         .gallery-item img { border-radius: 12px !important; }
         .modal-content-wrapper { border-radius: 20px !important; }
@@ -265,9 +302,6 @@
             .ios-switch { width: 60px; height: 34px; }
             .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; }
             input:checked + .slider:before { transform: translateX(26px); }
-            .hero::before { background: #f5f5f7 !important; }
-            .hero::after { background: linear-gradient(to bottom, transparent 0%, rgba(245, 245, 247, 0.56) 18%, rgba(245, 245, 247, 0.9) 36%, #f5f5f7 50%, #f5f5f7 70%, rgba(245, 245, 247, 0.56) 86%, transparent 100%) !important; }
-            .vision-section::before { background: linear-gradient(to bottom, rgba(245, 245, 247, 0.82) 0%, rgba(245, 245, 247, 0.42) 44%, rgba(245, 245, 247, 0.12) 76%, transparent 100%) !important; }
         }
 
         /* === PREMIUM FOOTER === */
@@ -465,47 +499,98 @@
             </div>
         </section>
 
-        <section id="services" class="services-section">
-            <div style="text-align: center; margin-bottom: 60px;">
-                <h2 class="section-title">WAS WIR TUN</h2>
+        <section id="services" class="monolith-section">
+            <div class="monolith-header-top">
+                <h2>WAS WIR TUN</h2>
+                <span>// Expertise & Prozesse</span>
             </div>
             
-            <div class="services-grid">
-                <div class="orbit-card">
-                    <div class="orbit-glow-bg"></div>
-                    <div class="orbit-card-content">
-                        <h3>STRATEGY</h3>
-                        <p>Wir übersetzen unternehmerische Ziele in klare Kommunikations- und Kampagnenstrategien – strukturiert gedacht, präzise geplant.</p>
-                        <a href="strategy.html" class="book-btn interactive">DETAILS</a>
+            <div class="m-list">
+                <a href="strategy.html" class="m-row interactive">
+                    <div class="m-row-bg"></div>
+                    <div class="m-row-visible">
+                        <div class="m-left">
+                            <div class="m-num">01</div>
+                            <h3 class="m-title">STRATEGY</h3>
+                        </div>
+                        <div class="m-right">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5v14M19 5H5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
                     </div>
-                </div>
-                <div class="orbit-card">
-                    <div class="orbit-glow-bg"></div>
-                    <div class="orbit-card-content">
-                        <h3>PRODUCTION</h3>
-                        <p>Wir realisieren Produktionen, die Marken glaubwürdig präsentieren – mit klarer Inszenierung, professioneller Umsetzung und hohem Qualitätsanspruch.</p>
-                        <a href="production.html" class="book-btn interactive">DETAILS</a>
+                    <div class="m-row-hidden">
+                        <div class="m-row-content">
+                            <div class="m-row-content-inner">
+                                <p class="m-desc">Wir übersetzen unternehmerische Ziele in klare Kommunikations- und Kampagnenstrategien – strukturiert gedacht, präzise geplant. Keine Platzpatronen, nur messbarer Impact.</p>
+                                <span class="m-action-btn">Entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="orbit-card">
-                    <div class="orbit-glow-bg"></div>
-                    <div class="orbit-card-content">
-                        <h3>DIGITAL</h3>
-                        <p>Wir gestalten digitale Präsenzen, die Unternehmen über alle relevanten Kanäle hinweg professionell darstellen.</p>
-                        <a href="digital.html" class="book-btn interactive">DETAILS</a>
+                </a>
+
+                <a href="production.html" class="m-row interactive">
+                    <div class="m-row-bg"></div>
+                    <div class="m-row-visible">
+                        <div class="m-left">
+                            <div class="m-num">02</div>
+                            <h3 class="m-title">PRODUCTION</h3>
+                        </div>
+                        <div class="m-right">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5v14M19 5H5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
                     </div>
-                </div>
-                <div class="orbit-card">
-                    <div class="orbit-glow-bg"></div>
-                    <div class="orbit-card-content">
-                        <h3>PERFORMANCE</h3>
-                        <p>Wir verbinden Ad-Strategien, Datenanalyse und gezielte Ausspielung zu einem kontrollierten Performance-System.</p>
-                        <a href="performance.html" class="book-btn interactive">DETAILS</a>
+                    <div class="m-row-hidden">
+                        <div class="m-row-content">
+                            <div class="m-row-content-inner">
+                                <p class="m-desc">Wir realisieren Produktionen, die Marken glaubwürdig präsentieren – mit klarer Inszenierung, professioneller Umsetzung und absolutem High-End Qualitätsanspruch.</p>
+                                <span class="m-action-btn">Entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </a>
+
+                <a href="digital.html" class="m-row interactive">
+                    <div class="m-row-bg"></div>
+                    <div class="m-row-visible">
+                        <div class="m-left">
+                            <div class="m-num">03</div>
+                            <h3 class="m-title">DIGITAL</h3>
+                        </div>
+                        <div class="m-right">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5v14M19 5H5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="m-row-hidden">
+                        <div class="m-row-content">
+                            <div class="m-row-content-inner">
+                                <p class="m-desc">Wir gestalten digitale Präsenzen und Ökosysteme, die Unternehmen über alle relevanten Kanäle hinweg professionell und performant darstellen.</p>
+                                <span class="m-action-btn">Entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="performance.html" class="m-row interactive">
+                    <div class="m-row-bg"></div>
+                    <div class="m-row-visible">
+                        <div class="m-left">
+                            <div class="m-num">04</div>
+                            <h3 class="m-title">PERFORMANCE</h3>
+                        </div>
+                        <div class="m-right">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5v14M19 5H5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="m-row-hidden">
+                        <div class="m-row-content">
+                            <div class="m-row-content-inner">
+                                <p class="m-desc">Wir verbinden Ad-Strategien, Datenanalyse und gezielte Ausspielung zu einem streng kontrollierten und hochprofitablen Performance-System.</p>
+                                <span class="m-action-btn">Entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </section>
-
         <section class="saas-dashboard-wrapper" id="market-proof">
             
             <div class="dash-header">
@@ -801,6 +886,27 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            
+            // === MOBILE LOGIK FÜR DIE MONOLITH REIHEN ===
+            // Auf mobilen Geräten soll die Zeile durch Klicken aufklappen.
+            // Der href-Link feuert dann erst bei einem erneuten Klick (oder durch Klicken auf den "Entdecken"-Button).
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (isTouchDevice) {
+                const monolithRows = document.querySelectorAll('.m-row');
+                monolithRows.forEach(row => {
+                    row.addEventListener('click', function(e) {
+                        // Verhindert das direkte Weiterleiten auf Handys beim ersten Tap
+                        if (!this.classList.contains('is-active') && !e.target.closest('.m-action-btn')) {
+                            e.preventDefault(); 
+                            // Schließt alle anderen
+                            monolithRows.forEach(r => r.classList.remove('is-active'));
+                            // Öffnet die angetippte
+                            this.classList.add('is-active');
+                        }
+                    });
+                });
+            }
+
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
