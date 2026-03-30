@@ -1197,3 +1197,44 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
                 border-radius: 32px !important; 
             } 
         }
+/* === MOBILE OVERRIDE FÜR DIE VISION MANTRA GLASSBAR (EINE ZEILE ERZWUNGEN) === */
+        @media (max-width: 768px) {
+            .vision-mantra-glassbar {
+                display: inline-flex !important;
+                flex-direction: row !important; /* Zwingt alles in eine Zeile */
+                flex-wrap: nowrap !important; /* Absolutes Umbruch-Verbot! */
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 12px !important; /* Abstand zwischen den Wörtern */
+                background: rgba(255, 255, 255, 0.08) !important; /* Helles Premium-Milchglas */
+                backdrop-filter: blur(12px) !important;
+                -webkit-backdrop-filter: blur(12px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.15) !important;
+                border-radius: 40px !important;
+                padding: 10px 16px !important;
+                margin: 20px auto 0 auto !important;
+                width: max-content !important;
+                max-width: 95vw !important;
+            }
+            .vision-mantra-glassbar .mantra-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 5px !important;
+                font-size: 0.65rem !important; /* Perfekte Größe, damit alle drei passen */
+                font-weight: 700 !important;
+                letter-spacing: 1.5px !important;
+                color: #ffffff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                text-transform: uppercase !important;
+                white-space: nowrap !important; /* Verhindert, dass das Wort selbst umbricht */
+            }
+            .vision-mantra-glassbar .mantra-dot {
+                width: 5px !important;
+                height: 5px !important;
+                background-color: #ff0000 !important;
+                border-radius: 50% !important;
+                box-shadow: 0 0 8px rgba(255, 0, 0, 0.8) !important;
+                display: inline-block !important;
+            }
+        }
