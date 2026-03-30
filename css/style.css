@@ -1175,24 +1175,25 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
-
 /* =========================================
-           100K UPDATE: ABRUNDUNG & SCHWEBENDER EFFEKT
-           (Überschreibt die vorherigen Kanten)
+           100K UPDATE V2: MASSIVE BREITE & RUNDE KANTEN
            ========================================= */
         .liquid-section {
-            width: calc(100% - 48px) !important; /* 24px Abstand links und rechts */
-            max-width: 1600px !important; /* Zentriert es auf großen Monitoren */
-            margin: 80px auto !important; /* Löst es von den anderen Sektionen */
-            border-radius: 48px !important; /* Die Apple-mäßige Abrundung */
-            box-shadow: 0 40px 100px rgba(0,0,0,0.2) !important; /* Massiver Schatten für Tiefe */
-            overflow: hidden !important; /* Hält die Hintergrundbilder in den runden Ecken */
+            width: calc(100% - 32px) !important; /* Fast 100% Breite, nur 16px Rand, damit man die runden Ecken sieht */
+            max-width: none !important; /* Keine Begrenzung mehr auf riesigen Monitoren! */
+            min-height: 95vh !important; /* Vertikal wieder extrem wuchtig und groß */
+            margin: 60px auto !important; /* Eleganter Abstand oben und unten */
+            border-radius: 48px !important; /* Die smoothen Premium-Kanten */
+            box-shadow: 0 40px 100px rgba(0,0,0,0.2) !important; 
+            overflow: hidden !important; 
         }
 
+        /* Das Handy-Setup bleibt komplett unangetastet! */
         @media (max-width: 768px) { 
             .liquid-section { 
-                width: calc(100% - 32px) !important; /* 16px Rand auf dem Handy */
+                width: calc(100% - 32px) !important; 
+                min-height: 80vh !important;
                 margin: 40px auto !important;
-                border-radius: 32px !important; /* Perfekte Abrundung für Mobile */
+                border-radius: 32px !important; 
             } 
         }
