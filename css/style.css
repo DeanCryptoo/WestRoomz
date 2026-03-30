@@ -1175,3 +1175,24 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
+
+/* =========================================
+           100K UPDATE: ABRUNDUNG & SCHWEBENDER EFFEKT
+           (Überschreibt die vorherigen Kanten)
+           ========================================= */
+        .liquid-section {
+            width: calc(100% - 48px) !important; /* 24px Abstand links und rechts */
+            max-width: 1600px !important; /* Zentriert es auf großen Monitoren */
+            margin: 80px auto !important; /* Löst es von den anderen Sektionen */
+            border-radius: 48px !important; /* Die Apple-mäßige Abrundung */
+            box-shadow: 0 40px 100px rgba(0,0,0,0.2) !important; /* Massiver Schatten für Tiefe */
+            overflow: hidden !important; /* Hält die Hintergrundbilder in den runden Ecken */
+        }
+
+        @media (max-width: 768px) { 
+            .liquid-section { 
+                width: calc(100% - 32px) !important; /* 16px Rand auf dem Handy */
+                margin: 40px auto !important;
+                border-radius: 32px !important; /* Perfekte Abrundung für Mobile */
+            } 
+        }
