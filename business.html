@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
     <meta name="description" content="WESTROOMZ - Event Production & Marketing Agency.">
-    <title>WESTROOMZ | Business. Events. Marketing.</title>
+    <title>WESTROOMZ | 100K Cinematic Viewfinder</title>
     
     <link rel="alternate" hreflang="de" href="https://westroomz.de/business.html" />
     <link rel="alternate" hreflang="en" href="https://westroomz.de/business-en.html" />
@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* === BASIS APPLE STYLES (Dein Original) === */
+        /* === BASIS APPLE STYLES === */
         html, body, .page-wrapper { background-color: #f5f5f7 !important; color: #1d1d1f !important; overflow-x: hidden; }
         .cinematic-bg-wrapper, .bg-layer { background-color: transparent !important; background-image: none !important; }
         .cinematic-vignette, .gradual-blur-bottom, .hero-overlay, .page-transition-curtain { display: none !important; }
@@ -33,7 +33,7 @@
         .tab-btn { color: #1d1d1f !important; border: 1px solid #d2d2d7 !important; }
         .tab-btn.active { background-color: #1d1d1f !important; color: white !important; }
 
-        /* === PREMIUM LANGUAGE SWITCHER === */
+        /* === LANGUAGE SWITCHER === */
         .lang-switcher { position: fixed; top: 40px; right: 40px; z-index: 999; display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: all 0.3s ease; }
         .lang-switcher:hover { background: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
         .lang-switcher a { display: flex; align-items: center; gap: 8px; color: #a3a3a3; text-decoration: none; transition: all 0.3s ease; }
@@ -44,221 +44,175 @@
         @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
 
         /* =========================================
-           KONZEPT 2: DIE 100K LIQUID CANVAS SECTION
+           KONZEPT 3: INFINITE CINEMATIC VIEWFINDER
            ========================================= */
-        .liquid-section {
+        .viewfinder-section {
             position: relative;
             width: 100vw;
-            min-height: 100vh;
-            background-color: #050505 !important; /* Bricht den weißen Flow */
+            height: 100vh;
+            min-height: 800px;
+            background-color: #f5f5f7;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
             overflow: hidden;
-            padding: 120px 40px;
-            margin: 60px 0; /* Abstand zu den weißen Sektionen davor/danach */
-            cursor: none; /* Versteckt den normalen Cursor hier */
+            margin: 60px 0;
+            cursor: none; /* Custom Cursor übernimmt */
         }
-        @media (max-width: 768px) { .liquid-section { padding: 80px 20px; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 80vh; cursor: auto; } }
+        @media (max-width: 768px) { .viewfinder-section { height: auto; min-height: 70vh; padding: 80px 0; cursor: auto; } }
 
-        /* Versteckter SVG Filter für den Schmelz-Effekt */
-        .svg-filters { position: absolute; width: 0; height: 0; pointer-events: none; }
-
-        /* Hintergrund-Bilder, die gefiltert werden */
-        .liquid-bg-container {
+        /* Hintergrund Medien Container */
+        .vf-media-container {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            inset: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
             pointer-events: none;
-            overflow: hidden;
-        }
-        
-        /* Das fette rote Rauschen im Hintergrund als Base-Vibe */
-        .liquid-bg-container::after {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at 70% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 50%);
-            mix-blend-mode: screen; z-index: 2; pointer-events: none;
-        }
-
-        .l-img {
-            position: absolute;
-            top: -5%; left: -5%;
-            width: 110%; height: 110%;
-            object-fit: cover;
+            background-color: #050505;
             opacity: 0;
-            filter: url(#liquid-distort) brightness(0.5); /* Schön moody */
-            transform: scale(1.05);
-            will-change: transform, opacity, filter;
-            z-index: 1;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .l-img.is-active { opacity: 1; transform: scale(1); }
-        .l-img.default-bg { opacity: 0.3; filter: none; } /* Startbild */
 
-        /* Content Layout */
-        .liquid-content {
+        .vf-media-group {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .vf-media-group.is-active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Ebene 1: Das extrem unscharfe, abgedunkelte Hintergrundbild */
+        .vf-media-blur {
+            position: absolute;
+            inset: -5%;
+            width: 110%;
+            height: 110%;
+            object-fit: cover;
+            filter: blur(20px) brightness(0.3);
+            transform: scale(1.05);
+            transition: transform 10s linear;
+        }
+        .vf-media-group.is-active .vf-media-blur { transform: scale(1); }
+
+        /* Ebene 2: Das gestochen scharfe Bild (wird durch JS Clip-Path maskiert) */
+        .vf-media-sharp {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.9);
+            /* Clip-Path wird dynamisch gesetzt, Standard ist 0 */
+            clip-path: circle(0px at 50% 50%); 
+            -webkit-clip-path: circle(0px at 50% 50%);
+        }
+
+        /* Die minimalistischen Menü-Linien */
+        .vf-content {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        @media (max-width: 1024px) { .liquid-content { flex-direction: column; align-items: flex-start; gap: 60px; } }
-
-        /* Navigation (Linke Seite) */
-        .liquid-nav {
-            display: flex;
             flex-direction: column;
-            gap: 15px;
-            width: 50%;
+            padding: 0 40px;
         }
-        @media (max-width: 1024px) { .liquid-nav { width: 100%; } }
+        @media (max-width: 768px) { .vf-content { padding: 0 20px; } }
 
-        .l-nav-item {
+        .vf-row {
             display: flex;
-            align-items: baseline;
-            gap: 30px;
-            cursor: none; /* Übernimmt der rote Punkt */
+            align-items: center;
+            gap: 40px;
+            width: 100%;
+            padding: 40px 0;
+            border-top: 1px solid rgba(0,0,0,0.15);
             text-decoration: none;
-            padding: 10px 0;
-            position: relative;
+            transition: border-color 0.6s ease;
         }
-        @media (max-width: 768px) { .l-nav-item { cursor: pointer; gap: 15px; } }
+        .vf-row:last-child { border-bottom: 1px solid rgba(0,0,0,0.15); }
+        @media (max-width: 768px) { .vf-row { padding: 30px 0; gap: 20px; } }
 
-        .l-num {
+        .vf-num {
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
+            font-size: 0.875rem;
             font-weight: 700;
-            color: #4a4a4a;
-            transition: color 0.4s ease;
+            color: #1d1d1f;
+            transition: color 0.6s ease;
+            width: 30px;
         }
 
-        .l-title {
+        .vf-title {
             font-family: 'Oswald', sans-serif;
-            font-size: clamp(3rem, 6vw, 7rem);
-            font-weight: 600;
-            line-height: 0.9;
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 400;
             text-transform: uppercase;
-            margin: 0;
-            color: transparent !important;
-            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #1d1d1f;
+            letter-spacing: 2px;
+            transition: color 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: left center;
         }
 
-        /* Hover Status für die Menüpunkte */
-        .l-nav-item:hover .l-num, .l-nav-item.is-active .l-num { color: #dc2626; }
-        .l-nav-item:hover .l-title, .l-nav-item.is-active .l-title {
-            color: #ffffff !important;
-            -webkit-text-stroke: 1.5px #ffffff;
-            transform: translateX(30px);
-            text-shadow: 0 0 40px rgba(255,255,255,0.3);
-        }
-        @media (max-width: 768px) { .l-nav-item:hover .l-title, .l-nav-item.is-active .l-title { transform: translateX(15px); } }
-
-        /* Unfokussierte Punkte abdunkeln */
+        /* Desktop Hover Effekte */
         @media (min-width: 1025px) {
-            .liquid-nav:hover .l-nav-item:not(:hover) .l-title {
-                -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.1);
-                transform: translateX(-10px);
+            /* Wenn IRGENDEINE Reihe gehovert wird, wird das weiße Background transparent */
+            .viewfinder-section.is-hovering .vf-media-container { opacity: 1; }
+            .viewfinder-section.is-hovering .vf-row { border-color: rgba(255,255,255,0.15); }
+            
+            /* Standardmäßig werden alle Texte weiß und leicht transparent */
+            .viewfinder-section.is-hovering .vf-num { color: rgba(255,255,255,0.5); }
+            .viewfinder-section.is-hovering .vf-title { color: rgba(255,255,255,0.3); }
+
+            /* Die AKTIV gehoverte Reihe leuchtet auf */
+            .vf-row:hover .vf-num { color: #dc2626; }
+            .vf-row:hover .vf-title { 
+                color: #ffffff; 
+                transform: translateX(20px); 
             }
         }
 
-        /* Info Panel (Rechte Seite) */
-        .liquid-info {
-            width: 40%;
-            max-width: 500px;
-            position: relative;
-            min-height: 250px;
+        /* Mobile Active States */
+        @media (max-width: 1024px) {
+            .viewfinder-section.is-mobile-active .vf-media-container { opacity: 1; }
+            .viewfinder-section.is-mobile-active .vf-row { border-color: rgba(255,255,255,0.15); }
+            .viewfinder-section.is-mobile-active .vf-num { color: rgba(255,255,255,0.5); }
+            .viewfinder-section.is-mobile-active .vf-title { color: rgba(255,255,255,0.3); }
+            
+            .vf-row.is-active .vf-num { color: #dc2626; }
+            .vf-row.is-active .vf-title { color: #ffffff; }
+            
+            /* Auf Mobile zeigen wir das Bild einfach komplett an (keine Linse) */
+            .vf-media-sharp { clip-path: circle(150% at 50% 50%) !important; -webkit-clip-path: circle(150% at 50% 50%) !important; }
         }
-        @media (max-width: 1024px) { .liquid-info { width: 100%; min-height: 200px; } }
 
-        .l-info-block {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%) translateX(40px);
-            opacity: 0;
-            pointer-events: none;
+        /* Der Custom Cursor (Der "Viewfinder" Text) */
+        .vf-cursor-text {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100px; height: 100px;
             display: flex;
-            flex-direction: column;
-            gap: 24px;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .l-info-block.is-active {
-            opacity: 1;
-            transform: translateY(-50%) translateX(0);
-            pointer-events: auto;
-        }
-
-        .l-info-block h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            color: #dc2626 !important;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin: 0;
-            font-weight: 700;
-        }
-
-        .l-info-block p {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.125rem, 1.5vw, 1.25rem);
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8) !important;
-            margin: 0;
-        }
-
-        .l-btn {
-            display: inline-flex;
+            justify-content: center;
             align-items: center;
-            gap: 12px;
-            background-color: transparent;
-            color: #ffffff !important;
             font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 900;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 16px 0;
-            border-bottom: 2px solid rgba(255,255,255,0.2);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            width: max-content;
-            cursor: none; /* Übernimmt der Custom Cursor */
+            color: #ffffff;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
-        @media (max-width: 768px) { .l-btn { cursor: pointer; } }
-        .l-btn:hover { border-bottom-color: #dc2626; padding-left: 10px; }
-        .l-btn svg { width: 18px; height: 18px; color: #dc2626; transition: transform 0.3s; }
-        .l-btn:hover svg { transform: translateX(5px); }
-
-        /* Custom Cursor (Nur sichtbar in der Liquid Section) */
-        .cursor-dot {
-            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
-            background: #dc2626; border-radius: 50%; pointer-events: none;
-            transform: translate(-50%, -50%); z-index: 9999;
-            transition: width 0.3s, height 0.3s, background 0.3s;
-            opacity: 0; /* Standardmäßig aus */
-        }
-        .cursor-ring {
-            position: fixed; top: 0; left: 0; width: 40px; height: 40px;
-            border: 1px solid rgba(220, 38, 38, 0.5); border-radius: 50%;
-            pointer-events: none; transform: translate(-50%, -50%); z-index: 9998;
-            transition: width 0.3s, height 0.3s;
-            opacity: 0; /* Standardmäßig aus */
-        }
-        
-        /* Wird per JS gesteuert, wenn Maus IN der Sektion ist */
-        .liquid-section.mouse-inside .cursor-dot, .liquid-section.mouse-inside .cursor-ring { opacity: 1; }
-        
-        /* Cursor Hover States innerhalb der Sektion */
-        .liquid-section.is-hovering .cursor-dot { width: 80px; height: 80px; background: rgba(220, 38, 38, 0.9); display: flex; justify-content: center; align-items: center;}
-        .liquid-section.is-hovering .cursor-dot::after { content: 'EXPLORE'; font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 900; letter-spacing: 1px; color: white;}
-        .liquid-section.is-hovering .cursor-ring { opacity: 0; }
+        .viewfinder-section.is-hovering .vf-cursor-text { opacity: 1; }
 
         /* === REST DEINES CSS (Vision, Stats, Dashboard, Footer etc.) === */
-        /* ... ALLES WIE GEHABT ... */
         .premium-cta-section { width: 100%; padding: 100px 24px 80px 24px; margin: 0; background-color: #ffffff; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; z-index: 10; }
         @media (max-width: 768px) { .premium-cta-section { padding: 80px 16px 80px 16px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; } }
         .cta-bg-glow-top { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.5), transparent); }
@@ -453,15 +407,7 @@
 </head>
 <body>
 
-    <div class="cursor-dot"></div>
-    <div class="cursor-ring"></div>
-
-    <svg class="svg-filters">
-        <filter id="liquid-distort">
-            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" id="fe-turb"/>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="B" id="fe-disp"/>
-        </filter>
-    </svg>
+    <div class="vf-cursor-text">EXPLORE</div>
 
     <div class="lang-switcher">
         <a href="#" class="active interactive">
@@ -591,59 +537,46 @@
             </div>
         </section>
 
-        <section id="services" class="liquid-section">
+        <section id="services" class="viewfinder-section">
             
-            <div class="liquid-bg-container">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop" class="l-img default-bg is-active" alt="Default">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="strategy" alt="Strategy">
-                <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="production" alt="Production">
-                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="digital" alt="Digital">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="performance" alt="Performance">
-            </div>
-
-            <div class="liquid-content">
-                <div class="liquid-nav">
-                    <a href="#" class="l-nav-item" data-id="strategy">
-                        <span class="l-num">01</span>
-                        <h3 class="l-title">STRATEGY</h3>
-                    </a>
-                    <a href="#" class="l-nav-item" data-id="production">
-                        <span class="l-num">02</span>
-                        <h3 class="l-title">PRODUCTION</h3>
-                    </a>
-                    <a href="#" class="l-nav-item" data-id="digital">
-                        <span class="l-num">03</span>
-                        <h3 class="l-title">DIGITAL</h3>
-                    </a>
-                    <a href="#" class="l-nav-item" data-id="performance">
-                        <span class="l-num">04</span>
-                        <h3 class="l-title">PERFORMANCE</h3>
-                    </a>
+            <div class="vf-media-container">
+                <div class="vf-media-group" data-media="strategy">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop" class="vf-media-blur" alt="">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop" class="vf-media-sharp" alt="">
                 </div>
-
-                <div class="liquid-info">
-                    <div class="l-info-block" data-info="strategy">
-                        <h4>Architektur des Erfolgs</h4>
-                        <p>Wir übersetzen unternehmerische Ziele in klare Kommunikations- und Kampagnenstrategien. Keine Platzpatronen, nur messbarer Impact auf höchstem Niveau.</p>
-                        <a href="strategy.html" class="l-btn">System entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                    </div>
-                    <div class="l-info-block" data-info="production">
-                        <h4>Cinematic Execution</h4>
-                        <p>Wir realisieren Produktionen, die Marken glaubwürdig präsentieren – mit klarer Inszenierung, professioneller Umsetzung und absolutem High-End Qualitätsanspruch.</p>
-                        <a href="production.html" class="l-btn">Reels ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                    </div>
-                    <div class="l-info-block" data-info="digital">
-                        <h4>Digitale Ökosysteme</h4>
-                        <p>Wir gestalten digitale Präsenzen, die Unternehmen über alle relevanten Kanäle hinweg professionell darstellen. Fließend, performant, fehlerfrei.</p>
-                        <a href="digital.html" class="l-btn">Portfolio ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                    </div>
-                    <div class="l-info-block" data-info="performance">
-                        <h4>Data-Driven Scaling</h4>
-                        <p>Wir verbinden Ad-Strategien, Datenanalyse und gezielte Ausspielung zu einem streng kontrollierten und hochprofitablen Performance-System.</p>
-                        <a href="performance.html" class="l-btn">Zahlen analysieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                    </div>
+                <div class="vf-media-group" data-media="production">
+                    <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2942&auto=format&fit=crop" class="vf-media-blur" alt="">
+                    <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2942&auto=format&fit=crop" class="vf-media-sharp" alt="">
+                </div>
+                <div class="vf-media-group" data-media="digital">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2944&auto=format&fit=crop" class="vf-media-blur" alt="">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2944&auto=format&fit=crop" class="vf-media-sharp" alt="">
+                </div>
+                <div class="vf-media-group" data-media="performance">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop" class="vf-media-blur" alt="">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop" class="vf-media-sharp" alt="">
                 </div>
             </div>
+
+            <div class="vf-content">
+                <a href="strategy.html" class="vf-row" data-target="strategy">
+                    <span class="vf-num">01</span>
+                    <span class="vf-title">Strategy</span>
+                </a>
+                <a href="production.html" class="vf-row" data-target="production">
+                    <span class="vf-num">02</span>
+                    <span class="vf-title">Production</span>
+                </a>
+                <a href="digital.html" class="vf-row" data-target="digital">
+                    <span class="vf-num">03</span>
+                    <span class="vf-title">Digital</span>
+                </a>
+                <a href="performance.html" class="vf-row" data-target="performance">
+                    <span class="vf-num">04</span>
+                    <span class="vf-title">Performance</span>
+                </a>
+            </div>
+
         </section>
         <section class="saas-dashboard-wrapper" id="market-proof">
             <div class="dash-header">
@@ -942,95 +875,113 @@
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
-                // === LIQUID CANVAS LOGIK ===
-                const liquidSection = document.querySelector('.liquid-section');
-                const cursorDot = document.querySelector('.cursor-dot');
-                const cursorRing = document.querySelector('.cursor-ring');
-                const navItems = document.querySelectorAll('.l-nav-item');
-                const images = document.querySelectorAll('.l-img');
-                const infoBlocks = document.querySelectorAll('.l-info-block');
-                const displacementMap = document.querySelector('#fe-disp');
+                // === VIEWFINDER LOGIC (KONZEPT 3) ===
+                const viewfinderSection = document.querySelector('.viewfinder-section');
+                const cursorText = document.querySelector('.vf-cursor-text');
+                const vfRows = document.querySelectorAll('.vf-row');
+                const mediaGroups = document.querySelectorAll('.vf-media-group');
                 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-                
-                if (liquidSection) {
-                    // Zeige Custom Cursor NUR in der Liquid Section
+
+                if (viewfinderSection) {
+                    
                     if (!isTouchDevice) {
-                        liquidSection.addEventListener('mouseenter', () => liquidSection.classList.add('mouse-inside'));
-                        liquidSection.addEventListener('mouseleave', () => liquidSection.classList.remove('mouse-inside'));
-
-                        let mouseX = window.innerWidth / 2; let mouseY = window.innerHeight / 2;
-                        let dotX = mouseX; let dotY = mouseY;
-                        let ringX = mouseX; let ringY = mouseY;
-
-                        liquidSection.addEventListener('mousemove', (e) => {
-                            mouseX = e.clientX; mouseY = e.clientY;
-                        });
-
-                        function renderCursor() {
-                            if(liquidSection.classList.contains('mouse-inside')) {
-                                dotX += (mouseX - dotX) * 0.2; dotY += (mouseY - dotY) * 0.2;
-                                ringX += (mouseX - ringX) * 0.1; ringY += (mouseY - ringY) * 0.1;
-                                cursorDot.style.left = `${dotX}px`; cursorDot.style.top = `${dotY}px`;
-                                cursorRing.style.left = `${ringX}px`; cursorRing.style.top = `${ringY}px`;
-                            }
-                            requestAnimationFrame(renderCursor);
-                        }
-                        renderCursor();
-                    }
-
-                    // Hover Logik für die Nav Elemente
-                    navItems.forEach(item => {
-                        if (!isTouchDevice) {
-                            item.addEventListener('mouseenter', () => liquidSection.classList.add('is-hovering'));
-                            item.addEventListener('mouseleave', () => liquidSection.classList.remove('is-hovering'));
-                        }
-
-                        // Das Event (mouseenter bei Desktop, click bei Mobile)
-                        const eventType = isTouchDevice ? 'click' : 'mouseenter';
+                        // Desktop Hover & Lens Effect
+                        let mouseX = window.innerWidth / 2;
+                        let mouseY = window.innerHeight / 2;
                         
-                        item.addEventListener(eventType, function(e) {
-                            if(isTouchDevice) e.preventDefault(); // Verhindert direkten Link bei Tap
-
-                            const targetId = this.getAttribute('data-id');
+                        viewfinderSection.addEventListener('mousemove', (e) => {
+                            mouseX = e.clientX;
+                            mouseY = e.clientY;
                             
-                            navItems.forEach(n => n.classList.remove('is-active'));
-                            this.classList.add('is-active');
+                            // Cursor Text Bewegung
+                            gsap.to(cursorText, { x: mouseX, y: mouseY, duration: 0.1, ease: "none" });
 
-                            infoBlocks.forEach(info => {
-                                if(info.getAttribute('data-info') === targetId) {
-                                    info.classList.add('is-active');
-                                } else {
-                                    info.classList.remove('is-active');
-                                }
+                            // Wenn eine Gruppe aktiv ist, updaten wir den Clip-Path (die Linse)
+                            const activeGroup = document.querySelector('.vf-media-group.is-active');
+                            if(activeGroup) {
+                                const sharpImage = activeGroup.querySelector('.vf-media-sharp');
+                                // Wir nutzen getBoundingClientRect, um die relativen Koordinaten im Container zu berechnen
+                                const rect = viewfinderSection.getBoundingClientRect();
+                                const relX = mouseX - rect.left;
+                                const relY = mouseY - rect.top;
+                                
+                                // GSAP animiert den Clip-Path butterweich
+                                gsap.to(sharpImage, {
+                                    clipPath: `circle(250px at ${relX}px ${relY}px)`,
+                                    webkitClipPath: `circle(250px at ${relX}px ${relY}px)`,
+                                    duration: 0.3,
+                                    ease: "power2.out"
+                                });
+                            }
+                        });
+
+                        viewfinderSection.addEventListener('mouseenter', () => {
+                            viewfinderSection.classList.add('is-hovering');
+                        });
+                        
+                        viewfinderSection.addEventListener('mouseleave', () => {
+                            viewfinderSection.classList.remove('is-hovering');
+                            mediaGroups.forEach(group => {
+                                group.classList.remove('is-active');
+                                const sharpImage = group.querySelector('.vf-media-sharp');
+                                // Linse wieder auf 0 setzen
+                                gsap.to(sharpImage, {
+                                    clipPath: `circle(0px at 50% 50%)`,
+                                    webkitClipPath: `circle(0px at 50% 50%)`,
+                                    duration: 0.5
+                                });
                             });
+                        });
 
-                            images.forEach(img => {
-                                if(img.getAttribute('data-target') === targetId) {
-                                    gsap.to(img, { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" });
-                                    if(displacementMap) {
-                                        gsap.fromTo(displacementMap, 
-                                            { attr: { scale: 80 } }, 
-                                            { attr: { scale: 0 }, duration: 1.2, ease: "power3.out" }
-                                        );
+                        vfRows.forEach(row => {
+                            row.addEventListener('mouseenter', function() {
+                                const target = this.getAttribute('data-target');
+                                
+                                // Alte ausblenden, Linse schließen
+                                mediaGroups.forEach(group => {
+                                    if(group.getAttribute('data-media') !== target) {
+                                        group.classList.remove('is-active');
+                                        const sharpImage = group.querySelector('.vf-media-sharp');
+                                        gsap.to(sharpImage, { clipPath: `circle(0px at 50% 50%)`, webkitClipPath: `circle(0px at 50% 50%)`, duration: 0.3 });
                                     }
-                                } else {
-                                    gsap.to(img, { opacity: 0, scale: 1.05, duration: 0.8 });
+                                });
+
+                                // Neue einblenden
+                                const newGroup = document.querySelector(`.vf-media-group[data-media="${target}"]`);
+                                if(newGroup) {
+                                    newGroup.classList.add('is-active');
+                                    // Linse öffnet sich an aktueller Mausposition
+                                    const sharpImage = newGroup.querySelector('.vf-media-sharp');
+                                    const rect = viewfinderSection.getBoundingClientRect();
+                                    const relX = mouseX - rect.left;
+                                    const relY = mouseY - rect.top;
+                                    gsap.to(sharpImage, {
+                                        clipPath: `circle(250px at ${relX}px ${relY}px)`,
+                                        webkitClipPath: `circle(250px at ${relX}px ${relY}px)`,
+                                        duration: 0.5,
+                                        ease: "back.out(1.2)"
+                                    });
                                 }
                             });
                         });
-                    });
-
-                    // Reset bei Verlassen (nur Desktop)
-                    if (!isTouchDevice) {
-                        const liquidNav = document.querySelector('.liquid-nav');
-                        liquidNav.addEventListener('mouseleave', () => {
-                            navItems.forEach(n => n.classList.remove('is-active'));
-                            infoBlocks.forEach(info => info.classList.remove('is-active'));
-                            images.forEach(img => {
-                                if(img.classList.contains('default-bg')) {
-                                    gsap.to(img, { opacity: 0.3, duration: 0.8 });
-                                } else {
-                                    gsap.to(img, { opacity: 0, duration: 0.8 });
+                    } else {
+                        // Mobile Logik (Keine Linse, nur Fade-In beim Antippen)
+                        vfRows.forEach(row => {
+                            row.addEventListener('click', function(e) {
+                                if (!this.classList.contains('is-active')) {
+                                    e.preventDefault(); 
+                                    viewfinderSection.classList.add('is-mobile-active');
+                                    vfRows.forEach(r => r.classList.remove('is-active'));
+                                    this.classList.add('is-active');
+                                    
+                                    const target = this.getAttribute('data-target');
+                                    mediaGroups.forEach(group => {
+                                        if(group.getAttribute('data-media') === target) {
+                                            group.classList.add('is-active');
+                                        } else {
+                                            group.classList.remove('is-active');
+                                        }
+                                    });
                                 }
                             });
                         });
