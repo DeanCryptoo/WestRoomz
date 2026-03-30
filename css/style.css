@@ -1197,44 +1197,49 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
                 border-radius: 32px !important; 
             } 
         }
-/* === FIX: VISION MANTRA MOBILE (EINE ZEILE ERZWUNGEN) === */
+/* === DIE ATOMBOMBE FÜR DAS MOBILE VISION MANTRA === */
         @media (max-width: 768px) {
-            .vision-mantra-glassbar {
-                display: inline-flex !important;
-                flex-direction: row !important; /* Zwingt alles in eine Zeile */
-                flex-wrap: nowrap !important; /* Absolutes Umbruch-Verbot! */
+            html body .vision-section .vision-mantra-glassbar {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important; /* Zwingt alles in eine Zeile */
                 justify-content: center !important;
                 align-items: center !important;
-                gap: 12px !important; /* Minimaler Abstand zwischen den Wörtern */
-                background: rgba(255, 255, 255, 0.08) !important; /* Helles Premium-Milchglas */
-                backdrop-filter: blur(12px) !important;
-                -webkit-backdrop-filter: blur(12px) !important;
-                border: 1px solid rgba(255, 255, 255, 0.15) !important;
-                border-radius: 40px !important;
-                padding: 10px 16px !important;
+                gap: 15px !important; /* Etwas mehr Luft zwischen den Wörtern */
+                background: rgba(255, 255, 255, 0.1) !important; 
+                backdrop-filter: blur(15px) !important;
+                -webkit-backdrop-filter: blur(15px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                border-radius: 50px !important;
+                padding: 12px 20px !important;
                 margin: 20px auto 0 auto !important;
                 width: max-content !important;
-                max-width: 95vw !important;
+                max-width: 90vw !important;
+                clear: both !important;
             }
-            .vision-mantra-glassbar .mantra-item {
+            html body .vision-section .vision-mantra-glassbar .mantra-item {
                 display: flex !important;
+                flex-direction: row !important;
                 align-items: center !important;
-                gap: 5px !important;
-                font-size: 0.65rem !important; /* Perfekte Größe für Handyscreens */
-                font-weight: 700 !important;
+                justify-content: center !important;
+                gap: 6px !important;
+                font-size: 0.65rem !important; 
+                font-weight: 800 !important;
                 letter-spacing: 1.5px !important;
                 color: #ffffff !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 text-transform: uppercase !important;
-                white-space: nowrap !important; /* Wort-Umbruch verboten */
+                white-space: nowrap !important; /* Absolutes Umbruchverbot */
+                width: auto !important;
             }
-            .vision-mantra-glassbar .mantra-dot {
-                width: 5px !important;
-                height: 5px !important;
+            html body .vision-section .vision-mantra-glassbar .mantra-dot {
+                width: 6px !important;
+                height: 6px !important;
                 background-color: #ff0000 !important;
                 border-radius: 50% !important;
-                box-shadow: 0 0 8px rgba(255, 0, 0, 0.8) !important;
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.9) !important;
                 display: inline-block !important;
+                flex-shrink: 0 !important; /* Verhindert, dass der Punkt gequetscht wird */
             }
         }
