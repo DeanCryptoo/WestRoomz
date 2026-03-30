@@ -12,7 +12,7 @@
     <link rel="alternate" hreflang="x-default" href="https://westroomz.de/business.html" />
     
     <link rel="icon" type="image/jpeg" href="logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -21,7 +21,7 @@
 
     <style>
         /* === APPLE STYLE OVERRIDES === */
-        html, body, .page-wrapper { background-color: #f5f5f7 !important; color: #1d1d1f !important; }
+        html, body, .page-wrapper { background-color: #f5f5f7 !important; color: #1d1d1f !important; overflow-x: hidden; }
         .cinematic-bg-wrapper, .bg-layer { background-color: transparent !important; background-image: none !important; }
         .cinematic-vignette, .gradual-blur-bottom, .hero-overlay, .page-transition-curtain { display: none !important; }
         .video-container { display: none !important; }
@@ -44,75 +44,223 @@
         @media (max-width: 768px) { .lang-switcher { top: 20px; right: 20px; padding: 6px 12px; gap: 8px; } .lang-flag { width: 14px; height: 14px; } }
 
         /* =========================================
-           DIE 100K€ MONOLITHISCHE INTERAKTIONS-MATRIX 
+           KONZEPT 1: THE KINETIC TUNNEL
            ========================================= */
-        .monolith-section { width: 100%; max-width: 1600px; margin: 80px auto 120px auto; padding: 0 40px; }
-        @media (max-width: 768px) { .monolith-section { padding: 0 20px; margin: 60px auto 80px auto; } }
-        
-        .monolith-header-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; padding-bottom: 20px; border-bottom: 2px solid #1d1d1f; }
-        .monolith-header-top h2 { font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0; color: #1d1d1f !important; }
-        .monolith-header-top span { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; color: #dc2626; letter-spacing: 2px; text-transform: uppercase; }
-        @media (max-width: 768px) { .monolith-header-top { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 40px; border-bottom: 1px solid #d2d2d7; } }
-
-        .m-list { display: flex; flex-direction: column; }
-        .m-row { position: relative; border-bottom: 1px solid #d2d2d7; cursor: pointer; text-decoration: none; overflow: hidden; transition: border-color 0.4s ease; display: block; }
-        
-        /* Der animierte Hintergrund */
-        .m-row-bg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: #1d1d1f; transform: scaleY(0); transform-origin: bottom; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1; pointer-events: none; }
-        
-        /* Desktop Hover: Expand BG */
-        @media (min-width: 1025px) {
-            .m-row:hover .m-row-bg { transform: scaleY(1); }
-            .m-row:hover { border-bottom-color: transparent; }
-        }
-        /* Mobile Active: Expand BG */
-        .m-row.is-active .m-row-bg { transform: scaleY(1); }
-
-        .m-row-visible { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 50px 0; transition: padding 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        @media (max-width: 768px) { .m-row-visible { padding: 30px 0; } }
-        
-        .m-left { display: flex; align-items: flex-start; gap: 40px; }
-        @media (max-width: 768px) { .m-left { gap: 20px; } }
-        
-        .m-num { font-family: 'Inter', sans-serif; font-size: 1.125rem; font-weight: 700; color: #86868b; transition: color 0.4s ease; margin-top: 15px; }
-        .m-title { font-family: 'Oswald', sans-serif; font-size: clamp(3rem, 7vw, 7rem); font-weight: 500; letter-spacing: -2px; line-height: 0.9; color: #1d1d1f !important; margin: 0; transition: color 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        
-        .m-right { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; border: 1px solid #d2d2d7; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); flex-shrink: 0; }
-        .m-right svg { width: 24px; height: 24px; stroke: #1d1d1f; transition: stroke 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        @media (max-width: 768px) { .m-right { width: 40px; height: 40px; } .m-right svg { width: 18px; height: 18px; } }
-
-        /* Versteckter Content-Bereich (CSS Grid für weiche Height-Animation) */
-        .m-row-hidden { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.6s cubic-bezier(0.16, 1, 0.3, 1); position: relative; z-index: 2; }
-        .m-row-content { overflow: hidden; }
-        .m-row-content-inner { padding: 0 0 50px 0; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
-        @media (max-width: 1024px) { .m-row-content-inner { flex-direction: column; align-items: flex-start; gap: 30px; padding: 0 0 40px 0; } }
-        
-        .m-desc { font-family: 'Inter', sans-serif; font-size: clamp(1.125rem, 1.5vw, 1.5rem); font-weight: 400; color: rgba(255,255,255,0.7) !important; max-width: 700px; line-height: 1.5; margin: 0; margin-left: calc(40px + 1.125rem); }
-        @media (max-width: 768px) { .m-desc { font-size: 1rem; margin-left: 0; } }
-
-        .m-action-btn { display: inline-flex; align-items: center; gap: 12px; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #ffffff !important; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; border-bottom: 2px solid #dc2626; padding-bottom: 8px; transition: color 0.3s, border-color 0.3s; position: relative; z-index: 10;}
-        .m-action-btn svg { width: 20px; height: 20px; transition: transform 0.3s; }
-        .m-action-btn:hover { color: #dc2626 !important; }
-        .m-action-btn:hover svg { transform: translateX(5px); }
-
-        /* Farb- & Transformations-Wechsel bei Hover / Active */
-        @media (min-width: 1025px) {
-            .m-row:hover .m-row-hidden { grid-template-rows: 1fr; }
-            .m-row:hover .m-row-visible { padding: 60px 0 20px 0; }
-            .m-row:hover .m-title { color: #ffffff !important; transform: translateX(20px); }
-            .m-row:hover .m-num { color: #dc2626; }
-            .m-row:hover .m-right { background-color: #dc2626; border-color: #dc2626; transform: rotate(45deg); }
-            .m-row:hover .m-right svg { stroke: #ffffff; }
+        .kinetic-section {
+            position: relative;
+            width: 100vw;
+            padding: 80px 0 120px 0;
+            background-color: #f5f5f7;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: none; /* Versteckt den normalen Cursor hier */
         }
         
-        .m-row.is-active .m-row-hidden { grid-template-rows: 1fr; }
-        .m-row.is-active .m-row-visible { padding: 40px 0 20px 0; }
-        .m-row.is-active .m-title { color: #ffffff !important; transform: translateX(10px); }
-        .m-row.is-active .m-num { color: #dc2626; }
-        .m-row.is-active .m-right { background-color: #dc2626; border-color: #dc2626; transform: rotate(45deg); }
-        .m-row.is-active .m-right svg { stroke: #ffffff; }
+        .kinetic-header {
+            padding: 0 40px 60px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid #1d1d1f;
+            margin-bottom: 40px;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+        @media (max-width: 768px) { .kinetic-header { padding: 0 20px 40px 20px; flex-direction: column; align-items: flex-start; gap: 10px; border-bottom: 1px solid #d2d2d7; } }
+
+        .kinetic-header h2 { font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0; color: #1d1d1f !important; }
+        .kinetic-header span { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; color: #dc2626; letter-spacing: 2px; text-transform: uppercase; }
+
+        .k-track-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #f5f5f7;
+            transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .k-track {
+            position: relative;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 1vh 0;
+            background: transparent;
+            transition: opacity 0.5s ease, filter 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .k-marquee {
+            display: flex;
+            white-space: nowrap;
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(6rem, 12vw, 16rem); /* MASSIV */
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 0.9;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(29, 29, 31, 0.8); /* Outlined Text */
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        .k-marquee span {
+            padding: 0 4vw;
+            display: inline-block;
+        }
+
+        /* Endlosschleifen Animationen */
+        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+        .k-track:nth-child(odd) .k-marquee { animation: scrollLeft 40s linear infinite; }
+        .k-track:nth-child(even) .k-marquee { animation: scrollRight 40s linear infinite; }
+
+        /* Bild-Masken für Hover (Hier später eure Bilder/GIFs einfügen) */
+        .t-strategy .k-marquee { background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop'); }
+        .t-production .k-marquee { background-image: url('https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2942&auto=format&fit=crop'); }
+        .t-digital .k-marquee { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2944&auto=format&fit=crop'); }
+        .t-performance .k-marquee { background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop'); }
+
+        /* Das Glass Panel */
+        .k-glass-panel {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -30%);
+            opacity: 0;
+            pointer-events: none;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 32px;
+            padding: 50px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 20;
+        }
+        @media (max-width: 768px) { .k-glass-panel { padding: 30px 20px; border-radius: 20px; } }
+
+        .k-glass-panel h3 { font-family: 'Oswald', sans-serif; font-size: 2.5rem; color: #ffffff !important; margin-bottom: 15px; letter-spacing: 1px; }
+        .k-glass-panel p { font-family: 'Inter', sans-serif; font-size: 1.125rem; color: rgba(255,255,255,0.8) !important; line-height: 1.6; margin-bottom: 30px; }
+        
+        .k-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: #dc2626;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 16px 36px;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .k-btn:hover { background-color: #ffffff; color: #1d1d1f !important; transform: translateY(-2px); }
+        .k-btn svg { width: 18px; height: 18px; transition: transform 0.3s; }
+        .k-btn:hover svg { transform: translateX(5px); }
+
+        /* Custom Cursor Style */
+        .k-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100px; height: 100px;
+            background: #dc2626;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.2);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4);
+        }
+
+        /* =========================================
+           DER MAGIC HOVER EFFEKT (DESKTOP)
+           ========================================= */
+        @media (min-width: 1025px) {
+            /* Hintergrund der gesamten Sektion wird schwarz, andere Reihen blurren */
+            .k-track-wrapper:hover { background: #050505; }
+            .k-track-wrapper:hover .k-track:not(:hover) { opacity: 0.05; filter: blur(12px); }
+            
+            /* Zeigt den Custom Cursor, wenn in der Sektion */
+            .kinetic-section:hover .k-cursor { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+            /* Hover auf einer spezifischen Reihe */
+            .k-track:hover {
+                transform: scale(1.02); /* Leichter Pop-Out */
+                z-index: 10;
+            }
+            .k-track:hover .k-marquee {
+                animation-play-state: paused;
+                -webkit-background-clip: text; /* Bild füllt den Text */
+                -webkit-text-fill-color: transparent;
+                -webkit-text-stroke: 0px transparent;
+                background-size: cover;
+                background-position: center;
+                /* filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); */
+            }
+            .k-track:hover .k-glass-panel {
+                opacity: 1;
+                transform: translate(-50%, -50%); /* Panel slidet ein */
+                pointer-events: auto;
+            }
+            /* Versteckt den Custom Cursor, wenn über dem Button (damit man klicken kann) */
+            .k-btn:hover ~ .k-cursor { opacity: 0 !important; }
+        }
+
+        /* =========================================
+           MOBILE ACTIVE STATE (Da Hover fehlt)
+           ========================================= */
+        @media (max-width: 1024px) {
+            .kinetic-section { cursor: auto; }
+            .k-cursor { display: none !important; }
+            
+            .k-track.is-active {
+                background: #050505;
+                z-index: 10;
+                padding: 15vh 0; /* Macht die Reihe größer */
+            }
+            .k-track.is-active .k-marquee {
+                animation-play-state: paused;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                -webkit-text-stroke: 0px transparent;
+                background-size: cover;
+                background-position: center;
+            }
+            .k-track.is-active .k-glass-panel {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+                pointer-events: auto;
+            }
+            .k-track-wrapper.has-active { background: #050505; }
+            .k-track-wrapper.has-active .k-track:not(.is-active) { opacity: 0.1; filter: blur(5px); display: none;} /* Versteckt den Rest für Fokus */
+        }
 
         /* === PREMIUM CTA / VISION BLOCK === */
+        /* ... (Dein bisheriges CSS für den Rest bleibt exakt gleich, ich kürze es hier zur Übersichtlichkeit für die Eingabe, DU BEHÄLTST DEIN CSS) ... */
         .premium-cta-section { width: 100%; padding: 100px 24px 80px 24px; margin: 0; background-color: #ffffff; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; z-index: 10; }
         @media (max-width: 768px) { .premium-cta-section { padding: 80px 16px 80px 16px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; } }
         .cta-bg-glow-top { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.5), transparent); }
@@ -176,26 +324,18 @@
         .stat-accent { color: #dc2626; }
         .stat-label { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* =========================================
-           SAAS DASHBOARD "MARKET INTELLIGENCE" 
-           ========================================= */
+        /* === SAAS DASHBOARD & REST (Behalte ich original bei) === */
         .saas-dashboard-wrapper { max-width: 1200px; margin: 60px auto 120px auto; padding: 0 24px; font-family: 'Inter', sans-serif; }
-        
         .dash-header { display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px; text-align: center;}
         @media (min-width: 768px) { .dash-header { align-items: center; } }
-        
         .dash-header-center { display: flex; flex-direction: column; align-items: center; }
         .dash-header-center h2 { font-size: 2.5rem; font-weight: 900; color: #1d1d1f; line-height: 1.1; margin-bottom: 8px; letter-spacing: -1px; }
         .dash-header-center p { font-size: 1.125rem; color: #6e6e73; max-width: 600px; line-height: 1.6; text-align: center; }
         .dash-header-center .highlight-red { color: #dc2626; font-style: italic; }
-
         .dash-main-container { background: #ffffff; border: 1px solid #e5e5ea; border-radius: 24px; padding: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
         @media (max-width: 768px) { .dash-main-container { padding: 20px; border-radius: 16px; } }
-
-        /* 3 Boxen KPI-Design */
         .dash-kpis { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; margin-bottom: 32px; }
         @media (min-width: 768px) { .dash-kpis { grid-template-columns: repeat(3, 1fr); } }
-        
         .kpi-card { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; transition: box-shadow 0.3s, border-color 0.3s; }
         .kpi-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.04); border-color: rgba(220, 38, 38, 0.3); }
         .kpi-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
@@ -206,48 +346,28 @@
         .kpi-value { font-family: 'Oswald', sans-serif; font-size: 2.2rem; font-weight: 500; color: #1d1d1f; line-height: 1; margin-bottom: 8px;}
         .kpi-sub { font-size: 0.75rem; font-weight: 500; color: #86868b; line-height: 1.4; }
         .kpi-source { font-size: 0.65rem; color: #a1a1aa; font-style: italic; margin-top: 8px; display: block; }
-
         .dash-content-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
         @media (min-width: 1024px) { .dash-content-grid { grid-template-columns: 1.2fr 1fr; } }
-
-        /* DIAGRAMM LINKS */
         .dash-chart-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column;}
         .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;}
         .chart-title { font-size: 1.125rem; font-weight: 700; color: #1d1d1f; margin-bottom: 4px; }
         .chart-sub { font-size: 0.875rem; color: #6e6e73; max-width: 400px; line-height: 1.4;}
-        
         .chart-wrapper { display: flex; flex-direction: column; width: 100%; height: 280px; position: relative; margin-bottom: 20px; }
         .chart-y-axis { position: absolute; left: 0; top: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 20px; font-size: 0.65rem; color: #86868b; font-weight: 600; width: 30px; }
-        
         .chart-visual-bars { display: flex; align-items: flex-end; justify-content: space-between; height: 100%; margin-left: 30px; padding-bottom: 20px; border-bottom: 2px solid #e5e5ea; border-left: 2px solid #e5e5ea; padding-left: 10px; padding-right: 10px; position: relative; }
         .chart-grid-lines { position: absolute; top: 0; left: 0; right: 0; bottom: 20px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; z-index: 0; }
         .chart-grid-line { width: 100%; height: 1px; background-color: rgba(0,0,0,0.04); }
-
         .bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; width: 14%; position: relative; }
-        
-        .chart-bar-blue { 
-            width: 100%; 
-            background: linear-gradient(to top, #990000, #ef4444); 
-            border-radius: 6px 6px 0 0; 
-            transform-origin: bottom; 
-            transform: scaleY(0); 
-            position: relative; 
-            z-index: 1; 
-            transition: filter 0.3s ease; 
-        }
+        .chart-bar-blue { width: 100%; background: linear-gradient(to top, #990000, #ef4444); border-radius: 6px 6px 0 0; transform-origin: bottom; transform: scaleY(0); position: relative; z-index: 1; transition: filter 0.3s ease; }
         .chart-bar-blue:hover { filter: brightness(1.15); cursor: pointer; }
         .time-label { position: absolute; bottom: -20px; font-size: 0.65rem; font-weight: 600; color: #86868b; white-space: nowrap; }
-
         .chart-arguments { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; border-top: 1px solid #f5f5f7; padding-top: 20px; }
         .chart-arg-item { display: flex; align-items: flex-start; gap: 12px; }
         .chart-arg-icon { color: #dc2626; flex-shrink: 0; margin-top: 2px; }
         .chart-arg-text h5 { font-size: 0.85rem; font-weight: 700; color: #1d1d1f; margin: 0 0 2px 0; }
         .chart-arg-text p { font-size: 0.75rem; color: #6e6e73; margin: 0; line-height: 1.4; }
-
-        /* BOX RECHTS */
         .dash-multiplier-area { border: 1px solid #e5e5ea; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: #fafafa;}
         .mult-list-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; margin-bottom: 20px; }
-        
         .mult-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #e5e5ea; transition: background 0.3s ease, padding-left 0.3s ease; gap: 12px; }
         .mult-item:not(.header-row):hover { background: rgba(0,0,0,0.02); padding-left: 6px; border-radius: 8px; border-bottom-color: transparent;}
         .mult-item:last-child { border-bottom: none; }
@@ -256,17 +376,11 @@
         .mult-name { font-size: 0.85rem; font-weight: 600; color: #1d1d1f; display: flex; align-items: center; gap: 8px; flex: 1; line-height: 1.3;}
         .mult-name svg { color: #86868b; flex-shrink: 0;}
         .mult-val { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 700; color: #dc2626; white-space: nowrap; flex-shrink: 0; text-align: right; }
-        
         .m-footer-btn { width: 100%; background: #1d1d1f; color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: background 0.2s; }
         .m-footer-btn:hover { background: #dc2626; }
+        @media (max-width: 768px) { .mult-val { font-size: 1.1rem; } .mult-name { font-size: 0.75rem; } .dash-multiplier-area { padding: 20px 16px; } }
 
-        @media (max-width: 768px) {
-            .mult-val { font-size: 1.1rem; }
-            .mult-name { font-size: 0.75rem; }
-            .dash-multiplier-area { padding: 20px 16px; }
-        }
-
-        /* === WEITERE STYLES === */
+        /* === REST DES CSS (Footer, Nav etc) === */
         button, .tab-btn, .menu-link { border-radius: 30px !important; }
         .gallery-item img { border-radius: 12px !important; }
         .modal-content-wrapper { border-radius: 20px !important; }
@@ -282,7 +396,6 @@
         .gallery-container { animation: none !important; cursor: grab !important; will-change: transform; }
         .gallery-container:active { cursor: grabbing !important; }
         .gallery-item img { pointer-events: none !important; user-select: none !important; -webkit-user-drag: none !important; }
-        
         .site-toggle-container { display: flex; justify-content: center; align-items: center; gap: 20px; font-family: 'Oswald', sans-serif; color: #1d1d1f; pointer-events: auto; margin-bottom: 30px; }
         .toggle-label { font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; color: #86868b; transition: color 0.35s ease, text-shadow 0.35s ease, opacity 0.35s ease; }
         .site-toggle-container.is-creators .label-creators, .site-toggle-container.is-business .label-business { color: #ff0000; text-shadow: none; opacity: 1; }
@@ -296,15 +409,8 @@
         input:checked + .slider:before { transform: translateX(36px); }
         .slider.round { border-radius: 50px; }
         .slider.round:before { border-radius: 50%; }
-        @media (max-width: 768px) {
-            .site-toggle-container { gap: 12px; margin-bottom: 20px; }
-            .toggle-label { font-size: 1.1rem; }
-            .ios-switch { width: 60px; height: 34px; }
-            .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; }
-            input:checked + .slider:before { transform: translateX(26px); }
-        }
+        @media (max-width: 768px) { .site-toggle-container { gap: 12px; margin-bottom: 20px; } .toggle-label { font-size: 1.1rem; } .ios-switch { width: 60px; height: 34px; } .slider:before { height: 24px; width: 24px; bottom: 3px; left: 3px; } input:checked + .slider:before { transform: translateX(26px); } }
 
-        /* === PREMIUM FOOTER === */
         .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 80px; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.05); }
         @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 40px; } }
         .footer-container { max-width: 1200px; margin: 0 auto; }
@@ -351,15 +457,12 @@
         .footer-badge { display: flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; }
         .footer-badge .dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; animation: pulse-green 2s infinite; }
         .footer-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #d4d4d4; }
-        
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
     </style>
 </head>
 <body>
+
+    <div class="k-cursor">EXPLORE</div>
 
     <div class="lang-switcher">
         <a href="#" class="active interactive">
@@ -402,16 +505,6 @@
         </div>
     </div>
     <div class="menu-overlay" onclick="toggleMenu()"></div>
-
-    <div class="modal-overlay" id="galleryModal">
-        <div class="modal-header">
-            <h2 class="modal-title" id="modalTitle">GALLERY</h2>
-            <div class="modal-close interactive" onclick="closeModal()">CLOSE [X]</div>
-        </div>
-        <div class="modal-content-wrapper">
-            <div class="modal-grid" id="modalGrid"></div>
-        </div>
-    </div>
 
     <main class="page-wrapper">
         <header id="hero" class="hero">
@@ -499,100 +592,69 @@
             </div>
         </section>
 
-        <section id="services" class="monolith-section">
-            <div class="monolith-header-top">
+        <section id="services" class="kinetic-section">
+            <div class="kinetic-header">
                 <h2>WAS WIR TUN</h2>
-                <span>// Expertise & Prozesse</span>
+                <span>// Kinetic Expertise</span>
             </div>
             
-            <div class="m-list">
-                <a href="strategy.html" class="m-row interactive">
-                    <div class="m-row-bg"></div>
-                    <div class="m-row-visible">
-                        <div class="m-left">
-                            <div class="m-num">01</div>
-                            <h3 class="m-title">STRATEGY</h3>
-                        </div>
-                        <div class="m-right">
-                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5v14M19 5H5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
+            <div class="k-track-wrapper">
+                
+                <div class="k-track t-strategy">
+                    <div class="k-marquee">
+                        <span>STRATEGY</span><span>—</span><span>STRATEGY</span><span>—</span><span>STRATEGY</span><span>—</span><span>STRATEGY</span><span>—</span><span>STRATEGY</span><span>—</span>
                     </div>
-                    <div class="m-row-hidden">
-                        <div class="m-row-content">
-                            <div class="m-row-content-inner">
-                                <p class="m-desc">Wir übersetzen unternehmerische Ziele in klare Kommunikations- und Kampagnenstrategien – strukturiert gedacht, präzise geplant. Keine Platzpatronen, nur messbarer Impact.</p>
-                                <span class="m-action-btn">Entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-                            </div>
-                        </div>
+                    <div class="k-glass-panel">
+                        <h3>STRATEGY</h3>
+                        <p>Wir übersetzen unternehmerische Ziele in klare Kommunikations- und Kampagnenstrategien – strukturiert gedacht, präzise geplant. Keine Platzpatronen, nur messbarer Impact.</p>
+                        <a href="strategy.html" class="k-btn">
+                            Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
                     </div>
-                </a>
+                </div>
 
-                <a href="production.html" class="m-row interactive">
-                    <div class="m-row-bg"></div>
-                    <div class="m-row-visible">
-                        <div class="m-left">
-                            <div class="m-num">02</div>
-                            <h3 class="m-title">PRODUCTION</h3>
-                        </div>
-                        <div class="m-right">
-                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5v14M19 5H5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
+                <div class="k-track t-production">
+                    <div class="k-marquee">
+                        <span>PRODUCTION</span><span>—</span><span>PRODUCTION</span><span>—</span><span>PRODUCTION</span><span>—</span><span>PRODUCTION</span><span>—</span><span>PRODUCTION</span><span>—</span>
                     </div>
-                    <div class="m-row-hidden">
-                        <div class="m-row-content">
-                            <div class="m-row-content-inner">
-                                <p class="m-desc">Wir realisieren Produktionen, die Marken glaubwürdig präsentieren – mit klarer Inszenierung, professioneller Umsetzung und absolutem High-End Qualitätsanspruch.</p>
-                                <span class="m-action-btn">Entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-                            </div>
-                        </div>
+                    <div class="k-glass-panel">
+                        <h3>PRODUCTION</h3>
+                        <p>Wir realisieren Produktionen, die Marken glaubwürdig präsentieren – mit klarer Inszenierung, professioneller Umsetzung und absolutem High-End Qualitätsanspruch.</p>
+                        <a href="production.html" class="k-btn">
+                            Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
                     </div>
-                </a>
+                </div>
 
-                <a href="digital.html" class="m-row interactive">
-                    <div class="m-row-bg"></div>
-                    <div class="m-row-visible">
-                        <div class="m-left">
-                            <div class="m-num">03</div>
-                            <h3 class="m-title">DIGITAL</h3>
-                        </div>
-                        <div class="m-right">
-                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5v14M19 5H5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
+                <div class="k-track t-digital">
+                    <div class="k-marquee">
+                        <span>DIGITAL</span><span>—</span><span>DIGITAL</span><span>—</span><span>DIGITAL</span><span>—</span><span>DIGITAL</span><span>—</span><span>DIGITAL</span><span>—</span>
                     </div>
-                    <div class="m-row-hidden">
-                        <div class="m-row-content">
-                            <div class="m-row-content-inner">
-                                <p class="m-desc">Wir gestalten digitale Präsenzen und Ökosysteme, die Unternehmen über alle relevanten Kanäle hinweg professionell und performant darstellen.</p>
-                                <span class="m-action-btn">Entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-                            </div>
-                        </div>
+                    <div class="k-glass-panel">
+                        <h3>DIGITAL</h3>
+                        <p>Wir gestalten digitale Präsenzen und Ökosysteme, die Unternehmen über alle relevanten Kanäle hinweg professionell und performant darstellen.</p>
+                        <a href="digital.html" class="k-btn">
+                            Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
                     </div>
-                </a>
+                </div>
 
-                <a href="performance.html" class="m-row interactive">
-                    <div class="m-row-bg"></div>
-                    <div class="m-row-visible">
-                        <div class="m-left">
-                            <div class="m-num">04</div>
-                            <h3 class="m-title">PERFORMANCE</h3>
-                        </div>
-                        <div class="m-right">
-                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5v14M19 5H5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
+                <div class="k-track t-performance">
+                    <div class="k-marquee">
+                        <span>PERFORMANCE</span><span>—</span><span>PERFORMANCE</span><span>—</span><span>PERFORMANCE</span><span>—</span><span>PERFORMANCE</span><span>—</span><span>PERFORMANCE</span><span>—</span>
                     </div>
-                    <div class="m-row-hidden">
-                        <div class="m-row-content">
-                            <div class="m-row-content-inner">
-                                <p class="m-desc">Wir verbinden Ad-Strategien, Datenanalyse und gezielte Ausspielung zu einem streng kontrollierten und hochprofitablen Performance-System.</p>
-                                <span class="m-action-btn">Entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-                            </div>
-                        </div>
+                    <div class="k-glass-panel">
+                        <h3>PERFORMANCE</h3>
+                        <p>Wir verbinden Ad-Strategien, Datenanalyse und gezielte Ausspielung zu einem streng kontrollierten und hochprofitablen Performance-System.</p>
+                        <a href="performance.html" class="k-btn">
+                            Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
                     </div>
-                </a>
+                </div>
+
             </div>
         </section>
         <section class="saas-dashboard-wrapper" id="market-proof">
-            
             <div class="dash-header">
                 <div class="dash-header-center">
                     <h2>Der Markt wartet nicht. <br>Nutzt ihr <span class="highlight-red">euer volles Potenzial?</span></h2>
@@ -635,7 +697,6 @@
                 </div>
 
                 <div class="dash-content-grid">
-                    
                     <div class="dash-chart-area">
                         <div class="chart-header">
                             <div>
@@ -887,28 +948,40 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // === MOBILE LOGIK FÜR DIE MONOLITH REIHEN ===
-            // Auf mobilen Geräten soll die Zeile durch Klicken aufklappen.
-            // Der href-Link feuert dann erst bei einem erneuten Klick (oder durch Klicken auf den "Entdecken"-Button).
-            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            if (isTouchDevice) {
-                const monolithRows = document.querySelectorAll('.m-row');
-                monolithRows.forEach(row => {
-                    row.addEventListener('click', function(e) {
-                        // Verhindert das direkte Weiterleiten auf Handys beim ersten Tap
-                        if (!this.classList.contains('is-active') && !e.target.closest('.m-action-btn')) {
-                            e.preventDefault(); 
-                            // Schließt alle anderen
-                            monolithRows.forEach(r => r.classList.remove('is-active'));
-                            // Öffnet die angetippte
-                            this.classList.add('is-active');
-                        }
-                    });
-                });
-            }
-
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
+
+                // === KINETIC TUNNEL LOGIC (Custom Cursor & Mobile Interaktion) ===
+                const kineticSection = document.querySelector('.kinetic-section');
+                const customCursor = document.querySelector('.k-cursor');
+                const kTracks = document.querySelectorAll('.k-track');
+                const trackWrapper = document.querySelector('.k-track-wrapper');
+                const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+                if (!isTouchDevice && kineticSection && customCursor) {
+                    // Custom Cursor Bewegung
+                    kineticSection.addEventListener('mousemove', (e) => {
+                        gsap.to(customCursor, { 
+                            x: e.clientX, 
+                            y: e.clientY, 
+                            duration: 0.15, 
+                            ease: "power2.out" 
+                        });
+                    });
+                } else if (isTouchDevice) {
+                    // Mobile Tap-Logik (Kein Hover)
+                    kTracks.forEach(track => {
+                        track.addEventListener('click', function(e) {
+                            if (!this.classList.contains('is-active') && !e.target.closest('.k-btn')) {
+                                e.preventDefault(); 
+                                trackWrapper.classList.add('has-active');
+                                kTracks.forEach(r => r.classList.remove('is-active'));
+                                this.classList.add('is-active');
+                            }
+                        });
+                    });
+                }
+
 
                 const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
                 if(blurOverlay) {
