@@ -52,7 +52,6 @@
         .bento-grid-top { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
         @media (min-width: 1024px) { .bento-grid-top { grid-template-columns: 1fr 1fr; } } 
         
-        /* FIX: CSS Transitions von Transform getrennt, um GSAP Konflikte auf Mobile zu stoppen */
         .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px; padding: 40px; position: relative; overflow: hidden; transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; }
         .bento-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #ffffff; transition: transform 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease; border: 1px solid rgba(255, 255, 255, 0.1); }
         
@@ -71,7 +70,7 @@
         .detail-list-container { margin-top: 140px !important; position: relative; z-index: 10; width: 100%; height: 100%; }
         .detail-list-container::before { display: none !important; }
         #detailList .knob-label.active { color: #ff0000 !important; font-weight: 700 !important; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px 0px 15px rgba(0, 0, 0, 1), 0px 0px 40px rgba(0, 0, 0, 0.9) !important; }
-        #detailList .knob-label { color: #999999 !important; text-shadow: 0px 1px 4px rgba(0,0,0,1) !important; }
+        #detailList .knob-label { color: #999999 !important; text-shadow: 0px 1px 4px rgba(0,0,0,1) !important; cursor: pointer; }
         @media (min-width: 769px) { #detailList { width: 100% !important; max-width: 1150px !important; margin-left: auto !important; margin-right: auto !important; } #detailList div { white-space: normal !important; line-height: 1.5 !important; } #detailList .knob-label { font-size: 22px !important; font-weight: 500 !important; letter-spacing: 2.5px !important; white-space: nowrap !important; } }
 
         /* Sticky Layout */
@@ -106,7 +105,7 @@
         .back-btn:hover { background: #ffffff; color: #000000; border-color: #ffffff; }
         .subpage-header-logo { height: 40px; width: auto; flex-shrink: 0; }
         
-        /* FIX FÜR DIE GSAP ANIMATIONEN (Verhindert Flackern) */
+        /* FIX FÜR DIE GSAP ANIMATIONEN */
         .gsap-fade-up { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
 
         /* === PREMIUM FOOTER CSS === */
@@ -115,15 +114,18 @@
         .footer-container { max-width: 1200px; margin: 0 auto; }
         .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
-        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #ffffff !important; }
+        
+        /* === FIX FÜR DEN FOOTER TEXT BLOCK (LINKSBÜNDIG) === */
+        .footer-contact-info { display: flex !important; flex-direction: column !important; align-items: flex-start !important; text-align: left !important; width: 100% !important; }
+        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px !important; color: #ffffff !important; text-align: left !important; text-wrap: wrap; }
         @media (max-width: 768px) { .footer-contact-info h2 { font-size: 1.85rem; letter-spacing: -0.5px; } }
         @media (min-width: 769px) { .footer-contact-info h2 { font-size: 3rem; letter-spacing: -1px; } }
         .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; }
-        .footer-contact-info > p { color: #a3a3a3 !important; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
-        .contact-details { font-family: 'Inter', sans-serif; font-size: 1.125rem; font-weight: 900; display: flex; flex-direction: column; gap: 16px; letter-spacing: -0.5px; }
-        .contact-details p, .contact-details a { margin: 0 !important; color: #ffffff !important; text-decoration: none !important; -webkit-text-fill-color: #ffffff !important; }
-        .footer-contact-info h2, .footer-contact-info > p, .contact-details p { text-wrap: wrap; }
+        .footer-contact-info > p { color: #a3a3a3 !important; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px !important; margin-left: 0 !important; margin-right: auto !important; max-width: 480px !important; text-align: left !important; text-wrap: wrap; }
+        .contact-details { font-family: 'Inter', sans-serif; font-size: 1.125rem; font-weight: 900; display: flex !important; flex-direction: column !important; gap: 16px; letter-spacing: -0.5px; align-items: flex-start !important; text-align: left !important; }
+        .contact-details p, .contact-details a { margin: 0 !important; color: #ffffff !important; text-decoration: none !important; -webkit-text-fill-color: #ffffff !important; display: flex !important; align-items: center !important; text-wrap: wrap; }
         .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; }
+        
         .footer-form-card { background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
         @media (max-width: 768px) { .footer-form-card { padding: 30px 20px; border-radius: 24px; } }
         .footer-form { display: flex; flex-direction: column; gap: 20px; }
@@ -144,7 +146,6 @@
         @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } .footer-brand { grid-column: auto; } }
         .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
         
-        /* LOGO FIX IM FOOTER */
         .footer-brand .brand-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 900; transition: transform 0.3s; background-color: transparent; }
         .footer-brand .brand-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
         
@@ -155,7 +156,6 @@
         .footer-socials-new a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); color: #ffffff !important; transition: all 0.3s; }
         .footer-socials-new a:hover { background-color: rgba(255,255,255,0.05); color: #dc2626 !important; border-color: rgba(255,255,255,0.2); }
         
-        /* ICONS FIX: fill: none; stroke: currentColor */
         .footer-socials-new svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
         
         .footer-col { text-align: left; }
@@ -175,12 +175,6 @@
             70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
-
-        /* === CURSOR CSS === */
-        @media (hover: hover) and (pointer: fine) { * { cursor: none !important; } }
-        #slice-cursor-canvas { pointer-events: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; }
-        #slice-cursor-dot { position: fixed; pointer-events: none; z-index: 100000; border-radius: 50%; background-color: #dc2626; width: 12px; height: 12px; transition: transform 0.3s ease; transform: translate(-50%, -50%); box-shadow: 0 0 10px #dc2626; }
-        @media (hover: none), (pointer: coarse) { #slice-cursor-canvas, #slice-cursor-dot { display: none !important; } }
     </style>
 </head>
 <body>
@@ -227,8 +221,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: middle;"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
                     STUDIO & MIX
                 </div>
-                <h1 class="hero-title">Sound that<br><span class="hero-highlight">gives goosebumps.</span></h1>
-                <p class="hero-text">Audio isn't just a step, it's a process. From the first recording to the final mix, it's about precision, dynamics, and the right feel for space.</p>
+                <h1 class="hero-title">Sound that gives you<br><span class="hero-highlight">goosebumps.</span></h1>
+                <p class="hero-text">Audio isn't just a step, it's a process. From the first recording to the final mix, it's about precision, dynamics, and the right feel for the room.</p>
             </div>
         </div>
 
@@ -249,7 +243,7 @@
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                             </div>
                             <h3>Beat & Instrumental</h3>
-                            <p>Custom-made instrumentals. Your vibe, your vision, our sound.</p>
+                            <p>Custom-tailored instrumentals. Your vibe, your vision, our sound.</p>
                         </div>
                         <div class="bento-card gsap-fade-up" style="flex: 1; padding: 32px;">
                             <div class="bento-icon-wrapper">
@@ -266,14 +260,14 @@
                         <span style="font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #dc2626; display: block; margin-bottom: 16px;">Workflow</span>
                         <h2>Uncompromisingly <br><span style="color: #dc2626; text-decoration: underline; text-decoration-color: rgba(220, 38, 38, 0.4); text-underline-offset: 8px;">Clear.</span></h2>
                         <p>A good track needs more than just equipment. It needs vibe, trust, and someone at the controls who understands exactly where you want to go.</p>
-                        <a href="#contact" class="btn-red interactive">Request a Session</a>
+                        <a href="#contact" class="btn-red interactive">Request Session</a>
                     </div>
 
                     <div class="sticky-content">
                         <div class="small-bento gsap-fade-up">
                             <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
                             <h4>Flexible Sessions</h4>
-                            <p>Creativity knows no schedule. We follow your flow and take the time the song needs.</p>
+                            <p>Creativity knows no schedule. We adapt to your flow and take the time the song needs.</p>
                         </div>
                         <div class="small-bento gsap-fade-up">
                             <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20v-8"/><path d="M6 20V10"/><path d="M18 20V4"/></svg></div>
@@ -288,7 +282,7 @@
                         <div class="small-bento gsap-fade-up">
                             <div class="bento-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
                             <h4>Artist Consulting</h4>
-                            <p>Honest feedback. We advise you on arrangement, performance, and help you find your unique sound.</p>
+                            <p>Honest feedback. We advise you on arrangement, performance, and help you find your own sound.</p>
                         </div>
                     </div>
                 </div>
@@ -382,10 +376,7 @@
                 </div>
             </div>
         </footer>
-        </main>
-
-    <canvas id="slice-cursor-canvas" aria-hidden="true"></canvas>
-    <div id="slice-cursor-dot" aria-hidden="true"></div>
+    </main>
 
     <script src="js/main.js"></script>
     <script>
@@ -452,12 +443,12 @@
 
             if(listContainer && wrapper) {
                 const audioList = [
-                    { name: "Recording", text: "High-End recordings in acoustically optimized rooms for vocals and instruments." },
+                    { name: "Recording", text: "High-end recordings in acoustically optimized rooms for vocals and instruments." },
                     { name: "Mixing", text: "We bring balance, depth, and the necessary punch to your tracks." },
                     { name: "Mastering", text: "The final polish for loudness and consistency across all streaming platforms." },
-                    { name: "Sounddesign", text: "Creative sound design for films, games, and brand identities." },
-                    { name: "Live-Audio", text: "Crystal-clear sound for events, concerts, and live broadcasts." },
-                    { name: "Set-Ton", text: "Professional boom operation and recording directly on film sets." }
+                    { name: "Sound Design", text: "Creative sound design for films, games, and brand identities." },
+                    { name: "Live Audio", text: "Crystal-clear sound for events, concerts, and live broadcasts." },
+                    { name: "Location Sound", text: "Professional boom operation and recording directly on the film set." }
                 ];
 
                 const interfaceDiv = document.createElement('div');
@@ -598,7 +589,7 @@
                 window.addEventListener('touchend', onEnd);
             }
 
-            // Scroll Animationen (Flackern gefixt durch CSS will-change)
+            // Scroll Animationen
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
                 const elements = document.querySelectorAll('.gsap-fade-up');
