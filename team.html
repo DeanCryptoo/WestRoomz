@@ -4,81 +4,379 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team | WESTROOMZ</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* --- RESET & BASICS --- */
+        :root {
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #555555;
+            --accent-red: #ff0000;
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body.dark-theme {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+            /* Verhindert Scrollen, falls die Liste exakt in den Viewport passen soll */
+        }
+
+        /* --- NAVBAR (Minimalistischer Platzhalter für deine bestehende Nav) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            z-index: 100;
+        }
+        
+        .logo {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+        }
+
+        .menu-toggle-btn {
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- CINEMATIC TEAM SECTION --- */
+        .team-cinematic {
+            position: relative;
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 15vh 5vw 10vh 5vw;
+        }
+
+        /* Background Media (Videos/Images) */
+        .team-media-gallery {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .team-media {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.05); /* Leichter Zoom-Out Effekt beim Erscheinen */
+            transition: opacity 0.8s ease, transform 1.2s ease;
+        }
+
+        .team-media.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .media-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Harter Gradient, damit der Text links perfekt lesbar bleibt */
+            background: linear-gradient(to right, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.7) 40%, rgba(5,5,5,0.3) 100%);
+            z-index: 1;
+        }
+
+        /* Typography List */
+        .team-list-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title-minimal {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            margin-bottom: 3rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .red-dot {
+            color: var(--accent-red);
+        }
+
+        .team-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-item {
+            position: relative;
+            cursor: pointer;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        /* Der fette Name */
+        .team-name {
+            font-size: clamp(3rem, 7vw, 8rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 0.9;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            margin: 0;
+        }
+
+        /* Versteckte Infos (Rolle & Text) */
+        .team-info {
+            max-width: 600px;
+            height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .team-info .role {
+            display: inline-block;
+            color: var(--accent-red);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 700;
+        }
+
+        .team-info p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            font-weight: 300;
+        }
+
+        /* --- HOVER STATES (Die Psychologie greift hier) --- */
+        .team-list:hover .team-name {
+            color: rgba(255, 255, 255, 0.08); /* Dimmt alle anderen Namen ab */
+        }
+
+        .team-list .team-item:hover .team-name {
+            color: var(--text-main);
+            transform: translateX(30px); /* Schiebt den Namen dominant nach rechts */
+        }
+
+        .team-list .team-item:hover .team-info {
+            height: auto;
+            opacity: 1;
+            transform: translateY(0);
+            padding-bottom: 1rem;
+        }
+
+        /* --- HIGH-END FOOTER --- */
+        .footer-modern {
+            background-color: #020202;
+            padding: 4rem 5vw;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: end;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-brand h2 {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+        }
+
+        .footer-social a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--accent-red);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+            justify-content: flex-end;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--text-main);
+        }
+
+        /* Responsive Anpassungen */
+        @media (max-width: 900px) {
+            .team-name { font-size: 4rem; }
+            .team-list .team-item:hover .team-name { transform: translateX(15px); }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            .footer-social, .footer-legal {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body class="dark-theme">
 
-    <div class="page-transition-curtain"></div>
-    <div class="cursor"></div>
-    <div class="cursor-ring"></div>
-
     <nav class="navbar">
-        <a href="index.html" class="logo">WESTROOMZ</a>
-        <div class="menu-toggle-btn" onclick="toggleMenu()">Menu</div>
+        <a href="#" class="logo">WESTROOMZ</a>
+        <div class="menu-toggle-btn">MENU</div>
     </nav>
 
-    <main class="page-content section-padding">
-        <h1 class="section-title">DAS TEAM</h1>
-        
-        <div class="team-grid">
-            <div class="team-card interactive">
-                <div class="team-img-wrapper">
-                    <img src="team-fabian.jpg" alt="Fabian Ebong" onerror="this.src='https://via.placeholder.com/400x500/333/fff?text=Fabian'">
-                </div>
-                <h3>Fabian Ebong</h3>
-                <span class="role">Video · Media Design</span>
-                <p>Frenci ist Ansprechpartner für alle Videothemen bei WESTROOMZ. Mit mehrjähriger Erfahrung in Mediendesign und Videografie bringt er zusätzlich fundiertes Know-how in Songwriting, Social Media Management und Eventpromotion mit.</p>
+    <main class="page-content">
+        <section class="team-cinematic">
+            
+            <div class="team-media-gallery">
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop" class="team-media" id="media-fabian" alt="Video">
+                <img src="https://images.unsplash.com/photo-1516280440502-61a7eddb25d4?q=80&w=2070&auto=format&fit=crop" class="team-media" id="media-tomke" alt="Songwriting">
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop" class="team-media" id="media-adnan" alt="Produktion">
+                <img src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2070&auto=format&fit=crop" class="team-media" id="media-noah" alt="Technik">
+                <div class="media-overlay"></div>
             </div>
 
-            <div class="team-card interactive">
-                <div class="team-img-wrapper">
-                    <img src="team-tomke.jpg" alt="Tomke Petersen" onerror="this.src='https://via.placeholder.com/400x500/333/fff?text=Tomke'">
-                </div>
-                <h3>Tomke Petersen</h3>
-                <span class="role">Songwriting · Kreative Konzeption · Organisation</span>
-                <p>Tomkes Stärke liegt im Songwriting und der kreativen Gestaltung von Produktionen. Darüber hinaus übernimmt er administrative Aufgaben, ist Ansprechpartner bei Anfragen und wirkt aktiv in der Eventplanung mit.</p>
-            </div>
+            <div class="team-list-container">
+                <h1 class="section-title-minimal">DAS TEAM<span class="red-dot">.</span></h1>
 
-            <div class="team-card interactive">
-                <div class="team-img-wrapper">
-                    <img src="team-adnan.jpg" alt="Adnan Krasniqi" onerror="this.src='https://via.placeholder.com/400x500/333/fff?text=Adnan'">
-                </div>
-                <h3>Adnan Krasniqi</h3>
-                <span class="role">Audio · Produktion · Innovation</span>
-                <p>Adnan ist Teil des Audio-Teams mit Schwerpunkt auf Songwriting, Producing und Recording. Er bringt langjährige Industrieerfahrung mit und arbeitet zusätzlich an Design- sowie KI-gestützten Optimierungen von Arbeitsprozessen.</p>
-            </div>
+                <ul class="team-list" id="teamList">
+                    
+                    <li class="team-item" data-target="media-fabian">
+                        <h2 class="team-name">FABIAN EBONG</h2>
+                        <div class="team-info">
+                            <span class="role">VIDEO · MEDIA DESIGN</span>
+                            <p>Visuelle Gewalt. Fabian übersetzt Sound in Bilder. Mit fundierter Erfahrung in Mediendesign erschafft er Identitäten, die im Kopf bleiben – von der Videografie bis zur Eventpromotion.</p>
+                        </div>
+                    </li>
 
-            <div class="team-card interactive">
-                <div class="team-img-wrapper">
-                    <img src="team-noah.jpg" alt="Noah Winnemöller" onerror="this.src='https://via.placeholder.com/400x500/333/fff?text=Noah'">
-                </div>
-                <h3>Noah Winnemöller</h3>
-                <span class="role">Audio · Technik · Umsetzung</span>
-                <p>Noah ist Ansprechpartner des Audio-Teams und deckt Recording für Film und Musik, Mixing, Mastering und Live-Audio ab. Zusätzlich unterstützt er die technische und organisatorische Umsetzung von Events und Produktionskonzepten.</p>
+                    <li class="team-item" data-target="media-tomke">
+                        <h2 class="team-name">TOMKE PETERSEN</h2>
+                        <div class="team-info">
+                            <span class="role">SONGWRITING · KONZEPTION</span>
+                            <p>Die Architektur des Songs. Tomke formt die DNA jeder Produktion. Er verbindet kreative Visionen mit strategischer Organisation und steuert die administrative Kraft hinter den Kulissen.</p>
+                        </div>
+                    </li>
+
+                    <li class="team-item" data-target="media-adnan">
+                        <h2 class="team-name">ADNAN KRASNIQI</h2>
+                        <div class="team-info">
+                            <span class="role">AUDIO · PRODUKTION · INNOVATION</span>
+                            <p>Audio-Alchemie. Adnan verschmilzt Industrieerfahrung mit modernsten, KI-gestützten Workflows. Sein Fokus: Producing, Recording und das ständige Pushen von Grenzen.</p>
+                        </div>
+                    </li>
+
+                    <li class="team-item" data-target="media-noah">
+                        <h2 class="team-name">NOAH WINNEMÖLLER</h2>
+                        <div class="team-info">
+                            <span class="role">AUDIO · TECHNIK · UMSETZUNG</span>
+                            <p>Der Raumformer. Sound ist keine Technik, sondern Emotion. Noah beherrscht das Spektrum von Film-Recording bis Live-Audio und bringt komplexe Produktionskonzepte in die Realität.</p>
+                        </div>
+                    </li>
+
+                </ul>
             </div>
-        </div>
+        </section>
     </main>
 
-    <footer>
-        <div class="footer-links">
-            <a href="impressum.html">Impressum</a>
-            <a href="datenschutz.html">Datenschutz</a>
-            <a href="agb.html">AGB</a>
+    <footer class="footer-modern">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h2>WESTROOMZ</h2>
+                <p>© 2026. ALLE RECHTE VORBEHALTEN.</p>
+            </div>
+            <div class="footer-social">
+                <a href="#">INSTAGRAM</a>
+                <a href="#">LINKEDIN</a>
+            </div>
+            <div class="footer-legal">
+                <a href="#">IMPRESSUM</a>
+                <a href="#">DATENSCHUTZ</a>
+                <a href="#">AGB</a>
+            </div>
         </div>
     </footer>
-    
-    <div class="menu-overlay"></div>
-    <div class="side-menu">
-        <a href="index.html" class="menu-link">Home</a>
-        <a href="about.html" class="menu-link">Über Uns</a>
-        <a href="team.html" class="menu-link">Team</a>
-        <a href="freelancer.html" class="menu-link">Freelancer</a>
-        <a href="releases.html" class="menu-link">Releases</a>
-        <a href="events.html" class="menu-link">Events</a>
-        <a href="references.html" class="menu-link">Referenzen</a>
-        <a href="index.html#contact" class="menu-link">Kontakt</a>
-    </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const teamItems = document.querySelectorAll(".team-item");
+            const mediaItems = document.querySelectorAll(".team-media");
+
+            teamItems.forEach(item => {
+                item.addEventListener("mouseenter", () => {
+                    const targetId = item.getAttribute("data-target");
+                    
+                    mediaItems.forEach(media => {
+                        media.classList.remove("active");
+                    });
+
+                    const targetMedia = document.getElementById(targetId);
+                    if (targetMedia) {
+                        targetMedia.classList.add("active");
+                    }
+                });
+            });
+            
+            // Optional: Erstes Bild standardmäßig aktivieren
+            if(mediaItems.length > 0) {
+                mediaItems[0].classList.add("active");
+            }
+        });
+    </script>
 </body>
 </html>
