@@ -46,240 +46,58 @@
         /* =========================================
            PERFORMANCE OPTIMIERTE 100K CANVAS SECTION
            ========================================= */
-        .liquid-section {
-            position: relative;
-            background-color: #050505 !important;
-            display: flex;
-            align-items: center;
-            padding: 120px 40px;
-            cursor: none; 
-            transform: translateZ(0); /* Hardware Acceleration */
-            
-            /* Das finale Shape-Styling */
-            width: calc(100% - 32px) !important; 
-            max-width: none !important; 
-            min-height: 95vh !important; 
-            margin: 60px auto !important; 
-            border-radius: 48px !important; 
-            box-shadow: 0 40px 100px rgba(0,0,0,0.2) !important; 
-            overflow: hidden !important; 
-        }
-        @media (max-width: 768px) { 
-            .liquid-section { 
-                padding: 80px 20px; 
-                flex-direction: column; 
-                align-items: flex-start; 
-                justify-content: center; 
-                cursor: auto; 
-                
-                /* Handy Shape */
-                width: calc(100% - 32px) !important; 
-                min-height: 80vh !important;
-                margin: 40px auto !important;
-                border-radius: 32px !important; 
-            } 
-        }
+        .liquid-section { position: relative; width: 100vw; min-height: 100vh; background-color: #050505 !important; display: flex; align-items: center; overflow: hidden; padding: 120px 40px; margin: 60px 0; transform: translateZ(0); }
+        @media (max-width: 768px) { .liquid-section { padding: 80px 20px; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 80vh; } }
 
-        .liquid-bg-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
+        .liquid-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .liquid-bg-container::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 50%); mix-blend-mode: screen; z-index: 2; pointer-events: none; }
+        .l-img { position: absolute; top: -5%; left: -5%; width: 110%; height: 110%; object-fit: cover; opacity: 0; filter: brightness(0.5) blur(0px); transform: scale(1.05) translateZ(0); will-change: transform, opacity, filter; z-index: 1; }
         
-        .liquid-bg-container::after {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at 70% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 50%);
-            mix-blend-mode: screen; z-index: 2; pointer-events: none;
-        }
-
-        .l-img {
-            position: absolute;
-            top: -5%; left: -5%;
-            width: 110%; height: 110%;
-            object-fit: cover;
-            opacity: 0;
-            filter: brightness(0.5) blur(0px);
-            transform: scale(1.05) translateZ(0);
-            will-change: transform, opacity, filter;
-            z-index: 1;
-        }
-        .l-img.default-bg { opacity: 0.3; filter: brightness(0.4) blur(0px); }
-
-        .liquid-content {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .liquid-content { position: relative; z-index: 10; width: 100%; max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         @media (max-width: 1024px) { .liquid-content { flex-direction: column; align-items: flex-start; gap: 60px; } }
 
-        .liquid-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 50%;
-        }
+        .liquid-nav { display: flex; flex-direction: column; gap: 15px; width: 50%; }
         @media (max-width: 1024px) { .liquid-nav { width: 100%; } }
 
-        .l-nav-item {
-            display: flex;
-            align-items: baseline;
-            gap: 30px;
-            cursor: none; 
-            text-decoration: none;
-            padding: 10px 0;
-            position: relative;
-        }
-        @media (max-width: 768px) { .l-nav-item { cursor: pointer; gap: 15px; } }
+        /* FIX: cursor pointer hinzugefügt */
+        .l-nav-item { display: flex; align-items: baseline; gap: 30px; cursor: pointer; text-decoration: none; padding: 10px 0; position: relative; outline: none; }
+        @media (max-width: 768px) { .l-nav-item { gap: 15px; } }
 
-        .l-num {
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #4a4a4a;
-            transition: color 0.4s ease;
-        }
-
-        .l-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: clamp(3rem, 6vw, 7rem);
-            font-weight: 600;
-            line-height: 0.9;
-            text-transform: uppercase;
-            margin: 0;
-            color: transparent !important;
-            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform;
-        }
+        .l-num { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #4a4a4a; transition: color 0.4s ease; }
+        .l-title { font-family: 'Oswald', sans-serif; font-size: clamp(3rem, 6vw, 7rem); font-weight: 600; line-height: 0.9; text-transform: uppercase; margin: 0; color: transparent !important; -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
 
         .l-nav-item:hover .l-num, .l-nav-item.is-active .l-num { color: #dc2626; }
-        .l-nav-item:hover .l-title, .l-nav-item.is-active .l-title {
-            color: #ffffff !important;
-            -webkit-text-stroke: 1.5px #ffffff;
-            transform: translateX(30px) translateZ(0);
-            text-shadow: 0 0 40px rgba(255,255,255,0.3);
-        }
+        .l-nav-item:hover .l-title, .l-nav-item.is-active .l-title { color: #ffffff !important; -webkit-text-stroke: 1.5px #ffffff; transform: translateX(30px) translateZ(0); text-shadow: 0 0 40px rgba(255,255,255,0.3); }
         @media (max-width: 768px) { .l-nav-item:hover .l-title, .l-nav-item.is-active .l-title { transform: translateX(15px); } }
 
-        @media (min-width: 1025px) {
-            .liquid-nav:hover .l-nav-item:not(:hover) .l-title {
-                -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.1);
-                transform: translateX(-10px) translateZ(0);
-            }
-        }
+        @media (min-width: 1025px) { .liquid-nav:hover .l-nav-item:not(:hover):not(.is-active) .l-title { -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.1); transform: translateX(-10px) translateZ(0); } }
 
-        .liquid-info {
-            width: 40%;
-            max-width: 500px;
-            position: relative;
-            min-height: 250px;
-        }
+        .liquid-info { width: 40%; max-width: 500px; position: relative; min-height: 250px; pointer-events: none;}
         @media (max-width: 1024px) { .liquid-info { width: 100%; min-height: 200px; } }
 
-        .l-info-block {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translate3d(40px, -50%, 0);
-            opacity: 0;
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, opacity;
-        }
-        .l-info-block.is-active {
-            opacity: 1;
-            transform: translate3d(0, -50%, 0);
-            pointer-events: auto;
-        }
+        .l-info-block { position: absolute; top: 50%; left: 0; transform: translate3d(40px, -50%, 0); opacity: 0; pointer-events: none; display: flex; flex-direction: column; gap: 24px; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
+        .l-info-block.is-active { opacity: 1; transform: translate3d(0, -50%, 0); pointer-events: auto; }
 
-        .l-info-block h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            color: #dc2626 !important;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin: 0;
-            font-weight: 700;
-        }
+        .l-info-block h4 { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: #dc2626 !important; letter-spacing: 3px; text-transform: uppercase; margin: 0; font-weight: 700; }
+        .l-info-block p { font-family: 'Inter', sans-serif; font-size: clamp(1.125rem, 1.5vw, 1.25rem); line-height: 1.6; color: rgba(255, 255, 255, 0.8) !important; margin: 0; }
 
-        .l-info-block p {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.125rem, 1.5vw, 1.25rem);
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8) !important;
-            margin: 0;
-        }
-
-        .l-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background-color: transparent;
-            color: #ffffff !important;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 16px 0;
-            border-bottom: 2px solid rgba(255,255,255,0.2);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            width: max-content;
-            cursor: none; 
-        }
-        @media (max-width: 768px) { .l-btn { cursor: pointer; } }
+        /* FIX: cursor pointer hinzugefügt */
+        .l-btn { display: inline-flex; align-items: center; gap: 12px; background-color: transparent; color: #ffffff !important; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 0; border-bottom: 2px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.3s ease; width: max-content; cursor: pointer; pointer-events: auto;}
         .l-btn:hover { border-bottom-color: #dc2626; padding-left: 10px; }
         .l-btn svg { width: 18px; height: 18px; color: #dc2626; transition: transform 0.3s; }
         .l-btn:hover svg { transform: translateX(5px); }
 
-        /* Optimierter Cursor */
-        .cursor-wrapper {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            pointer-events: none;
-            z-index: 9999;
-            overflow: hidden;
-            display: none; 
-        }
-        .cursor-dot {
-            position: absolute; top: 0; left: 0; width: 12px; height: 12px;
-            background: #dc2626; border-radius: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            transition: width 0.3s, height 0.3s, background 0.3s;
-            will-change: transform;
-            opacity: 0; 
-        }
-        .cursor-ring {
-            position: absolute; top: 0; left: 0; width: 40px; height: 40px;
-            border: 1px solid rgba(220, 38, 38, 0.5); border-radius: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            transition: width 0.3s, height 0.3s;
-            will-change: transform;
-            opacity: 0;
-        }
-        
+        /* Optimierter Cursor - jetzt rein als visueller Begleiter */
+        .cursor-wrapper { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; overflow: hidden; display: none; }
+        .cursor-dot { position: absolute; top: 0; left: 0; width: 12px; height: 12px; background: #dc2626; border-radius: 50%; transform: translate3d(-50%, -50%, 0); transition: width 0.3s, height 0.3s, background 0.3s; will-change: transform; opacity: 0; }
+        .cursor-ring { position: absolute; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid rgba(220, 38, 38, 0.5); border-radius: 50%; transform: translate3d(-50%, -50%, 0); transition: width 0.3s, height 0.3s; will-change: transform; opacity: 0; }
         .liquid-section.mouse-inside ~ .cursor-wrapper { display: block; }
-        .liquid-section.mouse-inside ~ .cursor-wrapper .cursor-dot, 
-        .liquid-section.mouse-inside ~ .cursor-wrapper .cursor-ring { opacity: 1; }
-        
-        .liquid-section.is-hovering ~ .cursor-wrapper .cursor-dot { width: 80px; height: 80px; background: rgba(220, 38, 38, 0.9); display: flex; justify-content: center; align-items: center;}
-        .liquid-section.is-hovering ~ .cursor-wrapper .cursor-dot::after { content: 'EXPLORE'; font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 900; letter-spacing: 1px; color: white;}
+        .liquid-section.mouse-inside ~ .cursor-wrapper .cursor-dot, .liquid-section.mouse-inside ~ .cursor-wrapper .cursor-ring { opacity: 1; }
+        .liquid-section.is-hovering ~ .cursor-wrapper .cursor-dot { width: 80px; height: 80px; background: rgba(220, 38, 38, 0.5); display: flex; justify-content: center; align-items: center;}
+        .liquid-section.is-hovering ~ .cursor-wrapper .cursor-dot::after { content: 'CLICK'; font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 900; letter-spacing: 1px; color: white;}
         .liquid-section.is-hovering ~ .cursor-wrapper .cursor-ring { opacity: 0; }
 
-        /* === CTA / DASHBOARD / FOOTER STYLES === */
+        /* === REST DEINES CSS === */
         .premium-cta-section { width: 100%; padding: 100px 24px 80px 24px; margin: 0; background-color: #ffffff; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; z-index: 10; }
         @media (max-width: 768px) { .premium-cta-section { padding: 80px 16px 80px 16px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; } }
         .cta-bg-glow-top { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.5), transparent); }
@@ -435,6 +253,7 @@
         .footer-contact-info > p { color: #a3a3a3 !important; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
         .contact-details { font-family: 'Inter', sans-serif; font-size: 1.125rem; font-weight: 900; display: flex; flex-direction: column; gap: 16px; letter-spacing: -0.5px; }
         .contact-details p, .contact-details a { margin: 0 !important; color: #ffffff !important; text-decoration: none !important; -webkit-text-fill-color: #ffffff !important; }
+        .footer-contact-info h2, .footer-contact-info > p, .contact-details p { text-wrap: wrap; }
         .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; margin-bottom: 2px; }
         .footer-form-card { background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
         @media (max-width: 768px) { .footer-form-card { padding: 30px 20px; border-radius: 24px; } }
@@ -503,19 +322,19 @@
         <div>
             <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
             <div class="menu-links">
-                <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
-                <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
-                <a href="impressum.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
-                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">SERVICES</a>
-                <a href="upcoming.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
-                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENCES</a>
+                <a href="index-en.html#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
+                <a href="index-en.html#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="team-en.html" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="index-en.html#services" class="menu-link interactive" onclick="toggleMenu()">SERVICES</a>
+                <a href="upcoming-en.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
+                <a href="index-en.html#references" class="menu-link interactive" onclick="toggleMenu()">REFERENCES</a>
                 <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">CONTACT</a>
             </div>
         </div>
         <div class="sidebar-footer">
-             <a href="impressum.html" class="interactive">IMPRINT</a>
-             <a href="datenschutz.html" class="interactive">PRIVACY POLICY</a>
-             <a href="agb.html" class="interactive">TERMS & CONDITIONS</a>
+             <a href="impressum-en.html" class="interactive">IMPRINT</a>
+             <a href="datenschutz-en.html" class="interactive">PRIVACY POLICY</a>
+             <a href="agb-en.html" class="interactive">TERMS</a>
              <span>© 2026 WESTROOMZ</span>
         </div>
     </div>
@@ -551,18 +370,18 @@
                             <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2l.5-.5m-3-3l3 3M10 14.5L19 5.5a2.12 2.12 0 0 0-3-3L7 11.5M10 14.5l-3-3m3 3l3 3m-3-3l-3-3m3 3l3 3"/></svg>
                             YOUR VISION. OUR STAGE.
                         </div>
-                        <h2 class="cta-headline">Ready to create something <span class="highlight-red">extraordinary?</span></h2>
-                        <p class="cta-description">Westroomz Business stands for well-thought-out campaigns and high-quality productions. We combine strategy, creation, and execution into a functioning ecosystem.</p>
+                        <h2 class="cta-headline">Ready to create something <span class="highlight-red">extraordinary</span>?</h2>
+                        <p class="cta-description">Westroomz Business stands for well-thought-out campaigns and high-quality productions. We combine strategy, creation, and execution into a functioning overall system.</p>
                         <div class="cta-buttons">
                             <a href="#contact" class="cta-btn-primary interactive">
                                 Request a project <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                             </a>
-                            <a href="#services" class="cta-btn-secondary interactive">Our services</a>
+                            <a href="#services" class="cta-btn-secondary interactive">Our Services</a>
                         </div>
                         <div class="cta-features">
-                            <span><svg class="text-emerald" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Highest precision</span>
+                            <span><svg class="text-emerald" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Highest Precision</span>
                             <span><svg class="text-amber" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 360° Execution</span>
-                            <span><svg class="text-blue" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> State-of-the-art technology</span>
+                            <span><svg class="text-blue" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> State-of-the-Art Technology</span>
                         </div>
                     </div>
 
@@ -577,9 +396,9 @@
                             </div>
                             <div class="tb-progress">
                                 <div class="tb-progress-bar"><div class="tb-progress-fill"></div></div>
-                                <div class="tb-progress-text"><span style="color: white !important;">CLIENT SATISFACTION</span><span style="color: white;">100%</span></div>
+                                <div class="tb-progress-text"><span style="color: white !important;">CUSTOMER SATISFACTION</span><span style="color: white;">100%</span></div>
                             </div>
-                            <div class="tb-footer"><span>Successful projects</span><span class="tb-badge">50+</span></div>
+                            <div class="tb-footer"><span>Successful Projects</span><span class="tb-badge">50+</span></div>
                         </div>
                     </div>
                 </div>
@@ -590,19 +409,19 @@
             <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="1000">0</span><span class="stat-accent">+</span></div>
-                    <div class="stat-label">Completed projects</div>
+                    <div class="stat-label">Completed Projects</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="15">0</span><span class="stat-accent">M+</span></div>
-                    <div class="stat-label">Content views</div>
+                    <div class="stat-label">Content Views</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="50" data-format="true">0</span><span class="stat-accent">+</span></div>
-                    <div class="stat-label">Clients and brands served</div>
+                    <div class="stat-label">Clients and Brands served</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="100" data-format="true">0</span><span class="stat-accent">%</span></div>
-                    <div class="stat-label">In-house production</div>
+                    <div class="stat-label">In-House Production</div>
                 </div>
             </div>
         </section>
@@ -610,8 +429,7 @@
         <section id="services" class="liquid-section">
             
             <div class="liquid-bg-container">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop" class="l-img default-bg is-active" alt="Default">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="strategy" alt="Strategy">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop" class="l-img is-active" data-target="strategy" alt="Strategy" style="opacity: 1; filter: brightness(0.5) blur(0px);">
                 <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="production" alt="Production">
                 <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="digital" alt="Digital">
                 <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="performance" alt="Performance">
@@ -619,53 +437,54 @@
 
             <div class="liquid-content">
                 <div class="liquid-nav">
-                    <a href="#" class="l-nav-item" data-id="strategy">
+                    <a href="javascript:void(0);" class="l-nav-item is-active" data-id="strategy">
                         <span class="l-num">01</span>
                         <h3 class="l-title">STRATEGY</h3>
                     </a>
-                    <a href="#" class="l-nav-item" data-id="production">
+                    <a href="javascript:void(0);" class="l-nav-item" data-id="production">
                         <span class="l-num">02</span>
                         <h3 class="l-title">PRODUCTION</h3>
                     </a>
-                    <a href="#" class="l-nav-item" data-id="digital">
+                    <a href="javascript:void(0);" class="l-nav-item" data-id="digital">
                         <span class="l-num">03</span>
                         <h3 class="l-title">DIGITAL</h3>
                     </a>
-                    <a href="#" class="l-nav-item" data-id="performance">
+                    <a href="javascript:void(0);" class="l-nav-item" data-id="performance">
                         <span class="l-num">04</span>
                         <h3 class="l-title">PERFORMANCE</h3>
                     </a>
                 </div>
 
                 <div class="liquid-info">
-                    <div class="l-info-block" data-info="strategy">
+                    <div class="l-info-block is-active" data-info="strategy">
                         <h4>Architecture of Success</h4>
-                        <p>We translate business goals into clear communication and campaign strategies. No blanks, just measurable impact at the highest level.</p>
-                        <a href="strategy-en.html" class="l-btn">Discover system <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <p>We translate corporate goals into clear communication and campaign strategies. No blanks, only measurable impact at the highest level.</p>
+                        <a href="strategy-en.html" class="l-btn interactive">Discover System <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="production">
                         <h4>Cinematic Execution</h4>
-                        <p>We realize productions that present brands credibly – with clear staging, professional execution, and absolute high-end quality standards.</p>
-                        <a href="production-en.html" class="l-btn">Watch reels <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <p>We realize productions that present brands authentically – with clear staging, professional execution, and absolute high-end quality standards.</p>
+                        <a href="production-en.html" class="l-btn interactive">Watch Reels <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="digital">
                         <h4>Digital Ecosystems</h4>
-                        <p>We design digital presences that represent companies professionally across all relevant channels. Fluent, performant, flawless.</p>
-                        <a href="digital-en.html" class="l-btn">View portfolio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <p>We design digital presences that represent companies professionally across all relevant channels. Fluid, performant, flawless.</p>
+                        <a href="digital-en.html" class="l-btn interactive">View Portfolio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="performance">
                         <h4>Data-Driven Scaling</h4>
-                        <p>We combine ad strategies, data analysis, and targeted delivery into a strictly controlled and highly profitable performance system.</p>
-                        <a href="performance-en.html" class="l-btn">Analyze data <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <p>We combine ad strategies, data analysis, and targeted playouts into a strictly controlled and highly profitable performance system.</p>
+                        <a href="performance-en.html" class="l-btn interactive">Analyze Numbers <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                 </div>
             </div>
         </section>
+
         <section class="saas-dashboard-wrapper" id="market-proof">
             <div class="dash-header">
                 <div class="dash-header-center">
-                    <h2>The market doesn't wait. <br>Are you utilizing your <span class="highlight-red">full potential?</span></h2>
-                    <p>Companies that consistently invest in content, digital systems, and performance marketing grow significantly faster than their competition. With Westroomz, strategies and content emerge that increase reach, build trust, and measurably generate more customers.</p>
+                    <h2>The market isn't waiting. <br>Are you using <span class="highlight-red">your full potential?</span></h2>
+                    <p>Companies that consistently invest in content, digital systems, and performance marketing grow significantly faster than their competitors. With Westroomz, strategies and content emerge that increase reach, build trust, and measurably generate more customers.</p>
                 </div>
             </div>
 
@@ -678,7 +497,7 @@
                         </div>
                         <div class="kpi-title">Video Content Demand</div>
                         <div class="kpi-value js-dash-counter" data-target="120" data-suffix="%">0</div>
-                        <div class="kpi-sub">More demand for video content from companies compared to pure text content.</div>
+                        <div class="kpi-sub">More demand for video content by companies compared to pure text content.</div>
                         <span class="kpi-source">(Source: HubSpot Marketing Report)</span>
                     </div>
                     <div class="kpi-card">
@@ -688,7 +507,7 @@
                         </div>
                         <div class="kpi-title">Purchase Decisions</div>
                         <div class="kpi-value js-dash-counter" data-target="85" data-suffix="%">0</div>
-                        <div class="kpi-sub">of customers state that video content directly influences their purchasing decision.</div>
+                        <div class="kpi-sub">of customers state that video content directly influences their purchase decision.</div>
                         <span class="kpi-source">(Source: Wyzowl Video Marketing Statistics)</span>
                     </div>
                     <div class="kpi-card">
@@ -707,8 +526,8 @@
                     <div class="dash-chart-area">
                         <div class="chart-header">
                             <div>
-                                <div class="chart-title">Marketing Performance over Time</div>
-                                <div class="chart-sub">Companies combining content, video, and data-driven advertising continuously increase their reach and conversion rates.</div>
+                                <div class="chart-title">Marketing Performance Over Time</div>
+                                <div class="chart-sub">Companies combining content, video, and data-driven advertising consistently increase their reach and conversion rates.</div>
                             </div>
                         </div>
 
@@ -765,14 +584,14 @@
                                 <div class="chart-arg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                                 <div class="chart-arg-text">
                                     <h5>More Trust</h5>
-                                    <p>Professional content strengthens brand perception and increases the likelihood of a purchase decision.</p>
+                                    <p>Professional content strengthens brand perception and increases the probability of a purchase decision.</p>
                                 </div>
                             </div>
                             <div class="chart-arg-item">
                                 <div class="chart-arg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                                 <div class="chart-arg-text">
                                     <h5>More Customers</h5>
-                                    <p>Data-driven optimization creates marketing systems that generate new leads and sales long-term.</p>
+                                    <p>Data-driven optimization creates marketing systems that generate new leads and sales in the long term.</p>
                                 </div>
                             </div>
                         </div>
@@ -819,7 +638,7 @@
 
                         <a href="#contact" style="text-decoration: none;">
                             <button class="m-footer-btn interactive">
-                                Book maximum efficiency
+                                Book Maximum Efficiency
                             </button>
                         </a>
                     </div>
@@ -870,8 +689,8 @@
             <div class="footer-container">
                 <div class="footer-contact-area">
                     <div class="footer-contact-info">
-                        <h2>Let's create something <br><span class="highlight-red">great.</span></h2>
-                        <p>Are you planning a production or looking for a technical partner? Write to us – we will get back to you immediately.</p>
+                        <h2>Let's build something <br><span class="highlight-red">Great</span>.</h2>
+                        <p>Planning a production or looking for a technical partner? Drop us a message – we'll get back to you immediately.</p>
                         <div class="contact-details">
                             <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
                         </div>
@@ -879,7 +698,7 @@
                     <div class="footer-form-card">
                         <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
                             <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
-                            <input type="hidden" name="_next" value="https://westroomz.de/business.html">
+                            <input type="hidden" name="_next" value="https://westroomz.de/business-en.html">
                             <input type="hidden" name="_captcha" value="false">
 
                             <div class="form-group">
@@ -892,7 +711,7 @@
                             </div>
                             <div class="form-group">
                                 <label>NAME</label>
-                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Your name">
+                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Your Name">
                             </div>
                             <div class="form-group">
                                 <label>EMAIL</label>
@@ -900,24 +719,24 @@
                             </div>
                             <div class="form-group">
                                 <label>PROJECT</label>
-                                <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Short project description...">
+                                <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Brief project description...">
                             </div>
                             <div class="form-group">
                                 <label>MESSAGE</label>
                                 <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="How can we help you?"></textarea>
                             </div>
-                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">Send message</button>
+                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">Send Inquiry</button>
                         </form>
                     </div>
                 </div>
 
                 <div class="footer-links-section">
                     <div class="footer-brand">
-                        <a href="#hero" class="brand-logo interactive">
+                        <a href="index-en.html#hero" class="brand-logo interactive">
                             <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
-                        <p>The creative production agency for events and marketing. Clear in execution, strong in impact, clean in detail.</p>
+                        <p>The creative production agency for events and marketing. Clear in execution, strong in impact, flawless in detail.</p>
                         <div class="footer-socials-new">
                             <a href="https://www.instagram.com/westroomz_business/" target="_blank" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
                             <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
@@ -927,18 +746,18 @@
                     <div class="footer-col">
                         <h3>Navigation</h3>
                         <ul>
-                            <li><a href="#hero" class="interactive">Home</a></li>
-                            <li><a href="#vision" class="interactive">Vision</a></li>
-                            <li><a href="#services" class="interactive">What we do</a></li>
-                            <li><a href="#references" class="interactive">References</a></li>
+                            <li><a href="index-en.html#hero" class="interactive">Home</a></li>
+                            <li><a href="index-en.html#vision" class="interactive">Vision</a></li>
+                            <li><a href="index-en.html#services" class="interactive">What we do</a></li>
+                            <li><a href="index-en.html#references" class="interactive">References</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
                         <h3>Legal</h3>
                         <ul>
-                            <li><a href="impressum.html" class="interactive">Imprint</a></li>
-                            <li><a href="datenschutz.html" class="interactive">Privacy Policy</a></li>
-                            <li><a href="agb.html" class="interactive">Terms & Conditions</a></li>
+                            <li><a href="impressum-en.html" class="interactive">Imprint</a></li>
+                            <li><a href="datenschutz-en.html" class="interactive">Privacy Policy</a></li>
+                            <li><a href="agb-en.html" class="interactive">Terms</a></li>
                         </ul>
                     </div>
                 </div>
@@ -958,7 +777,7 @@
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
-                // === LIQUID CANVAS LOGIK (OPTIMIERTE PERFORMANCE) ===
+                // === LIQUID CANVAS LOGIK (KLICK-BASIERT) ===
                 const liquidSection = document.querySelector('.liquid-section');
                 const cursorDot = document.querySelector('.cursor-dot');
                 const cursorRing = document.querySelector('.cursor-ring');
@@ -969,7 +788,6 @@
                 
                 if (liquidSection) {
                     
-                    // Hardware beschleunigter Custom Cursor über translate3d
                     if (!isTouchDevice) {
                         liquidSection.addEventListener('mouseenter', () => liquidSection.classList.add('mouse-inside'));
                         liquidSection.addEventListener('mouseleave', () => liquidSection.classList.remove('mouse-inside'));
@@ -987,7 +805,6 @@
                                 dotX += (mouseX - dotX) * 0.2; dotY += (mouseY - dotY) * 0.2;
                                 ringX += (mouseX - ringX) * 0.1; ringY += (mouseY - ringY) * 0.1;
                                 
-                                // GPU beschleunigtes positioning
                                 cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
                                 cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
                             }
@@ -996,17 +813,10 @@
                         renderCursor();
                     }
 
-                    // Hover Logik für die Nav Elemente
+                    // FIX: Klick-Logik statt Hover-Logik
                     navItems.forEach(item => {
-                        if (!isTouchDevice) {
-                            item.addEventListener('mouseenter', () => liquidSection.classList.add('is-hovering'));
-                            item.addEventListener('mouseleave', () => liquidSection.classList.remove('is-hovering'));
-                        }
-
-                        const eventType = isTouchDevice ? 'click' : 'mouseenter';
-                        
-                        item.addEventListener(eventType, function(e) {
-                            if(isTouchDevice) e.preventDefault();
+                        item.addEventListener('click', function(e) {
+                            e.preventDefault();
 
                             const targetId = this.getAttribute('data-id');
                             
@@ -1021,10 +831,8 @@
                                 }
                             });
 
-                            // Performance optimierter Bildwechsel (Blur zu Sharp anstelle von SVG Filter)
                             images.forEach(img => {
                                 if(img.getAttribute('data-target') === targetId) {
-                                    // Bild faded ein, skaliert sanft runter und wird von starkem Blur komplett scharf (Camera Focus Effekt)
                                     gsap.fromTo(img, 
                                         { opacity: 0, scale: 1.1, filter: "brightness(0.8) blur(30px)" },
                                         { opacity: 1, scale: 1, filter: "brightness(0.5) blur(0px)", duration: 1.2, ease: "power3.out" }
@@ -1035,22 +843,6 @@
                             });
                         });
                     });
-
-                    // Reset bei Verlassen (nur Desktop)
-                    if (!isTouchDevice) {
-                        const liquidNav = document.querySelector('.liquid-nav');
-                        liquidNav.addEventListener('mouseleave', () => {
-                            navItems.forEach(n => n.classList.remove('is-active'));
-                            infoBlocks.forEach(info => info.classList.remove('is-active'));
-                            images.forEach(img => {
-                                if(img.classList.contains('default-bg')) {
-                                    gsap.to(img, { opacity: 0.3, filter: "brightness(0.4) blur(0px)", duration: 0.8 });
-                                } else {
-                                    gsap.to(img, { opacity: 0, duration: 0.8 });
-                                }
-                            });
-                        });
-                    }
                 }
 
                 // === RESTLICHE GSAP ANIMATIONEN ===
