@@ -53,7 +53,6 @@
         .liquid-bg-container::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 50%); mix-blend-mode: screen; z-index: 2; pointer-events: none; }
         .l-img { position: absolute; top: -5%; left: -5%; width: 110%; height: 110%; object-fit: cover; opacity: 0; filter: brightness(0.5) blur(0px); transform: scale(1.05) translateZ(0); will-change: transform, opacity, filter; z-index: 1; }
         
-        /* FIX: default-bg entfernt, da wir Strategy als Standard setzen */
         .liquid-content { position: relative; z-index: 10; width: 100%; max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         @media (max-width: 1024px) { .liquid-content { flex-direction: column; align-items: flex-start; gap: 60px; } }
 
@@ -81,12 +80,11 @@
         .l-info-block h4 { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: #dc2626 !important; letter-spacing: 3px; text-transform: uppercase; margin: 0; font-weight: 700; }
         .l-info-block p { font-family: 'Inter', sans-serif; font-size: clamp(1.125rem, 1.5vw, 1.25rem); line-height: 1.6; color: rgba(255, 255, 255, 0.8) !important; margin: 0; }
 
-        .l-btn { display: inline-flex; align-items: center; gap: 12px; background-color: transparent; color: #ffffff !important; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 0; border-bottom: 2px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.3s ease; width: max-content; cursor: pointer; pointer-events: auto; }
+        .l-btn { display: inline-flex; align-items: center; gap: 12px; background-color: transparent; color: #ffffff !important; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 0; border-bottom: 2px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.3s ease; width: max-content; cursor: pointer; pointer-events: auto;}
         .l-btn:hover { border-bottom-color: #dc2626; padding-left: 10px; }
         .l-btn svg { width: 18px; height: 18px; color: #dc2626; transition: transform 0.3s; }
         .l-btn:hover svg { transform: translateX(5px); }
 
-        /* Optimierter Cursor - jetzt rein als visueller Begleiter */
         .cursor-wrapper { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; overflow: hidden; display: none; }
         .cursor-dot { position: absolute; top: 0; left: 0; width: 12px; height: 12px; background: #dc2626; border-radius: 50%; transform: translate3d(-50%, -50%, 0); transition: width 0.3s, height 0.3s, background 0.3s; will-change: transform; opacity: 0; }
         .cursor-ring { position: absolute; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid rgba(220, 38, 38, 0.5); border-radius: 50%; transform: translate3d(-50%, -50%, 0); transition: width 0.3s, height 0.3s; will-change: transform; opacity: 0; }
@@ -321,13 +319,12 @@
         <div>
             <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
             <div class="menu-links">
-                <a href="index.html#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
-                <a href="index.html#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
+                <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
                 <a href="team.html" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
-                <a href="index.html#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
-                <a href="upcoming.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
-                <a href="index.html#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
-                <a href="index.html#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
+                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
+                <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
             </div>
         </div>
         <div class="sidebar-footer">
@@ -458,22 +455,22 @@
                     <div class="l-info-block is-active" data-info="strategy">
                         <h4>Architektur des Erfolgs</h4>
                         <p>Wir übersetzen unternehmerische Ziele in klare Kommunikations- und Kampagnenstrategien. Keine Platzpatronen, nur messbarer Impact auf höchstem Niveau.</p>
-                        <a href="strategy.html" class="l-btn">System entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <a href="strategy.html" class="l-btn interactive">System entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="production">
                         <h4>Cinematic Execution</h4>
                         <p>Wir realisieren Produktionen, die Marken glaubwürdig präsentieren – mit klarer Inszenierung, professioneller Umsetzung und absolutem High-End Qualitätsanspruch.</p>
-                        <a href="production.html" class="l-btn">Reels ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <a href="production.html" class="l-btn interactive">Reels ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="digital">
                         <h4>Digitale Ökosysteme</h4>
                         <p>Wir gestalten digitale Präsenzen, die Unternehmen über alle relevanten Kanäle hinweg professionell darstellen. Fließend, performant, fehlerfrei.</p>
-                        <a href="digital.html" class="l-btn">Portfolio ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <a href="digital.html" class="l-btn interactive">Portfolio ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="performance">
                         <h4>Data-Driven Scaling</h4>
                         <p>Wir verbinden Ad-Strategien, Datenanalyse und gezielte Ausspielung zu einem streng kontrollierten und hochprofitablen Performance-System.</p>
-                        <a href="performance.html" class="l-btn">Zahlen analysieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <a href="performance.html" class="l-btn interactive">Zahlen analysieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                 </div>
             </div>
@@ -731,7 +728,7 @@
 
                 <div class="footer-links-section">
                     <div class="footer-brand">
-                        <a href="index.html#hero" class="brand-logo interactive">
+                        <a href="#hero" class="brand-logo interactive">
                             <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
@@ -745,10 +742,10 @@
                     <div class="footer-col">
                         <h3>Navigation</h3>
                         <ul>
-                            <li><a href="index.html#hero" class="interactive">Startseite</a></li>
-                            <li><a href="index.html#vision" class="interactive">Vision</a></li>
-                            <li><a href="index.html#services" class="interactive">Was wir tun</a></li>
-                            <li><a href="index.html#references" class="interactive">Referenzen</a></li>
+                            <li><a href="#hero" class="interactive">Startseite</a></li>
+                            <li><a href="#vision" class="interactive">Vision</a></li>
+                            <li><a href="#services" class="interactive">Was wir tun</a></li>
+                            <li><a href="#references" class="interactive">Referenzen</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -776,7 +773,6 @@
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
-                // === LIQUID CANVAS LOGIK (KLICK-BASIERT) ===
                 const liquidSection = document.querySelector('.liquid-section');
                 const cursorDot = document.querySelector('.cursor-dot');
                 const cursorRing = document.querySelector('.cursor-ring');
@@ -812,7 +808,6 @@
                         renderCursor();
                     }
 
-                    // FIX: Klick-Logik statt Hover-Logik, damit die Buttons erreichbar bleiben
                     navItems.forEach(item => {
                         item.addEventListener('click', function(e) {
                             e.preventDefault();
@@ -844,7 +839,6 @@
                     });
                 }
 
-                // === RESTLICHE GSAP ANIMATIONEN ===
                 const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
                 if(blurOverlay) {
                     ScrollTrigger.create({ trigger: "#vision", start: "top 95%", onEnter: () => blurOverlay.style.opacity = '1', onLeaveBack: () => blurOverlay.style.opacity = '0' });
@@ -899,7 +893,6 @@
                 });
             }
 
-            // === TOGGLE LOGIC ===
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
