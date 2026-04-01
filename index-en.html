@@ -24,11 +24,6 @@
         .gallery-item img { border-radius: 12px !important; }
         .contact-form, .service-container, .modal-content-wrapper { border-radius: 20px !important; }
         .menu-toggle-btn { border-radius: 8px !important; }
-        
-        .ref-logo-img { height: 100px !important; width: auto !important; opacity: 1 !important; filter: none !important; margin: 0 40px !important; border-radius: 8px !important; object-fit: contain; }
-        .marquee-track { display: flex; align-items: center; width: max-content !important; gap: 0 !important; animation: marquee-scroll 15s linear infinite !important; }
-        @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee-wrapper { overflow: hidden !important; width: 100% !important; display: flex !important; }
 
         .ref-section {
             border-radius: 40px !important; margin: 0 !important; position: relative !important;
@@ -44,7 +39,7 @@
             filter: grayscale(100%) contrast(120%); z-index: 0; pointer-events: none;
         }
 
-        .ref-section > div, .marquee-wrapper { position: relative; z-index: 2; }
+        .ref-section > div { position: relative; z-index: 2; }
         .gallery-section { background: transparent !important; border-top: none !important; border-bottom: none !important; }
 
         .gallery-container { animation: none !important; cursor: grab !important; will-change: transform; }
@@ -162,6 +157,47 @@
             70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
+
+        /* === MOBILE OVERRIDE FÜR DIE VISION MANTRA GLASSBAR === */
+        @media (max-width: 768px) {
+            .vision-mantra-glassbar {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                align-items: center !important;
+                flex-wrap: wrap !important;
+                gap: 16px !important;
+                background: rgba(10, 10, 10, 0.4) !important;
+                backdrop-filter: blur(12px) !important;
+                -webkit-backdrop-filter: blur(12px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                border-radius: 30px !important;
+                padding: 12px 20px !important;
+                margin: 24px auto 0 auto !important;
+                width: max-content !important;
+                max-width: 90% !important;
+            }
+            .mantra-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                font-size: 0.75rem !important;
+                font-weight: 700 !important;
+                letter-spacing: 1px !important;
+                color: #ffffff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                text-transform: uppercase;
+            }
+            .mantra-dot {
+                width: 6px !important;
+                height: 6px !important;
+                background-color: #dc2626 !important;
+                border-radius: 50% !important;
+                box-shadow: 0 0 8px rgba(220, 38, 38, 0.8) !important;
+                display: inline-block !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -191,21 +227,21 @@
 
     <div class="side-menu">
         <div>
-            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ" decoding="async"></div>
             <div class="menu-links">
                 <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
                 <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
                 <a href="impressum-en.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
                 <a href="#services" class="menu-link interactive" onclick="toggleMenu()">SERVICES</a>
                 <a href="upcoming-en.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
-                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">CLIENTS</a>
+                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENCES</a>
                 <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">CONTACT</a>
             </div>
         </div>
         <div class="sidebar-footer">
              <a href="impressum-en.html" class="interactive">IMPRINT</a>
              <a href="datenschutz-en.html" class="interactive">PRIVACY POLICY</a>
-             <a href="agb-en.html" class="interactive">TERMS & CONDITIONS</a>
+             <a href="agb-en.html" class="interactive">TERMS</a>
              <span>© 2026 WESTROOMZ</span>
         </div>
     </div>
@@ -241,7 +277,7 @@
                 
                 <div class="vision-text-integrated">
                     <p class="lead-text-integrated">
-                        We connect <span class="highlight-ruby">Audio, Video, Events and Marketing</span> into one ruthlessly efficient system.
+                        We combine <span class="highlight-ruby">audio, video, events, and marketing</span> into a ruthlessly efficient system.
                     </p>
                     <p class="sub-text-integrated">
                         For artists, creators, and brands who don't just want to execute ideas, but dominate the market.
@@ -259,20 +295,20 @@
 
         <section id="gallery" class="gallery-section">
             <div class="gallery-container interactive" id="draggable-slider">
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy" decoding="async"></div>
             </div>
         </section>
 
@@ -283,40 +319,20 @@
             
             <div class="immersive-accordion">
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='audio-en.html'">
-                    <div class="pillar-bg-video media-desktop">
-                        <video autoplay muted loop playsinline poster="WR_Audio.jpg">
-                            <source src="audio-loop-desktop.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="pillar-bg-video media-mobile">
-                        <video autoplay muted loop playsinline poster="WR_Audio.jpg">
-                            <source src="audio-loop-mobile.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    
+                    <div class="pillar-image-bg" style="background-image: url('WR_Audio.jpg');"></div>
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
                         <div class="pillar-title-vertical">AUDIO</div>
                         <div class="pillar-details">
                             <h3 class="pillar-punchline">YOUR SOUND.<br><span class="highlight-red">YOUR WEAPON.</span></h3>
-                            <p>A powerful sound decides whether you are ignored or celebrated. We deliver pressure, clarity, and recordings that stay in your head.</p>
-                            <a href="audio-en.html" class="premium-pillar-btn transition-link">EXPLORE PORTFOLIO <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            <p>A strong sound determines whether you are ignored or celebrated. We deliver punch, clarity, and recordings that stick in your head.</p>
+                            <a href="audio-en.html" class="premium-pillar-btn transition-link">DISCOVER PORTFOLIO <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                         </div>
                     </div>
                 </article>
 
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='video-en.html'">
-                    <div class="pillar-bg-video media-desktop">
-                        <video autoplay muted loop playsinline poster="WR_Video2.jpg">
-                            <source src="video-loop-desktop.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="pillar-bg-video media-mobile">
-                        <video autoplay muted loop playsinline poster="WR_Video2.jpg">
-                            <source src="video-loop-mobile.mp4" type="video/mp4">
-                        </video>
-                    </div>
-
+                    <div class="pillar-image-bg" style="background-image: url('WR_Video2.jpg');"></div>
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
                         <div class="pillar-title-vertical">VIDEO</div>
@@ -328,47 +344,27 @@
                     </div>
                 </article>
 
-                <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='events-en.html'">
-                    <div class="pillar-bg-video media-desktop">
-                        <video autoplay muted loop playsinline poster="WR_Events.jpg">
-                            <source src="event-loop-desktop.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="pillar-bg-video media-mobile">
-                        <video autoplay muted loop playsinline poster="WR_Events.jpg">
-                            <source src="event-loop-mobile.mp4" type="video/mp4">
-                        </video>
-                    </div>
-
+                <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='2events-en.html'">
+                    <div class="pillar-image-bg" style="background-image: url('WR_Events.jpg');"></div>
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
                         <div class="pillar-title-vertical">EVENTS</div>
                         <div class="pillar-details">
                             <h3 class="pillar-punchline">CONTROL<br><span class="highlight-red">OVER CHAOS.</span></h3>
-                            <p>Your event is only as good as its execution. We provide the sound, lighting, and structure to ensure everything runs exactly as planned.</p>
-                            <a href="events-en.html" class="premium-pillar-btn transition-link">OPEN CASE STUDIES <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            <p>Your event is only as good as its execution. We deliver the sound, lighting, and structure to ensure everything runs exactly as planned.</p>
+                            <a href="2events-en.html" class="premium-pillar-btn transition-link">VIEW CASE STUDIES <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                         </div>
                     </div>
                 </article>
 
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='marketing-en.html'">
-                    <div class="pillar-bg-video media-desktop">
-                        <video autoplay muted loop playsinline poster="WR_Marketing.jpg">
-                            <source src="marketing-loop-desktop.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="pillar-bg-video media-mobile">
-                        <video autoplay muted loop playsinline poster="WR_Marketing.jpg">
-                            <source src="marketing-loop-mobile.mp4" type="video/mp4">
-                        </video>
-                    </div>
-
+                    <div class="pillar-image-bg" style="background-image: url('WR_Marketing.jpg');"></div>
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
                         <div class="pillar-title-vertical">MARKETING</div>
                         <div class="pillar-details">
                             <h3 class="pillar-punchline">VISIBILITY<br><span class="highlight-red">IS NO ACCIDENT.</span></h3>
-                            <p>Great content is useless if nobody sees it. We combine creation with ruthless strategy to ensure you're not just seen, but growing.</p>
+                            <p>Great content is useless if nobody sees it. We combine creation with ruthless strategy so you aren't just seen, but grow.</p>
                             <a href="marketing-en.html" class="premium-pillar-btn transition-link">TO STRATEGY <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                         </div>
                     </div>
@@ -379,33 +375,33 @@
         <div id="references" class="laser-border-wrapper">
             <div class="laser-border-inner">
                 <section class="ref-section">
-                    <div style="text-align: center; margin-bottom: 20px;"><h2 class="section-title">CLIENTS</h2></div>
+                    <div style="text-align: center; margin-bottom: 20px;"><h2 class="section-title">REFERENCES</h2></div>
                     <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
                         <div class="vision-text-static">
-                            <p style="color: #a3a3a3;">These brands have chosen to collaborate with WESTROOMZ.</p>
+                            <p style="color: #a3a3a3;">These companies have chosen to work with WESTROOMZ.</p>
                         </div>
                     </div>
 
                     <div class="marquee-wrapper">
                         <div class="marquee-track">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img" decoding="async">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img" decoding="async">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img" decoding="async">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img" decoding="async">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img" decoding="async">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img" decoding="async">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img" decoding="async">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img" decoding="async">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img" decoding="async">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img" decoding="async">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img" decoding="async">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img" decoding="async">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img" decoding="async">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img" decoding="async">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img" decoding="async">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img" decoding="async">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img" decoding="async">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -416,7 +412,7 @@
             <div class="footer-container">
                 <div class="footer-contact-area">
                     <div class="footer-contact-info">
-                        <h2>Let's build something <br><span class="highlight-red">extraordinary.</span></h2>
+                        <h2>Let's create <br><span class="highlight-red">something great.</span></h2>
                         <p>Planning a production or looking for a technical partner? Drop us a line – we'll get back to you immediately.</p>
                         <div class="contact-details"><p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p></div>
                     </div>
@@ -437,11 +433,11 @@
                                 </select>
                             </div>
                             <div class="form-group"><label>NAME</label><input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Your Name"></div>
-                            <div class="form-group"><label>EMAIL</label><input type="email" id="email" name="email" class="interactive footer-input" required placeholder="your@email.com"></div>
+                            <div class="form-group"><label>E-MAIL</label><input type="email" id="email" name="email" class="interactive footer-input" required placeholder="your@email.com"></div>
                             <div class="form-group"><label>PROJECT</label><input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Brief project description..."></div>
                             <div class="form-group"><label>MESSAGE</label><textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="How can we help you?"></textarea></div>
                             <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
-                                Send Request <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                Send Inquiry <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                             </button>
                         </form>
                     </div>
@@ -450,12 +446,12 @@
                 <div class="footer-links-section">
                     <div class="footer-brand">
                         <a href="#hero" class="brand-logo interactive">
-                            <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo"></div>
+                            <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo" decoding="async"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
                         <p>The creative production agency for events and marketing. Clear in execution, strong in impact, clean in detail.</p>
                         <div class="footer-socials-new">
-                            <a href="#" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                            <a href="https://www.instagram.com/westroomz_studio/" target="_blank" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
                             <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
                             <a href="mailto:info@westroomz.de" class="interactive" aria-label="Email"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
                         </div>
@@ -466,7 +462,7 @@
                             <li><a href="#hero" class="interactive">Home</a></li>
                             <li><a href="#vision" class="interactive">Vision</a></li>
                             <li><a href="#services" class="interactive">What we do</a></li>
-                            <li><a href="#references" class="interactive">Clients</a></li>
+                            <li><a href="#references" class="interactive">References</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -474,7 +470,7 @@
                         <ul>
                             <li><a href="impressum-en.html" class="interactive">Imprint</a></li>
                             <li><a href="datenschutz-en.html" class="interactive">Privacy Policy</a></li>
-                            <li><a href="agb-en.html" class="interactive">Terms & Conditions</a></li>
+                            <li><a href="agb-en.html" class="interactive">Terms</a></li>
                         </ul>
                     </div>
                 </div>
@@ -516,7 +512,6 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            /* === HIER IST DER TURBO FÜR DIE VISION ANIMATION (MOBILE FIX) === */
             if(document.querySelector(".premium-vision-integrated")) {
                 const visionTl = gsap.timeline({ 
                     scrollTrigger: { 
@@ -549,7 +544,7 @@
                 document.querySelectorAll('.service-pillar').forEach(p => p.classList.remove('is-expanded'));
             });
 
-            // Hero Text Einblenden (Ohne Video)
+            // Hero Text Fade In (No Video)
             const heroText = document.querySelector(".hero-sub");
             if(heroText) {
                 gsap.fromTo(heroText, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power2.out" });
