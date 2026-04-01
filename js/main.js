@@ -361,14 +361,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- HIER IST DER FIX: ---
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
             const target = link.getAttribute('target');
 
-            // Wenn der Link explizit in einem neuen Tab geöffnet werden soll (_blank),
-            // dann brechen wir hier ab und lassen den Browser seinen Job machen!
             if (target === '_blank') {
                 return;
             }
@@ -384,11 +381,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- SLIDER LOGIK INKLUSIVE TOUCH ---
+    // --- SLIDER LOGIK INKLUSIVE TOUCH & OBSERVER ---
     const slider = document.getElementById('draggable-slider');
     let isDown = false; let startX; let currentX = 0; 
     let speed = window.innerWidth < 768 ? 2.5 : 1.5; 
     let halfWidth = 0;
+    let isGalleryVisible = true; // Neu für Performance
 
     function calculateWidth() { 
         if(slider) { 
@@ -399,14 +397,27 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(calculateWidth, 100); 
     window.addEventListener('resize', calculateWidth);
 
+    // PERFORMANCE HACK: Observer pausiert Slider wenn nicht im Bild
+    if(slider) {
+        const galleryObserver = new IntersectionObserver((entries) => {
+            isGalleryVisible = entries[0].isIntersecting;
+        }, { rootMargin: "100px" });
+        galleryObserver.observe(slider);
+    }
+
     function animate() {
         if(!slider) return;
-        if (!isDown) { currentX -= speed; }
-        if (halfWidth > 0) {
-            if (currentX <= -halfWidth) { currentX += halfWidth; }
-            else if (currentX > 0) { currentX -= halfWidth; }
+        
+        // Render nur wenn sichtbar
+        if (isGalleryVisible) {
+            if (!isDown) { currentX -= speed; }
+            if (halfWidth > 0) {
+                if (currentX <= -halfWidth) { currentX += halfWidth; }
+                else if (currentX > 0) { currentX -= halfWidth; }
+            }
+            slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
         }
-        slider.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        
         requestAnimationFrame(animate);
     }
 
