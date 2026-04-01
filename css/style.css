@@ -1243,3 +1243,37 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
                 flex-shrink: 0 !important; /* Verhindert, dass der Punkt gequetscht wird */
             }
         }
+/* === FIX FÜR DEN FOOTER TEXT BLOCK (LINKSBÜNDIG) === */
+.footer-contact-info {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    width: 100% !important;
+}
+
+.footer-contact-info h2 {
+    text-align: left !important;
+    margin-bottom: 24px !important;
+}
+
+.footer-contact-info > p {
+    text-align: left !important;
+    max-width: 480px !important;
+    margin-bottom: 40px !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+.contact-details {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+}
+
+.contact-details p {
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+}
