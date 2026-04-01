@@ -172,13 +172,13 @@
                 align-items: center !important;
                 flex-wrap: wrap !important;
                 gap: 16px !important;
-                background: rgba(10, 10, 10, 0.4) !important; /* Dezentes dunkles Milchglas */
+                background: rgba(10, 10, 10, 0.4) !important;
                 backdrop-filter: blur(12px) !important;
                 -webkit-backdrop-filter: blur(12px) !important;
                 border: 1px solid rgba(255, 255, 255, 0.1) !important;
                 border-radius: 30px !important;
                 padding: 12px 20px !important;
-                margin: 24px auto 0 auto !important; /* Näher an den Text rücken */
+                margin: 24px auto 0 auto !important;
                 width: max-content !important;
                 max-width: 90% !important;
             }
@@ -186,7 +186,7 @@
                 display: flex !important;
                 align-items: center !important;
                 gap: 6px !important;
-                font-size: 0.75rem !important; /* Optimale Größe für eine Zeile */
+                font-size: 0.75rem !important;
                 font-weight: 700 !important;
                 letter-spacing: 1px !important;
                 color: #ffffff !important;
@@ -232,7 +232,7 @@
 
     <div class="side-menu">
         <div>
-            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ" decoding="async"></div>
             <div class="menu-links">
                 <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
                 <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
@@ -300,20 +300,20 @@
 
         <section id="gallery" class="gallery-section">
             <div class="gallery-container interactive" id="draggable-slider">
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy"></div>
+                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy" decoding="async"></div>
             </div>
         </section>
 
@@ -324,16 +324,7 @@
             
             <div class="immersive-accordion">
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='audio.html'">
-                    <div class="pillar-bg-video media-desktop">
-                        <video autoplay muted loop playsinline poster="WR_Audio.jpg">
-                            <source src="audio-loop-desktop.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="pillar-bg-video media-mobile">
-                        <video autoplay muted loop playsinline poster="WR_Audio.jpg">
-                            <source src="audio-loop-mobile.mp4" type="video/mp4">
-                        </video>
-                    </div>
+                    <div class="pillar-bg" style="--bg-image: url('WR_Audio.jpg');"></div>
                     
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
@@ -347,16 +338,7 @@
                 </article>
 
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='video.html'">
-                    <div class="pillar-bg-video media-desktop">
-                        <video autoplay muted loop playsinline poster="WR_Video2.jpg">
-                            <source src="video-loop-desktop.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="pillar-bg-video media-mobile">
-                        <video autoplay muted loop playsinline poster="WR_Video2.jpg">
-                            <source src="video-loop-mobile.mp4" type="video/mp4">
-                        </video>
-                    </div>
+                    <div class="pillar-bg" style="--bg-image: url('WR_Video2.jpg');"></div>
 
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
@@ -370,16 +352,7 @@
                 </article>
 
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='2events.html'">
-                    <div class="pillar-bg-video media-desktop">
-                        <video autoplay muted loop playsinline poster="WR_Events.jpg">
-                            <source src="event-loop-desktop.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="pillar-bg-video media-mobile">
-                        <video autoplay muted loop playsinline poster="WR_Events.jpg">
-                            <source src="event-loop-mobile.mp4" type="video/mp4">
-                        </video>
-                    </div>
+                    <div class="pillar-bg" style="--bg-image: url('WR_Events.jpg');"></div>
 
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
@@ -393,16 +366,7 @@
                 </article>
 
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='marketing.html'">
-                    <div class="pillar-bg-video media-desktop">
-                        <video autoplay muted loop playsinline poster="WR_Marketing.jpg">
-                            <source src="marketing-loop-desktop.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="pillar-bg-video media-mobile">
-                        <video autoplay muted loop playsinline poster="WR_Marketing.jpg">
-                            <source src="marketing-loop-mobile.mp4" type="video/mp4">
-                        </video>
-                    </div>
+                    <div class="pillar-bg" style="--bg-image: url('WR_Marketing.jpg');"></div>
 
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
@@ -429,24 +393,24 @@
 
                     <div class="marquee-wrapper">
                         <div class="marquee-track">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img" loading="lazy" decoding="async">
+                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -491,7 +455,7 @@
                 <div class="footer-links-section">
                     <div class="footer-brand">
                         <a href="#hero" class="brand-logo interactive">
-                            <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo"></div>
+                            <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo" decoding="async"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
                         <p>Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
