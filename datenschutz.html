@@ -3,177 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WESTROOMZ | Datenschutz</title>
+    <title>Datenschutz | WESTROOMZ</title>
     
-    <link rel="icon" type="image/jpg" href="logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-
     <style>
-        /* --- FIX: Einheitliches, massives Design für Rechtstexte & Mobile-Fix --- */
-        .legal-container h1 {
-            font-family: 'Oswald', sans-serif;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: clamp(2.5rem, 8vw, 4.5rem); 
-            line-height: 1.1;
-            margin-bottom: 50px;
-            color: #fff;
-            /* Zwingt das endlose Wort DATENSCHUTZERKLÄRUNG zum sauberen Umbruch! */
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-        }
+        /* --- GLOBALE & FOOTER FIXES --- */
+        body { background-color: #050505; color: #fff; overflow-x: hidden; margin: 0; font-family: 'Inter', sans-serif; }
+        .back-home-wrapper { position: fixed; top: 40px; right: 40px; z-index: 100; }
+        .back-btn { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 30px; transition: all 0.3s ease; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+        .back-btn:hover { background: #fff; color: #000; border-color: #fff; }
+        @media (max-width: 768px) { .back-home-wrapper { top: 20px; right: 20px; } }
 
-        .legal-container h2 {
-            font-family: 'Oswald', sans-serif;
-            font-weight: 600;
-            text-transform: uppercase; /* Alles in Großbuchstaben wie auf der Audio-Seite */
-            font-size: clamp(1.5rem, 5vw, 2.2rem);
-            color: #ff0000; /* Das markante Rot */
-            letter-spacing: 1px;
-            margin-top: 60px;
-            margin-bottom: 20px;
-        }
+        /* === PREMIUM FOOTER CSS === */
+        .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; margin-top: 0; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; }
+        @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 0; } }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
+        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; font-size: clamp(1.85rem, 4vw, 3rem); }
+        .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; }
+        .footer-contact-info > p { color: #a3a3a3; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
+        .contact-details { font-size: 1.125rem; font-weight: 900; display: flex; flex-direction: column; gap: 16px; }
+        .contact-details p { margin: 0; }
+        .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; }
+        .footer-form-card { background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; padding: 40px; backdrop-filter: blur(24px); }
+        @media (max-width: 768px) { .footer-form-card { padding: 30px 20px; border-radius: 24px; } }
+        .footer-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+        .form-group label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: #a3a3a3; text-transform: uppercase; }
+        .footer-input { background-color: rgba(0,0,0,0.4) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; padding: 16px; border-radius: 16px !important; font-size: 1rem; width: 100%; box-sizing: border-box; }
+        .footer-input:focus { border-color: rgba(220, 38, 38, 0.6) !important; background-color: rgba(0,0,0,0.6) !important; outline: none; }
+        .cta-btn-primary { display: flex; align-items: center; justify-content: center; gap: 12px; background-color: #dc2626 !important; color: white !important; font-weight: 900; font-size: 1.125rem; padding: 0 40px; height: 64px; border-radius: 20px !important; border: none; cursor: pointer; transition: all 0.3s ease; }
+        .cta-btn-primary:hover { background-color: #b91c1c !important; transform: translateY(-2px); }
+        .footer-links-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 16px; padding: 60px 0; }
+        @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } }
+        .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
+        .footer-brand .brand-icon { width: 32px; height: 32px; border-radius: 8px; }
+        .footer-brand .brand-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+        .footer-brand .brand-name { font-weight: 900; font-size: 1.25rem; }
+        .footer-brand p { color: #a3a3a3; font-size: 0.875rem; font-style: italic; max-width: 300px; margin-bottom: 32px; line-height: 1.6; }
+        .footer-socials-new { display: flex; gap: 12px; }
+        .footer-socials-new a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; transition: all 0.3s; }
+        .footer-socials-new a:hover { background-color: rgba(255,255,255,0.05); color: #dc2626; border-color: rgba(255,255,255,0.2); }
+        .footer-socials-new svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+        .footer-col h3 { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+        .footer-col a { color: #a3a3a3; font-size: 0.875rem; font-weight: 700; text-decoration: none; transition: color 0.2s; }
+        .footer-col a:hover { color: #dc2626; }
+        .footer-bottom { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1); align-items: center; }
+        @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
+        .footer-bottom p { color: #a3a3a3; font-size: 0.875rem; font-weight: 700; margin: 0; }
+        .footer-badge { display: flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; }
+        .footer-badge .dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; }
+        .footer-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #d4d4d4; }
 
-        .legal-container p, 
-        .legal-container ul {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #aaaaaa;
-            margin-bottom: 20px;
-        }
-
-        .legal-container ul {
-            padding-left: 20px;
-        }
-
-        .legal-container ul li {
-            margin-bottom: 10px;
-        }
+        /* --- EDITORIAL DATENSCHUTZ DESIGN --- */
+        .legal-page-wrapper { padding: 15vh 5vw 10vh 5vw; max-width: 1200px; margin: 0 auto; min-height: 80vh; }
+        .legal-grid { display: grid; grid-template-columns: 1fr; gap: 4rem; }
+        @media (min-width: 1024px) { .legal-grid { grid-template-columns: 300px 1fr; gap: 6rem; } }
+        .legal-header { position: sticky; top: 15vh; }
+        .legal-header h1 { font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 600; letter-spacing: 2px; color: #fff; margin: 0; text-transform: uppercase; word-wrap: break-word; hyphens: auto; }
+        .legal-header .red-line { width: 40px; height: 2px; background-color: #dc2626; margin-top: 1rem; }
+        .legal-content-block { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; margin-bottom: 3rem; }
+        .legal-content-block h2 { font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: rgba(255, 255, 255, 0.4); margin-bottom: 1.5rem; }
+        .legal-content-block p, .legal-content-block ul { font-size: 1.1rem; line-height: 1.8; color: #d4d4d4; font-weight: 300; margin: 0 0 1rem 0; }
+        .legal-content-block ul { padding-left: 20px; }
+        .legal-content-block ul li { margin-bottom: 10px; }
+        .legal-content-block strong { font-weight: 700; color: #fff; }
+        .legal-content-block a { color: #dc2626; text-decoration: none; transition: color 0.3s; }
+        .legal-content-block a:hover { color: #fff; }
     </style>
 </head>
 <body>
-<div class="global-bg"></div>
-<div class="page-transition-curtain"></div>
-    <div class="cursor"></div>
-    <div class="cursor-ring"></div>
-    <div class="cinematic-vignette"></div>
 
     <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
-
-    <div class="back-home-wrapper">
-        <a href="index.html" class="back-btn interactive">CLOSE [X]</a>
-    </div>
+    
+    <div class="back-home-wrapper"><a href="index.html" class="back-btn interactive">← ZURÜCK</a></div>
 
     <div class="side-menu">
         <div>
-            <div class="side-logo">
-                 <img src="IMG_4834.png" alt="WESTROOMZ">
-            </div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ" decoding="async"></div>
             <div class="menu-links">
-                <a href="index.html" class="menu-link interactive">START</a>
-                <a href="index.html#vision" class="menu-link interactive">VISION</a>
-                <a href="index.html#team" class="menu-link interactive">TEAM</a>
-                <a href="index.html#services" class="menu-link interactive">OFFERS</a>
-                <a href="index.html#references" class="menu-link interactive">REFERENZEN</a>
-                <a href="index.html#contact" class="menu-link interactive">KONTAKT</a>
+                <a href="index.html#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
+                <a href="index.html#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="team.html" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="index.html#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+                <a href="index.html#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
+                <a href="index.html#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
             </div>
         </div>
         <div class="sidebar-footer">
-             <a href="impressum.html">Impressum</a>
-             <a href="datenschutz.html">Datenschutz</a>
-             <a href="agb.html">AGB</a>
+             <a href="impressum.html" class="interactive">IMPRESSUM</a>
+             <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+             <a href="agb.html" class="interactive">AGB</a>
+             <span>© 2026 WESTROOMZ</span>
         </div>
     </div>
-    
     <div class="menu-overlay" onclick="toggleMenu()"></div>
 
     <main class="page-wrapper">
-        <div class="legal-container">
-            <h1>DATENSCHUTZERKLÄRUNG</h1>
+        
+        <div class="legal-page-wrapper">
+            <div class="legal-grid">
+                
+                <div class="legal-header">
+                    <h1>DATENSCHUTZ</h1>
+                    <div class="red-line"></div>
+                </div>
 
-            <h2>1. Verantwortlicher</h2>
-            <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>
-            <strong style="color: #fff;">Westroomz GmbH</strong><br>
-            Am alten Sportplatz 37<br>
-            48477 Hörstel<br>
-            Telefon: 01577 877 8502<br>
-            E-Mail: info@westroomz.de</p>
+                <div class="legal-body">
+                    <div class="legal-content-block">
+                        <h2>1. Verantwortlicher</h2>
+                        <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>
+                        <strong>Westroomz GmbH</strong><br>
+                        Am alten Sportplatz 37<br>
+                        48477 Hörstel<br>
+                        Telefon: 01577 877 8502<br>
+                        E-Mail: info@westroomz.de</p>
+                    </div>
 
-            <h2>2. Allgemeine Hinweise</h2>
-            <p>Der Schutz Ihrer personenbezogenen Daten ist uns wichtig. Wir verarbeiten personenbezogene Daten ausschließlich im Rahmen der geltenden Datenschutzgesetze, insbesondere der Datenschutz-Grundverordnung (DSGVO). Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+                    <div class="legal-content-block">
+                        <h2>2. Allgemeine Hinweise</h2>
+                        <p>Der Schutz Ihrer personenbezogenen Daten ist uns wichtig. Wir verarbeiten personenbezogene Daten ausschließlich im Rahmen der geltenden Datenschutzgesetze, insbesondere der Datenschutz-Grundverordnung (DSGVO). Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+                    </div>
 
-            <h2>3. Hosting der Website</h2>
-            <p>Diese Website wird über GitHub Pages bereitgestellt. Beim Aufruf der Website werden durch GitHub automatisch folgende Daten verarbeitet:</p>
-            <ul>
-                <li>IP-Adresse</li>
-                <li>Datum und Uhrzeit des Zugriffs</li>
-                <li>Browsertyp und Betriebssystem</li>
-                <li>Referrer-URL</li>
-            </ul>
-            <p>Diese Daten dienen der technischen Bereitstellung, Stabilität und Sicherheit der Website (Art. 6 Abs. 1 lit. f DSGVO). Weitere Informationen finden Sie in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" style="color:var(--accent);">GitHub Datenschutzerklärung</a>.</p>
+                    <div class="legal-content-block">
+                        <h2>3. Hosting der Website</h2>
+                        <p>Diese Website wird über GitHub Pages bereitgestellt. Beim Aufruf der Website werden durch GitHub automatisch folgende Daten verarbeitet:</p>
+                        <ul>
+                            <li>IP-Adresse</li>
+                            <li>Datum und Uhrzeit des Zugriffs</li>
+                            <li>Browsertyp und Betriebssystem</li>
+                            <li>Referrer-URL</li>
+                        </ul>
+                        <p>Diese Daten dienen der technischen Bereitstellung, Stabilität und Sicherheit der Website (Art. 6 Abs. 1 lit. f DSGVO). Weitere Informationen finden Sie in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank">GitHub Datenschutzerklärung</a>.</p>
+                    </div>
 
-            <h2>4. Kontaktaufnahme</h2>
-            <p>Wenn Sie uns per Kontaktformular oder E-Mail kontaktieren, werden die von Ihnen übermittelten personenbezogenen Daten (z. B. Name, E-Mail-Adresse, Telefonnummer, Projektangaben) verarbeitet. Die Verarbeitung erfolgt ausschließlich zur Bearbeitung Ihrer Anfrage (Art. 6 Abs. 1 lit. b DSGVO).</p>
+                    <div class="legal-content-block">
+                        <h2>4. Kontaktaufnahme</h2>
+                        <p>Wenn Sie uns per Kontaktformular oder E-Mail kontaktieren, werden die von Ihnen übermittelten personenbezogenen Daten (z. B. Name, E-Mail-Adresse, Telefonnummer, Projektangaben) verarbeitet. Die Verarbeitung erfolgt ausschließlich zur Bearbeitung Ihrer Anfrage (Art. 6 Abs. 1 lit. b DSGVO).</p>
+                    </div>
 
-            <h2>5. Unverbindliche Preisanfragen</h2>
-            <p>Sofern Sie über diese Website eine unverbindliche Preisanfrage stellen, verarbeiten wir Ihre Angaben ausschließlich zur Erstellung eines individuellen Angebots und zur Durchführung eines möglichen Erstgesprächs. Eine Nutzung Ihrer Daten zu Werbezwecken findet nicht statt, sofern Sie dem nicht ausdrücklich zugestimmt haben.</p>
+                    <div class="legal-content-block">
+                        <h2>5. Unverbindliche Preisanfragen</h2>
+                        <p>Sofern Sie über diese Website eine unverbindliche Preisanfrage stellen, verarbeiten wir Ihre Angaben ausschließlich zur Erstellung eines individuellen Angebots und zur Durchführung eines möglichen Erstgesprächs. Eine Nutzung Ihrer Daten zu Werbezwecken findet nicht statt, sofern Sie dem nicht ausdrücklich zugestimmt haben.</p>
+                    </div>
 
-            <h2>6. Referenzen, Bilder und Videos</h2>
-            <p>Auf dieser Website werden Bilder, Videos sowie Referenzen von Projekten, Veranstaltungen, Kunden und Personen veröffentlicht. Dies erfolgt auf Grundlage einer Einwilligung oder unseres berechtigten Interesses an der Darstellung unserer Leistungen (Art. 6 Abs. 1 lit. f DSGVO). Sollten Sie mit einer Veröffentlichung nicht einverstanden sein, können Sie der Nutzung jederzeit widersprechen.</p>
+                    <div class="legal-content-block">
+                        <h2>6. Referenzen, Bilder und Videos</h2>
+                        <p>Auf dieser Website werden Bilder, Videos sowie Referenzen von Projekten, Veranstaltungen, Kunden und Personen veröffentlicht. Dies erfolgt auf Grundlage einer Einwilligung oder unseres berechtigten Interesses an der Darstellung unserer Leistungen (Art. 6 Abs. 1 lit. f DSGVO). Sollten Sie mit einer Veröffentlichung nicht einverstanden sein, können Sie der Nutzung jederzeit widersprechen.</p>
+                    </div>
 
-            <h2>7. Cookies</h2>
-            <p>Diese Website verwendet ausschließlich technisch notwendige Cookies, die für den sicheren Betrieb erforderlich sind. Es findet kein Tracking, keine Analyse des Nutzerverhaltens und keine Verarbeitung zu Marketingzwecken statt. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+                    <div class="legal-content-block">
+                        <h2>7. Cookies</h2>
+                        <p>Diese Website verwendet ausschließlich technisch notwendige Cookies, die für den sicheren Betrieb erforderlich sind. Es findet kein Tracking, keine Analyse des Nutzerverhaltens und keine Verarbeitung zu Marketingzwecken statt. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+                    </div>
 
-            <h2>8. Analyse- und Tracking-Tools</h2>
-            <p>Derzeit setzen wir keine Analyse-, Tracking- oder Marketing-Tools ein (z. B. Google Analytics, Meta Pixel). Eine entsprechende Verarbeitung erfolgt erst nach ausdrücklicher Einwilligung der Nutzer.</p>
+                    <div class="legal-content-block">
+                        <h2>8. Analyse- und Tracking-Tools</h2>
+                        <p>Derzeit setzen wir keine Analyse-, Tracking- oder Marketing-Tools ein (z. B. Google Analytics, Meta Pixel). Eine entsprechende Verarbeitung erfolgt erst nach ausdrücklicher Einwilligung der Nutzer.</p>
+                    </div>
 
-            <h2>9. Einbindung externer Inhalte (YouTube)</h2>
-            <p>Sofern Videos von YouTube eingebunden sind, erfolgt dies in der Regel erst nach aktiver Zustimmung des Nutzers. Beim Abspielen eines Videos können personenbezogene Daten an Google / YouTube übertragen werden. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
+                    <div class="legal-content-block">
+                        <h2>9. Einbindung externer Inhalte (YouTube)</h2>
+                        <p>Sofern Videos von YouTube eingebunden sind, erfolgt dies in der Regel erst nach aktiver Zustimmung des Nutzers. Beim Abspielen eines Videos können personenbezogene Daten an Google / YouTube übertragen werden. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
+                    </div>
 
-            <h2>10. Speicherdauer</h2>
-            <p>Personenbezogene Daten werden nur so lange gespeichert, wie dies für die Bearbeitung der Anfrage oder zur Erfüllung gesetzlicher Aufbewahrungspflichten erforderlich ist. Anfragen ohne Vertragsabschluss werden regelmäßig gelöscht.</p>
+                    <div class="legal-content-block">
+                        <h2>10. Speicherdauer</h2>
+                        <p>Personenbezogene Daten werden nur so lange gespeichert, wie dies für die Bearbeitung der Anfrage oder zur Erfüllung gesetzlicher Aufbewahrungspflichten erforderlich ist. Anfragen ohne Vertragsabschluss werden regelmäßig gelöscht.</p>
+                    </div>
 
-            <h2>11. Rechte der betroffenen Personen</h2>
-            <p>Sie haben jederzeit das Recht auf:</p>
-            <ul>
-                <li>Auskunft (Art. 15 DSGVO)</li>
-                <li>Berichtigung (Art. 16 DSGVO)</li>
-                <li>Löschung (Art. 17 DSGVO)</li>
-                <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
-                <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
-                <li>Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</li>
-            </ul>
-            <p>Zudem haben Sie das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren.</p>
+                    <div class="legal-content-block">
+                        <h2>11. Rechte der betroffenen Personen</h2>
+                        <p>Sie haben jederzeit das Recht auf:</p>
+                        <ul>
+                            <li>Auskunft (Art. 15 DSGVO)</li>
+                            <li>Berichtigung (Art. 16 DSGVO)</li>
+                            <li>Löschung (Art. 17 DSGVO)</li>
+                            <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+                            <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+                            <li>Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</li>
+                        </ul>
+                        <p>Zudem haben Sie das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren.</p>
+                    </div>
 
-            <h2>12. Widerruf von Einwilligungen</h2>
-            <p>Erteilte Einwilligungen können jederzeit mit Wirkung für die Zukunft widerrufen werden. Eine formlose Mitteilung per E-Mail ist ausreichend.</p>
+                    <div class="legal-content-block">
+                        <h2>12. Widerruf von Einwilligungen</h2>
+                        <p>Erteilte Einwilligungen können jederzeit mit Wirkung für die Zukunft widerrufen werden. Eine formlose Mitteilung per E-Mail ist ausreichend.</p>
+                    </div>
 
-            <h2>13. Aktualität</h2>
-            <p>Diese Datenschutzerklärung hat den Stand: 01.01.2026</p>
+                    <div class="legal-content-block">
+                        <h2>13. Aktualität</h2>
+                        <p>Diese Datenschutzerklärung hat den Stand: 01.01.2026</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-        <footer>
-            <div class="footer-nav">
-                <a href="impressum.html" class="interactive">IMPRESSUM</a>
-                <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
-                <a href="agb.html" class="interactive">AGB</a>
+        <footer class="premium-footer" id="contact">
+            <div class="footer-container">
+                <div class="footer-contact-area">
+                    <div class="footer-contact-info">
+                        <h2>Lass uns etwas <br><span class="highlight-red">Großartiges</span> erschaffen.</h2>
+                        <p>Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.</p>
+                        <div class="contact-details"><p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p></div>
+                    </div>
+                    <div class="footer-form-card">
+                        <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
+                            <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
+                            <input type="hidden" name="_next" value="https://westroomz.de/datenschutz.html">
+                            <input type="hidden" name="_captcha" value="false">
+                            
+                            <div class="form-group">
+                                <label>ABTEILUNG</label>
+                                <select id="department" name="abteilung" class="interactive footer-input">
+                                    <option value="General">Allgemeine Anfrage</option>
+                                    <option value="Audio">Audio</option>
+                                    <option value="Video">Video</option>
+                                    <option value="Event">Eventplanung</option>
+                                    <option value="Marketing">Marketing</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>NAME</label><input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Dein Name"></div>
+                            <div class="form-group"><label>E-MAIL</label><input type="email" id="email" name="email" class="interactive footer-input" required placeholder="deine@email.de"></div>
+                            <div class="form-group"><label>PROJEKT</label><input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Kurze Projektbeschreibung..."></div>
+                            <div class="form-group"><label>NACHRICHT</label><textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea></div>
+                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
+                                Anfrage senden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="footer-links-section">
+                    <div class="footer-brand">
+                        <a href="index.html" class="brand-logo interactive">
+                            <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo" onerror="this.src='https://via.placeholder.com/32'"></div>
+                            <span class="brand-name">WESTROOMZ</span>
+                        </a>
+                        <p>Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
+                        <div class="footer-socials-new">
+                            <a href="https://www.instagram.com/westroomz_studio/" target="_blank" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                            <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                            <a href="mailto:info@westroomz.de" class="interactive" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index.html#hero" class="interactive">Startseite</a></li>
+                            <li><a href="index.html#vision" class="interactive">Vision</a></li>
+                            <li><a href="index.html#services" class="interactive">Was wir tun</a></li>
+                            <li><a href="index.html#references" class="interactive">Referenzen</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Rechtliches</h3>
+                        <ul>
+                            <li><a href="impressum.html" class="interactive">Impressum</a></li>
+                            <li><a href="datenschutz.html" class="interactive">Datenschutz</a></li>
+                            <li><a href="agb.html" class="interactive">AGB</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 WESTROOMZ. Alle Rechte vorbehalten.</p>
+                    <div class="footer-badge"><div class="dot"></div><span>Made in Germany 🇩🇪</span></div>
+                </div>
             </div>
-            <p class="copyright">&copy; 2026 WESTROOMZ. ALLE RECHTE VORBEHALTEN.</p>
         </footer>
     </main>
 
     <script src="js/main.js"></script>
+    <script>
+        function toggleMenu() {
+            const sideMenu = document.querySelector('.side-menu');
+            const overlay = document.querySelector('.menu-overlay');
+            if(sideMenu) sideMenu.classList.toggle('active');
+            if(overlay) overlay.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
