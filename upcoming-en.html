@@ -1,1 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="WESTROOMZ - Upcoming Projects">
+    <title>WESTROOMZ | TIMELINE</title>
+    
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
+    <style>
+        /* --- BASE STYLES --- */
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            color: #fff;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; 
+        }
+
+        /* --- HORIZONTAL SCROLL CONTAINER --- */
+        .timeline-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            display: flex;
+            align-items: center; 
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth; 
+        }
+
+        .timeline-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .timeline-track {
+            display: flex;
+            gap: 4vw;
+            padding: 0 10vw; 
+            padding-right: 20vw; 
+            position: relative;
+            height: 100%; 
+            align-items: center; 
+        }
+
+        /* Die rote Linie */
+        .timeline-track::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.5), transparent);
+            z-index: 0;
+            transform: translateY(-50%);
+        }
+
+        /* --- SWIPE INTRO TEXT --- */
+        .swipe-intro {
+            min-width: 200px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100%;
+        }
+
+        /* --- SPOTLIGHT CARDS --- */
+        .event-card {
+            min-width: 400px;
+            width: 400px;
+            height: 500px;    
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: grab; 
+            overflow: hidden;
+            flex-shrink: 0; 
+            flex-grow: 0;
+        }
+
+        .event-card:active { cursor: grabbing; }
+
+        /* Spotlight & Glow */
+        .event-card::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+            z-index: 2; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+        }
+        .event-card:hover::before { opacity: 1; }
+
+        .event-card::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 24px;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.4), transparent 40%);
+            z-index: 1; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude; -webkit-mask-composite: xor; padding: 1px;
+        }
+        .event-card:hover::after { opacity: 1; }
+
+        .event-card:hover {
+            transform: scale(1.02) translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* --- CARD CONTENT --- */
+        .card-top { position: relative; z-index: 3; }
+        .card-bottom { position: relative; z-index: 3; }
+
+        .status-badge {
+            display: inline-block; padding: 6px 14px; background: rgba(255, 0, 0, 0.1); color: #ff3333;
+            border: 1px solid rgba(255, 0, 0, 0.2); border-radius: 100px; font-size: 0.75rem;
+            font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+        }
+
+        .event-date {
+            font-family: 'Oswald', sans-serif; font-size: 3rem; color: rgba(255, 255, 255, 0.1);
+            position: absolute; top: 20px; right: 20px; line-height: 1; pointer-events: none;
+        }
+
+        .event-title {
+            font-family: 'Oswald', sans-serif; font-size: 2.2rem; margin-bottom: 15px; color: #fff;
+            line-height: 1.1; text-transform: uppercase;
+        }
+
+        .event-desc {
+            font-family: 'Inter', sans-serif; font-size: 1rem; color: #aaa; line-height: 1.6;
+        }
+
+        .card-number {
+            font-family: 'Oswald', sans-serif; position: absolute; bottom: -20px; left: 50%;
+            transform: translateX(-50%); font-size: 8rem; color: rgba(255,255,255,0.02);
+            z-index: 0; pointer-events: none;
+        }
+
+        /* --- INTRO TEXT --- */
+        .fixed-title {
+            position: fixed; top: 120px; left: 50%; transform: translateX(-50%); text-align: center;
+            z-index: 0; pointer-events: none; width: 100%;
+        }
+        .fixed-title h1 {
+            font-size: 8vw; opacity: 0.05; font-family: 'Oswald', sans-serif;
+            text-transform: uppercase; white-space: nowrap;
+        }
+
+        /* --- MOBILE ANPASSUNG --- */
+        @media (max-width: 768px) {
+            .event-card {
+                min-width: 85vw;
+                width: 85vw;
+                height: 450px;
+            }
+            .timeline-track {
+                /* ÄNDERUNG: Weniger Padding links, damit Karte 1 sofort sichtbar ist */
+                padding: 0 5vw; 
+                padding-right: 10vw;
+                gap: 5vw;
+            }
+            .fixed-title { top: 100px; }
+            .fixed-title h1 { font-size: 15vw; }
+
+            /* ÄNDERUNG: "SWIPE" Text auf Mobile ausblenden */
+            .swipe-intro {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="global-bg"></div>
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
+
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <div class="side-menu">
+        <div>
+            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
+            <div class="menu-links">
+                <a href="index-en.html#hero" class="menu-link interactive">HOME</a>
+                <a href="index-en.html#vision" class="menu-link interactive">VISION</a>
+                <a href="impressum-en.html#team" class="menu-link interactive">TEAM</a>
+                <a href="index-en.html#services" class="menu-link interactive">SERVICES</a>
+                <a href="#" class="menu-link interactive" style="color: #fff;">UPCOMING</a>
+                <a href="index-en.html#references" class="menu-link interactive">REFERENCES</a>
+                <a href="index-en.html#contact" class="menu-link interactive">CONTACT</a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+             <a href="impressum-en.html" class="interactive">IMPRINT</a>
+             <a href="datenschutz-en.html" class="interactive">PRIVACY POLICY</a>
+             <a href="agb-en.html" class="interactive">TERMS</a>
+             <span>© 2026 WESTROOMZ</span>
+        </div>
+    </div>
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <div class="fixed-title">
+        <h1>FUTURE PROJECTS</h1>
+    </div>
+
+    <main class="timeline-wrapper">
+        <div class="timeline-track">
+            
+            <div class="swipe-intro">
+                <div style="color: #fff; font-family: 'Oswald'; font-size: 1.2rem; letter-spacing: 2px;">
+                    SWIPE &rarr;
+                </div>
+            </div>
+
+            <div class="event-card interactive">
+                <div class="card-number">01</div>
+                <div class="event-date">MAR '26</div>
+                <div class="card-top">
+                    <span class="status-badge">In Planning</span>
+                    <h3 class="event-title">WestRoomz<br>Label Night</h3>
+                </div>
+                <div class="card-bottom">
+                    <p class="event-desc">
+                        A night full of sound and visuals. We present the newest artists from our roster in an exclusive off-location in Münster.
+                    </p>
+                </div>
+            </div>
+
+            <div class="event-card interactive">
+                <div class="card-number">02</div>
+                <div class="event-date">APR '26</div>
+                <div class="card-top">
+                    <span class="status-badge">Production</span>
+                    <h3 class="event-title">New Video<br>Release</h3>
+                </div>
+                <div class="card-bottom">
+                    <p class="event-desc">
+                        The new music video for our headliner. Shot in 8K with cinema-line cameras. Premiering live on YouTube and in cinemas.
+                    </p>
+                </div>
+            </div>
+
+            <div class="event-card interactive">
+                <div class="card-number">03</div>
+                <div class="event-date">SUM '26</div>
+                <div class="card-top">
+                    <span class="status-badge">Workshop</span>
+                    <h3 class="event-title">Audio<br>Masterclass</h3>
+                </div>
+                <div class="card-bottom">
+                    <p class="event-desc">
+                        Learn from our engineers how to take your mixes to the next level. A deep-dive into mixing, mastering, and room acoustics.
+                    </p>
+                </div>
+            </div>
+
+            <div class="event-card interactive">
+                <div class="card-number">04</div>
+                <div class="event-date">Q4 '26</div>
+                <div class="card-top">
+                    <span class="status-badge">Expansion</span>
+                    <h3 class="event-title">New Studio<br>Opening</h3>
+                </div>
+                <div class="card-bottom">
+                    <p class="event-desc">
+                        We are expanding. Studios B and C are opening. More space for creativity, new hardware, and a dedicated podcast lounge.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    
+    <script>
+        const scrollContainer = document.querySelector(".timeline-wrapper");
+
+        // SMART SCROLL LOGIC (Desktop)
+        scrollContainer.addEventListener("wheel", (evt) => {
+            // Wenn horizontal gescrollt wird (Trackpad), nix tun (nativ lassen)
+            if(Math.abs(evt.deltaX) > Math.abs(evt.deltaY)) {
+                return;
+            }
+            // Wenn vertikal gescrollt wird (Mausrad), in horizontal umwandeln
+            if(evt.deltaY !== 0) {
+                evt.preventDefault();
+                scrollContainer.scrollLeft += evt.deltaY;
+            }
+        });
+
+        // SPOTLIGHT EFFEKT
+        document.querySelectorAll(".event-card").forEach(card => {
+            card.onmousemove = e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            };
+        });
+    </script>
+</body>
+</html>
