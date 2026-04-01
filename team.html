@@ -83,16 +83,21 @@
         .team-list-container { position: relative; z-index: 2; width: 100%; max-width: 1400px; margin: 0 auto; }
         .section-title-minimal { font-family: 'Oswald', sans-serif; font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 3rem; font-weight: 600; color: #555; text-transform: uppercase; }
         .red-dot { color: #ff0000; }
-        .team-list { list-style: none; display: flex; flex-direction: column; padding: 0; }
+        
+        .team-list { list-style: none; display: flex; flex-direction: column; padding: 0; margin: 0;}
         .team-item { position: relative; cursor: pointer; padding: 2rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.6s ease; }
         .team-name { font-family: 'Inter', sans-serif; font-size: clamp(3rem, 7vw, 8rem); font-weight: 900; text-transform: uppercase; line-height: 0.9; color: #555; transition: all 0.6s ease; margin: 0; letter-spacing: -2px;}
         .team-info { max-width: 600px; height: 0; opacity: 0; overflow: hidden; transform: translateY(20px); transition: all 0.6s ease; font-family: 'Inter', sans-serif; }
         .team-info .role { display: inline-block; color: #ff0000; font-size: 1rem; letter-spacing: 3px; margin: 1.5rem 0 1rem 0; font-weight: 700; text-transform: uppercase; }
         .team-info p { font-size: 1.2rem; line-height: 1.6; color: #e0e0e0; font-weight: 300; margin: 0; }
-        .team-list:hover .team-name { color: rgba(255, 255, 255, 0.08); }
-        .team-list .team-item:hover .team-name { color: #ffffff; transform: translateX(30px); }
-        .team-list .team-item:hover .team-info { height: auto; opacity: 1; transform: translateY(0); padding-bottom: 1rem; }
-        @media (max-width: 900px) { .team-list .team-item:hover .team-name { transform: translateX(15px); } }
+        
+        /* FIX: JS Controlled Interaction für makellose Mobile & Desktop Funktion */
+        .team-list.has-active .team-item:not(.is-active) .team-name { color: rgba(255, 255, 255, 0.08); }
+        .team-item.is-active .team-name { color: #ffffff; transform: translateX(30px); }
+        .team-item.is-active .team-info { height: auto; opacity: 1; transform: translateY(0); padding-bottom: 1rem; }
+        @media (max-width: 900px) { 
+            .team-item.is-active .team-name { transform: translateX(15px); } 
+        }
     </style>
 </head>
 <body>
@@ -247,16 +252,36 @@
     <script src="js/main.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const teamList = document.getElementById("teamList");
             const teamItems = document.querySelectorAll(".team-item");
             const mediaItems = document.querySelectorAll(".team-media");
 
+            // Die Magic-Funktion für saubere Mobile/Desktop Verarbeitung
+            function activateItem(item) {
+                // 1. Alle anderen schließen
+                teamList.classList.add("has-active");
+                teamItems.forEach(i => i.classList.remove("is-active"));
+                mediaItems.forEach(m => m.classList.remove("active"));
+
+                // 2. Ziel öffnen
+                item.classList.add("is-active");
+                const targetId = item.getAttribute("data-target");
+                const targetMedia = document.getElementById(targetId);
+                if (targetMedia) targetMedia.classList.add("active");
+            }
+
             teamItems.forEach(item => {
-                item.addEventListener("mouseenter", () => {
-                    const targetId = item.getAttribute("data-target");
-                    mediaItems.forEach(media => media.classList.remove("active"));
-                    const targetMedia = document.getElementById(targetId);
-                    if (targetMedia) targetMedia.classList.add("active");
-                });
+                // Fängt die Maus am Desktop auf
+                item.addEventListener("mouseenter", () => activateItem(item));
+                
+                // Zwingt das Handy beim Klick neu zu laden
+                item.addEventListener("click", () => activateItem(item));
+            });
+
+            // Optional: Wenn man den ganzen Block verlässt (Desktop), alles auf null
+            teamList.addEventListener("mouseleave", () => {
+                teamList.classList.remove("has-active");
+                teamItems.forEach(i => i.classList.remove("is-active"));
             });
         });
         
