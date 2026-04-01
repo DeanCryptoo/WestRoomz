@@ -531,7 +531,7 @@
             let mm = gsap.matchMedia();
             mm.add("(max-width: 1024px)", () => {
                 const pillars = document.querySelectorAll('.service-pillar');
-                if(pillars.length > 0) pillars[0].classList.add('is-expanded');
+                // Keine Säule öffnet sich mehr automatisch beim Laden!
                 pillars.forEach(pillar => {
                     pillar.addEventListener('click', function(e) {
                         if(e.target.closest('.premium-pillar-btn')) return;
