@@ -2,293 +2,126 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Team | WESTROOMZ</title>
+    
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
     <style>
-        /* --- RESET & BASICS --- */
-        :root {
-            --bg-color: #050505;
-            --text-main: #ffffff;
-            --text-muted: #555555;
-            --accent-red: #ff0000;
-            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        /* --- GLOBALE & FOOTER FIXES --- */
+        body { background-color: #050505; color: #fff; overflow-x: hidden; margin: 0; }
+        .back-home-wrapper { position: fixed; top: 40px; right: 40px; z-index: 100; }
+        .back-btn { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 30px; transition: all 0.3s ease; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+        .back-btn:hover { background: #fff; color: #000; }
+        @media (max-width: 768px) { .back-home-wrapper { top: 20px; right: 20px; } }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body.dark-theme {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            overflow-x: hidden;
-            /* Verhindert Scrollen, falls die Liste exakt in den Viewport passen soll */
-        }
-
-        /* --- NAVBAR (Minimalistischer Platzhalter für deine bestehende Nav) --- */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 2rem 5vw;
-            display: flex;
-            justify-content: space-between;
-            z-index: 100;
-        }
-        
-        .logo {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 2px;
-            font-size: 1.2rem;
-        }
-
-        .menu-toggle-btn {
-            cursor: pointer;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        /* --- PREMIUM FOOTER CSS --- */
+        .premium-footer { background-color: #050505; color: #ffffff; padding: 100px 24px 40px 24px; font-family: 'Inter', sans-serif; border-top-left-radius: 60px; border-top-right-radius: 60px; box-shadow: 0 -40px 80px rgba(0, 0, 0, 0.5); position: relative; z-index: 10; margin-top: 0; }
+        @media (max-width: 768px) { .premium-footer { border-top-left-radius: 40px; border-top-right-radius: 40px; padding: 60px 16px 40px 16px; margin-top: 0; } }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-contact-area { display: grid; grid-template-columns: 1fr; gap: 60px; padding-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        @media (min-width: 1024px) { .footer-contact-area { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
+        .footer-contact-info h2 { font-weight: 900; line-height: 1.1; margin-bottom: 24px; font-family: 'Inter', sans-serif; font-size: clamp(1.85rem, 4vw, 3rem); }
+        .footer-contact-info h2 .highlight-red { color: #dc2626; font-style: italic; }
+        .footer-contact-info > p { color: #a3a3a3; font-size: 1.125rem; line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
+        .contact-details { font-size: 1.125rem; font-weight: 900; display: flex; flex-direction: column; gap: 16px; }
+        .contact-details p { margin: 0; }
+        .contact-details .red-dot { display: inline-block; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; margin-right: 12px; }
+        .footer-form-card { background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; padding: 40px; backdrop-filter: blur(24px); }
+        @media (max-width: 768px) { .footer-form-card { padding: 30px 20px; border-radius: 24px; } }
+        .footer-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+        .form-group label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: #a3a3a3; text-transform: uppercase; }
+        .footer-input { background-color: rgba(0,0,0,0.4) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; padding: 16px; border-radius: 16px !important; font-family: 'Inter', sans-serif; font-size: 1rem; width: 100%; box-sizing: border-box; }
+        .footer-input:focus { border-color: rgba(220, 38, 38, 0.6) !important; background-color: rgba(0,0,0,0.6) !important; outline: none; }
+        .cta-btn-primary { display: flex; align-items: center; justify-content: center; gap: 12px; background-color: #dc2626 !important; color: white !important; font-weight: 900; font-family: 'Inter', sans-serif; font-size: 1.125rem; padding: 0 40px; height: 64px; border-radius: 20px !important; border: none; cursor: pointer; transition: all 0.3s ease; }
+        .cta-btn-primary:hover { background-color: #b91c1c !important; transform: translateY(-2px); }
+        .footer-links-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 16px; padding: 60px 0; }
+        @media (min-width: 1024px) { .footer-links-section { grid-template-columns: 2fr 1fr 1fr; gap: 80px; } }
+        .footer-brand .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; color: #ffffff; }
+        .footer-brand .brand-icon { width: 32px; height: 32px; border-radius: 8px; }
+        .footer-brand .brand-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+        .footer-brand .brand-name { font-weight: 900; font-size: 1.25rem; }
+        .footer-brand p { color: #a3a3a3; font-size: 0.875rem; font-style: italic; max-width: 300px; margin-bottom: 32px; line-height: 1.6; }
+        .footer-socials-new { display: flex; gap: 12px; }
+        .footer-socials-new a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; transition: all 0.3s; }
+        .footer-socials-new a:hover { background-color: rgba(255,255,255,0.05); color: #dc2626; border-color: rgba(255,255,255,0.2); }
+        .footer-socials-new svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+        .footer-col h3 { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+        .footer-col a { color: #a3a3a3; font-size: 0.875rem; font-weight: 700; text-decoration: none; transition: color 0.2s; }
+        .footer-col a:hover { color: #dc2626; }
+        .footer-bottom { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1); align-items: center; }
+        @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
+        .footer-bottom p { color: #a3a3a3; font-size: 0.875rem; font-weight: 700; margin: 0; }
+        .footer-badge { display: flex; align-items: center; gap: 8px; padding: 6px 16px; background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; }
+        .footer-badge .dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; }
+        .footer-badge span { font-size: 0.625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #d4d4d4; }
 
         /* --- CINEMATIC TEAM SECTION --- */
-        .team-cinematic {
-            position: relative;
-            width: 100vw;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 15vh 5vw 10vh 5vw;
-        }
-
-        /* Background Media (Videos/Images) */
-        .team-media-gallery {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .team-media {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transform: scale(1.05); /* Leichter Zoom-Out Effekt beim Erscheinen */
-            transition: opacity 0.8s ease, transform 1.2s ease;
-        }
-
-        .team-media.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .media-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Harter Gradient, damit der Text links perfekt lesbar bleibt */
-            background: linear-gradient(to right, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.7) 40%, rgba(5,5,5,0.3) 100%);
-            z-index: 1;
-        }
-
-        /* Typography List */
-        .team-list-container {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title-minimal {
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-            margin-bottom: 3rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .red-dot {
-            color: var(--accent-red);
-        }
-
-        .team-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .team-item {
-            position: relative;
-            cursor: pointer;
-            padding: 2rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition-smooth);
-        }
-
-        /* Der fette Name */
-        .team-name {
-            font-size: clamp(3rem, 7vw, 8rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            line-height: 0.9;
-            color: var(--text-muted);
-            transition: var(--transition-smooth);
-            margin: 0;
-        }
-
-        /* Versteckte Infos (Rolle & Text) */
-        .team-info {
-            max-width: 600px;
-            height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transform: translateY(20px);
-            transition: var(--transition-smooth);
-        }
-
-        .team-info .role {
-            display: inline-block;
-            color: var(--accent-red);
-            font-size: 1rem;
-            letter-spacing: 3px;
-            margin: 1.5rem 0 1rem 0;
-            font-weight: 700;
-        }
-
-        .team-info p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: #e0e0e0;
-            font-weight: 300;
-        }
-
-        /* --- HOVER STATES (Die Psychologie greift hier) --- */
-        .team-list:hover .team-name {
-            color: rgba(255, 255, 255, 0.08); /* Dimmt alle anderen Namen ab */
-        }
-
-        .team-list .team-item:hover .team-name {
-            color: var(--text-main);
-            transform: translateX(30px); /* Schiebt den Namen dominant nach rechts */
-        }
-
-        .team-list .team-item:hover .team-info {
-            height: auto;
-            opacity: 1;
-            transform: translateY(0);
-            padding-bottom: 1rem;
-        }
-
-        /* --- HIGH-END FOOTER --- */
-        .footer-modern {
-            background-color: #020202;
-            padding: 4rem 5vw;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            position: relative;
-            z-index: 10;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: end;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-brand h2 {
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-brand p {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 3rem;
-            justify-content: center;
-        }
-
-        .footer-social a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-social a:hover {
-            color: var(--accent-red);
-        }
-
-        .footer-legal {
-            display: flex;
-            gap: 2rem;
-            justify-content: flex-end;
-        }
-
-        .footer-legal a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-legal a:hover {
-            color: var(--text-main);
-        }
-
-        /* Responsive Anpassungen */
-        @media (max-width: 900px) {
-            .team-name { font-size: 4rem; }
-            .team-list .team-item:hover .team-name { transform: translateX(15px); }
-            
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-                text-align: center;
-            }
-            .footer-social, .footer-legal {
-                justify-content: center;
-            }
-        }
+        .team-cinematic { position: relative; width: 100vw; min-height: 100vh; display: flex; align-items: center; padding: 15vh 5vw 10vh 5vw; }
+        .team-media-gallery { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+        .team-media { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.05); transition: opacity 0.8s ease, transform 1.2s ease; }
+        .team-media.active { opacity: 1; transform: scale(1); }
+        .media-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.7) 40%, rgba(5,5,5,0.3) 100%); z-index: 1; }
+        .team-list-container { position: relative; z-index: 2; width: 100%; max-width: 1400px; margin: 0 auto; }
+        .section-title-minimal { font-family: 'Oswald', sans-serif; font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 3rem; font-weight: 600; color: #555; text-transform: uppercase; }
+        .red-dot { color: #ff0000; }
+        .team-list { list-style: none; display: flex; flex-direction: column; padding: 0; }
+        .team-item { position: relative; cursor: pointer; padding: 2rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.6s ease; }
+        .team-name { font-family: 'Inter', sans-serif; font-size: clamp(3rem, 7vw, 8rem); font-weight: 900; text-transform: uppercase; line-height: 0.9; color: #555; transition: all 0.6s ease; margin: 0; letter-spacing: -2px;}
+        .team-info { max-width: 600px; height: 0; opacity: 0; overflow: hidden; transform: translateY(20px); transition: all 0.6s ease; font-family: 'Inter', sans-serif; }
+        .team-info .role { display: inline-block; color: #ff0000; font-size: 1rem; letter-spacing: 3px; margin: 1.5rem 0 1rem 0; font-weight: 700; text-transform: uppercase; }
+        .team-info p { font-size: 1.2rem; line-height: 1.6; color: #e0e0e0; font-weight: 300; margin: 0; }
+        
+        .team-list:hover .team-name { color: rgba(255, 255, 255, 0.08); }
+        .team-list .team-item:hover .team-name { color: #ffffff; transform: translateX(30px); }
+        .team-list .team-item:hover .team-info { height: auto; opacity: 1; transform: translateY(0); padding-bottom: 1rem; }
+        @media (max-width: 900px) { .team-list .team-item:hover .team-name { transform: translateX(15px); } }
     </style>
 </head>
-<body class="dark-theme">
+<body>
 
-    <nav class="navbar">
-        <a href="#" class="logo">WESTROOMZ</a>
-        <div class="menu-toggle-btn">MENU</div>
-    </nav>
+    <div class="menu-toggle-btn interactive" onclick="toggleMenu()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    
+    <div class="back-home-wrapper"><a href="index.html" class="back-btn interactive">CLOSE [X]</a></div>
 
-    <main class="page-content">
+    <div class="side-menu">
+        <div>
+            <div class="side-logo"><img src="logo.jpg" alt="WESTROOMZ" style="width: 50px; border-radius: 8px;"></div>
+            <div class="menu-links">
+                <a href="index.html#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
+                <a href="index.html#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="team.html" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="index.html#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+                <a href="index.html#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
+                <a href="index.html#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+             <a href="impressum.html" class="interactive">IMPRESSUM</a>
+             <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+             <a href="agb.html" class="interactive">AGB</a>
+             <span>© 2026 WESTROOMZ</span>
+        </div>
+    </div>
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <main class="page-wrapper">
         <section class="team-cinematic">
             
             <div class="team-media-gallery">
-                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop" class="team-media" id="media-fabian" alt="Video">
-                <img src="https://images.unsplash.com/photo-1516280440502-61a7eddb25d4?q=80&w=2070&auto=format&fit=crop" class="team-media" id="media-tomke" alt="Songwriting">
-                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop" class="team-media" id="media-adnan" alt="Produktion">
-                <img src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2070&auto=format&fit=crop" class="team-media" id="media-noah" alt="Technik">
+                <img src="team-fabian.jpg" class="team-media active" id="media-fabian" alt="Fabian" onerror="this.src='https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop'">
+                <img src="team-tomke.jpg" class="team-media" id="media-tomke" alt="Tomke" onerror="this.src='https://images.unsplash.com/photo-1516280440502-61a7eddb25d4?q=80&w=2070&auto=format&fit=crop'">
+                <img src="team-adnan.jpg" class="team-media" id="media-adnan" alt="Adnan" onerror="this.src='https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop'">
+                <img src="team-noah.jpg" class="team-media" id="media-noah" alt="Noah" onerror="this.src='https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2070&auto=format&fit=crop'">
                 <div class="media-overlay"></div>
             </div>
 
@@ -296,7 +129,6 @@
                 <h1 class="section-title-minimal">DAS TEAM<span class="red-dot">.</span></h1>
 
                 <ul class="team-list" id="teamList">
-                    
                     <li class="team-item" data-target="media-fabian">
                         <h2 class="team-name">FABIAN EBONG</h2>
                         <div class="team-info">
@@ -304,7 +136,6 @@
                             <p>Visuelle Gewalt. Fabian übersetzt Sound in Bilder. Mit fundierter Erfahrung in Mediendesign erschafft er Identitäten, die im Kopf bleiben – von der Videografie bis zur Eventpromotion.</p>
                         </div>
                     </li>
-
                     <li class="team-item" data-target="media-tomke">
                         <h2 class="team-name">TOMKE PETERSEN</h2>
                         <div class="team-info">
@@ -312,7 +143,6 @@
                             <p>Die Architektur des Songs. Tomke formt die DNA jeder Produktion. Er verbindet kreative Visionen mit strategischer Organisation und steuert die administrative Kraft hinter den Kulissen.</p>
                         </div>
                     </li>
-
                     <li class="team-item" data-target="media-adnan">
                         <h2 class="team-name">ADNAN KRASNIQI</h2>
                         <div class="team-info">
@@ -320,7 +150,6 @@
                             <p>Audio-Alchemie. Adnan verschmilzt Industrieerfahrung mit modernsten, KI-gestützten Workflows. Sein Fokus: Producing, Recording und das ständige Pushen von Grenzen.</p>
                         </div>
                     </li>
-
                     <li class="team-item" data-target="media-noah">
                         <h2 class="team-name">NOAH WINNEMÖLLER</h2>
                         <div class="team-info">
@@ -328,30 +157,85 @@
                             <p>Der Raumformer. Sound ist keine Technik, sondern Emotion. Noah beherrscht das Spektrum von Film-Recording bis Live-Audio und bringt komplexe Produktionskonzepte in die Realität.</p>
                         </div>
                     </li>
-
                 </ul>
             </div>
         </section>
+
+        <footer class="premium-footer" id="contact">
+            <div class="footer-container">
+                <div class="footer-contact-area">
+                    <div class="footer-contact-info">
+                        <h2>Lass uns etwas <br><span class="highlight-red">Großartiges</span> erschaffen.</h2>
+                        <p>Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.</p>
+                        <div class="contact-details"><p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p></div>
+                    </div>
+                    <div class="footer-form-card">
+                        <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
+                            <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
+                            <input type="hidden" name="_next" value="https://westroomz.de/index.html">
+                            <input type="hidden" name="_captcha" value="false">
+                            
+                            <div class="form-group">
+                                <label>ABTEILUNG</label>
+                                <select id="department" name="abteilung" class="interactive footer-input">
+                                    <option value="General">Allgemeine Anfrage</option>
+                                    <option value="Audio">Audio</option>
+                                    <option value="Video">Video</option>
+                                    <option value="Event">Eventplanung</option>
+                                    <option value="Marketing">Marketing</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>NAME</label><input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Dein Name"></div>
+                            <div class="form-group"><label>E-MAIL</label><input type="email" id="email" name="email" class="interactive footer-input" required placeholder="deine@email.de"></div>
+                            <div class="form-group"><label>PROJEKT</label><input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Kurze Projektbeschreibung..."></div>
+                            <div class="form-group"><label>NACHRICHT</label><textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea></div>
+                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%;">
+                                Anfrage senden <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="footer-links-section">
+                    <div class="footer-brand">
+                        <a href="index.html" class="brand-logo interactive">
+                            <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo" onerror="this.src='https://via.placeholder.com/32'"></div>
+                            <span class="brand-name">WESTROOMZ</span>
+                        </a>
+                        <p>Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
+                        <div class="footer-socials-new">
+                            <a href="https://www.instagram.com/westroomz_studio/" target="_blank" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                            <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                            <a href="mailto:info@westroomz.de" class="interactive" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index.html#hero" class="interactive">Startseite</a></li>
+                            <li><a href="index.html#vision" class="interactive">Vision</a></li>
+                            <li><a href="index.html#services" class="interactive">Was wir tun</a></li>
+                            <li><a href="index.html#references" class="interactive">Referenzen</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Rechtliches</h3>
+                        <ul>
+                            <li><a href="impressum.html" class="interactive">Impressum</a></li>
+                            <li><a href="datenschutz.html" class="interactive">Datenschutz</a></li>
+                            <li><a href="agb.html" class="interactive">AGB</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 WESTROOMZ. Alle Rechte vorbehalten.</p>
+                    <div class="footer-badge"><div class="dot"></div><span>Made in Germany 🇩🇪</span></div>
+                </div>
+            </div>
+        </footer>
     </main>
 
-    <footer class="footer-modern">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h2>WESTROOMZ</h2>
-                <p>© 2026. ALLE RECHTE VORBEHALTEN.</p>
-            </div>
-            <div class="footer-social">
-                <a href="#">INSTAGRAM</a>
-                <a href="#">LINKEDIN</a>
-            </div>
-            <div class="footer-legal">
-                <a href="#">IMPRESSUM</a>
-                <a href="#">DATENSCHUTZ</a>
-                <a href="#">AGB</a>
-            </div>
-        </div>
-    </footer>
-
+    <script src="js/main.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const teamItems = document.querySelectorAll(".team-item");
@@ -360,23 +244,20 @@
             teamItems.forEach(item => {
                 item.addEventListener("mouseenter", () => {
                     const targetId = item.getAttribute("data-target");
-                    
-                    mediaItems.forEach(media => {
-                        media.classList.remove("active");
-                    });
-
+                    mediaItems.forEach(media => media.classList.remove("active"));
                     const targetMedia = document.getElementById(targetId);
-                    if (targetMedia) {
-                        targetMedia.classList.add("active");
-                    }
+                    if (targetMedia) targetMedia.classList.add("active");
                 });
             });
-            
-            // Optional: Erstes Bild standardmäßig aktivieren
-            if(mediaItems.length > 0) {
-                mediaItems[0].classList.add("active");
-            }
         });
+        
+        // Simples Fallback, falls die toggleMenu Funktion im main.js hier nicht greift
+        function toggleMenu() {
+            const sideMenu = document.querySelector('.side-menu');
+            const overlay = document.querySelector('.menu-overlay');
+            if(sideMenu) sideMenu.classList.toggle('active');
+            if(overlay) overlay.classList.toggle('active');
+        }
     </script>
 </body>
 </html>
