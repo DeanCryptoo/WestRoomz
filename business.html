@@ -46,221 +46,58 @@
         /* =========================================
            PERFORMANCE OPTIMIERTE 100K CANVAS SECTION
            ========================================= */
-        .liquid-section {
-            position: relative;
-            width: 100vw;
-            min-height: 100vh;
-            background-color: #050505 !important;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            padding: 120px 40px;
-            margin: 60px 0;
-            cursor: none; 
-            transform: translateZ(0); /* Hardware Acceleration erzwingen */
-        }
+        .liquid-section { position: relative; width: 100vw; min-height: 100vh; background-color: #050505 !important; display: flex; align-items: center; overflow: hidden; padding: 120px 40px; margin: 60px 0; cursor: none; transform: translateZ(0); }
         @media (max-width: 768px) { .liquid-section { padding: 80px 20px; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 80vh; cursor: auto; } }
 
-        .liquid-bg-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        
-        .liquid-bg-container::after {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at 70% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 50%);
-            mix-blend-mode: screen; z-index: 2; pointer-events: none;
-        }
-
-        .l-img {
-            position: absolute;
-            top: -5%; left: -5%;
-            width: 110%; height: 110%;
-            object-fit: cover;
-            opacity: 0;
-            filter: brightness(0.5) blur(0px);
-            transform: scale(1.05) translateZ(0); /* GPU Rendering an */
-            will-change: transform, opacity, filter;
-            z-index: 1;
-        }
+        .liquid-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .liquid-bg-container::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 50%); mix-blend-mode: screen; z-index: 2; pointer-events: none; }
+        .l-img { position: absolute; top: -5%; left: -5%; width: 110%; height: 110%; object-fit: cover; opacity: 0; filter: brightness(0.5) blur(0px); transform: scale(1.05) translateZ(0); will-change: transform, opacity, filter; z-index: 1; }
         .l-img.default-bg { opacity: 0.3; filter: brightness(0.4) blur(0px); }
 
-        .liquid-content {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .liquid-content { position: relative; z-index: 10; width: 100%; max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         @media (max-width: 1024px) { .liquid-content { flex-direction: column; align-items: flex-start; gap: 60px; } }
 
-        .liquid-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 50%;
-        }
+        .liquid-nav { display: flex; flex-direction: column; gap: 15px; width: 50%; }
         @media (max-width: 1024px) { .liquid-nav { width: 100%; } }
 
-        .l-nav-item {
-            display: flex;
-            align-items: baseline;
-            gap: 30px;
-            cursor: none; 
-            text-decoration: none;
-            padding: 10px 0;
-            position: relative;
-        }
+        .l-nav-item { display: flex; align-items: baseline; gap: 30px; cursor: none; text-decoration: none; padding: 10px 0; position: relative; outline: none; }
         @media (max-width: 768px) { .l-nav-item { cursor: pointer; gap: 15px; } }
 
-        .l-num {
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #4a4a4a;
-            transition: color 0.4s ease;
-        }
-
-        .l-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: clamp(3rem, 6vw, 7rem);
-            font-weight: 600;
-            line-height: 0.9;
-            text-transform: uppercase;
-            margin: 0;
-            color: transparent !important;
-            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform;
-        }
+        .l-num { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #4a4a4a; transition: color 0.4s ease; }
+        .l-title { font-family: 'Oswald', sans-serif; font-size: clamp(3rem, 6vw, 7rem); font-weight: 600; line-height: 0.9; text-transform: uppercase; margin: 0; color: transparent !important; -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
 
         .l-nav-item:hover .l-num, .l-nav-item.is-active .l-num { color: #dc2626; }
-        .l-nav-item:hover .l-title, .l-nav-item.is-active .l-title {
-            color: #ffffff !important;
-            -webkit-text-stroke: 1.5px #ffffff;
-            transform: translateX(30px) translateZ(0);
-            text-shadow: 0 0 40px rgba(255,255,255,0.3);
-        }
+        .l-nav-item:hover .l-title, .l-nav-item.is-active .l-title { color: #ffffff !important; -webkit-text-stroke: 1.5px #ffffff; transform: translateX(30px) translateZ(0); text-shadow: 0 0 40px rgba(255,255,255,0.3); }
         @media (max-width: 768px) { .l-nav-item:hover .l-title, .l-nav-item.is-active .l-title { transform: translateX(15px); } }
 
-        @media (min-width: 1025px) {
-            .liquid-nav:hover .l-nav-item:not(:hover) .l-title {
-                -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.1);
-                transform: translateX(-10px) translateZ(0);
-            }
-        }
+        @media (min-width: 1025px) { .liquid-nav:hover .l-nav-item:not(:hover) .l-title { -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.1); transform: translateX(-10px) translateZ(0); } }
 
-        .liquid-info {
-            width: 40%;
-            max-width: 500px;
-            position: relative;
-            min-height: 250px;
-        }
+        .liquid-info { width: 40%; max-width: 500px; position: relative; min-height: 250px; }
         @media (max-width: 1024px) { .liquid-info { width: 100%; min-height: 200px; } }
 
-        .l-info-block {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translate3d(40px, -50%, 0);
-            opacity: 0;
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, opacity;
-        }
-        .l-info-block.is-active {
-            opacity: 1;
-            transform: translate3d(0, -50%, 0);
-            pointer-events: auto;
-        }
+        .l-info-block { position: absolute; top: 50%; left: 0; transform: translate3d(40px, -50%, 0); opacity: 0; pointer-events: none; display: flex; flex-direction: column; gap: 24px; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
+        .l-info-block.is-active { opacity: 1; transform: translate3d(0, -50%, 0); pointer-events: auto; }
 
-        .l-info-block h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            color: #dc2626 !important;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin: 0;
-            font-weight: 700;
-        }
+        .l-info-block h4 { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: #dc2626 !important; letter-spacing: 3px; text-transform: uppercase; margin: 0; font-weight: 700; }
+        .l-info-block p { font-family: 'Inter', sans-serif; font-size: clamp(1.125rem, 1.5vw, 1.25rem); line-height: 1.6; color: rgba(255, 255, 255, 0.8) !important; margin: 0; }
 
-        .l-info-block p {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.125rem, 1.5vw, 1.25rem);
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8) !important;
-            margin: 0;
-        }
-
-        .l-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background-color: transparent;
-            color: #ffffff !important;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 16px 0;
-            border-bottom: 2px solid rgba(255,255,255,0.2);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            width: max-content;
-            cursor: none; 
-        }
+        .l-btn { display: inline-flex; align-items: center; gap: 12px; background-color: transparent; color: #ffffff !important; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 0; border-bottom: 2px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.3s ease; width: max-content; cursor: none; }
         @media (max-width: 768px) { .l-btn { cursor: pointer; } }
         .l-btn:hover { border-bottom-color: #dc2626; padding-left: 10px; }
         .l-btn svg { width: 18px; height: 18px; color: #dc2626; transition: transform 0.3s; }
         .l-btn:hover svg { transform: translateX(5px); }
 
         /* Optimierter Cursor */
-        .cursor-wrapper {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            pointer-events: none;
-            z-index: 9999;
-            overflow: hidden;
-            display: none; /* Nur an, wenn nötig */
-        }
-        .cursor-dot {
-            position: absolute; top: 0; left: 0; width: 12px; height: 12px;
-            background: #dc2626; border-radius: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            transition: width 0.3s, height 0.3s, background 0.3s;
-            will-change: transform;
-            opacity: 0; 
-        }
-        .cursor-ring {
-            position: absolute; top: 0; left: 0; width: 40px; height: 40px;
-            border: 1px solid rgba(220, 38, 38, 0.5); border-radius: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            transition: width 0.3s, height 0.3s;
-            will-change: transform;
-            opacity: 0;
-        }
-        
+        .cursor-wrapper { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; overflow: hidden; display: none; }
+        .cursor-dot { position: absolute; top: 0; left: 0; width: 12px; height: 12px; background: #dc2626; border-radius: 50%; transform: translate3d(-50%, -50%, 0); transition: width 0.3s, height 0.3s, background 0.3s; will-change: transform; opacity: 0; }
+        .cursor-ring { position: absolute; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid rgba(220, 38, 38, 0.5); border-radius: 50%; transform: translate3d(-50%, -50%, 0); transition: width 0.3s, height 0.3s; will-change: transform; opacity: 0; }
         .liquid-section.mouse-inside ~ .cursor-wrapper { display: block; }
-        .liquid-section.mouse-inside ~ .cursor-wrapper .cursor-dot, 
-        .liquid-section.mouse-inside ~ .cursor-wrapper .cursor-ring { opacity: 1; }
-        
+        .liquid-section.mouse-inside ~ .cursor-wrapper .cursor-dot, .liquid-section.mouse-inside ~ .cursor-wrapper .cursor-ring { opacity: 1; }
         .liquid-section.is-hovering ~ .cursor-wrapper .cursor-dot { width: 80px; height: 80px; background: rgba(220, 38, 38, 0.9); display: flex; justify-content: center; align-items: center;}
         .liquid-section.is-hovering ~ .cursor-wrapper .cursor-dot::after { content: 'EXPLORE'; font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 900; letter-spacing: 1px; color: white;}
         .liquid-section.is-hovering ~ .cursor-wrapper .cursor-ring { opacity: 0; }
 
-        /* === REST DEINES CSS (Vision, Stats, Dashboard, Footer etc.) === */
+        /* === REST DEINES CSS === */
         .premium-cta-section { width: 100%; padding: 100px 24px 80px 24px; margin: 0; background-color: #ffffff; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; z-index: 10; }
         @media (max-width: 768px) { .premium-cta-section { padding: 80px 16px 80px 16px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; } }
         .cta-bg-glow-top { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.5), transparent); }
@@ -485,10 +322,10 @@
         <div>
             <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
             <div class="menu-links">
-                <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
-                <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
-                <a href="impressum.html#team" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
-                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+                <a href="index.html#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
+                <a href="index.html#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="team.html" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="index.html#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
                 <a href="upcoming.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
                 <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
                 <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
@@ -601,19 +438,19 @@
 
             <div class="liquid-content">
                 <div class="liquid-nav">
-                    <a href="#" class="l-nav-item" data-id="strategy">
+                    <a href="javascript:void(0);" class="l-nav-item" data-id="strategy">
                         <span class="l-num">01</span>
                         <h3 class="l-title">STRATEGY</h3>
                     </a>
-                    <a href="#" class="l-nav-item" data-id="production">
+                    <a href="javascript:void(0);" class="l-nav-item" data-id="production">
                         <span class="l-num">02</span>
                         <h3 class="l-title">PRODUCTION</h3>
                     </a>
-                    <a href="#" class="l-nav-item" data-id="digital">
+                    <a href="javascript:void(0);" class="l-nav-item" data-id="digital">
                         <span class="l-num">03</span>
                         <h3 class="l-title">DIGITAL</h3>
                     </a>
-                    <a href="#" class="l-nav-item" data-id="performance">
+                    <a href="javascript:void(0);" class="l-nav-item" data-id="performance">
                         <span class="l-num">04</span>
                         <h3 class="l-title">PERFORMANCE</h3>
                     </a>
@@ -623,26 +460,27 @@
                     <div class="l-info-block" data-info="strategy">
                         <h4>Architektur des Erfolgs</h4>
                         <p>Wir übersetzen unternehmerische Ziele in klare Kommunikations- und Kampagnenstrategien. Keine Platzpatronen, nur messbarer Impact auf höchstem Niveau.</p>
-                        <a href="strategy.html" class="l-btn">System entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <a href="strategy.html" class="l-btn interactive">System entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="production">
                         <h4>Cinematic Execution</h4>
                         <p>Wir realisieren Produktionen, die Marken glaubwürdig präsentieren – mit klarer Inszenierung, professioneller Umsetzung und absolutem High-End Qualitätsanspruch.</p>
-                        <a href="production.html" class="l-btn">Reels ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <a href="production.html" class="l-btn interactive">Reels ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="digital">
                         <h4>Digitale Ökosysteme</h4>
                         <p>Wir gestalten digitale Präsenzen, die Unternehmen über alle relevanten Kanäle hinweg professionell darstellen. Fließend, performant, fehlerfrei.</p>
-                        <a href="digital.html" class="l-btn">Portfolio ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <a href="digital.html" class="l-btn interactive">Portfolio ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="performance">
                         <h4>Data-Driven Scaling</h4>
                         <p>Wir verbinden Ad-Strategien, Datenanalyse und gezielte Ausspielung zu einem streng kontrollierten und hochprofitablen Performance-System.</p>
-                        <a href="performance.html" class="l-btn">Zahlen analysieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <a href="performance.html" class="l-btn interactive">Zahlen analysieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                 </div>
             </div>
         </section>
+
         <section class="saas-dashboard-wrapper" id="market-proof">
             <div class="dash-header">
                 <div class="dash-header-center">
@@ -895,7 +733,7 @@
 
                 <div class="footer-links-section">
                     <div class="footer-brand">
-                        <a href="#hero" class="brand-logo interactive">
+                        <a href="index.html#hero" class="brand-logo interactive">
                             <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
@@ -909,10 +747,10 @@
                     <div class="footer-col">
                         <h3>Navigation</h3>
                         <ul>
-                            <li><a href="#hero" class="interactive">Startseite</a></li>
-                            <li><a href="#vision" class="interactive">Vision</a></li>
-                            <li><a href="#services" class="interactive">Was wir tun</a></li>
-                            <li><a href="#references" class="interactive">Referenzen</a></li>
+                            <li><a href="index.html#hero" class="interactive">Startseite</a></li>
+                            <li><a href="index.html#vision" class="interactive">Vision</a></li>
+                            <li><a href="index.html#services" class="interactive">Was wir tun</a></li>
+                            <li><a href="index.html#references" class="interactive">Referenzen</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -951,7 +789,6 @@
                 
                 if (liquidSection) {
                     
-                    // Hardware beschleunigter Custom Cursor über translate3d
                     if (!isTouchDevice) {
                         liquidSection.addEventListener('mouseenter', () => liquidSection.classList.add('mouse-inside'));
                         liquidSection.addEventListener('mouseleave', () => liquidSection.classList.remove('mouse-inside'));
@@ -969,7 +806,6 @@
                                 dotX += (mouseX - dotX) * 0.2; dotY += (mouseY - dotY) * 0.2;
                                 ringX += (mouseX - ringX) * 0.1; ringY += (mouseY - ringY) * 0.1;
                                 
-                                // GPU beschleunigtes positioning
                                 cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
                                 cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
                             }
@@ -978,7 +814,6 @@
                         renderCursor();
                     }
 
-                    // Hover Logik für die Nav Elemente
                     navItems.forEach(item => {
                         if (!isTouchDevice) {
                             item.addEventListener('mouseenter', () => liquidSection.classList.add('is-hovering'));
@@ -988,7 +823,8 @@
                         const eventType = isTouchDevice ? 'click' : 'mouseenter';
                         
                         item.addEventListener(eventType, function(e) {
-                            if(isTouchDevice) e.preventDefault();
+                            // Verhindert das Standard-Verhalten (Sprung) komplett
+                            e.preventDefault();
 
                             const targetId = this.getAttribute('data-id');
                             
@@ -1003,10 +839,8 @@
                                 }
                             });
 
-                            // Performance optimierter Bildwechsel (Blur zu Sharp anstelle von SVG Filter)
                             images.forEach(img => {
                                 if(img.getAttribute('data-target') === targetId) {
-                                    // Bild faded ein, skaliert sanft runter und wird von starkem Blur komplett scharf (Camera Focus Effekt)
                                     gsap.fromTo(img, 
                                         { opacity: 0, scale: 1.1, filter: "brightness(0.8) blur(30px)" },
                                         { opacity: 1, scale: 1, filter: "brightness(0.5) blur(0px)", duration: 1.2, ease: "power3.out" }
@@ -1018,7 +852,6 @@
                         });
                     });
 
-                    // Reset bei Verlassen (nur Desktop)
                     if (!isTouchDevice) {
                         const liquidNav = document.querySelector('.liquid-nav');
                         liquidNav.addEventListener('mouseleave', () => {
