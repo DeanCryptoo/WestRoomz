@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -56,7 +56,7 @@
         .liquid-content { position: relative; z-index: 10; width: 100%; max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         @media (max-width: 1024px) { .liquid-content { flex-direction: column; align-items: flex-start; gap: 60px; } }
 
-        .liquid-nav { display: flex; flex-direction: column; gap: 15px; width: 50%; }
+        .liquid-nav { display: flex; flex-direction: column; gap: 15px; width: 50%; z-index: 15;}
         @media (max-width: 1024px) { .liquid-nav { width: 100%; } }
 
         .l-nav-item { display: flex; align-items: baseline; gap: 30px; cursor: pointer; text-decoration: none; padding: 10px 0; position: relative; outline: none; }
@@ -71,16 +71,18 @@
 
         @media (min-width: 1025px) { .liquid-nav:hover .l-nav-item:not(:hover):not(.is-active) .l-title { -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.1); transform: translateX(-10px) translateZ(0); } }
 
-        .liquid-info { width: 40%; max-width: 500px; position: relative; min-height: 250px; pointer-events: none;}
+        /* FIX: pointer-events: none entfernt, damit die Links im Info-Block klickbar sind */
+        .liquid-info { width: 40%; max-width: 500px; position: relative; min-height: 250px; z-index: 20;}
         @media (max-width: 1024px) { .liquid-info { width: 100%; min-height: 200px; } }
 
+        /* FIX: pointer-events: none auf die nicht aktiven Blöcke, pointer-events: auto auf den aktiven Block */
         .l-info-block { position: absolute; top: 50%; left: 0; transform: translate3d(40px, -50%, 0); opacity: 0; pointer-events: none; display: flex; flex-direction: column; gap: 24px; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
         .l-info-block.is-active { opacity: 1; transform: translate3d(0, -50%, 0); pointer-events: auto; }
 
         .l-info-block h4 { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: #dc2626 !important; letter-spacing: 3px; text-transform: uppercase; margin: 0; font-weight: 700; }
         .l-info-block p { font-family: 'Inter', sans-serif; font-size: clamp(1.125rem, 1.5vw, 1.25rem); line-height: 1.6; color: rgba(255, 255, 255, 0.8) !important; margin: 0; }
 
-        .l-btn { display: inline-flex; align-items: center; gap: 12px; background-color: transparent; color: #ffffff !important; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 0; border-bottom: 2px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.3s ease; width: max-content; cursor: pointer; pointer-events: auto;}
+        .l-btn { display: inline-flex; align-items: center; gap: 12px; background-color: transparent; color: #ffffff !important; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 0; border-bottom: 2px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.3s ease; width: max-content; cursor: pointer; position: relative; z-index: 30;}
         .l-btn:hover { border-bottom-color: #dc2626; padding-left: 10px; }
         .l-btn svg { width: 18px; height: 18px; color: #dc2626; transition: transform 0.3s; }
         .l-btn:hover svg { transform: translateX(5px); }
@@ -319,11 +321,11 @@
         <div>
             <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ"></div>
             <div class="menu-links">
-                <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
-                <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="index-en.html#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
+                <a href="index-en.html#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
                 <a href="team-en.html" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
-                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">SERVICES</a>
-                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENCES</a>
+                <a href="index-en.html#services" class="menu-link interactive" onclick="toggleMenu()">SERVICES</a>
+                <a href="index-en.html#references" class="menu-link interactive" onclick="toggleMenu()">REFERENCES</a>
                 <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">CONTACT</a>
             </div>
         </div>
@@ -742,10 +744,10 @@
                     <div class="footer-col">
                         <h3>Navigation</h3>
                         <ul>
-                            <li><a href="#hero" class="interactive">Home</a></li>
-                            <li><a href="#vision" class="interactive">Vision</a></li>
-                            <li><a href="#services" class="interactive">What we do</a></li>
-                            <li><a href="#references" class="interactive">References</a></li>
+                            <li><a href="index-en.html#hero" class="interactive">Home</a></li>
+                            <li><a href="index-en.html#vision" class="interactive">Vision</a></li>
+                            <li><a href="index-en.html#services" class="interactive">What we do</a></li>
+                            <li><a href="index-en.html#references" class="interactive">References</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -773,7 +775,6 @@
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
-                // === LIQUID CANVAS LOGIK (KLICK-BASIERT FIX) ===
                 const liquidSection = document.querySelector('.liquid-section');
                 const cursorDot = document.querySelector('.cursor-dot');
                 const cursorRing = document.querySelector('.cursor-ring');
@@ -784,31 +785,31 @@
                 
                 if (liquidSection) {
                     
-                    // Maus-Follower Effekt bleibt erhalten
-                    liquidSection.addEventListener('mouseenter', () => liquidSection.classList.add('mouse-inside'));
-                    liquidSection.addEventListener('mouseleave', () => liquidSection.classList.remove('mouse-inside'));
+                    if (!isTouchDevice) {
+                        liquidSection.addEventListener('mouseenter', () => liquidSection.classList.add('mouse-inside'));
+                        liquidSection.addEventListener('mouseleave', () => liquidSection.classList.remove('mouse-inside'));
 
-                    let mouseX = window.innerWidth / 2; let mouseY = window.innerHeight / 2;
-                    let dotX = mouseX; let dotY = mouseY;
-                    let ringX = mouseX; let ringY = mouseY;
+                        let mouseX = window.innerWidth / 2; let mouseY = window.innerHeight / 2;
+                        let dotX = mouseX; let dotY = mouseY;
+                        let ringX = mouseX; let ringY = mouseY;
 
-                    liquidSection.addEventListener('mousemove', (e) => {
-                        mouseX = e.clientX; mouseY = e.clientY;
-                    });
+                        liquidSection.addEventListener('mousemove', (e) => {
+                            mouseX = e.clientX; mouseY = e.clientY;
+                        });
 
-                    function renderCursor() {
-                        if(liquidSection.classList.contains('mouse-inside')) {
-                            dotX += (mouseX - dotX) * 0.2; dotY += (mouseY - dotY) * 0.2;
-                            ringX += (mouseX - ringX) * 0.1; ringY += (mouseY - ringY) * 0.1;
-                            
-                            cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
-                            cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+                        function renderCursor() {
+                            if(liquidSection.classList.contains('mouse-inside')) {
+                                dotX += (mouseX - dotX) * 0.2; dotY += (mouseY - dotY) * 0.2;
+                                ringX += (mouseX - ringX) * 0.1; ringY += (mouseY - ringY) * 0.1;
+                                
+                                cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+                                cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+                            }
+                            requestAnimationFrame(renderCursor);
                         }
-                        requestAnimationFrame(renderCursor);
+                        renderCursor();
                     }
-                    renderCursor();
 
-                    // FIX: Rein Klick-basiert! Der Bereich bleibt offen, bis man auf ein anderes Wort klickt
                     navItems.forEach(item => {
                         item.addEventListener('click', function(e) {
                             e.preventDefault();
@@ -840,7 +841,6 @@
                     });
                 }
 
-                // === RESTLICHE GSAP ANIMATIONEN ===
                 const blurOverlay = document.querySelector('.gradual-blur-bottom'); 
                 if(blurOverlay) {
                     ScrollTrigger.create({ trigger: "#vision", start: "top 95%", onEnter: () => blurOverlay.style.opacity = '1', onLeaveBack: () => blurOverlay.style.opacity = '0' });
@@ -895,7 +895,6 @@
                 });
             }
 
-            // === TOGGLE LOGIC ===
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
