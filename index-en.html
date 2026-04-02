@@ -232,7 +232,7 @@
                 <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
                 <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
                 <a href="team-en.html" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
-                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">SERVICES</a>
+                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
                 <a href="upcoming-en.html" class="menu-link interactive" onclick="toggleMenu()">UPCOMING</a>
                 <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENCES</a>
                 <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">CONTACT</a>
@@ -240,7 +240,7 @@
         </div>
         <div class="sidebar-footer">
              <a href="impressum-en.html" class="interactive">IMPRINT</a>
-             <a href="datenschutz-en.html" class="interactive">PRIVACY POLICY</a>
+             <a href="datenschutz-en.html" class="interactive">PRIVACY</a>
              <a href="agb-en.html" class="interactive">TERMS</a>
              <span>© 2026 WESTROOMZ</span>
         </div>
@@ -277,7 +277,7 @@
                 
                 <div class="vision-text-integrated">
                     <p class="lead-text-integrated">
-                        We combine <span class="highlight-ruby">audio, video, events, and marketing</span> into a ruthlessly efficient system.
+                        We combine <span class="highlight-ruby">audio, video, events, and marketing</span> into a relentlessly efficient system.
                     </p>
                     <p class="sub-text-integrated">
                         For artists, creators, and brands who don't just want to execute ideas, but dominate the market.
@@ -325,7 +325,7 @@
                         <div class="pillar-title-vertical">AUDIO</div>
                         <div class="pillar-details">
                             <h3 class="pillar-punchline">YOUR SOUND.<br><span class="highlight-red">YOUR WEAPON.</span></h3>
-                            <p>A strong sound determines whether you are ignored or celebrated. We deliver punch, clarity, and recordings that stick in your head.</p>
+                            <p>A powerful sound decides whether you're ignored or celebrated. We deliver pressure, clarity, and recordings that stick in the mind.</p>
                             <a href="audio-en.html" class="premium-pillar-btn transition-link">DISCOVER PORTFOLIO <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                         </div>
                     </div>
@@ -338,21 +338,21 @@
                         <div class="pillar-title-vertical">VIDEO</div>
                         <div class="pillar-details">
                             <h3 class="pillar-punchline">YOUR LOOK<br><span class="highlight-red">DECIDES.</span></h3>
-                            <p>You only have fractions of a second. We produce videos and content that grab attention, hold it, and never let go.</p>
+                            <p>You only have split seconds. We produce videos and content that grab attention, hold it, and never let go.</p>
                             <a href="video-en.html" class="premium-pillar-btn transition-link">WATCH SHOWREEL <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                         </div>
                     </div>
                 </article>
 
-                <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='2events-en.html'">
+                <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='events-en.html'">
                     <div class="pillar-image-bg" style="background-image: url('WR_Events.jpg');"></div>
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
                         <div class="pillar-title-vertical">EVENTS</div>
                         <div class="pillar-details">
-                            <h3 class="pillar-punchline">CONTROL<br><span class="highlight-red">OVER CHAOS.</span></h3>
+                            <h3 class="pillar-punchline">CONTROL<br><span class="highlight-red">INSTEAD OF CHAOS.</span></h3>
                             <p>Your event is only as good as its execution. We deliver the sound, lighting, and structure to ensure everything runs exactly as planned.</p>
-                            <a href="2events-en.html" class="premium-pillar-btn transition-link">VIEW CASE STUDIES <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            <a href="events-en.html" class="premium-pillar-btn transition-link">OPEN CASE STUDIES <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                         </div>
                     </div>
                 </article>
@@ -365,7 +365,7 @@
                         <div class="pillar-details">
                             <h3 class="pillar-punchline">VISIBILITY<br><span class="highlight-red">IS NO ACCIDENT.</span></h3>
                             <p>Great content is useless if nobody sees it. We combine creation with ruthless strategy so you aren't just seen, but grow.</p>
-                            <a href="marketing-en.html" class="premium-pillar-btn transition-link">TO STRATEGY <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            <a href="marketing-en.html" class="premium-pillar-btn transition-link">VIEW STRATEGY <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
                         </div>
                     </div>
                 </article>
@@ -531,7 +531,6 @@
             let mm = gsap.matchMedia();
             mm.add("(max-width: 1024px)", () => {
                 const pillars = document.querySelectorAll('.service-pillar');
-                // Removed the auto-expand line here!
                 pillars.forEach(pillar => {
                     pillar.addEventListener('click', function(e) {
                         if(e.target.closest('.premium-pillar-btn')) return;
@@ -544,7 +543,6 @@
                 document.querySelectorAll('.service-pillar').forEach(p => p.classList.remove('is-expanded'));
             });
 
-            // Hero Text Fade In (No Video)
             const heroText = document.querySelector(".hero-sub");
             if(heroText) {
                 gsap.fromTo(heroText, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power2.out" });
