@@ -59,7 +59,8 @@
         .liquid-nav { display: flex; flex-direction: column; gap: 15px; width: 50%; z-index: 15;}
         @media (max-width: 1024px) { .liquid-nav { width: 100%; } }
 
-        .l-nav-item { display: flex; align-items: baseline; gap: 30px; cursor: pointer; text-decoration: none; padding: 10px 0; position: relative; outline: none; }
+        /* FIX: user-select hinzugefügt, um Markieren zu verhindern */
+        .l-nav-item { display: flex; align-items: baseline; gap: 30px; cursor: pointer; text-decoration: none; padding: 10px 0; position: relative; outline: none; user-select: none; -webkit-user-select: none; }
         @media (max-width: 768px) { .l-nav-item { gap: 15px; } }
 
         .l-num { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #4a4a4a; transition: color 0.4s ease; }
@@ -71,22 +72,22 @@
 
         @media (min-width: 1025px) { .liquid-nav:hover .l-nav-item:not(:hover):not(.is-active) .l-title { -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.1); transform: translateX(-10px) translateZ(0); } }
 
-        /* FIX: pointer-events für den Klick-Bereich korrekt setzen */
         .liquid-info { width: 40%; max-width: 500px; position: relative; min-height: 250px; z-index: 20; pointer-events: none;}
         @media (max-width: 1024px) { .liquid-info { width: 100%; min-height: 200px; } }
 
-        .l-info-block { position: absolute; top: 50%; left: 0; transform: translate3d(40px, -50%, 0); opacity: 0; pointer-events: none; display: flex; flex-direction: column; gap: 24px; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
-        .l-info-block.is-active { opacity: 1; transform: translate3d(0, -50%, 0); pointer-events: auto; }
+        /* FIX: visibility: hidden und z-index Management löst das Ghost-Layer Problem */
+        .l-info-block { position: absolute; top: 50%; left: 0; transform: translate3d(40px, -50%, 0); opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; gap: 24px; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity, visibility; z-index: 1; user-select: none; }
+        .l-info-block.is-active { opacity: 1; visibility: visible; transform: translate3d(0, -50%, 0); pointer-events: auto; z-index: 10; user-select: auto; }
 
         .l-info-block h4 { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: #dc2626 !important; letter-spacing: 3px; text-transform: uppercase; margin: 0; font-weight: 700; }
         .l-info-block p { font-family: 'Inter', sans-serif; font-size: clamp(1.125rem, 1.5vw, 1.25rem); line-height: 1.6; color: rgba(255, 255, 255, 0.8) !important; margin: 0; }
 
-        .l-btn { display: inline-flex; align-items: center; gap: 12px; background-color: transparent; color: #ffffff !important; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 0; border-bottom: 2px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.3s ease; width: max-content; cursor: pointer; pointer-events: auto; position: relative; z-index: 30;}
+        /* FIX: pointer-events: auto entfernt, damit es die Parent-Regel nutzt & user-select: none */
+        .l-btn { display: inline-flex; align-items: center; gap: 12px; background-color: transparent; color: #ffffff !important; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 0; border-bottom: 2px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.3s ease; width: max-content; cursor: pointer; position: relative; z-index: 30; user-select: none;}
         .l-btn:hover { border-bottom-color: #dc2626; padding-left: 10px; }
         .l-btn svg { width: 18px; height: 18px; color: #dc2626; transition: transform 0.3s; }
         .l-btn:hover svg { transform: translateX(5px); }
 
-        /* Optimierter Cursor - jetzt rein als visueller Begleiter, blockiert keine Klicks (pointer-events: none) */
         .cursor-wrapper { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; overflow: hidden; display: none; }
         .cursor-dot { position: absolute; top: 0; left: 0; width: 12px; height: 12px; background: #dc2626; border-radius: 50%; transform: translate3d(-50%, -50%, 0); transition: width 0.3s, height 0.3s, background 0.3s; will-change: transform; opacity: 0; }
         .cursor-ring { position: absolute; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid rgba(220, 38, 38, 0.5); border-radius: 50%; transform: translate3d(-50%, -50%, 0); transition: width 0.3s, height 0.3s; will-change: transform; opacity: 0; }
