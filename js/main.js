@@ -336,23 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ScrollTrigger.create({ trigger: "#services", start: "top 75%", onEnter: () => window.openTab('audio') });
     }
 
-    // --- PERFORMANCE FIX: Titel-Animation nur auf Mobile ausführen ---
-    let mm = gsap.matchMedia();
-    mm.add("(max-width: 1024px)", () => {
-        gsap.utils.toArray('.section-title').forEach(title => {
-            gsap.from(title, { 
-                scrollTrigger: { 
-                    trigger: title, 
-                    start: "top 90%", 
-                    toggleActions: "play reverse play reverse" 
-                }, 
-                y: 30, // Reduziert von 50 auf 30 für weniger Layout-Shift
-                opacity: 0, 
-                duration: 1 
-            });
-        });
+    gsap.utils.toArray('.section-title').forEach(title => {
+        gsap.from(title, { scrollTrigger: { trigger: title, start: "top 90%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, duration: 1 });
     });
-    // Auf Desktop (min-width: 1025px) passiert mit .section-title gar nichts mehr via GSAP.
     
     if(document.querySelector(".big-lead")) {
         gsap.from(".big-lead", { scrollTrigger: { trigger: ".big-lead", start: "top 80%", toggleActions: "play reverse play reverse" }, y: 50, opacity: 0, scale: 0.9, duration: 1.2, ease: "power3.out" });
