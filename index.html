@@ -19,30 +19,32 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
-        /* === ULTIMATIVER PERFORMANCE & ANTI-JUMP FIX === */
-        /* Isoliert das Layout komplett vom Rest der Seite, damit ScrollTrigger/GSAP keine Jumps erzeugt */
-        .services-header-container, .ref-title-wrapper {
-            contain: layout paint style; 
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
+        /* === DESKTOP ANIMATION KILL SWITCH === */
+        /* Wir nutzen diese Ersatzklasse, damit GSAP den Text auf Desktop nicht findet und in Ruhe lässt */
+        .section-title-base { 
+            font-size: 4rem; 
+            margin-bottom: 2rem; 
+            position: relative; 
+            display: inline-block; 
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        .section-title-base::after {
+            content: ''; 
+            position: absolute; 
+            bottom: 10px; 
+            right: -20px;
+            width: 10px; 
+            height: 10px; 
+            background: #ff0000; 
+            box-shadow: 0 0 10px #ff0000;
+        }
+        @media (max-width: 768px) {
+            .section-title-base { font-size: 3rem; }
+            .section-title-base::after { right: -10px; }
         }
 
-        /* Zwingt den Titel in die GPU und verhindert Layout-Neuberechnungen */
-        .section-title {
-            will-change: transform, opacity;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            margin: 0 !important;
-        }
-
-        /* Fix für den Lag: Kapselt den extrem rechenintensiven Filter vom restlichen DOM ab */
-        .ref-section::before {
-            transform: translate(-50%, -50%) translateZ(0) !important;
-            will-change: transform;
-        }
-
+        /* Original Styles */
         button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
         input, select, textarea { border-radius: 12px !important; }
         .gallery-item img { border-radius: 12px !important; }
@@ -54,7 +56,6 @@
             background: radial-gradient(circle at center, #0a0a0a 0%, #050505 100%) !important;
             border: 1px solid rgba(153, 0, 0, 0.15) !important;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8) !important; overflow: hidden !important; padding: 100px 0 !important;
-            transform: translateZ(0); /* Isoliert auch die ganze Sektion für flüssigeres Scrollen */
         }
 
         .ref-section::before {
@@ -339,7 +340,7 @@
 
         <section id="services" class="premium-services-wrapper">
             <div class="services-header-container">
-                <h2 class="section-title">WAS WIR TUN</h2>
+                <h2 class="section-title-base">WAS WIR TUN</h2>
             </div>
             
             <div class="immersive-accordion">
@@ -400,7 +401,7 @@
         <div id="references" class="laser-border-wrapper">
             <div class="laser-border-inner">
                 <section class="ref-section">
-                    <div class="ref-title-wrapper" style="text-align: center; margin-bottom: 20px;"><h2 class="section-title">REFERENZEN</h2></div>
+                    <div style="text-align: center; margin-bottom: 20px;"><h2 class="section-title-base">REFERENZEN</h2></div>
                     <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
                         <div class="vision-text-static">
                             <p style="color: #a3a3a3;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
@@ -507,6 +508,16 @@
         </footer>
     </main>
 
+    <script>
+        // === GSAP KILL SWITCH (LÄUFT SYNCHRON VOR MAIN.JS) ===
+        // Fügt die Ziel-Klasse "section-title" NUR auf Mobile wieder hinzu.
+        // So wird main.js die Elemente auf Desktop gar nicht erst finden und animieren.
+        if (window.innerWidth <= 1024) {
+            document.querySelectorAll('.section-title-base').forEach(function(el) {
+                el.classList.add('section-title');
+            });
+        }
+    </script>
     <script src="js/main.js"></script>
 
     <script>
