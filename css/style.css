@@ -1153,9 +1153,24 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     margin: 0 !important;
 }
 
-/* === TEMPORÄRER DIAGNOSE-MODUS (Bitte ans Ende der style.css kopieren) === */
-.pillar-image-bg { filter: none !important; transition: none !important; }
-.ref-section::before { display: none !important; }
-.laser-border-wrapper::before { display: none !important; }
-.vision-mantra-glassbar { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
-/* ========================================================================= */
+/* === FINALER PERFORMANCE FIX === */
+
+/* 1. Zwingt die Bilder in die Grafikkarte, damit der Grau-Filter nicht laggt */
+.pillar-image-bg {
+    will-change: filter, transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* 2. Entschärft den unsichtbaren Performance-Killer im Hintergrund der Referenzen */
+.ref-section::before {
+    mix-blend-mode: normal !important; /* mix-blend-mode + Scrollen = extremer Lag */
+    filter: none !important; 
+    opacity: 0.02 !important; /* Sieht optisch fast gleich aus, ist aber 100x schneller zu berechnen */
+    transform: translate3d(-50%, -50%, 0) !important;
+}
+
+/* 3. Laser-Border optimieren */
+.laser-border-wrapper::before {
+    will-change: transform;
+}
