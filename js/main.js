@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const serviceData = {
         "audio_music": {
             title: "AUDIO PRODUKTION",
-            image: "1.jpeg",
+            image: "1.jpeg.webp",
             intro: "Audio ist für uns kein einzelner Arbeitsschritt, sondern ein durchgängiger Prozess.",
             desc: "Von der ersten Aufnahme bis zum finalen Mix geht es um Kontrolle, Präzision und ein sauberes Gefühl für Klang, Raum und Dynamik. Wir arbeiten seit Jahren mit Artists, Unternehmen und Veranstaltern in unterschiedlichsten Produktionssituationen: im Studio, auf Sets, bei Live-Events und in komplexen Kampagnen. Diese Erfahrung prägt unsere Arbeitsweise. Wir hören genau hin, treffen bewusste Entscheidungen und setzen Technik gezielt ein – nicht, um sie zu zeigen, sondern um Ergebnisse zu liefern, die funktionieren. Ob Recording, Mixing, Mastering, Sounddesign oder Live-Audio: Unser Anspruch ist immer derselbe – klanglich sauber, technisch belastbar und musikalisch sinnvoll.",
             list: [
@@ -62,21 +62,21 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         "video_music": {
             title: "VIDEO & CONTENT",
-            image: "4.jpeg",
+            image: "4.jpeg.webp",
             intro: "Visuelle Inhalte entscheiden darüber, wie Projekte wahrgenommen werden.",
             desc: "Wir entwickeln Video- und Bildcontent, der klar kommuniziert, professionell umgesetzt ist und zur jeweiligen Marke, Musik oder Idee passt. WESTROOMZ begleitet Artists, Brands und Creator von der Konzeption bis zur finalen Ausspielung – für einzelne Produktionen oder zusammenhängende Kampagnen. Von Musikvideos über Social Media Content bis hin zu hochwertigen Imagefilmen.",
             list: ["Musikvideos & Performance", "Artist Visuals", "Werbe- & Imagefilme", "Social-Media-Content", "Video Podcasts", "Produktbilder", "Cover Art", "Kampagnen-Content"]
         },
         "event_planning": {
             title: "EVENTS & LIVE",
-            image: "7.jpeg",
+            image: "7.jpeg.webp",
             intro: "Events erfordern mehr als Technik. Wir liefern Struktur.",
             desc: "WESTROOMZ ist an Veranstaltungen in unterschiedlichen Rollen beteiligt – von technischer Umsetzung bis zur vollständigen Produktionsbegleitung. Wir liefern Struktur, Know-how und eine saubere Umsetzung - von der Planung bis zum laufenden Betrieb vor Ort. Wir begleiten Veranstaltungen modular oder ganzheitlich und übernehmen Verantwortung dort, wo sie gebraucht wird.",
             list: ["Eventplanung & Konzepte", "Live Mixing", "Audio- & Videoproduktion", "Event-Fotografie", "DJ-Services", "Ablauf & Koordination"]
         },
         "marketing_general": {
             title: "MARKETING & STRATEGIE",
-            image: "5.jpeg",
+            image: "5.jpeg.webp",
             intro: "Sichtbarkeit ist kein Zufall, sondern das Ergebnis präziser Planung.",
             desc: "Marketing bei WESTROOMZ bedeutet nicht nur, Werbung zu schalten. Wir entwickeln ganzheitliche Strategien, die deine Brand, deinen Sound oder dein Event nachhaltig positionieren. Wir nutzen datengetriebene Ansätze auf Social Media und verbinden diese mit hochwertigem Content, um echte Fans und Kunden zu erreichen. Von der CI-Entwicklung bis zur Kampagnen-Ausspielung.",
             list: ["Social Media Strategy", "Performance Marketing", "Branding & CI", "Kampagnen-Management", "Content Distribution", "Zielgruppen-Analyse"]
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 interfaceDiv.className = 'knob-interface';
                 const knob = document.createElement('div');
                 knob.className = 'knob-control';
-                knob.innerHTML = '<img src="knob.png" class="knob-img" alt="Control Knob" draggable="false" ondragstart="return false;">';
+                knob.innerHTML = '<img src="knob.png.webp" class="knob-img" alt="Control Knob" draggable="false" ondragstart="return false;">';
                 interfaceDiv.appendChild(knob);
 
                 const displayDiv = document.createElement('div');
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const div = document.createElement('div'); div.className = 'modal-img'; 
                 const img = document.createElement('img'); 
                 const rand = Math.floor(Math.random() * 8) + 1; 
-                img.src = rand + '.jpeg'; 
+                img.src = rand + '.jpeg.webp'; 
                 div.appendChild(img); modalGrid.appendChild(div); 
             }
             modal.classList.add('active'); if(window.lenis) window.lenis.stop();
