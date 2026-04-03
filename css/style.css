@@ -104,7 +104,8 @@ body {
     position: fixed; top: 30px; left: 30px; z-index: 200;
     display: flex; flex-direction: column; gap: 6px; cursor: pointer; mix-blend-mode: exclusion;
 }
-.bar { width: 35px; height: 3px; background-color: white; transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+/* PERFORMANCE FIX: Exakte Transition statt 'all' */
+.bar { width: 35px; height: 3px; background-color: white; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease; }
 .menu-toggle-btn.open .bar:nth-child(1) { transform: rotate(45deg) translate(8px, 6px); }
 .menu-toggle-btn.open .bar:nth-child(2) { opacity: 0; }
 .menu-toggle-btn.open .bar:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
@@ -128,23 +129,24 @@ body {
 .menu-links { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
 .menu-link {
     font-family: var(--font-head); font-size: 1.4rem; color: var(--text-muted); text-decoration: none;
-    text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; position: relative; padding-left: 0; display: block;
+    text-transform: uppercase; letter-spacing: 2px; position: relative; padding-left: 0; display: block;
+    transition: color 0.3s ease, padding-left 0.3s ease; /* PERFORMANCE FIX */
 }
 .menu-link:hover { color: white; padding-left: 15px; }
 .menu-link::before {
     content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-    width: 0; height: 2px; background: var(--accent); transition: 0.3s;
+    width: 0; height: 2px; background: var(--accent); transition: width 0.3s ease; /* PERFORMANCE FIX */
 }
 .menu-link:hover::before { width: 10px; }
 
 .sidebar-footer { margin-top: auto; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; flex-direction: column; gap: 15px; }
-.sidebar-footer a { color: #888; text-decoration: none; font-family: var(--font-head); font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; }
+.sidebar-footer a { color: #888; text-decoration: none; font-family: var(--font-head); font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s ease, padding-left 0.3s ease; /* PERFORMANCE FIX */ }
 .sidebar-footer a:hover { color: white; padding-left: 5px; }
 .sidebar-footer span { font-family: var(--font-body); font-size: 0.8rem; color: #444; margin-top: 10px; display: block; }
 
 .menu-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5); z-index: 140; opacity: 0; pointer-events: none; transition: 0.5s; backdrop-filter: blur(5px);
+    background: rgba(0,0,0,0.5); z-index: 140; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; backdrop-filter: blur(5px);
 }
 .menu-overlay.active { opacity: 1; pointer-events: auto; }
 
@@ -371,7 +373,8 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 }
 .gallery-item img {
     width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; 
-    -webkit-user-drag: none; user-drag: none; pointer-events: none; will-change: transform;
+    -webkit-user-drag: none; user-drag: none; pointer-events: none; 
+    /* PERFORMANCE FIX: will-change entfernt, weil es RAM frisst */
 }
 .gallery-item:hover img { transform: scale(1.05); }
 
@@ -477,14 +480,14 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     color: rgba(255,255,255,0.2);
     -webkit-text-stroke: 1px rgba(255,255,255,0.4);
     letter-spacing: 4px;
-    transition: all 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease; /* PERFORMANCE FIX */
     white-space: nowrap;
 }
 
 .pillar-details {
     opacity: 0;
     transform: translateY(40px);
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* PERFORMANCE FIX */
     transition-delay: 0s;
     max-width: 600px;
 }
@@ -524,7 +527,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     border-radius: 30px;
     text-decoration: none;
     text-transform: uppercase;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; /* PERFORMANCE FIX */
 }
 
 .premium-pillar-btn svg { width: 18px; height: 18px; transition: transform 0.3s ease; }
@@ -590,7 +593,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     .pillar-content { padding: 30px 20px !important; pointer-events: none !important; }
     .service-pillar.is-expanded .pillar-content { pointer-events: auto !important; }
     
-    .pillar-details { opacity: 0 !important; transform: translateY(20px) !important; transition: all 0.4s ease !important; }
+    .pillar-details { opacity: 0 !important; transform: translateY(20px) !important; transition: opacity 0.4s ease, transform 0.4s ease !important; } /* PERFORMANCE FIX */
     .service-pillar.is-expanded .pillar-details { opacity: 1 !important; transform: translateY(0) !important; transition-delay: 0.2s !important; }
 
     .pillar-punchline { font-size: 2.2rem !important; }
@@ -609,14 +612,14 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
     border-right: 1px solid var(--border); overflow: hidden; cursor: pointer;
 }
 .expand-item:last-child { border-right: none; }
-.expand-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) brightness(0.6); transition: 0.6s; will-change: filter; }
+.expand-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) brightness(0.6); transition: filter 0.6s ease, transform 0.6s ease; /* PERFORMANCE FIX */ }
 .expand-item:hover { flex: 10; }
 .expand-item:hover img { filter: grayscale(0%) brightness(1); }
 .expand-item h3 {
     position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%) rotate(-90deg); transform-origin: center center;
     font-family: var(--font-head); font-size: clamp(1.2rem, 2.5vw, 2.5rem); color: transparent;
-    -webkit-text-stroke: 1px white; transition: 0.4s ease-out; white-space: nowrap; pointer-events: none;
+    -webkit-text-stroke: 1px white; transition: color 0.4s ease-out, transform 0.4s ease-out, top 0.4s ease-out, left 0.4s ease-out; white-space: nowrap; pointer-events: none; /* PERFORMANCE FIX */
 }
 .expand-item:hover h3 { color: white; top: auto; left: 30px; bottom: 30px; transform: translate(0, 0) rotate(0deg); }
 
@@ -624,7 +627,7 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.98); z-index: 9999;
-    opacity: 0; pointer-events: none; transition: 0.4s;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s ease; /* PERFORMANCE FIX */
     display: flex; flex-direction: column; padding: 40px;
     overflow-y: auto; -webkit-overflow-scrolling: touch;
 }
@@ -633,13 +636,13 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .modal-title { font-family: var(--font-head); font-size: 3rem; color: white; text-transform: uppercase; }
 .modal-close { 
     font-family: var(--font-head); color: var(--accent); font-size: 1.5rem; 
-    cursor: pointer; border: 1px solid var(--accent); padding: 10px 20px; transition: 0.3s; 
+    cursor: pointer; border: 1px solid var(--accent); padding: 10px 20px; transition: background-color 0.3s ease, color 0.3s ease; /* PERFORMANCE FIX */
 }
 .modal-close:hover { background: var(--accent); color: white; }
 .modal-content-wrapper { flex: 1; min-height: 0; padding-bottom: 20px; }
 .modal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding-bottom: 80px; }
 .modal-img { width: 100%; aspect-ratio: 16/9; background: #111; overflow: hidden; border: 1px solid var(--border); }
-.modal-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.modal-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .modal-img:hover img { transform: scale(1.05); }
 
 /* ========================================= */
@@ -699,7 +702,8 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 .contact-form label { display: block; margin-bottom: 10px; font-family: var(--font-head); color: var(--text-muted); letter-spacing: 1px; }
 .contact-form input, .contact-form select, .contact-form textarea {
     width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-    padding: 15px; color: white; margin-bottom: 30px; font-family: var(--font-body); transition: 0.3s; border-radius: 0;
+    padding: 15px; color: white; margin-bottom: 30px; font-family: var(--font-body); border-radius: 0;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* PERFORMANCE FIX */
 }
 .contact-form select { appearance: none; -webkit-appearance: none; background-color: #121212; color: white; }
 .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
@@ -707,25 +711,26 @@ section { padding: 150px 5%; position: relative; z-index: 2; }
 }
 .submit-btn {
     background: var(--accent); color: white; border: none; padding: 20px 50px;
-    font-family: var(--font-head); font-size: 1.5rem; text-transform: uppercase; width: 100%; transition: 0.3s;
+    font-family: var(--font-head); font-size: 1.5rem; text-transform: uppercase; width: 100%; 
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; /* PERFORMANCE FIX */
 }
 .submit-btn:hover { background: white; color: var(--accent); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
 
 /* FOOTER */
 footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--border); background: var(--bg); position: relative; z-index: 2; }
 .footer-nav { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; }
-.footer-nav a { color: var(--text-muted); text-decoration: none; font-family: var(--font-head); font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; }
+.footer-nav a { color: var(--text-muted); text-decoration: none; font-family: var(--font-head); font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s ease; /* PERFORMANCE FIX */ }
 .footer-nav a:hover { color: var(--accent); }
 .copyright { color: #444; font-size: 0.8rem; font-family: var(--font-body); }
 
 /* FOOTER SOCIALS */
 .footer-socials { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
-.social-icon { color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid #333; padding: 10px 20px; transition: 0.3s; font-family: var(--font-head); letter-spacing: 1px; }
+.social-icon { color: white; text-decoration: none; font-size: 0.9rem; border: 1px solid #333; padding: 10px 20px; font-family: var(--font-head); letter-spacing: 1px; transition: border-color 0.3s ease, color 0.3s ease; /* PERFORMANCE FIX */ }
 .social-icon:hover { border-color: var(--accent); color: var(--accent); }
 
 /* LEGAL & DETAIL PAGES */
 .back-home-wrapper { position: fixed; top: 30px; right: 30px; z-index: 200; }
-.back-btn { text-decoration: none; font-family: var(--font-head); color: white; font-size: 1.2rem; border: 1px solid var(--border); padding: 10px 20px; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); transition: 0.3s; display: inline-block; }
+.back-btn { text-decoration: none; font-family: var(--font-head); color: white; font-size: 1.2rem; border: 1px solid var(--border); padding: 10px 20px; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); display: inline-block; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* PERFORMANCE FIX */ }
 .back-btn:hover { background: var(--accent); border-color: var(--accent); color: white; }
 .legal-container { max-width: 900px; margin: 150px auto 100px; padding: 0 5%; }
 .legal-container h1 { font-family: var(--font-head); font-size: 3rem; margin-bottom: 40px; color: white; }
@@ -849,7 +854,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out; /* Hier okay, da kleines Element ohne Reflow-Gefahr */
     text-align: center;
     width: 120px;
     pointer-events: auto;
@@ -961,11 +966,14 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     position: relative !important;
     padding: 18px 0 !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important; 
-    transition: border-bottom-color 0.3s ease !important;
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
     overflow: visible !important; 
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.1rem !important;
+    color: #999 !important;
+    transition: padding-left 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.4s cubic-bezier(0.25, 1, 0.5, 1), font-weight 0.4s cubic-bezier(0.25, 1, 0.5, 1), text-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-bottom-color 0.3s ease !important; /* PERFORMANCE FIX */
 }
 
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li::before {
@@ -985,13 +993,6 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover::before { opacity: 1; left: 0; }
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover { border-bottom-color: rgba(255, 0, 0, 0.4) !important; }
 
-.detail-list-wrapper.glass-kinetic-box:not(.knob-active) li {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 1.1rem !important;
-    color: #999 !important;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
-}
-
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover {
     padding-left: 20px !important; 
     color: white !important;
@@ -1002,7 +1003,7 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li span {
     font-family: 'Oswald', sans-serif !important;
     color: var(--primary) !important; 
-    transition: color 0.3s ease, opacity 0.3s ease !important;
+    transition: color 0.3s ease, opacity 0.3s ease, transform 0.3s ease !important; /* PERFORMANCE FIX */
 }
 
 .detail-list-wrapper.glass-kinetic-box:not(.knob-active) li:hover span {
@@ -1151,26 +1152,4 @@ footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid var(--
     display: flex !important;
     align-items: center !important;
     margin: 0 !important;
-}
-
-/* === FINALER PERFORMANCE FIX === */
-
-/* 1. Zwingt die Bilder in die Grafikkarte, damit der Grau-Filter nicht laggt */
-.pillar-image-bg {
-    will-change: filter, transform;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-}
-
-/* 2. Entschärft den unsichtbaren Performance-Killer im Hintergrund der Referenzen */
-.ref-section::before {
-    mix-blend-mode: normal !important; /* mix-blend-mode + Scrollen = extremer Lag */
-    filter: none !important; 
-    opacity: 0.02 !important; /* Sieht optisch fast gleich aus, ist aber 100x schneller zu berechnen */
-    transform: translate3d(-50%, -50%, 0) !important;
-}
-
-/* 3. Laser-Border optimieren */
-.laser-border-wrapper::before {
-    will-change: transform;
 }
