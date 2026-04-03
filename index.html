@@ -19,6 +19,15 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
+        /* === PERFORMANCE FIX FÜR TITEL-ANIMATION === */
+        .section-title {
+            will-change: transform, opacity;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
         button, .tab-btn, .submit-btn, .book-btn, .menu-link { border-radius: 30px !important; }
         input, select, textarea { border-radius: 12px !important; }
         .gallery-item img { border-radius: 12px !important; }
