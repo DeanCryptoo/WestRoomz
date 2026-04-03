@@ -10,8 +10,15 @@
     <link rel="alternate" hreflang="en" href="https://westroomz.de/index-en.html" />
     <link rel="alternate" hreflang="x-default" href="https://westroomz.de/index.html" />
     
-    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/webp" href="logo.jpg.webp">
+
+    <link rel="preload" as="image" href="grillzreal-2.jpg.webp">
+    <link rel="preload" as="image" href="wr5.jpg.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -34,7 +41,7 @@
 
         .ref-section::before {
             content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 40%; height: 80%; background-image: url('logo.jpg') !important; background-repeat: no-repeat;
+            width: 40%; height: 80%; background-image: url('logo.jpg.webp') !important; background-repeat: no-repeat;
             background-position: center; background-size: contain; opacity: 0.05; mix-blend-mode: lighten; 
             filter: grayscale(100%) contrast(120%); z-index: 0; pointer-events: none;
         }
@@ -215,7 +222,7 @@
     </div>
 
     <div class="cinematic-bg-wrapper">
-        <div class="bg-layer active" style="background-image: url('wr5.jpg'); opacity: 1;"></div>
+        <div class="bg-layer active" style="background-image: url('wr5.jpg.webp'); opacity: 1;"></div>
     </div>
 
     <div class="page-transition-curtain"></div>
@@ -227,7 +234,7 @@
 
     <div class="side-menu">
         <div>
-            <div class="side-logo"><img src="IMG_4834.png" alt="WESTROOMZ" decoding="async"></div>
+            <div class="side-logo"><img src="IMG_4834.png.webp" alt="WESTROOMZ" decoding="async"></div>
             <div class="menu-links">
                 <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
                 <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
@@ -249,7 +256,7 @@
 
     <main class="page-wrapper">
         <header id="hero" class="hero">
-            <div class="video-container" style="background-image: url('grillzreal-2.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+            <div class="video-container" style="background-image: url('grillzreal-2.jpg.webp'); background-size: cover; background-position: center; background-repeat: no-repeat;">
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -295,20 +302,20 @@
 
         <section id="gallery" class="gallery-section">
             <div class="gallery-container interactive" id="draggable-slider">
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="1.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="6.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="8.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="3.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="5.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="2.jpeg" alt="Work" loading="lazy" decoding="async"></div>
-                <div class="gallery-item"><img src="7.jpeg" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="1.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="6.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="8.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="3.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="5.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="2.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="7.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="1.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="6.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="8.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="3.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="5.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="2.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
+                <div class="gallery-item"><img src="7.jpeg.webp" alt="Work" loading="lazy" decoding="async"></div>
             </div>
         </section>
 
@@ -319,7 +326,7 @@
             
             <div class="immersive-accordion">
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='audio-en.html'">
-                    <div class="pillar-image-bg" style="background-image: url('WR_Audio.jpg');"></div>
+                    <div class="pillar-image-bg" style="background-image: url('WR_Audio.jpg.webp');"></div>
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
                         <div class="pillar-title-vertical">AUDIO</div>
@@ -332,7 +339,7 @@
                 </article>
 
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='video-en.html'">
-                    <div class="pillar-image-bg" style="background-image: url('WR_Video2.jpg');"></div>
+                    <div class="pillar-image-bg" style="background-image: url('WR_Video2.jpg.webp');"></div>
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
                         <div class="pillar-title-vertical">VIDEO</div>
@@ -345,7 +352,7 @@
                 </article>
 
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='events-en.html'">
-                    <div class="pillar-image-bg" style="background-image: url('WR_Events.jpg');"></div>
+                    <div class="pillar-image-bg" style="background-image: url('WR_Events.jpg.webp');"></div>
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
                         <div class="pillar-title-vertical">EVENTS</div>
@@ -358,7 +365,7 @@
                 </article>
 
                 <article class="service-pillar interactive" onclick="if(window.innerWidth > 1024) window.location.href='marketing-en.html'">
-                    <div class="pillar-image-bg" style="background-image: url('WR_Marketing.jpg');"></div>
+                    <div class="pillar-image-bg" style="background-image: url('WR_Marketing.jpg.webp');"></div>
                     <div class="pillar-overlay"></div>
                     <div class="pillar-content">
                         <div class="pillar-title-vertical">MARKETING</div>
@@ -384,24 +391,24 @@
 
                     <div class="marquee-wrapper">
                         <div class="marquee-track">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img" decoding="async">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img" decoding="async">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img" decoding="async">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img" decoding="async">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img" decoding="async">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img" decoding="async">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img" decoding="async">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img" decoding="async">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img" decoding="async">
-                            <img src="Fritz .png" alt="Fritz Kola" class="ref-logo-img" decoding="async">
-                            <img src="heineken2.png" alt="Heineken" class="ref-logo-img" decoding="async">
-                            <img src="Herb2_Shuttles2.png" alt="Herb Shuttles" class="ref-logo-img" decoding="async">
-                            <img src="mozilla2.png" alt="Mozilla" class="ref-logo-img" decoding="async">
-                            <img src="reflexxion2.png" alt="Refflexion" class="ref-logo-img" decoding="async">
-                            <img src="fyal2.png" alt="Fyal" class="ref-logo-img" decoding="async">
-                            <img src="jgermeister2.png" alt="Jägermeister" class="ref-logo-img" decoding="async">
-                            <img src="TOSBIKS.png" alt="TOSBIK'S" class="ref-logo-img" decoding="async">
-                            <img src="Desperados.png" alt="Desperados" class="ref-logo-img" decoding="async">
+                            <img src="Fritz_.png.webp" alt="Fritz Kola" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="heineken2.png.webp" alt="Heineken" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="Herb2_Shuttles2.png.webp" alt="Herb Shuttles" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="mozilla2.png.webp" alt="Mozilla" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="reflexxion2.png.webp" alt="Refflexion" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="fyal2.png.webp" alt="Fyal" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="jgermeister2.png.webp" alt="Jägermeister" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="TOSBIKS.png.webp" alt="TOSBIK'S" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="Desperados.png.webp" alt="Desperados" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="Fritz_.png.webp" alt="Fritz Kola" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="heineken2.png.webp" alt="Heineken" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="Herb2_Shuttles2.png.webp" alt="Herb Shuttles" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="mozilla2.png.webp" alt="Mozilla" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="reflexxion2.png.webp" alt="Refflexion" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="fyal2.png.webp" alt="Fyal" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="jgermeister2.png.webp" alt="Jägermeister" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="TOSBIKS.png.webp" alt="TOSBIK'S" class="ref-logo-img" width="120" height="60" decoding="async">
+                            <img src="Desperados.png.webp" alt="Desperados" class="ref-logo-img" width="120" height="60" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -446,7 +453,7 @@
                 <div class="footer-links-section">
                     <div class="footer-brand">
                         <a href="#hero" class="brand-logo interactive">
-                            <div class="brand-icon"><img src="logo.jpg" alt="WESTROOMZ Logo" decoding="async"></div>
+                            <div class="brand-icon"><img src="logo.jpg.webp" alt="WESTROOMZ Logo" decoding="async"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
                         <p>The creative production agency for events and marketing. Clear in execution, powerful in impact, flawless in detail.</p>
