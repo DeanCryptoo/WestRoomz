@@ -228,7 +228,7 @@
         
         .ref-logo-img { height: 100px !important; width: auto !important; opacity: 1 !important; filter: none !important; margin: 0 40px !important; border-radius: 8px !important; object-fit: contain; }
         
-        /* ADDED: Mobile Media Query for ref-logo-img */
+        /* HIER IST DEIN FIX: Logos auf dem Handy kleiner (60px) */
         @media (max-width: 768px) {
             .ref-logo-img { 
                 height: 60px !important; 
@@ -315,12 +315,12 @@
     </div>
 
     <div class="lang-switcher">
-        <a href="business.html" class="transition-link interactive">
+        <a href="#" class="active interactive">
             <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-de"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-de)"><rect width="512" height="170.6" fill="#000"/><rect y="170.6" width="512" height="170.6" fill="#D00"/><rect y="341.3" width="512" height="170.6" fill="#FFCE00"/></g></svg>
             DE
         </a>
         <span class="divider">|</span>
-        <a href="#" class="active interactive">
+        <a href="business-en.html" class="transition-link interactive">
             <svg class="lang-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><clipPath id="circle-en"><circle cx="256" cy="256" r="256"/></clipPath><g clip-path="url(#circle-en)"><rect width="512" height="512" fill="#012169"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#FFF" stroke-width="85"/><path d="M0,0 L512,512 M512,0 L0,512" stroke="#C8102E" stroke-width="50"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#FFF" stroke-width="140"/><path d="M256,0 L256,512 M0,256 L512,256" stroke="#C8102E" stroke-width="90"/></g></svg>
             EN
         </a>
@@ -338,18 +338,18 @@
         <div>
             <div class="side-logo"><img src="IMG_4834.png.webp" alt="WESTROOMZ"></div>
             <div class="menu-links">
-                <a href="index-en.html#hero" class="menu-link interactive" onclick="toggleMenu()">HOME</a>
-                <a href="index-en.html#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
-                <a href="team-en.html" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
-                <a href="index-en.html#services" class="menu-link interactive" onclick="toggleMenu()">SERVICES</a>
-                <a href="index-en.html#references" class="menu-link interactive" onclick="toggleMenu()">REFERENCES</a>
-                <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">CONTACT</a>
+                <a href="#hero" class="menu-link interactive" onclick="toggleMenu()">START</a>
+                <a href="#vision" class="menu-link interactive" onclick="toggleMenu()">VISION</a>
+                <a href="team.html" class="menu-link interactive" onclick="toggleMenu()">TEAM</a>
+                <a href="#services" class="menu-link interactive" onclick="toggleMenu()">OFFERS</a>
+                <a href="#references" class="menu-link interactive" onclick="toggleMenu()">REFERENZEN</a>
+                <a href="#contact" class="menu-link interactive" onclick="toggleMenu()">KONTAKT</a>
             </div>
         </div>
         <div class="sidebar-footer">
-             <a href="impressum-en.html" class="interactive">IMPRINT</a>
-             <a href="datenschutz-en.html" class="interactive">PRIVACY POLICY</a>
-             <a href="agb-en.html" class="interactive">TERMS</a>
+             <a href="impressum.html" class="interactive">IMPRESSUM</a>
+             <a href="datenschutz.html" class="interactive">DATENSCHUTZ</a>
+             <a href="agb.html" class="interactive">AGB</a>
              <span>© 2026 WESTROOMZ</span>
         </div>
     </div>
@@ -367,7 +367,7 @@
                     </label>
                     <span class="toggle-label label-business">Business</span>
                 </div>
-                <p class="hero-sub">UNMATCHED QUALITY</p>
+                <p class="hero-sub">UNERREICHTE QUALITÄT</p>
             </div>
         </header>
 
@@ -383,20 +383,20 @@
                     <div class="cta-text-content">
                         <div class="cta-badge">
                             <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2l.5-.5m-3-3l3 3M10 14.5L19 5.5a2.12 2.12 0 0 0-3-3L7 11.5M10 14.5l-3-3m3 3l3 3m-3-3l-3-3m3 3l3 3"/></svg>
-                            YOUR VISION. OUR STAGE.
+                            DEINE VISION. UNSERE BÜHNE.
                         </div>
-                        <h2 class="cta-headline">Ready to create something <span class="highlight-red">extraordinary</span>?</h2>
-                        <p class="cta-description">Westroomz Business stands for well-thought-out campaigns and high-quality productions. We combine strategy, creation, and execution into a functioning overall system.</p>
+                        <h2 class="cta-headline">Bereit, etwas <span class="highlight-red">Außergewöhnliches</span> zu erschaffen?</h2>
+                        <p class="cta-description">Westroomz Business steht für durchdachte Kampagnen und hochwertige Produktionen. Wir verbinden Strategie, Kreation und Umsetzung zu einem funktionierenden Gesamtsystem.</p>
                         <div class="cta-buttons">
                             <a href="#contact" class="cta-btn-primary interactive">
-                                Request a project <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                Projekt anfragen <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                             </a>
-                            <a href="#services" class="cta-btn-secondary interactive">Our Services</a>
+                            <a href="#services" class="cta-btn-secondary interactive">Unsere Leistungen</a>
                         </div>
                         <div class="cta-features">
-                            <span><svg class="text-emerald" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Highest Precision</span>
-                            <span><svg class="text-amber" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 360° Execution</span>
-                            <span><svg class="text-blue" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> State-of-the-Art Technology</span>
+                            <span><svg class="text-emerald" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Höchste Präzision</span>
+                            <span><svg class="text-amber" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 360° Umsetzung</span>
+                            <span><svg class="text-blue" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> State-of-the-Art Technik</span>
                         </div>
                     </div>
 
@@ -405,15 +405,15 @@
                             <div class="tb-header">
                                 <div class="tb-icon"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
                                 <div class="tb-title-wrapper">
-                                    <div class="tb-title">Premium Production</div>
+                                    <div class="tb-title">Premium Produktion</div>
                                     <div class="tb-stars"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
                                 </div>
                             </div>
                             <div class="tb-progress">
                                 <div class="tb-progress-bar"><div class="tb-progress-fill"></div></div>
-                                <div class="tb-progress-text"><span style="color: white !important;">CUSTOMER SATISFACTION</span><span style="color: white;">100%</span></div>
+                                <div class="tb-progress-text"><span style="color: white !important;">KUNDENZUFRIEDENHEIT</span><span style="color: white;">100%</span></div>
                             </div>
-                            <div class="tb-footer"><span>Successful Projects</span><span class="tb-badge">50+</span></div>
+                            <div class="tb-footer"><span>Erfolgreiche Projekte</span><span class="tb-badge">50+</span></div>
                         </div>
                     </div>
                 </div>
@@ -424,7 +424,7 @@
             <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="1000">0</span><span class="stat-accent">+</span></div>
-                    <div class="stat-label">Completed Projects</div>
+                    <div class="stat-label">Umgesetzte Projekte</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="15">0</span><span class="stat-accent">M+</span></div>
@@ -432,11 +432,11 @@
                 </div>
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="50" data-format="true">0</span><span class="stat-accent">+</span></div>
-                    <div class="stat-label">Clients and Brands served</div>
+                    <div class="stat-label">Kunden und Marken betreut</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number-wrapper"><span class="js-counter" data-target="100" data-format="true">0</span><span class="stat-accent">%</span></div>
-                    <div class="stat-label">In-House Production</div>
+                    <div class="stat-label">In-House Produktion</div>
                 </div>
             </div>
         </section>
@@ -472,24 +472,24 @@
 
                 <div class="liquid-info">
                     <div class="l-info-block is-active" data-info="strategy">
-                        <h4>Architecture of Success</h4>
-                        <p>We translate corporate goals into clear communication and campaign strategies. No blanks, only measurable impact at the highest level.</p>
-                        <a href="strategy-en.html" class="l-btn interactive">Discover System <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <h4>Architektur des Erfolgs</h4>
+                        <p>Wir übersetzen unternehmerische Ziele in klare Kommunikations- und Kampagnenstrategien. Keine Platzpatronen, nur messbarer Impact auf höchstem Niveau.</p>
+                        <a href="strategy.html" class="l-btn interactive">System entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="production">
                         <h4>Cinematic Execution</h4>
-                        <p>We realize productions that present brands authentically – with clear staging, professional execution, and absolute high-end quality standards.</p>
-                        <a href="production-en.html" class="l-btn interactive">Watch Reels <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <p>Wir realisieren Produktionen, die Marken glaubwürdig präsentieren – mit klarer Inszenierung, professioneller Umsetzung und absolutem High-End Qualitätsanspruch.</p>
+                        <a href="production.html" class="l-btn interactive">Reels ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="digital">
-                        <h4>Digital Ecosystems</h4>
-                        <p>We design digital presences that represent companies professionally across all relevant channels. Fluid, performant, flawless.</p>
-                        <a href="digital-en.html" class="l-btn interactive">View Portfolio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <h4>Digitale Ökosysteme</h4>
+                        <p>Wir gestalten digitale Präsenzen, die Unternehmen über alle relevanten Kanäle hinweg professionell darstellen. Fließend, performant, fehlerfrei.</p>
+                        <a href="digital.html" class="l-btn interactive">Portfolio ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                     <div class="l-info-block" data-info="performance">
                         <h4>Data-Driven Scaling</h4>
-                        <p>We combine ad strategies, data analysis, and targeted playouts into a strictly controlled and highly profitable performance system.</p>
-                        <a href="performance-en.html" class="l-btn interactive">Analyze Numbers <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                        <p>Wir verbinden Ad-Strategien, Datenanalyse und gezielte Ausspielung zu einem streng kontrollierten und hochprofitablen Performance-System.</p>
+                        <a href="performance.html" class="l-btn interactive">Zahlen analysieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
                     </div>
                 </div>
             </div>
@@ -498,8 +498,8 @@
         <section class="saas-dashboard-wrapper" id="market-proof">
             <div class="dash-header">
                 <div class="dash-header-center">
-                    <h2>The market isn't waiting. <br>Are you using <span class="highlight-red">your full potential?</span></h2>
-                    <p>Companies that consistently invest in content, digital systems, and performance marketing grow significantly faster than their competitors. With Westroomz, strategies and content emerge that increase reach, build trust, and measurably generate more customers.</p>
+                    <h2>Der Markt wartet nicht. <br>Nutzt ihr <span class="highlight-red">euer volles Potenzial?</span></h2>
+                    <p>Unternehmen, die konsequent in Content, digitale Systeme und Performance-Marketing investieren, wachsen deutlich schneller als ihre Konkurrenz. Mit Westroomz entstehen Strategien und Inhalte, die Reichweite erhöhen, Vertrauen aufbauen und messbar mehr Kunden generieren.</p>
                 </div>
             </div>
 
@@ -510,30 +510,30 @@
                             <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
                             <div class="kpi-trend positive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> +120%</div>
                         </div>
-                        <div class="kpi-title">Video Content Demand</div>
+                        <div class="kpi-title">Video-Content Nachfrage</div>
                         <div class="kpi-value js-dash-counter" data-target="120" data-suffix="%">0</div>
-                        <div class="kpi-sub">More demand for video content by companies compared to pure text content.</div>
-                        <span class="kpi-source">(Source: HubSpot Marketing Report)</span>
+                        <div class="kpi-sub">Mehr Nachfrage nach Video-Inhalten von Unternehmen im Vergleich zu reinem Text-Content.</div>
+                        <span class="kpi-source">(Quelle: HubSpot Marketing Report)</span>
                     </div>
                     <div class="kpi-card">
                         <div class="kpi-top">
                             <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
                             <div class="kpi-trend positive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> +85%</div>
                         </div>
-                        <div class="kpi-title">Purchase Decisions</div>
+                        <div class="kpi-title">Kaufentscheidungen</div>
                         <div class="kpi-value js-dash-counter" data-target="85" data-suffix="%">0</div>
-                        <div class="kpi-sub">of customers state that video content directly influences their purchase decision.</div>
-                        <span class="kpi-source">(Source: Wyzowl Video Marketing Statistics)</span>
+                        <div class="kpi-sub">der Kunden geben an, dass Video-Content ihre Kaufentscheidung direkt beeinflusst.</div>
+                        <span class="kpi-source">(Quelle: Wyzowl Video Marketing Statistics)</span>
                     </div>
                     <div class="kpi-card">
                         <div class="kpi-top">
                             <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
-                            <div class="kpi-trend positive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Top Value</div>
+                            <div class="kpi-trend positive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Top-Wert</div>
                         </div>
                         <div class="kpi-title">Conversion Rate</div>
-                        <div class="kpi-value">3x <span style="font-size: 1.2rem; color: #6e6e73;">higher</span></div>
-                        <div class="kpi-sub">Websites with video or visual content achieve significantly higher conversion rates on average.</div>
-                        <span class="kpi-source">(Source: Forbes / HubSpot)</span>
+                        <div class="kpi-value">3x <span style="font-size: 1.2rem; color: #6e6e73;">höher</span></div>
+                        <div class="kpi-sub">Websites mit Video- oder visuellen Inhalten erzielen im Durchschnitt deutlich höhere Conversion-Raten.</div>
+                        <span class="kpi-source">(Quelle: Forbes / HubSpot)</span>
                     </div>
                 </div>
 
@@ -541,8 +541,8 @@
                     <div class="dash-chart-area">
                         <div class="chart-header">
                             <div>
-                                <div class="chart-title">Marketing Performance Over Time</div>
-                                <div class="chart-sub">Companies combining content, video, and data-driven advertising consistently increase their reach and conversion rates.</div>
+                                <div class="chart-title">Marketing-Performance über Zeit</div>
+                                <div class="chart-sub">Unternehmen, die Content, Video und datenbasierte Werbung kombinieren, steigern ihre Reichweite und Conversion-Raten kontinuierlich.</div>
                             </div>
                         </div>
 
@@ -591,22 +591,22 @@
                             <div class="chart-arg-item">
                                 <div class="chart-arg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
                                 <div class="chart-arg-text">
-                                    <h5>More Reach</h5>
-                                    <p>Content and campaigns reach exactly the target groups relevant to your business.</p>
+                                    <h5>Mehr Reichweite</h5>
+                                    <p>Content und Kampagnen erreichen genau die Zielgruppen, die für dein Unternehmen relevant sind.</p>
                                 </div>
                             </div>
                             <div class="chart-arg-item">
                                 <div class="chart-arg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                                 <div class="chart-arg-text">
-                                    <h5>More Trust</h5>
-                                    <p>Professional content strengthens brand perception and increases the probability of a purchase decision.</p>
+                                    <h5>Mehr Vertrauen</h5>
+                                    <p>Professionelle Inhalte stärken Markenwahrnehmung und erhöhen die Wahrscheinlichkeit einer Kaufentscheidung.</p>
                                 </div>
                             </div>
                             <div class="chart-arg-item">
                                 <div class="chart-arg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                                 <div class="chart-arg-text">
-                                    <h5>More Customers</h5>
-                                    <p>Data-driven optimization creates marketing systems that generate new leads and sales in the long term.</p>
+                                    <h5>Mehr Kunden</h5>
+                                    <p>Durch datenbasierte Optimierung entstehen Marketing-Systeme, die langfristig neue Leads und Verkäufe generieren.</p>
                                 </div>
                             </div>
                         </div>
@@ -615,15 +615,15 @@
                     <div class="dash-multiplier-area">
                         <div class="chart-header" style="margin-bottom: 16px;">
                             <div>
-                                <div class="chart-title">The Content Multiplier</div>
-                                <div class="chart-sub">What we get out of just <strong style="color: #1d1d1f;">1 shooting day</strong>:</div>
+                                <div class="chart-title">Der Content-Multiplikator</div>
+                                <div class="chart-sub">Was wir aus nur <strong style="color: #1d1d1f;">1 Drehtag</strong> herausholen:</div>
                             </div>
                         </div>
 
                         <div class="mult-list-wrapper">
                             <div class="mult-item header-row">
                                 <span class="mult-title">Asset</span>
-                                <span class="mult-title">Amount</span>
+                                <span class="mult-title">Anzahl</span>
                             </div>
                             <div class="mult-item">
                                 <span class="mult-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg> High-End Brand Video</span>
@@ -653,7 +653,7 @@
 
                         <a href="#contact" style="text-decoration: none;">
                             <button class="m-footer-btn interactive">
-                                Book Maximum Efficiency
+                                Maximale Effizienz buchen
                             </button>
                         </a>
                     </div>
@@ -665,35 +665,35 @@
             <div class="laser-border-inner">
                 <section class="ref-section">
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <h2 class="section-title">REFERENCES</h2>
+                        <h2 class="section-title">REFERENZEN</h2>
                     </div>
                     
                     <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 60px;">
                         <div class="vision-text" style="opacity: 1; transform: none;">
-                            <p style="opacity: 1; transform: none;">These companies have chosen to work with WESTROOMZ.</p>
+                            <p style="opacity: 1; transform: none;">Diese Unternehmen haben sich für eine Zusammenarbeit mit WESTROOMZ entschieden.</p>
                         </div>
                     </div>
 
                     <div class="marquee-wrapper">
                         <div class="marquee-track">
-                            <img src="fritzcolaweis.jpeg.webp" alt="Fritz Kola" class="ref-logo-img" width="120" height="60">
-                            <img src="heineken2.png.webp" alt="Heineken" class="ref-logo-img" width="120" height="60">
-                            <img src="Herb2_Shuttles2.png.webp" alt="Herb Shuttles" class="ref-logo-img" width="120" height="60">
-                            <img src="mozilla2.png.webp" alt="Mozilla" class="ref-logo-img" width="120" height="60">
-                            <img src="reflexxion2.png.webp" alt="Refflexion" class="ref-logo-img" width="120" height="60">
-                            <img src="fyal2.png.webp" alt="Fyal" class="ref-logo-img" width="120" height="60">
-                            <img src="jgermeister2.png.webp" alt="Jägermeister" class="ref-logo-img" width="120" height="60">
-                            <img src="TOSBIKS.png.webp" alt="TOSBIK'S" class="ref-logo-img" width="120" height="60">
-                            <img src="Desperados.png.webp" alt="Desperados" class="ref-logo-img" width="120" height="60">
-                            <img src="fritzcolaweis.jpeg.webp" alt="Fritz Kola" class="ref-logo-img" width="120" height="60">
-                            <img src="heineken2.png.webp" alt="Heineken" class="ref-logo-img" width="120" height="60">
-                            <img src="Herb2_Shuttles2.png.webp" alt="Herb Shuttles" class="ref-logo-img" width="120" height="60">
-                            <img src="mozilla2.png.webp" alt="Mozilla" class="ref-logo-img" width="120" height="60">
-                            <img src="reflexxion2.png.webp" alt="Refflexion" class="ref-logo-img" width="120" height="60">
-                            <img src="fyal2.png.webp" alt="Fyal" class="ref-logo-img" width="120" height="60">
-                            <img src="jgermeister2.png.webp" alt="Jägermeister" class="ref-logo-img" width="120" height="60">
-                            <img src="TOSBIKS.png.webp" alt="TOSBIK'S" class="ref-logo-img" width="120" height="60">
-                            <img src="Desperados.png.webp" alt="Desperados" class="ref-logo-img" width="120" height="60">
+                            <img src="fritzcolaweis.jpeg.webp" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png.webp" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png.webp" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png.webp" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png.webp" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png.webp" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png.webp" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png.webp" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png.webp" alt="Desperados" class="ref-logo-img">
+                            <img src="fritzcolaweis.jpeg.webp" alt="Fritz Kola" class="ref-logo-img">
+                            <img src="heineken2.png.webp" alt="Heineken" class="ref-logo-img">
+                            <img src="Herb2_Shuttles2.png.webp" alt="Herb Shuttles" class="ref-logo-img">
+                            <img src="mozilla2.png.webp" alt="Mozilla" class="ref-logo-img">
+                            <img src="reflexxion2.png.webp" alt="Refflexion" class="ref-logo-img">
+                            <img src="fyal2.png.webp" alt="Fyal" class="ref-logo-img">
+                            <img src="jgermeister2.png.webp" alt="Jägermeister" class="ref-logo-img">
+                            <img src="TOSBIKS.png.webp" alt="TOSBIK'S" class="ref-logo-img">
+                            <img src="Desperados.png.webp" alt="Desperados" class="ref-logo-img">
                         </div>
                     </div>
                 </section>
@@ -704,8 +704,8 @@
             <div class="footer-container">
                 <div class="footer-contact-area">
                     <div class="footer-contact-info">
-                        <h2>Let's build something <br><span class="highlight-red">Great</span>.</h2>
-                        <p>Planning a production or looking for a technical partner? Drop us a message – we'll get back to you immediately.</p>
+                        <h2>Lass uns etwas <br><span class="highlight-red">Großartiges</span> erschaffen.</h2>
+                        <p>Du planst eine Produktion oder suchst einen technischen Partner? Schreib uns – wir melden uns umgehend bei dir zurück.</p>
                         <div class="contact-details">
                             <p><span class="red-dot"></span> INFO@WESTROOMZ.DE</p>
                         </div>
@@ -713,45 +713,45 @@
                     <div class="footer-form-card">
                         <form class="footer-form" action="https://formsubmit.co/adnan@westroomz.de" method="POST">
                             <input type="hidden" name="_cc" value="tomke@westroomz.de,fabian@westroomz.de,noah@westroomz.de">
-                            <input type="hidden" name="_next" value="https://westroomz.de/business-en.html">
+                            <input type="hidden" name="_next" value="https://westroomz.de/business.html">
                             <input type="hidden" name="_captcha" value="false">
 
                             <div class="form-group">
-                                <label>DEPARTMENT</label>
+                                <label>ABTEILUNG</label>
                                 <select id="department" name="abteilung" class="interactive footer-input">
-                                    <option value="General">General Inquiry</option>
-                                    <option value="Event">Event Planning</option>
+                                    <option value="General">Allgemeine Anfrage</option>
+                                    <option value="Event">Eventplanung</option>
                                     <option value="Marketing">Marketing</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>NAME</label>
-                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Your Name">
+                                <input type="text" id="name" name="name" class="interactive footer-input" required placeholder="Dein Name">
                             </div>
                             <div class="form-group">
-                                <label>EMAIL</label>
-                                <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="your@email.com">
+                                <label>E-MAIL</label>
+                                <input type="email" id="email" name="email" class="interactive footer-input" required placeholder="deine@email.de">
                             </div>
                             <div class="form-group">
-                                <label>PROJECT</label>
-                                <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Brief project description...">
+                                <label>PROJEKT</label>
+                                <input type="text" id="subject" name="projekt" class="interactive footer-input" placeholder="Kurze Projektbeschreibung...">
                             </div>
                             <div class="form-group">
-                                <label>MESSAGE</label>
-                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="How can we help you?"></textarea>
+                                <label>NACHRICHT</label>
+                                <textarea id="message" name="nachricht" class="interactive footer-input" rows="4" placeholder="Wie können wir dir helfen?"></textarea>
                             </div>
-                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">Send Inquiry</button>
+                            <button type="submit" class="cta-btn-primary interactive" style="width: 100%; justify-content: center; margin-top: 10px;">Nachricht absenden</button>
                         </form>
                     </div>
                 </div>
 
                 <div class="footer-links-section">
                     <div class="footer-brand">
-                        <a href="index-en.html#hero" class="brand-logo interactive">
+                        <a href="#hero" class="brand-logo interactive">
                             <div class="brand-icon"><img src="logo.jpg.webp" alt="WESTROOMZ Logo"></div>
                             <span class="brand-name">WESTROOMZ</span>
                         </a>
-                        <p>The creative production agency for events and marketing. Clear in execution, strong in impact, flawless in detail.</p>
+                        <p>Die kreative Produktionsagentur für Events und Marketing. Klar in der Ausführung, stark in der Wirkung, sauber im Detail.</p>
                         <div class="footer-socials-new">
                             <a href="https://www.instagram.com/westroomz_business/" target="_blank" class="interactive" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
                             <a href="#" class="interactive" aria-label="LinkedIn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
@@ -761,23 +761,23 @@
                     <div class="footer-col">
                         <h3>Navigation</h3>
                         <ul>
-                            <li><a href="index-en.html#hero" class="interactive">Home</a></li>
-                            <li><a href="index-en.html#vision" class="interactive">Vision</a></li>
-                            <li><a href="index-en.html#services" class="interactive">What we do</a></li>
-                            <li><a href="index-en.html#references" class="interactive">References</a></li>
+                            <li><a href="#hero" class="interactive">Startseite</a></li>
+                            <li><a href="#vision" class="interactive">Vision</a></li>
+                            <li><a href="#services" class="interactive">Was wir tun</a></li>
+                            <li><a href="#references" class="interactive">Referenzen</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
-                        <h3>Legal</h3>
+                        <h3>Rechtliches</h3>
                         <ul>
-                            <li><a href="impressum-en.html" class="interactive">Imprint</a></li>
-                            <li><a href="datenschutz-en.html" class="interactive">Privacy Policy</a></li>
-                            <li><a href="agb-en.html" class="interactive">Terms</a></li>
+                            <li><a href="impressum.html" class="interactive">Impressum</a></li>
+                            <li><a href="datenschutz.html" class="interactive">Datenschutz</a></li>
+                            <li><a href="agb.html" class="interactive">AGB</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>&copy; 2026 WESTROOMZ. All rights reserved.</p>
+                    <p>&copy; 2026 WESTROOMZ. Alle Rechte vorbehalten.</p>
                     <div class="footer-badge"><div class="dot"></div><span>Made in Germany 🇩🇪</span></div>
                 </div>
             </div>
@@ -877,7 +877,7 @@
                                 val: target, duration: 2.5, ease: "power3.out", 
                                 onUpdate: function() {
                                     let currentVal = Math.floor(counter.animObj.val);
-                                    if(needsFormatting) { counter.innerText = currentVal.toLocaleString('en-US'); } 
+                                    if(needsFormatting) { counter.innerText = currentVal.toLocaleString('de-DE'); } 
                                     else { counter.innerText = currentVal; }
                                 }
                             });
@@ -915,7 +915,7 @@
             const businessToggle = document.getElementById('businessToggle');
             if (businessToggle) {
                 businessToggle.addEventListener('change', function() {
-                    const targetUrl = this.checked ? 'business-en.html' : 'index-en.html';
+                    const targetUrl = this.checked ? 'business.html' : 'index.html';
                     const curtain = document.querySelector('.page-transition-curtain');
                     if (curtain && typeof gsap !== 'undefined') {
                         gsap.fromTo(curtain, { scaleY: 0, transformOrigin: "bottom" }, { 
