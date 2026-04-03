@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -225,7 +225,17 @@
         .gallery-item img { border-radius: 12px !important; }
         .modal-content-wrapper { border-radius: 20px !important; }
         .menu-toggle-btn { border-radius: 8px !important; }
+        
         .ref-logo-img { height: 100px !important; width: auto !important; opacity: 1 !important; filter: none !important; margin: 0 40px !important; border-radius: 8px !important; object-fit: contain; }
+        
+        /* ADDED: Mobile Media Query for ref-logo-img */
+        @media (max-width: 768px) {
+            .ref-logo-img { 
+                height: 60px !important; 
+                margin: 0 20px !important; 
+            }
+        }
+        
         .marquee-track { display: flex; align-items: center; width: max-content !important; gap: 0 !important; animation: marquee-scroll 40s linear infinite !important; }
         @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .marquee-wrapper { overflow: hidden !important; width: 100% !important; display: flex !important; }
