@@ -444,11 +444,12 @@
         <section id="services" class="liquid-section">
             
             <div class="liquid-bg-container">
-    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop" class="l-img is-active" data-target="strategy" alt="Strategy" style="opacity: 1; filter: brightness(0.5) blur(0px);" loading="lazy" decoding="async">
-    <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="production" alt="Production" loading="lazy" decoding="async">
-    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="digital" alt="Digital" loading="lazy" decoding="async">
-    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="performance" alt="Performance" loading="lazy" decoding="async">
-</div>
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop" class="l-img is-active" data-target="strategy" alt="Strategy" style="opacity: 1; filter: brightness(0.5) blur(0px);" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="production" alt="Production" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="digital" alt="Digital" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="performance" alt="Performance" loading="lazy" decoding="async">
+            </div>
+
             <div class="liquid-content">
                 <div class="liquid-nav">
                     <a href="javascript:void(0);" class="l-nav-item is-active" data-id="strategy">
@@ -872,12 +873,18 @@
                             const needsFormatting = counter.hasAttribute('data-format'); 
                             gsap.killTweensOf(counter.animObj);
                             counter.animObj.val = 0; 
+                            let lastVal = -1; // Speichert den letzten Wert
+                            
                             gsap.to(counter.animObj, {
                                 val: target, duration: 2.5, ease: "power3.out", 
                                 onUpdate: function() {
                                     let currentVal = Math.floor(counter.animObj.val);
-                                    if(needsFormatting) { counter.innerText = currentVal.toLocaleString('de-DE'); } 
-                                    else { counter.innerText = currentVal; }
+                                    // Update nur ausführen, wenn sich die Zahl geändert hat:
+                                    if(currentVal !== lastVal) {
+                                        if(needsFormatting) { counter.innerText = currentVal.toLocaleString('de-DE'); } 
+                                        else { counter.innerText = currentVal; }
+                                        lastVal = currentVal;
+                                    }
                                 }
                             });
                         });
@@ -895,9 +902,18 @@
                             const target = +counter.getAttribute('data-target');
                             const suffix = counter.getAttribute('data-suffix');
                             const obj = { val: 0 };
+                            let lastVal = -1; // Speichert den letzten Wert
+                            
                             gsap.to(obj, {
                                 val: target, duration: 2, ease: "power2.out",
-                                onUpdate: () => { counter.innerText = Math.round(obj.val) + suffix; }
+                                onUpdate: () => { 
+                                    let currentVal = Math.round(obj.val);
+                                    // Update nur ausführen, wenn sich die Zahl geändert hat:
+                                    if(currentVal !== lastVal) {
+                                        counter.innerText = currentVal + suffix;
+                                        lastVal = currentVal;
+                                    }
+                                }
                             });
                         });
                         const chartBars = document.querySelectorAll('.js-c-bar');
