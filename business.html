@@ -161,7 +161,7 @@
         @media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 60px; } }
         @media (max-width: 640px) { .stats-grid { grid-template-columns: 1fr; gap: 50px; } .stats-section { margin: 40px auto 80px auto; } }
         .stat-item { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .stat-number-wrapper { font-family: 'Oswald', sans-serif; font-size: 4.5rem; font-weight: 900; color: #1d1d1f; line-height: 1; margin-bottom: 8px; display: flex; align-items: baseline; justify-content: center; font-variant-numeric: tabular-nums; }
+        .stat-number-wrapper { font-family: 'Oswald', sans-serif; font-size: 4.5rem; font-weight: 900; color: #1d1d1f; line-height: 1; margin-bottom: 8px; display: flex; align-items: baseline; justify-content: center; }
         @media (max-width: 768px) { .stat-number-wrapper { font-size: 3.5rem; } }
         .stat-accent { color: #dc2626; }
         .stat-label { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 2px; }
@@ -184,7 +184,7 @@
         .kpi-trend { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 20px; }
         .kpi-trend.positive { background: rgba(16, 185, 129, 0.1); color: #10b981; }
         .kpi-title { font-size: 0.875rem; font-weight: 600; color: #6e6e73; margin-bottom: 4px; }
-        .kpi-value { font-family: 'Oswald', sans-serif; font-size: 2.2rem; font-weight: 500; color: #1d1d1f; line-height: 1; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+        .kpi-value { font-family: 'Oswald', sans-serif; font-size: 2.2rem; font-weight: 500; color: #1d1d1f; line-height: 1; margin-bottom: 8px;}
         .kpi-sub { font-size: 0.75rem; font-weight: 500; color: #86868b; line-height: 1.4; }
         .kpi-source { font-size: 0.65rem; color: #a1a1aa; font-style: italic; margin-top: 8px; display: block; }
         .dash-content-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
@@ -444,10 +444,10 @@
         <section id="services" class="liquid-section">
             
             <div class="liquid-bg-container">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop" class="l-img is-active" data-target="strategy" alt="Strategy" style="opacity: 1; filter: brightness(0.5) blur(0px);" loading="lazy" decoding="async">
-                <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="production" alt="Production" loading="lazy" decoding="async">
-                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="digital" alt="Digital" loading="lazy" decoding="async">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="performance" alt="Performance" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop" class="l-img is-active" data-target="strategy" alt="Strategy" style="opacity: 1; filter: brightness(0.5) blur(0px);">
+                <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="production" alt="Production">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="digital" alt="Digital">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop" class="l-img" data-target="performance" alt="Performance">
             </div>
 
             <div class="liquid-content">
@@ -873,18 +873,12 @@
                             const needsFormatting = counter.hasAttribute('data-format'); 
                             gsap.killTweensOf(counter.animObj);
                             counter.animObj.val = 0; 
-                            let lastVal = -1; // Speichert den letzten Wert
-                            
                             gsap.to(counter.animObj, {
                                 val: target, duration: 2.5, ease: "power3.out", 
                                 onUpdate: function() {
                                     let currentVal = Math.floor(counter.animObj.val);
-                                    // Update nur ausführen, wenn sich die Zahl geändert hat:
-                                    if(currentVal !== lastVal) {
-                                        if(needsFormatting) { counter.innerText = currentVal.toLocaleString('de-DE'); } 
-                                        else { counter.innerText = currentVal; }
-                                        lastVal = currentVal;
-                                    }
+                                    if(needsFormatting) { counter.innerText = currentVal.toLocaleString('de-DE'); } 
+                                    else { counter.innerText = currentVal; }
                                 }
                             });
                         });
@@ -902,18 +896,9 @@
                             const target = +counter.getAttribute('data-target');
                             const suffix = counter.getAttribute('data-suffix');
                             const obj = { val: 0 };
-                            let lastVal = -1; // Speichert den letzten Wert
-                            
                             gsap.to(obj, {
                                 val: target, duration: 2, ease: "power2.out",
-                                onUpdate: () => { 
-                                    let currentVal = Math.round(obj.val);
-                                    // Update nur ausführen, wenn sich die Zahl geändert hat:
-                                    if(currentVal !== lastVal) {
-                                        counter.innerText = currentVal + suffix;
-                                        lastVal = currentVal;
-                                    }
-                                }
+                                onUpdate: () => { counter.innerText = Math.round(obj.val) + suffix; }
                             });
                         });
                         const chartBars = document.querySelectorAll('.js-c-bar');
